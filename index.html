@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TerraNode — Coleta GIS offline-first para o campo brasileiro</title>
+<meta name="description" content="Plataforma brasileira de coleta de dados geoespaciais em campo. 100% offline, integração nativa com ArcGIS e PostGIS, data residency no Brasil e LGPD por arquitetura.">
+<meta name="author" content="TerraNode">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#1e3736">
+<link rel="canonical" href="https://terranode.com.br/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://terranode.com.br/">
+<meta property="og:site_name" content="TerraNode">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="TerraNode — Coleta GIS offline-first para o campo brasileiro">
+<meta property="og:description" content="Plataforma brasileira de coleta de dados geoespaciais em campo. 100% offline, integração nativa com ArcGIS e PostGIS, data residency no Brasil e LGPD por arquitetura.">
+<meta property="og:image" content="http://terranode.com.br/assets/metaimage.jpg">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TerraNode — Coleta GIS offline-first para o campo brasileiro">
+<meta name="twitter:description" content="Plataforma brasileira de coleta de dados geoespaciais em campo. 100% offline, integração nativa com ArcGIS e PostGIS, data residency no Brasil.">
+<meta name="twitter:image" content="http://terranode.com.br/assets/metaimage.jpg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#101D1C;
+  --pine:#223B3A;
+  --pine-soft:#33504E;
+  --terra:#E57244;
+  --terra-deep:#C85A30;
+  --paper:#F7F6F1;
+  --white:#FFFFFF;
+  --mist:#8FA09E;
+  --line:rgba(34,59,58,.14);
+  --line-light:rgba(247,246,241,.16);
+  --radius:14px;
+  --font-display:"Bricolage Grotesque",system-ui,sans-serif;
+  --font-body:"Archivo",system-ui,sans-serif;
+  --font-mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+body{font-family:var(--font-body);color:var(--ink);background:var(--paper);line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--terra);outline-offset:3px;border-radius:4px}
+
+.wrap{max-width:1160px;margin:0 auto;padding:0 24px}
+
+/* ===== Eyebrow (mono, cartographic tick) ===== */
+.eyebrow{font-family:var(--font-mono);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;display:inline-flex;align-items:center;gap:10px;color:var(--terra-deep)}
+.eyebrow::before{content:"";width:22px;height:2px;background:var(--terra)}
+.dark .eyebrow{color:var(--terra)}
+
+/* ===== Header ===== */
+header{position:sticky;top:0;z-index:50;background:rgba(16,29,28,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line-light)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+.nav img{height:30px;width:auto}
+.nav-links{display:flex;gap:28px;align-items:center;font-size:.92rem}
+.nav-links a{color:#DCE4E2;text-decoration:none;font-weight:500;position:relative;transition:color .2s}
+.nav-links a:hover{color:var(--white)}
+.nav-links a.nav-active:not(.btn){color:var(--white)}
+.nav-links a.nav-active:not(.btn)::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:2px;border-radius:2px;background:var(--terra)}
+.btn{display:inline-flex;align-items:center;gap:8px;font-weight:600;text-decoration:none;border-radius:10px;padding:12px 22px;font-size:.95rem;transition:transform .15s ease,background .15s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn-terra{background:var(--terra);color:#1C1310}
+.btn-terra:hover{background:#EF824F}
+.btn-ghost{border:1.5px solid var(--line-light);color:var(--white)}
+.btn-ghost:hover{border-color:var(--white)}
+.btn-pine{background:var(--pine);color:var(--white)}
+.btn-pine:hover{background:var(--pine-soft)}
+.nav .btn{padding:9px 18px;font-size:.88rem}
+@media(max-width:760px){.nav-links a:not(.btn){display:none}}
+
+/* ===== Hero ===== */
+.hero{background:var(--ink);color:var(--white);position:relative;overflow:hidden}
+.hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center;padding-top:96px;padding-bottom:110px}
+.hero h1{font-family:var(--font-display);font-weight:700;font-size:clamp(2.3rem,4.6vw,3.7rem);line-height:1.06;letter-spacing:-.02em;margin:20px 0 22px}
+.hero h1 em{font-style:normal;color:var(--terra)}
+.hero p.lead{font-size:1.13rem;color:#C4CFCC;max-width:34rem}
+.hero-ctas{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap}
+.hero-note{margin-top:18px;font-family:var(--font-mono);font-size:.75rem;color:var(--mist);letter-spacing:.06em}
+
+/* topo contours */
+.contours{position:absolute;inset:0;z-index:1;opacity:.5}
+.contours path{fill:none;stroke:#2C4644;stroke-width:1.3}
+.contours .c-hot{stroke:var(--terra);opacity:.55;stroke-dasharray:6 10;animation:dash 26s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-640}}
+
+/* sync demo card */
+.sync-card{background:#162928;border:1px solid var(--line-light);border-radius:18px;padding:22px;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.sync-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.sync-head span{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;color:var(--mist);text-transform:uppercase}
+.chip{font-family:var(--font-mono);font-size:.72rem;padding:5px 12px;border-radius:99px;border:1px solid var(--line-light);display:inline-flex;align-items:center;gap:7px;color:#DCE4E2;min-width:150px;justify-content:center}
+.chip .dot{width:7px;height:7px;border-radius:50%;background:var(--mist)}
+.chip.on .dot{background:#5BD98A;box-shadow:0 0 8px rgba(91,217,138,.7)}
+.chip.off .dot{background:var(--terra)}
+.map-mock{border-radius:12px;overflow:hidden;border:1px solid var(--line-light)}
+.map-mock svg{display:block;width:100%;height:auto}
+.pin{opacity:0;animation:pop .5s ease forwards}
+@keyframes pop{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.sync-rows{margin-top:14px;display:grid;gap:8px}
+.sync-row{display:flex;justify-content:space-between;font-family:var(--font-mono);font-size:.74rem;color:#AEBCBA;border-bottom:1px dashed rgba(247,246,241,.1);padding-bottom:8px}
+.sync-row b{color:var(--white);font-weight:500}
+.sync-row .ok{color:#5BD98A}
+@media(max-width:900px){.hero .wrap{grid-template-columns:1fr;padding-top:64px;padding-bottom:72px}}
+
+/* ===== proof strip ===== */
+.strip{background:var(--pine);color:var(--white)}
+.strip .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.strip-item{padding:26px 22px;border-left:1px solid var(--line-light)}
+.strip-item:first-child{border-left:none}
+.strip-item b{font-family:var(--font-display);font-size:1.02rem;display:block;margin-bottom:4px}
+.strip-item span{font-size:.85rem;color:#BFCBC8}
+@media(max-width:860px){.strip .wrap{grid-template-columns:repeat(2,1fr)}.strip-item:nth-child(3){border-left:none}}
+@media(max-width:520px){.strip .wrap{grid-template-columns:1fr}.strip-item{border-left:none;border-top:1px solid var(--line-light)}}
+
+/* ===== sections ===== */
+section{padding:96px 0}
+.sec-head{max-width:46rem;margin-bottom:56px}
+h2{font-family:var(--font-display);font-weight:700;font-size:clamp(1.8rem,3.4vw,2.6rem);line-height:1.12;letter-spacing:-.015em;margin:16px 0 14px}
+.sec-head p{color:#4A5C5A;font-size:1.05rem}
+
+/* problema */
+.impact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.impact{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:30px 26px}
+.impact .num{font-family:var(--font-display);font-weight:700;font-size:2.4rem;color:var(--pine);letter-spacing:-.02em}
+.impact .num small{font-size:1.1rem;color:var(--terra-deep);font-weight:600}
+.impact h3{font-size:1.02rem;margin:10px 0 8px;font-weight:600}
+.impact p{font-size:.92rem;color:#556765}
+@media(max-width:860px){.impact-grid{grid-template-columns:1fr}}
+
+/* como funciona */
+.dark{background:var(--ink);color:var(--white)}
+.dark h2{color:var(--white)}
+.dark .sec-head p{color:#B8C4C1}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;counter-reset:step}
+.step{background:#162928;border:1px solid var(--line-light);border-radius:var(--radius);padding:30px 26px;position:relative}
+.step::before{counter-increment:step;content:"0" counter(step);font-family:var(--font-mono);font-size:.78rem;color:var(--terra);letter-spacing:.12em}
+.step h3{font-family:var(--font-display);font-size:1.18rem;margin:12px 0 10px}
+.step p{font-size:.93rem;color:#AEBCBA}
+.step .tag{margin-top:16px;display:inline-block;font-family:var(--font-mono);font-size:.7rem;letter-spacing:.08em;color:var(--mist);border:1px solid var(--line-light);border-radius:99px;padding:4px 10px}
+@media(max-width:860px){.steps{grid-template-columns:1fr}}
+
+/* diferenciais */
+.diff-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.diff{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:28px 24px}
+.diff .ic{width:42px;height:42px;border-radius:10px;background:rgba(229,114,68,.12);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.diff .ic svg{width:22px;height:22px;stroke:var(--terra-deep);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.diff h3{font-size:1.04rem;font-weight:600;margin-bottom:8px}
+.diff p{font-size:.92rem;color:#556765}
+@media(max-width:900px){.diff-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.diff-grid{grid-template-columns:1fr}}
+
+/* mercado */
+.market{background:var(--pine);color:var(--white)}
+.market h2{color:var(--white)}
+.market .sec-head p{color:#BFCBC8}
+.funnel{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:44px}
+.tier{border:1px solid var(--line-light);border-radius:var(--radius);padding:28px 24px;background:rgba(16,29,28,.35)}
+.tier .label{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.12em;color:var(--terra)}
+.tier .val{font-family:var(--font-display);font-weight:700;font-size:2.2rem;margin:8px 0 6px;letter-spacing:-.02em}
+.tier p{font-size:.88rem;color:#BFCBC8}
+.market-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.sector-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.sector{border:1px solid var(--line-light);border-radius:var(--radius);padding:24px 22px;background:rgba(16,29,28,.35)}
+.sector h3{font-family:var(--font-display);font-size:1.02rem;margin-bottom:8px}
+.sector p{font-size:.86rem;color:#BFCBC8}
+@media(max-width:1000px){.sector-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.sector-grid{grid-template-columns:1fr}}
+.fact{border-top:2px solid var(--terra);padding-top:16px}
+.fact b{font-family:var(--font-display);font-size:1.35rem;display:block;letter-spacing:-.01em}
+.fact span{font-size:.9rem;color:#BFCBC8}
+@media(max-width:860px){.funnel,.market-facts{grid-template-columns:1fr}}
+
+/* ===== App preview ===== */
+.app-preview{background:var(--paper)}
+.app-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.app-feats{display:flex;flex-direction:column;gap:22px;margin-top:40px}
+.app-feat{display:flex;gap:16px;align-items:flex-start}
+.app-feat-num{flex-shrink:0;width:28px;height:28px;border-radius:50%;background:var(--terra);color:#fff;font-family:var(--font-mono);font-size:.72rem;font-weight:500;display:flex;align-items:center;justify-content:center;margin-top:2px}
+.app-feat-body h4{font-size:.98rem;font-weight:600;margin-bottom:4px}
+.app-feat-body p{font-size:.9rem;color:#4A5C5A;line-height:1.55}
+.pf-wrap{display:flex;justify-content:center;align-items:center}
+.pf-outer{position:relative;width:272px;filter:drop-shadow(0 28px 72px rgba(16,29,28,.38))}
+/* phone frame */
+.pf{width:272px;background:#0b0b0b;border-radius:44px;padding:10px;position:relative}
+.pf-island{position:absolute;top:18px;left:50%;transform:translateX(-50%);width:88px;height:28px;background:#0b0b0b;border-radius:20px;z-index:10}
+.pf-screen{background:#fff;border-radius:36px;overflow:hidden;height:560px;display:flex;flex-direction:column;position:relative}
+/* app bar */
+.p-bar{background:#1e3736;padding:44px 14px 10px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.p-bar-left{display:flex;align-items:center;gap:6px;color:#fff;font-size:.75rem;font-weight:700;font-family:var(--font-body)}
+.p-back{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:.7rem}
+.p-offpill{display:flex;align-items:center;gap:4px;background:#162e2d;border:1px solid rgba(255,255,255,.12);border-radius:20px;padding:3px 8px;font-size:.62rem;font-weight:700;font-family:var(--font-mono);color:rgba(255,255,255,.75)}
+.p-offdot{width:5px;height:5px;border-radius:50%;background:#e57244}
+/* map */
+.p-map{position:relative;height:168px;flex-shrink:0;background:#3a5a48;overflow:hidden}
+.p-map svg.p-mapbg{position:absolute;inset:0;width:100%;height:100%}
+.p-pin{position:absolute;top:50%;left:50%;transform:translate(-50%,-100%)}
+.p-pin::before{content:'';position:absolute;width:18px;height:18px;background:#e57244;border-radius:50% 50% 50% 0;transform:rotate(-45deg) translate(-50%,-50%);left:0;top:0;border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+.p-pulse{position:absolute;width:36px;height:36px;border-radius:50%;background:rgba(229,114,68,.25);top:-25px;left:-17px;animation:ppulse 2s ease-out infinite}
+@keyframes ppulse{0%{transform:scale(.6);opacity:.8}100%{transform:scale(1.4);opacity:0}}
+.p-acc{position:absolute;bottom:28px;left:50%;transform:translateX(-50%);background:rgba(255,255,255,.93);border-radius:20px;padding:3px 10px;font-size:.62rem;font-weight:700;font-family:var(--font-mono);color:#223b3a;display:flex;align-items:center;gap:5px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+.p-accdot{width:6px;height:6px;border-radius:50%;background:#4caf89}
+.p-recenter{position:absolute;bottom:28px;right:10px;width:26px;height:26px;background:rgba(255,255,255,.9);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:.7rem;box-shadow:0 2px 6px rgba(0,0,0,.2)}
+/* form card */
+.p-card{background:#fff;border-radius:16px 16px 0 0;margin-top:-16px;flex:1;overflow:hidden;display:flex;flex-direction:column;position:relative;z-index:2}
+.p-scroll{flex:1;overflow:hidden;padding:14px 14px 0;display:flex;flex-direction:column;gap:9px}
+.p-field{display:flex;flex-direction:column;gap:3px}
+.p-lbl{font-size:.58rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#5a6e6d;font-family:var(--font-mono)}
+.p-val{background:#f4f6f5;border-radius:7px;padding:7px 10px;font-size:.7rem;color:#223b3a;font-weight:600;display:flex;align-items:center;justify-content:space-between;border:1.5px solid transparent;font-family:var(--font-body)}
+.p-val.gps{background:#edf7f2;border-color:#c5e8d8;font-family:var(--font-mono);font-size:.63rem;color:#2a6a4a}
+.p-val.err{border-color:#e57244;background:#fff8f5;color:#aaa}
+.p-errmsg{font-size:.57rem;color:#e57244;font-weight:600;font-family:var(--font-mono)}
+.p-photorow{display:flex;gap:6px;align-items:center}
+.p-thumb{width:40px;height:40px;border-radius:7px;flex-shrink:0}
+.p-thumb:nth-child(1){background:linear-gradient(135deg,#5a8a6a,#3a6a4a)}
+.p-thumb:nth-child(2){background:linear-gradient(135deg,#8a7a5a,#6a5a3a)}
+.p-addphoto{width:40px;height:40px;border-radius:7px;border:1.5px dashed #d0dedd;display:flex;align-items:center;justify-content:center;font-size:.6rem;color:#5a6e6d;flex-direction:column}
+.p-pcount{font-size:.57rem;color:#5a6e6d;align-self:flex-end;margin-left:2px;font-family:var(--font-mono)}
+.p-textarea{background:#f4f6f5;border-radius:7px;padding:7px 10px;font-size:.68rem;color:#223b3a;min-height:46px;line-height:1.5;border:1.5px solid transparent;position:relative;font-family:var(--font-body)}
+.p-charcount{position:absolute;bottom:5px;right:8px;font-size:.55rem;color:#aaa;font-family:var(--font-mono)}
+.p-bottom{padding:10px 14px 20px;border-top:1px solid #f0f0f0;flex-shrink:0;background:#fff}
+.p-submit{width:100%;background:#e57244;color:#fff;border:none;border-radius:10px;padding:11px;font-family:var(--font-display);font-weight:700;font-size:.8rem;cursor:pointer;margin-bottom:6px}
+.p-subnote{text-align:center;font-size:.57rem;color:#5a6e6d;font-family:var(--font-mono)}
+@media(max-width:900px){.app-grid{grid-template-columns:1fr}.pf-wrap{display:none}}
+
+/* CTA final */
+.cta-final{background:var(--ink);color:var(--white);position:relative;overflow:hidden}
+.cta-final .wrap{position:relative;z-index:2;text-align:center;max-width:760px}
+.cta-final h2{color:var(--white)}
+.cta-final p{color:#B8C4C1;font-size:1.08rem;margin-bottom:36px}
+.cta-final img{height:34px;width:auto;margin:0 auto 28px}
+.cta-final .hero-note{margin-top:22px}
+
+/* footer */
+footer{background:#0B1514;color:var(--mist);padding:34px 0;font-size:.85rem}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+footer img{height:22px;width:auto;opacity:.75}
+footer span{font-family:var(--font-mono);font-size:.72rem;letter-spacing:.08em}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 673.77 182" style="height:42px;width:auto;display:block">
+      <path style="fill:#e57244" d="M59.2,75.02l-.42-.58s6.59,7.32,11.41,6.98c.56-.04.82-.04.86,0h37.74s.3-.04.86,0c3.25.23,7.28-3,9.58-5.14l16.72-16.72c1.09-1.09,1.09-2.86,0-3.95l-10.05-10.05c-1.09-1.09-2.86-1.09-3.95,0l-22.2,22.2v-31.4c0-1.54-1.25-2.79-2.79-2.79h-14.21c-1.54,0-2.79,1.25-2.79,2.79v31.4l-22.2-22.2c-1.09-1.09-2.86-1.09-3.95,0l-10.05,10.05c-1.09,1.09-1.09,2.86,0,3.95l15.46,15.46Z"/>
+      <path style="fill:#fff" d="M145.13,81.76h-17.01c-3.51,0-6.08.9-7.74,1.76l-26.44,17.82c-2.57,1.73-5.94,1.67-8.44-.16l-22.22-16.25.06.13s-3.3-3.29-10.02-3.29h-18.78c-1.54,0-2.79,1.25-2.79,2.79v14.21c0,1.54,1.25,2.79,2.79,2.79h31.4l-22.2,22.2c-1.09,1.09-1.09,2.86,0,3.95l10.05,10.05c1.09,1.09,2.86,1.09,3.95,0l22.2-22.2v31.4c0,1.54,1.25,2.79,2.79,2.79h14.21c1.54,0,2.79-1.25,2.79-2.79v-31.4l22.2,22.2c1.09,1.09,2.86,1.09,3.95,0l10.05-10.05c1.09-1.09,1.09-2.86,0-3.95l-22.2-22.2h31.4c1.54,0,2.79-1.25,2.79-2.79v-14.21c0-1.54-1.25-2.79-2.79-2.79Z"/>
+      <text style="fill:#fff;font-family:'Raleway',sans-serif;font-size:93.74px;font-weight:800" transform="translate(162.78 123.82)"><tspan style="letter-spacing:-.09em" x="0" y="0">T</tspan><tspan x="49.59" y="0">er</tspan><tspan x="143.7" y="0">r</tspan><tspan x="180.82" y="0">a</tspan><tspan x="235.75" y="0">N</tspan><tspan x="306.06" y="0">ode</tspan></text>
+    </svg>
+    <nav class="nav-links">
+      <a href="#problema">O problema</a>
+      <a href="#produto">Produto</a>
+      <a href="#diferenciais">Diferenciais</a>
+      <a href="#setores">Setores</a>
+      <a class="btn btn-terra" href="#contato">Entrar em contato</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero dark">
+  <svg class="contours" viewBox="0 0 1440 720" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M-60,600 C240,540 380,660 720,610 S1180,520 1520,590"/>
+    <path d="M-60,520 C220,460 420,580 760,520 S1200,430 1520,500"/>
+    <path class="c-hot" d="M-60,440 C260,380 460,500 800,440 S1220,350 1520,420"/>
+    <path d="M-60,360 C240,310 480,410 820,360 S1240,280 1520,340"/>
+    <path d="M-60,280 C280,230 500,330 840,280 S1260,210 1520,260"/>
+    <path d="M-60,200 C260,160 520,250 860,200 S1280,140 1520,180"/>
+    <path class="c-hot" d="M-60,120 C300,90 540,170 880,120 S1300,70 1520,110" style="animation-duration:34s"/>
+  </svg>
+  <div class="wrap">
+    <div>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 673.77 182" style="height:44px;width:auto;display:block;margin-bottom:28px">
+        <path style="fill:#e57244" d="M59.2,75.02l-.42-.58s6.59,7.32,11.41,6.98c.56-.04.82-.04.86,0h37.74s.3-.04.86,0c3.25.23,7.28-3,9.58-5.14l16.72-16.72c1.09-1.09,1.09-2.86,0-3.95l-10.05-10.05c-1.09-1.09-2.86-1.09-3.95,0l-22.2,22.2v-31.4c0-1.54-1.25-2.79-2.79-2.79h-14.21c-1.54,0-2.79,1.25-2.79,2.79v31.4l-22.2-22.2c-1.09-1.09-2.86-1.09-3.95,0l-10.05,10.05c-1.09,1.09-1.09,2.86,0,3.95l15.46,15.46Z"/>
+        <path style="fill:#fff" d="M145.13,81.76h-17.01c-3.51,0-6.08.9-7.74,1.76l-26.44,17.82c-2.57,1.73-5.94,1.67-8.44-.16l-22.22-16.25.06.13s-3.3-3.29-10.02-3.29h-18.78c-1.54,0-2.79,1.25-2.79,2.79v14.21c0,1.54,1.25,2.79,2.79,2.79h31.4l-22.2,22.2c-1.09,1.09-1.09,2.86,0,3.95l10.05,10.05c1.09,1.09,2.86,1.09,3.95,0l22.2-22.2v31.4c0,1.54,1.25,2.79,2.79,2.79h14.21c1.54,0,2.79-1.25,2.79-2.79v-31.4l22.2,22.2c1.09,1.09,2.86,1.09,3.95,0l10.05-10.05c1.09-1.09,1.09-2.86,0-3.95l-22.2-22.2h31.4c1.54,0,2.79-1.25,2.79-2.79v-14.21c0-1.54-1.25-2.79-2.79-2.79Z"/>
+        <text style="fill:#fff;font-family:'Raleway',sans-serif;font-size:93.74px;font-weight:800" transform="translate(162.78 123.82)"><tspan style="letter-spacing:-.09em" x="0" y="0">T</tspan><tspan x="49.59" y="0">er</tspan><tspan x="143.7" y="0">r</tspan><tspan x="180.82" y="0">a</tspan><tspan x="235.75" y="0">N</tspan><tspan x="306.06" y="0">ode</tspan></text>
+      </svg>
+      <span class="eyebrow">Plataforma brasileira · Field Operations · GIS-native</span>
+      <h1>Dados de campo direto no seu GIS. <em>Sem papel. Sem internet. Sem retrabalho.</em></h1>
+      <p class="lead">O TerraNode leva a coleta de dados geoespaciais para onde a conectividade não chega — e sincroniza tudo, de forma auditável, com o ArcGIS e o PostGIS que sua operação já usa.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-terra" href="#contato">Acompanhar o lançamento</a>
+        <a class="btn btn-ghost" href="#produto">Ver como funciona</a>
+      </div>
+      <p class="hero-note">OFFLINE-FIRST · ANDROID-FIRST · DATA RESIDENCY BRASIL · LGPD</p>
+    </div>
+    <div class="sync-card" aria-label="Demonstração de sincronização de campo">
+      <div class="sync-head">
+        <span>Vistoria — Rede de distribuição</span>
+        <span class="chip off" id="syncChip"><span class="dot"></span><span id="syncText">OFFLINE · COLETANDO</span></span>
+      </div>
+      <div class="map-mock">
+        <svg viewBox="0 0 420 250" role="img" aria-label="Mapa com pontos coletados em campo">
+          <rect width="420" height="250" fill="#0F1F1E"/>
+          <g stroke="#1E3736" stroke-width="1">
+            <path d="M0,60 H420 M0,125 H420 M0,190 H420 M70,0 V250 M160,0 V250 M250,0 V250 M340,0 V250" opacity=".7"/>
+          </g>
+          <g fill="none" stroke="#33504E" stroke-width="1.4">
+            <path d="M-10,200 C90,160 170,220 290,180 S400,140 440,160"/>
+            <path d="M-10,150 C110,110 200,170 320,130 S410,100 440,110"/>
+            <path d="M-10,100 C120,70 220,120 340,85 S415,60 440,70"/>
+          </g>
+          <path d="M40,215 L120,150 L205,170 L290,105 L365,60" fill="none" stroke="#E57244" stroke-width="1.6" stroke-dasharray="4 6" opacity=".85"/>
+          <g>
+            <g class="pin" style="animation-delay:.4s"><circle cx="40" cy="215" r="6" fill="#E57244"/><circle cx="40" cy="215" r="11" fill="none" stroke="#E57244" opacity=".4"/></g>
+            <g class="pin" style="animation-delay:1.1s"><circle cx="120" cy="150" r="6" fill="#E57244"/><circle cx="120" cy="150" r="11" fill="none" stroke="#E57244" opacity=".4"/></g>
+            <g class="pin" style="animation-delay:1.8s"><circle cx="205" cy="170" r="6" fill="#E57244"/><circle cx="205" cy="170" r="11" fill="none" stroke="#E57244" opacity=".4"/></g>
+            <g class="pin" style="animation-delay:2.5s"><circle cx="290" cy="105" r="6" fill="#E57244"/><circle cx="290" cy="105" r="11" fill="none" stroke="#E57244" opacity=".4"/></g>
+            <g class="pin" style="animation-delay:3.2s"><circle cx="365" cy="60" r="6" fill="#E57244"/><circle cx="365" cy="60" r="11" fill="none" stroke="#E57244" opacity=".4"/></g>
+          </g>
+        </svg>
+      </div>
+      <div class="sync-rows">
+        <div class="sync-row"><b>5 formulários · 23 fotos · GPS</b><span>armazenado no dispositivo</span></div>
+        <div class="sync-row"><b id="destRow">ArcGIS Online · camada "vistorias_2026"</b><span class="ok" id="destStatus">aguardando rede…</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="wrap">
+    <div class="strip-item"><b>100% offline</b><span>Coleta completa sem sinal. Sync determinística e auditável.</span></div>
+    <div class="strip-item"><b>ArcGIS + PostGIS nativos</b><span>Sincronização bidirecional de camadas — não exportação de CSV.</span></div>
+    <div class="strip-item"><b>Data residency Brasil</b><span>Servidores em São Paulo. LGPD por arquitetura, não por adendo.</span></div>
+    <div class="strip-item"><b>Open-core + API-first</b><span>Community edition gratuita. API REST aberta. Zero lock-in.</span></div>
+  </div>
+</div>
+
+<section id="problema">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">O problema</span>
+      <h2>O campo brasileiro ainda coleta dados no papel — e paga caro por isso.</h2>
+      <p>Concessionárias, consultorias e operações de infraestrutura perdem entre 30% e 50% do tempo produtivo das equipes de campo em digitação, reconciliação e correção de dados. As alternativas ou exigem licenças Esri completas, ou não falam GIS, ou guardam dados fora do Brasil.</p>
+    </div>
+    <div class="impact-grid">
+      <div class="impact">
+        <div class="num">30–50<small>%</small></div>
+        <h3>do tempo produtivo perdido</h3>
+        <p>Preenchimento em papel, digitação posterior, reconciliação de versões e correção de erros de georreferenciamento.</p>
+      </div>
+      <div class="impact">
+        <div class="num">R$1.500<small>/mês</small></div>
+        <h3>de retrabalho por técnico</h3>
+        <p>Até 4 horas semanais de redigitação por técnico de campo — antes de qualquer dado chegar ao GIS.</p>
+      </div>
+      <div class="impact">
+        <div class="num">2<small>% do faturamento</small></div>
+        <h3>de exposição regulatória</h3>
+        <p>Dados de operações críticas em servidores fora do Brasil criam risco LGPD real — multas de até R$50 milhões por infração.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="dark" id="produto">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Como funciona</span>
+      <h2>Do formulário em campo à camada no GIS, sem passar por planilha.</h2>
+      <p>O analista GIS cria o formulário. O técnico coleta offline. O TerraNode entrega tudo no sistema que a organização já usa — com rastreabilidade completa de quem coletou, quando, onde e com qual versão do formulário.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <h3>Monte o formulário sem TI</h3>
+        <p>Form builder visual com campos geoespaciais nativos: ponto, linha, polígono, foto georreferenciada, assinatura, código de barras. O analista GIS tem autonomia total.</p>
+        <span class="tag">WEB · FORM BUILDER</span>
+      </div>
+      <div class="step">
+        <h3>Colete 100% offline</h3>
+        <p>App Android com mapas e camadas de referência embarcados. Funciona em zona rural com 2G intermitente ou sem sinal nenhum. Nada se perde na desconexão.</p>
+        <span class="tag">ANDROID · OFFLINE-FIRST</span>
+      </div>
+      <div class="step">
+        <h3>Sincronize direto no seu GIS</h3>
+        <p>Sync bidirecional com ArcGIS Online, ArcGIS Enterprise e PostGIS, respeitando schema e feature services. API REST e webhooks para qualquer outro sistema.</p>
+        <span class="tag">ARCGIS · POSTGIS · API</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="app" class="app-preview">
+  <div class="wrap">
+    <div class="app-grid">
+
+      <div class="app-text">
+        <span class="eyebrow">O App</span>
+        <h2>Uma tela que o técnico abre com luvas e sol na cara.</h2>
+        <p style="color:#4A5C5A;font-size:1.05rem">Interface desenhada para campo real: alto contraste, toque generoso, GPS sempre visível e formulário que funciona sem internet — do ponto de coleta ao banco de dados, sem intermediários.</p>
+        <div class="app-feats">
+          <div class="app-feat">
+            <div class="app-feat-num">1</div>
+            <div class="app-feat-body">
+              <h4>GPS capturado automaticamente</h4>
+              <p>Coordenadas bloqueadas com indicador de precisão em tempo real. O técnico vê "±3m · GPS confirmado" e segue para o próximo campo.</p>
+            </div>
+          </div>
+          <div class="app-feat">
+            <div class="app-feat-num">2</div>
+            <div class="app-feat-body">
+              <h4>Validação em tempo real</h4>
+              <p>Campos obrigatórios sinalizados antes do envio. O registro nunca chega incompleto ao GIS.</p>
+            </div>
+          </div>
+          <div class="app-feat">
+            <div class="app-feat-num">3</div>
+            <div class="app-feat-body">
+              <h4>Fotos e observações no mesmo formulário</h4>
+              <p>Até 5 fotos por registro, comprimidas e sincronizadas com os dados geográficos. Nenhuma pasta de WhatsApp perdida.</p>
+            </div>
+          </div>
+          <div class="app-feat">
+            <div class="app-feat-num">4</div>
+            <div class="app-feat-body">
+              <h4>Badge de pendência sempre visível</h4>
+              <p>"Sem sinal · 5 pend." — o técnico sabe exatamente o que ainda não foi sincronizado, sem abrir nenhum menu.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phone mockup -->
+      <div class="pf-wrap">
+        <div class="pf-outer">
+          <div class="pf">
+            <div class="pf-island"></div>
+            <div class="pf-screen">
+
+              <div class="p-bar">
+                <div class="p-bar-left">
+                  <div class="p-back">‹</div>
+                  Inspeção · Ponto
+                </div>
+                <div class="p-offpill">
+                  <span class="p-offdot"></span>
+                  Sem sinal · 5 pend.
+                </div>
+              </div>
+
+              <div class="p-map">
+                <svg class="p-mapbg" viewBox="0 0 272 168" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                  <rect width="272" height="168" fill="#3a5a48"/>
+                  <ellipse cx="60" cy="90" rx="80" ry="55" fill="#324e3e" opacity=".6"/>
+                  <ellipse cx="200" cy="60" rx="90" ry="60" fill="#2e4838" opacity=".5"/>
+                  <ellipse cx="140" cy="140" rx="100" ry="40" fill="#3f6450" opacity=".4"/>
+                  <path d="M0,100 Q60,80 120,95 Q180,110 272,90" stroke="#4a7060" stroke-width="3" fill="none" opacity=".6"/>
+                  <path d="M80,0 Q100,50 90,168" stroke="#4a7060" stroke-width="2" fill="none" opacity=".4"/>
+                  <line x1="0" y1="42" x2="272" y2="42" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
+                  <line x1="0" y1="84" x2="272" y2="84" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
+                  <line x1="0" y1="126" x2="272" y2="126" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
+                  <line x1="68" y1="0" x2="68" y2="168" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
+                  <line x1="136" y1="0" x2="136" y2="168" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
+                  <line x1="204" y1="0" x2="204" y2="168" stroke="rgba(255,255,255,.05)" stroke-width="1"/>
+                  <path d="M20,140 Q80,110 140,125 Q200,140 260,115" stroke="rgba(255,255,255,.15)" stroke-width=".8" fill="none"/>
+                  <path d="M10,110 Q70,82 130,97 Q190,112 265,85" stroke="rgba(255,255,255,.12)" stroke-width=".8" fill="none"/>
+                  <path d="M5,80 Q65,55 125,68 Q185,82 268,56" stroke="rgba(255,255,255,.1)" stroke-width=".8" fill="none"/>
+                  <path d="M15,50 Q75,28 135,40 Q195,52 270,28" stroke="rgba(255,255,255,.08)" stroke-width=".8" fill="none"/>
+                </svg>
+                <div class="p-pin"><div class="p-pulse"></div></div>
+                <div class="p-acc"><span class="p-accdot"></span>±3m · GPS confirmado</div>
+                <div class="p-recenter">⊕</div>
+              </div>
+
+              <div class="p-card">
+                <div class="p-scroll">
+
+                  <div class="p-field">
+                    <div class="p-lbl">Localização GPS</div>
+                    <div class="p-val gps">
+                      <span>-23.5505° S, -46.6333° O</span>
+                      <span style="font-size:.65rem;opacity:.7">🔒</span>
+                    </div>
+                  </div>
+
+                  <div class="p-field">
+                    <div class="p-lbl">ID do ponto *</div>
+                    <div class="p-val">INF-047</div>
+                  </div>
+
+                  <div class="p-field">
+                    <div class="p-lbl">Tipo de ativo *</div>
+                    <div class="p-val"><span>Caixa de inspeção</span><span style="font-size:.6rem;opacity:.5">›</span></div>
+                  </div>
+
+                  <div class="p-field">
+                    <div class="p-lbl">Condição estrutural *</div>
+                    <div class="p-val err"><span>Selecione...</span><span style="font-size:.6rem;opacity:.5">›</span></div>
+                    <div class="p-errmsg">Campo obrigatório</div>
+                  </div>
+
+                  <div class="p-field">
+                    <div class="p-lbl">Fotos (até 5)</div>
+                    <div class="p-photorow">
+                      <div class="p-thumb"></div>
+                      <div class="p-thumb"></div>
+                      <div class="p-addphoto">📷</div>
+                      <span class="p-pcount">2 / 5</span>
+                    </div>
+                  </div>
+
+                  <div class="p-field">
+                    <div class="p-lbl">Observações</div>
+                    <div class="p-textarea">
+                      Tampa com desgaste visível. Requer inspeção aprofundada...
+                      <span class="p-charcount">47/500</span>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="p-bottom">
+                  <button class="p-submit">Salvar registro</button>
+                  <div class="p-subnote">Salvo localmente · Sincroniza quando houver sinal</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="diferenciais">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Por que TerraNode</span>
+      <h2>Seis decisões de arquitetura que nenhum concorrente combina.</h2>
+    </div>
+    <div class="diff-grid">
+      <div class="diff">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l3 3M16 16l3 3M5 19l3-3M16 8l3-3"/></svg></div>
+        <h3>Offline-first de verdade</h3>
+        <p>Não é "modo offline" como fallback: é arquitetura. Sync determinística, resolução de conflitos definida e logs auditáveis.</p>
+      </div>
+      <div class="diff">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 21s-7-5.6-7-11a7 7 0 0 1 14 0c0 5.4-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div>
+        <h3>GIS-native</h3>
+        <p>Integração bidirecional com ArcGIS Online, Enterprise e PostGIS. Schema respeitado, feature services suportados.</p>
+      </div>
+      <div class="diff">
+        <div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v5"/></svg></div>
+        <h3>API-first e open-core</h3>
+        <p>Tudo que a interface faz, a API REST faz. Community edition gratuita gera adoção bottom-up e elimina lock-in.</p>
+      </div>
+      <div class="diff">
+        <div class="ic"><svg viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M10 18.5h4"/></svg></div>
+        <h3>Android-first</h3>
+        <p>Mais de 85% dos smartphones no Brasil rodam Android. Construímos para a realidade do campo brasileiro, não para o iPhone do escritório.</p>
+      </div>
+      <div class="diff">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3l8 4v5c0 4.4-3.2 8-8 9-4.8-1-8-4.6-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3>LGPD e data residency</h3>
+        <p>Infraestrutura em São Paulo, opção on-premise, trilha de auditoria imutável. Conformidade para ANEEL, ANA, ANATEL e governo.</p>
+      </div>
+      <div class="diff">
+        <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M4 20c1.5-3.5 4.5-5 8-5s6.5 1.5 8 5"/></svg></div>
+        <h3>Governança enterprise</h3>
+        <p>SSO (SAML, OIDC), RBAC granular, service accounts e políticas de retenção — o que separa ferramenta open-source de plataforma corporativa.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="market dark" id="setores">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Para quem</span>
+      <h2>Feito para quem opera o território brasileiro.</h2>
+      <p>Onde há equipe em campo, ativo georreferenciado e conectividade que falha, o TerraNode se encaixa — do inventário florestal à vistoria de rede de distribuição.</p>
+    </div>
+    <div class="sector-grid">
+      <div class="sector"><h3>Consultorias GIS e ambientais</h3><p>Coleta padronizada e entrega direta em shapefile, GDB ou PostGIS — no formato que o cliente exige.</p></div>
+      <div class="sector"><h3>Saneamento</h3><p>Cadastro de redes atualizado em campo, integrado ao ArcGIS Enterprise e aos sistemas de ordens de serviço.</p></div>
+      <div class="sector"><h3>Energia</h3><p>Inspeções de rede, georreferenciamento de ativos e levantamentos para projetos solares e eólicos.</p></div>
+      <div class="sector"><h3>Telecom</h3><p>Vistorias e cadastro de infraestrutura passiva com API aberta para integração com OSS/BSS.</p></div>
+      <div class="sector"><h3>Florestal e ambiental</h3><p>Inventários e laudos auditáveis, com precisão GPS e exportação em formatos técnicos.</p></div>
+      <div class="sector"><h3>Mineração</h3><p>Mapeamento geológico e rastreabilidade de amostras em áreas sem nenhuma conectividade.</p></div>
+      <div class="sector"><h3>Obras e infraestrutura</h3><p>Registro de progresso georreferenciado, fotos e assinaturas com relatórios automáticos.</p></div>
+      <div class="sector"><h3>Governo</h3><p>Fiscalização e cadastro urbano com data residency nacional e trilha de auditoria completa.</p></div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="cta-final" id="contato">
+  <svg class="contours" viewBox="0 0 1440 400" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path d="M-60,320 C240,280 480,360 820,310 S1240,240 1520,290"/>
+    <path class="c-hot" d="M-60,220 C280,180 520,260 860,210 S1280,150 1520,190"/>
+    <path d="M-60,120 C300,90 540,170 880,120 S1300,70 1520,110"/>
+  </svg>
+  <div class="wrap">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 673.77 182" style="height:34px;width:auto;display:block;margin:0 auto 28px">
+      <path style="fill:#e57244" d="M59.2,75.02l-.42-.58s6.59,7.32,11.41,6.98c.56-.04.82-.04.86,0h37.74s.3-.04.86,0c3.25.23,7.28-3,9.58-5.14l16.72-16.72c1.09-1.09,1.09-2.86,0-3.95l-10.05-10.05c-1.09-1.09-2.86-1.09-3.95,0l-22.2,22.2v-31.4c0-1.54-1.25-2.79-2.79-2.79h-14.21c-1.54,0-2.79,1.25-2.79,2.79v31.4l-22.2-22.2c-1.09-1.09-2.86-1.09-3.95,0l-10.05,10.05c-1.09,1.09-1.09,2.86,0,3.95l15.46,15.46Z"/>
+      <path style="fill:#fff" d="M145.13,81.76h-17.01c-3.51,0-6.08.9-7.74,1.76l-26.44,17.82c-2.57,1.73-5.94,1.67-8.44-.16l-22.22-16.25.06.13s-3.3-3.29-10.02-3.29h-18.78c-1.54,0-2.79,1.25-2.79,2.79v14.21c0,1.54,1.25,2.79,2.79,2.79h31.4l-22.2,22.2c-1.09,1.09-1.09,2.86,0,3.95l10.05,10.05c1.09,1.09,2.86,1.09,3.95,0l22.2-22.2v31.4c0,1.54,1.25,2.79,2.79,2.79h14.21c1.54,0,2.79-1.25,2.79-2.79v-31.4l22.2,22.2c1.09,1.09,2.86,1.09,3.95,0l10.05-10.05c1.09-1.09,1.09-2.86,0-3.95l-22.2-22.2h31.4c1.54,0,2.79-1.25,2.79-2.79v-14.21c0-1.54-1.25-2.79-2.79-2.79Z"/>
+      <text style="fill:#fff;font-family:'Raleway',sans-serif;font-size:93.74px;font-weight:800" transform="translate(162.78 123.82)"><tspan style="letter-spacing:-.09em" x="0" y="0">T</tspan><tspan x="49.59" y="0">er</tspan><tspan x="143.7" y="0">r</tspan><tspan x="180.82" y="0">a</tspan><tspan x="235.75" y="0">N</tspan><tspan x="306.06" y="0">ode</tspan></text>
+    </svg>
+    <h2>Estamos tirando o papel do campo brasileiro.</h2>
+    <p>O TerraNode está em construção. Se a sua operação coleta dados geoespaciais em campo — ou se você só quer acompanhar de perto — deixe seu contato e avisaremos no lançamento.</p>
+    <div class="hero-ctas" style="justify-content:center">
+      <a class="btn btn-terra" href="mailto:bleitelima0@gmail.com?subject=TerraNode%20—%20Quero%20acompanhar%20o%20lan%C3%A7amento">Quero ser avisado do lançamento</a>
+      <a class="btn btn-ghost" href="mailto:bleitelima0@gmail.com?subject=TerraNode%20—%20Contato">Falar com a equipe</a>
+    </div>
+    <p class="hero-note">EM DESENVOLVIMENTO · LANÇAMENTO EM BREVE · FEITO NO BRASIL</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 673.77 182" style="height:34px;width:auto;opacity:.75">
+      <path style="fill:#fff" d="M59.2,75.02l-.42-.58s6.59,7.32,11.41,6.98c.56-.04.82-.04.86,0h37.74s.3-.04.86,0c3.25.23,7.28-3,9.58-5.14l16.72-16.72c1.09-1.09,1.09-2.86,0-3.95l-10.05-10.05c-1.09-1.09-2.86-1.09-3.95,0l-22.2,22.2v-31.4c0-1.54-1.25-2.79-2.79-2.79h-14.21c-1.54,0-2.79,1.25-2.79,2.79v31.4l-22.2-22.2c-1.09-1.09-2.86-1.09-3.95,0l-10.05,10.05c-1.09,1.09-1.09,2.86,0,3.95l15.46,15.46Z"/>
+      <path style="fill:#fff" d="M145.13,81.76h-17.01c-3.51,0-6.08.9-7.74,1.76l-26.44,17.82c-2.57,1.73-5.94,1.67-8.44-.16l-22.22-16.25.06.13s-3.3-3.29-10.02-3.29h-18.78c-1.54,0-2.79,1.25-2.79,2.79v14.21c0,1.54,1.25,2.79,2.79,2.79h31.4l-22.2,22.2c-1.09,1.09-1.09,2.86,0,3.95l10.05,10.05c1.09,1.09,2.86,1.09,3.95,0l22.2-22.2v31.4c0,1.54,1.25,2.79,2.79,2.79h14.21c1.54,0,2.79-1.25,2.79-2.79v-31.4l22.2,22.2c1.09,1.09,2.86,1.09,3.95,0l10.05-10.05c1.09-1.09,1.09-2.86,0-3.95l-22.2-22.2h31.4c1.54,0,2.79-1.25,2.79-2.79v-14.21c0-1.54-1.25-2.79-2.79-2.79Z"/>
+      <text style="fill:#fff;font-family:'Raleway',sans-serif;font-size:93.74px;font-weight:800" transform="translate(162.78 123.82)"><tspan style="letter-spacing:-.09em" x="0" y="0">T</tspan><tspan x="49.59" y="0">er</tspan><tspan x="143.7" y="0">r</tspan><tspan x="180.82" y="0">a</tspan><tspan x="235.75" y="0">N</tspan><tspan x="306.06" y="0">ode</tspan></text>
+    </svg>
+    <span>© 2026 TERRANODE · FLORIANÓPOLIS — SC · BRASIL</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var navLinks=Array.from(document.querySelectorAll('.nav-links a[href^="#"]:not(.btn)'));
+  var sections=navLinks.map(function(a){return document.querySelector(a.getAttribute('href'))}).filter(Boolean);
+
+  function setActive(id){
+    navLinks.forEach(function(a){
+      a.classList.toggle('nav-active', a.getAttribute('href')==='#'+id);
+    });
+  }
+
+  if('IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if(e.isIntersecting) setActive(e.target.id);
+      });
+    },{rootMargin:'-45% 0px -45% 0px',threshold:0});
+    sections.forEach(function(s){io.observe(s);});
+  }
+})();
+
+(function(){
+  var chip=document.getElementById('syncChip'),txt=document.getElementById('syncText'),st=document.getElementById('destStatus');
+  if(!chip)return;
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce){chip.classList.remove('off');chip.classList.add('on');txt.textContent='SINCRONIZADO';st.textContent='5/5 enviados ✓';return;}
+  var states=[
+    {cls:'off',t:'OFFLINE · COLETANDO',s:'aguardando rede…',d:4200},
+    {cls:'on', t:'REDE ENCONTRADA',   s:'iniciando sync…',d:1600},
+    {cls:'on', t:'SINCRONIZANDO 3/5', s:'enviando fotos…',d:2000},
+    {cls:'on', t:'SINCRONIZADO',      s:'5/5 enviados ✓',d:4600}
+  ];
+  var i=0;
+  function next(){
+    var s=states[i];
+    chip.classList.remove('off','on');chip.classList.add(s.cls);
+    txt.textContent=s.t;st.textContent=s.s;
+    i=(i+1)%states.length;
+    setTimeout(next,s.d);
+  }
+  next();
+})();
+</script>
+</body>
+</html>
