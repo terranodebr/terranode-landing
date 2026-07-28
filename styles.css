@@ -161,7 +161,7 @@ a:hover { color: var(--tn-accent); }
 .tn-browser__dot { width: 10px; height: 10px; border-radius: 50%; background: var(--tn-border-2); }
 .tn-browser__url { margin-left: 14px; background: var(--tn-surface-2); border-radius: 6px; padding: 4px 12px; }
 .tn-browser__url-text { font-family: var(--font-mono); font-size: 10.5px; color: var(--tn-ink-faint); }
-.tn-browser__image-wrap { height: 300px; overflow: hidden; }
+.tn-browser__image-wrap { aspect-ratio: 1040 / 300; overflow: hidden; }
 .tn-browser__image { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
 
 /* Features */
@@ -307,6 +307,26 @@ a:hover { color: var(--tn-accent); }
 .tn-phone img { display: block; width: 100%; height: auto; }
 .tn-phone--offset { border: 1px solid var(--tn-on-dark-16); box-shadow: var(--shadow-card-dark-lg); margin-bottom: -56px; }
 .tn-phone--front { border: 1px solid var(--tn-on-dark-25); box-shadow: var(--shadow-card-dark-xl); margin-bottom: -8px; }
+
+@media (max-width: 1020px) {
+  .tn-phones {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    align-items: center;
+    padding-bottom: 28px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .tn-phones::-webkit-scrollbar { display: none; }
+  .tn-phone {
+    margin-bottom: 0;
+    border-radius: 28px;
+    border-bottom: 1px solid var(--tn-on-dark-16);
+    scroll-snap-align: center;
+  }
+}
 
 .tn-product__highlights { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
 .tn-highlight { display: flex; flex-direction: column; gap: 6px; border-top: 1px solid var(--tn-on-dark-14); padding-top: 16px; }
