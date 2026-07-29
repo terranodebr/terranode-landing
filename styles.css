@@ -156,11 +156,29 @@ a:hover { color: var(--tn-accent); }
 .tn-stat__label { font-family: var(--font-sans); font-weight: 500; font-size: 12px; color: var(--tn-on-dark-55); }
 .tn-stat__divider { width: 1px; height: 30px; background: var(--tn-on-dark-14); }
 
-.tn-browser { margin-top: auto; width: 100%; max-width: 1040px; border-radius: 14px 14px 0 0; border: 1px solid var(--tn-on-dark-14); border-bottom: none; background: var(--tn-surface); box-shadow: 0 -20px 80px rgba(0, 0, 0, 0.35); overflow: hidden; }
+.tn-browser { margin-top: auto; margin-bottom: -20px; width: 100%; max-width: 1040px; border-radius: 14px 14px 0 0; border: 1px solid var(--tn-on-dark-14); border-bottom: none; background: var(--tn-surface); box-shadow: 0 -20px 80px rgba(0, 0, 0, 0.35); overflow: hidden; }
 .tn-browser__bar { height: 38px; background: #fff; border-bottom: 1px solid var(--tn-border); display: flex; align-items: center; gap: 8px; padding: 0 16px; }
 .tn-browser__dot { width: 10px; height: 10px; border-radius: 50%; background: var(--tn-border-2); }
 .tn-browser__url { margin-left: 14px; background: var(--tn-surface-2); border-radius: 6px; padding: 4px 12px; }
 .tn-browser__url-text { font-family: var(--font-mono); font-size: 10.5px; color: var(--tn-ink-faint); }
+/* Scroll-scrubbed fold: the copy recedes as the panel rises and locks into frame.
+   Scroll-driven only — the page still scrolls normally, and it degrades to a static
+   fold where scroll timelines or motion are unavailable. */
+.tn-hero__recede { animation: tn-hero-recede linear both; animation-timeline: scroll(root block); animation-range: 0 70vh; transform-origin: 50% 20%; }
+.tn-hero__main .tn-pill { animation: tn-hero-pill-out linear both; animation-timeline: scroll(root block); animation-range: 0 32vh; }
+.tn-hero__main .tn-browser { animation: tn-hero-panel-rise linear both; animation-timeline: scroll(root block); animation-range: 0 70vh; transform-origin: 50% 100%; }
+
+@keyframes tn-hero-recede { to { transform: translateY(-12.6%) scale(0.892); opacity: 0.35; filter: blur(1.8px); } }
+@keyframes tn-hero-pill-out { to { opacity: 0; transform: translateY(-18px); } }
+@keyframes tn-hero-panel-rise { to { transform: translateY(-4%) scale(1.04); } }
+
+@supports not (animation-timeline: scroll(root block)) {
+  .tn-hero__recede, .tn-hero__main .tn-pill, .tn-hero__main .tn-browser { animation: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tn-hero__recede, .tn-hero__main .tn-pill, .tn-hero__main .tn-browser { animation: none; }
+}
+
 .tn-browser__image-wrap { aspect-ratio: 1040 / 300; overflow: hidden; }
 @media (min-height: 900px) { .tn-browser__image-wrap { aspect-ratio: 1040 / 400; } }
 @media (min-height: 1100px) { .tn-browser__image-wrap { aspect-ratio: 1040 / 500; } }
