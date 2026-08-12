@@ -64,8 +64,7 @@
 
   <div class="tn-header">
     <div class="tn-header__brand">
-      <img src="uploads/TerraNodeIcon-iOS-Dark-1024x1024@1x.png" alt="TerraNode" class="tn-header__brand-icon">
-      <span class="tn-header__brand-name">TerraNode</span>
+      <img src="assets/terranode-logo.svg" alt="TerraNode" class="tn-header__logo">
     </div>
     <div class="tn-nav-links">
       <a href="#">Produto</a>
@@ -74,7 +73,7 @@
       <a href="#">Contato</a>
     </div>
     <div class="tn-header__actions">
-      <a href="#lista" class="tn-header__cta" data-mp-cta="header_cta">Entrar na lista</a>
+      <a href="https://form.typeform.com/to/ZVQYTFV5" target="_blank" rel="noopener" data-mp-cta="header_cta" class="tn-header__cta">Entrar na lista</a>
     </div>
   </div>
 
@@ -86,10 +85,10 @@
     <h1 class="tn-hero__title tn-hero__recede">Do campo ao mapa,<br>sem perder um ponto.</h1>
     <p class="tn-hero__subtitle tn-hero__recede">Formulários offline, GPS de precisão e revisão em tempo real. Sua equipe coleta, o TerraNode organiza, valida e sincroniza, mesmo sem sinal.</p>
     <div class="tn-hero__actions tn-hero__recede">
-      <a href="#lista" class="tn-btn tn-btn--primary" data-mp-cta="hero_primary">Entrar na lista de espera
+      <a href="https://form.typeform.com/to/ZVQYTFV5" target="_blank" rel="noopener" data-mp-cta="hero_primary" class="tn-btn tn-btn--primary">Entrar na lista de espera
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M16.175 13H4V11H16.175L10.575 5.4L12 4L20 12L12 20L10.575 18.6L16.175 13Z" fill="#fff"></path></svg>
       </a>
-      <a href="#lista" class="tn-btn tn-btn--outline" data-mp-cta="hero_outline">Quero ser early tester</a>
+      <a href="https://form.typeform.com/to/ZVQYTFV5" target="_blank" rel="noopener" data-mp-cta="hero_outline" class="tn-btn tn-btn--outline">Quero ser early tester</a>
     </div>
     <div class="tn-hero__stats tn-hero__recede">
       <div class="tn-stat">
@@ -213,110 +212,225 @@
   </div>
 </div>
 
-<div class="tn-section tn-section--white tn-section--border-top">
-  <div class="tn-section__inner tn-steps__inner">
+<div class="tn-section tn-section--white tn-section--border-top tn-steps" data-steps-root>
 
-    <div class="tn-steps__header">
+  <div class="tn-steps__head">
+    <div class="tn-steps__eyebrow-row">
       <span class="tn-eyebrow">COMO FUNCIONA</span>
-      <h2 class="tn-h2">Três passos entre o planejamento e o dado validado.</h2>
+      <div class="tn-steps__rule"></div>
+    </div>
+    <div class="tn-steps__head-grid">
+      <h2 class="tn-h2 tn-steps__h2">Quatro passos entre o planejamento e o dado validado</h2>
+      <p class="tn-lead tn-steps__lead">Do desenho do formulário à exportação, tudo acontece em um único fluxo — sem planilhas paralelas, sem redigitação, sem dado perdido no caminho.</p>
     </div>
 
-    <div class="tn-steps__grid">
+    <div class="tn-steps__timeline" role="tablist" aria-label="Etapas do TerraNode">
+      <div class="tn-steps__timeline-rail"></div>
+      <button class="tn-steps__stop is-active" type="button" role="tab" data-step="0" aria-selected="true" aria-controls="tn-steps-card-0">
+        <span class="tn-steps__stop-label">MONTAR FORMULÁRIO</span>
+        <span class="tn-steps__stop-chip"><span class="tn-steps__stop-num">01</span></span>
+      </button>
+      <button class="tn-steps__stop" type="button" role="tab" data-step="1" aria-selected="false" aria-controls="tn-steps-card-1">
+        <span class="tn-steps__stop-label">MONTAR O TIME</span>
+        <span class="tn-steps__stop-chip"><span class="tn-steps__stop-num">02</span></span>
+      </button>
+      <button class="tn-steps__stop" type="button" role="tab" data-step="2" aria-selected="false" aria-controls="tn-steps-card-2">
+        <span class="tn-steps__stop-label">COLETAR EM CAMPO</span>
+        <span class="tn-steps__stop-chip"><span class="tn-steps__stop-num">03</span></span>
+      </button>
+      <button class="tn-steps__stop" type="button" role="tab" data-step="3" aria-selected="false" aria-controls="tn-steps-card-3">
+        <span class="tn-steps__stop-label">REVISAR E VALIDAR</span>
+        <span class="tn-steps__stop-chip"><span class="tn-steps__stop-num">04</span></span>
+      </button>
+    </div>
+  </div>
 
-      <div class="tn-step">
-        <div class="tn-step__preview">
-          <div class="tn-mockfield">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 13V11H20V13H4ZM4 8V6H20V8H4Z" fill="#5B6663"></path></svg>
-            <span class="tn-mockfield__label">Número da torre</span>
-            <span class="tn-badge-soft tn-mockfield__badge">obrigatório</span>
-          </div>
-          <div class="tn-mockfield tn-mockfield--active">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 21Q4.175 21 3.587 20.412Q3 19.825 3 19V5Q3 4.175 3.587 3.587Q4.175 3 5 3H19Q19.825 3 20.413 3.587Q21 4.175 21 5V19Q21 19.825 20.413 20.412Q19.825 21 19 21ZM6 17H18L14.25 12L11.25 16L9 13Z" fill="#5B6663"></path></svg>
-            <span class="tn-mockfield__label">Fotos da estrutura</span>
-          </div>
-          <div class="tn-mockfield">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 22Q16.75 22 15.875 21.125Q15 20.25 15 19Q15 18.825 15.025 18.637Q15.05 18.45 15.1 18.275L8.05 14.175Q7.625 14.55 7.1 14.775Q6.575 15 6 15Q4.75 15 3.875 14.125Q3 13.25 3 12Q3 10.75 3.875 9.875Q4.75 9 6 9Q6.575 9 7.1 9.225Q7.625 9.45 8.05 9.825L15.1 5.725Q15.05 5.55 15.025 5.362Q15 5.175 15 5Q15 3.75 15.875 2.875Q16.75 2 18 2Q19.25 2 20.125 2.875Q21 3.75 21 5Q21 6.25 20.125 7.125Q19.25 8 18 8Q17.425 8 16.9 7.775Q16.375 7.55 15.95 7.175L8.9 11.275Q8.95 11.45 8.975 11.637Q9 11.825 9 12Q9 12.175 8.975 12.362Q8.95 12.55 8.9 12.725L15.95 16.825Q16.375 16.45 16.9 16.225Q17.425 16 18 16Q19.25 16 20.125 16.875Q21 17.75 21 19Q21 20.25 20.125 21.125Q19.25 22 18 22Z" fill="#5B6663"></path></svg>
-            <span class="tn-mockfield__label">Área de intervenção</span>
-          </div>
-          <div class="tn-mockfield tn-mockfield--dashed">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M11 20V13H4V11H11V4H13V11H20V13H13V20H11Z" fill="#8A928F"></path></svg>
-            <span class="tn-mockfield__add-text">Adicionar campo</span>
+  <div class="tn-steps__viewport">
+    <div class="tn-steps__track">
+
+      <div class="tn-steps__card-slide" id="tn-steps-card-0" role="tabpanel" data-step="0">
+        <div class="tn-steps__panel-text">
+          <span class="tn-steps__panel-step">PASSO 01</span>
+          <h3 class="tn-steps__panel-title">Monte o formulário</h3>
+          <p class="tn-steps__panel-desc">Arraste os campos, defina regras de obrigatoriedade e publique a versão que vai para o campo — ou gere o formulário inteiro com IA.</p>
+          <div class="tn-steps__panel-list">
+            <span class="tn-steps__panel-list-label">O que acontece aqui</span>
+            <ul class="tn-steps__list">
+              <li><span class="tn-steps__list-dot"></span>Campos de texto, número, foto, áudio e geometria</li>
+              <li><span class="tn-steps__list-dot"></span>Regras de validação e campos obrigatórios</li>
+              <li><span class="tn-steps__list-dot"></span>Versões publicadas com histórico de alterações</li>
+              <li><span class="tn-steps__list-dot"></span>Geração assistida por IA a partir de uma descrição</li>
+            </ul>
           </div>
         </div>
-        <div class="tn-step__body">
-          <div class="tn-step__heading">
-            <span class="tn-step__number">01</span>
-            <h3 class="tn-step__title">Monte o formulário</h3>
+        <div class="tn-steps__panel-visual tn-steps__panel-visual--light">
+          <div class="tn-steps__rows">
+            <div class="tn-steps__row">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M4 13V11H20V13H4ZM4 8V6H20V8H4Z" fill="#5B6663"></path></svg>
+              <span class="tn-steps__row-label">Número da torre</span>
+              <span class="tn-badge-soft tn-steps__row-badge">obrigatório</span>
+            </div>
+            <div class="tn-steps__row tn-steps__row--active">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 21Q4.175 21 3.587 20.412Q3 19.825 3 19V5Q3 4.175 3.587 3.587Q4.175 3 5 3H19Q19.825 3 20.413 3.587Q21 4.175 21 5V19Q21 19.825 20.413 20.412Q19.825 21 19 21ZM6 17H18L14.25 12L11.25 16L9 13Z" fill="#5B6663"></path></svg>
+              <span class="tn-steps__row-label">Fotos da estrutura</span>
+              <span class="tn-steps__row-meta">min. 3</span>
+            </div>
+            <div class="tn-steps__row">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M18 22Q16.75 22 15.875 21.125Q15 20.25 15 19Q15 18.825 15.025 18.637Q15.05 18.45 15.1 18.275L8.05 14.175Q7.625 14.55 7.1 14.775Q6.575 15 6 15Q4.75 15 3.875 14.125Q3 13.25 3 12Q3 10.75 3.875 9.875Q4.75 9 6 9Q6.575 9 7.1 9.225Q7.625 9.45 8.05 9.825L15.1 5.725Q15.05 5.55 15.025 5.362Q15 5.175 15 5Q15 3.75 15.875 2.875Q16.75 2 18 2Q19.25 2 20.125 2.875Q21 3.75 21 5Q21 6.25 20.125 7.125Q19.25 8 18 8Q17.425 8 16.9 7.775Q16.375 7.55 15.95 7.175L8.9 11.275Q8.95 11.45 8.975 11.637Q9 11.825 9 12Q9 12.175 8.975 12.362Q8.95 12.55 8.9 12.725L15.95 16.825Q16.375 16.45 16.9 16.225Q17.425 16 18 16Q19.25 16 20.125 16.875Q21 17.75 21 19Q21 20.25 20.125 21.125Q19.25 22 18 22Z" fill="#5B6663"></path></svg>
+              <span class="tn-steps__row-label">Área de intervenção</span>
+            </div>
+            <div class="tn-steps__row tn-steps__row--dashed">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M11 20V13H4V11H11V4H13V11H20V13H13V20H11Z" fill="#8A928F"></path></svg>
+              <span class="tn-steps__row-add-text">Adicionar campo</span>
+            </div>
           </div>
-          <p class="tn-step__desc">Arraste os campos, defina regras e atribua cada formulário aos coletores certos, tudo no navegador.</p>
         </div>
       </div>
 
-      <div class="tn-step">
-        <div class="tn-step2-preview">
-          <div class="tn-step2-preview__grid-bg"></div>
-
-          <div class="tn-step2-preview__badge">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 21C9.48333 21 7.35417 20.1292 5.6125 18.3875C3.87083 16.6458 3 14.5167 3 12C3 9.48333 3.87083 7.35417 5.6125 5.6125C7.35417 3.87083 9.48333 3 12 3V5C10.05 5 8.39583 5.68333 7.0375 7.05C5.67917 8.41667 5 10.0667 5 12C5 13.9333 5.67917 15.5833 7.0375 16.95C8.39583 18.3167 10.05 19 12 19V21Z" fill="rgba(255,255,255,0.7)"></path></svg>
-            <span class="tn-step2-preview__badge-text">Sem sinal · salvando localmente</span>
+      <div class="tn-steps__card-slide" id="tn-steps-card-1" role="tabpanel" data-step="1">
+        <div class="tn-steps__panel-text">
+          <span class="tn-steps__panel-step">PASSO 02</span>
+          <h3 class="tn-steps__panel-title">Monte o time</h3>
+          <p class="tn-steps__panel-desc">Convide coletores e revisores, defina permissões e atribua cada formulário a quem vai preencher em campo.</p>
+          <div class="tn-steps__panel-list">
+            <span class="tn-steps__panel-list-label">O que acontece aqui</span>
+            <ul class="tn-steps__list">
+              <li><span class="tn-steps__list-dot"></span>Convite por e-mail ou link do projeto</li>
+              <li><span class="tn-steps__list-dot"></span>Perfis de coletor, revisor e gestor</li>
+              <li><span class="tn-steps__list-dot"></span>Formulários atribuídos pessoa por pessoa</li>
+              <li><span class="tn-steps__list-dot"></span>Produção individual acompanhada em tempo real</li>
+            </ul>
           </div>
-          <div class="tn-step2-preview__card">
-            <div class="tn-step2-card__header">
-              <span class="tn-step2-card__id">PT-0341</span>
-              <span class="tn-step2-card__gps"><span class="tn-step2-card__gps-dot"></span><span class="tn-step2-card__gps-text">GPS ±3 m</span></span>
+        </div>
+        <div class="tn-steps__panel-visual tn-steps__panel-visual--light">
+          <div class="tn-steps__rows">
+            <div class="tn-steps__row">
+              <span class="tn-avatar tn-avatar--c tn-avatar--sm"><span class="tn-avatar__text">MR</span></span>
+              <span class="tn-steps__person">
+                <span class="tn-steps__row-label">Marina Reis</span>
+                <span class="tn-steps__person-role">Coletora · campo</span>
+              </span>
+              <span class="tn-steps__row-pill">3 formulários</span>
             </div>
-            <div class="tn-step2-card__canvas">
+            <div class="tn-steps__row">
+              <span class="tn-avatar tn-avatar--a tn-avatar--sm"><span class="tn-avatar__text">JC</span></span>
+              <span class="tn-steps__person">
+                <span class="tn-steps__row-label">Joel Camargo</span>
+                <span class="tn-steps__person-role">Coletor · campo</span>
+              </span>
+              <span class="tn-steps__row-pill">2 formulários</span>
+            </div>
+            <div class="tn-steps__row">
+              <span class="tn-avatar tn-avatar--b tn-avatar--sm"><span class="tn-avatar__text">AL</span></span>
+              <span class="tn-steps__person">
+                <span class="tn-steps__row-label">Ana Lobo</span>
+                <span class="tn-steps__person-role">Revisora</span>
+              </span>
+              <span class="tn-steps__row-pill">fila de revisão</span>
+            </div>
+            <div class="tn-steps__row tn-steps__row--dashed">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M11 20V13H4V11H11V4H13V11H20V13H13V20H11Z" fill="#8A928F"></path></svg>
+              <span class="tn-steps__row-add-text">Convidar por e-mail</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tn-steps__card-slide" id="tn-steps-card-2" role="tabpanel" data-step="2">
+        <div class="tn-steps__panel-text">
+          <span class="tn-steps__panel-step">PASSO 03</span>
+          <h3 class="tn-steps__panel-title">Colete em campo</h3>
+          <p class="tn-steps__panel-desc">A equipe registra pontos com foto, áudio e geometria pelo aplicativo. Com ou sem sinal, o dado nunca se perde.</p>
+          <div class="tn-steps__panel-list">
+            <span class="tn-steps__panel-list-label">O que acontece aqui</span>
+            <ul class="tn-steps__list">
+              <li><span class="tn-steps__list-dot"></span>Funciona 100% offline, no modo avião</li>
+              <li><span class="tn-steps__list-dot"></span>Precisão centimétrica com GNSS externo</li>
+              <li><span class="tn-steps__list-dot"></span>Fotos, áudios e croquis anexados ao ponto</li>
+              <li><span class="tn-steps__list-dot"></span>Sincronização automática quando o sinal volta</li>
+            </ul>
+          </div>
+        </div>
+        <div class="tn-steps__panel-visual tn-steps__panel-visual--dark">
+          <div class="tn-steps__grid-bg"></div>
+          <div class="tn-steps__badge-float">
+            <svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 21C9.48333 21 7.35417 20.1292 5.6125 18.3875C3.87083 16.6458 3 14.5167 3 12C3 9.48333 3.87083 7.35417 5.6125 5.6125C7.35417 3.87083 9.48333 3 12 3V5C10.05 5 8.39583 5.68333 7.0375 7.05C5.67917 8.41667 5 10.0667 5 12C5 13.9333 5.67917 15.5833 7.0375 16.95C8.39583 18.3167 10.05 19 12 19V21Z" fill="rgba(255,255,255,0.7)"></path></svg>
+            <span class="tn-steps__badge-float-text">Sem sinal · salvando localmente</span>
+          </div>
+          <div class="tn-steps__card">
+            <div class="tn-steps__card-header">
+              <span class="tn-steps__card-id">PT-0341</span>
+              <span class="tn-steps__card-gps"><span class="tn-steps__card-gps-dot"></span><span class="tn-steps__card-gps-text">GPS ±3 cm</span></span>
+            </div>
+            <div class="tn-steps__card-canvas">
               <svg width="100%" height="100%" viewBox="0 0 130 64"><path d="M18 50 L52 20 L88 34 L114 14" stroke="#FF6629" stroke-width="2" fill="none" stroke-dasharray="4 3"></path><circle cx="18" cy="50" r="4" fill="#FF6629" stroke="#fff" stroke-width="1.5"></circle><circle cx="52" cy="20" r="4" fill="#FF6629" stroke="#fff" stroke-width="1.5"></circle><circle cx="88" cy="34" r="4" fill="#FF6629" stroke="#fff" stroke-width="1.5"></circle><circle cx="114" cy="14" r="4" fill="#FF6629" stroke="#fff" stroke-width="1.5"></circle></svg>
             </div>
-            <div class="tn-step2-card__fields">
-              <div class="tn-step2-card__field"></div>
-              <div class="tn-step2-card__field"></div>
-              <div class="tn-step2-card__field tn-step2-card__field--add"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M11 20V13H4V11H11V4H13V11H20V13H13V20H11Z" fill="#8A928F"></path></svg></div>
+            <div class="tn-steps__card-fields">
+              <div class="tn-steps__card-field"></div>
+              <div class="tn-steps__card-field"></div>
+              <div class="tn-steps__card-field tn-steps__card-field--add"><svg width="10" height="10" viewBox="0 0 24 24" fill="none"><path d="M11 20V13H4V11H11V4H13V11H20V13H13V20H11Z" fill="#8A928F"></path></svg></div>
             </div>
-            <div class="tn-step2-card__save"><span class="tn-step2-card__save-text">Salvar ponto</span></div>
+            <div class="tn-steps__card-save"><span class="tn-steps__card-save-text">Salvar ponto</span></div>
           </div>
-        </div>
-        <div class="tn-step__body">
-          <div class="tn-step__heading">
-            <span class="tn-step__number">02</span>
-            <h3 class="tn-step__title">Colete em campo</h3>
-          </div>
-          <p class="tn-step__desc">A equipe registra fotos, áudios e geometrias pelo aplicativo. Com ou sem sinal, o dado nunca se perde.</p>
         </div>
       </div>
 
-      <div class="tn-step">
-        <div class="tn-step__preview">
-          <div class="tn-review-row">
-            <span class="tn-review-row__id">PT-0339</span>
-            <span class="tn-review-row__status"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M9.55 18L3.85 12.3L5.275 10.875L9.55 15.15L18.725 5.975L20.15 7.4L9.55 18Z" fill="#1F7A44"></path></svg><span class="tn-review-row__status-text">Validado</span></span>
-          </div>
-          <div class="tn-review-row--active">
-            <div class="tn-review-row__top">
-              <span class="tn-review-row__id">PT-0340</span>
-              <span class="tn-badge-soft tn-review-row__badge">Em revisão</span>
-            </div>
-            <div class="tn-review-actions">
-              <div class="tn-review-btn tn-review-btn--reject"><span class="tn-review-btn__text">Rejeitar</span></div>
-              <div class="tn-review-btn tn-review-btn--approve"><span class="tn-review-btn__text">Validar</span></div>
-            </div>
-          </div>
-          <div class="tn-review-row">
-            <span class="tn-review-row__id">PT-0341</span>
-            <span class="tn-badge-soft tn-review-row__badge">Em revisão</span>
+      <div class="tn-steps__card-slide" id="tn-steps-card-3" role="tabpanel" data-step="3">
+        <div class="tn-steps__panel-text">
+          <span class="tn-steps__panel-step">PASSO 04</span>
+          <h3 class="tn-steps__panel-title">Revise e valide</h3>
+          <p class="tn-steps__panel-desc">Cada ponto entra na fila de revisão. Valide, rejeite com comentário e exporte só o dado confiável.</p>
+          <div class="tn-steps__panel-list">
+            <span class="tn-steps__panel-list-label">O que acontece aqui</span>
+            <ul class="tn-steps__list">
+              <li><span class="tn-steps__list-dot"></span>Fila de revisão organizada por projeto</li>
+              <li><span class="tn-steps__list-dot"></span>Validar ou rejeitar com comentário do revisor</li>
+              <li><span class="tn-steps__list-dot"></span>Retorno direto ao coletor para correção</li>
+              <li><span class="tn-steps__list-dot"></span>Exportação em CSV, GeoJSON e Shapefile</li>
+            </ul>
           </div>
         </div>
-        <div class="tn-step__body">
-          <div class="tn-step__heading">
-            <span class="tn-step__number">03</span>
-            <h3 class="tn-step__title">Revise e valide</h3>
+        <div class="tn-steps__panel-visual tn-steps__panel-visual--light">
+          <div class="tn-steps__rows">
+            <div class="tn-steps__row tn-steps__row--review">
+              <span class="tn-steps__row-id">PT-0339</span>
+              <span class="tn-steps__row-status"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"><path d="M9.55 18L3.85 12.3L5.275 10.875L9.55 15.15L18.725 5.975L20.15 7.4L9.55 18Z" fill="#1F7A44"></path></svg><span class="tn-steps__row-status-text">Validado</span></span>
+            </div>
+            <div class="tn-steps__row-active-card">
+              <div class="tn-steps__row-active-top">
+                <span class="tn-steps__row-id">PT-0340</span>
+                <span class="tn-badge-soft">Em revisão</span>
+              </div>
+              <div class="tn-steps__review-actions">
+                <div class="tn-steps__review-btn tn-steps__review-btn--reject"><span>Rejeitar</span></div>
+                <div class="tn-steps__review-btn tn-steps__review-btn--approve"><span>Validar</span></div>
+              </div>
+            </div>
+            <div class="tn-steps__row tn-steps__row--review">
+              <span class="tn-steps__row-id">PT-0341</span>
+              <span class="tn-badge-soft">Em revisão</span>
+            </div>
+            <div class="tn-steps__rows-foot">
+              <span class="tn-steps__rows-foot-text">2 de 3 pontos revisados</span>
+              <span class="tn-steps__rows-foot-link">exportar →</span>
+            </div>
           </div>
-          <p class="tn-step__desc">Cada ponto passa pela fila de revisão: valide, rejeite com comentário e exporte só o dado confiável.</p>
         </div>
       </div>
 
     </div>
   </div>
+
+  <div class="tn-steps__controls">
+    <button class="tn-steps__nav-btn" type="button" data-steps-prev aria-label="Passo anterior">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M14 18L8 12L14 6L15.4 7.4L10.8 12L15.4 16.6L14 18Z" fill="#16201F"></path></svg>
+    </button>
+    <button class="tn-steps__nav-btn" type="button" data-steps-next aria-label="Próximo passo">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M10 18L8.6 16.6L13.2 12L8.6 7.4L10 6L16 12L10 18Z" fill="#16201F"></path></svg>
+    </button>
+    <span class="tn-steps__counter" data-steps-counter>01 / 04</span>
+  </div>
+
 </div>
 
 <div class="tn-section tn-section--surface tn-section--border-top">
@@ -350,10 +464,10 @@
       <h2 class="tn-h2 tn-h2--sm tn-h2--on-dark tn-cta-banner__title">Leve sua próxima campanha de campo para o TerraNode.</h2>
       <p class="tn-cta-banner__desc">Lançamento em breve. Entre na lista para ser avisado, ou candidate-se a early tester e use antes de todo mundo.</p>
       <div class="tn-cta-banner__actions">
-        <a href="#lista" class="tn-btn tn-btn--primary" data-mp-cta="cta_banner_primary">Entrar na lista de espera
+        <a href="https://form.typeform.com/to/ZVQYTFV5" target="_blank" rel="noopener" data-mp-cta="cta_banner_primary" class="tn-btn tn-btn--primary">Entrar na lista de espera
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M16.175 13H4V11H16.175L10.575 5.4L12 4L20 12L12 20L10.575 18.6L16.175 13Z" fill="#fff"></path></svg>
         </a>
-        <a href="#lista" class="tn-btn tn-btn--outline" data-mp-cta="cta_banner_outline">Falar com o time</a>
+        <a href="https://form.typeform.com/to/ZVQYTFV5" target="_blank" rel="noopener" data-mp-cta="cta_banner_outline" class="tn-btn tn-btn--outline">Falar com o time</a>
       </div>
     </div>
 
@@ -363,58 +477,67 @@
 <div class="tn-section tn-section--dark">
   <div class="tn-section__inner tn-product__inner">
 
-    <div class="tn-product__header">
-      <div class="tn-product__header-text">
-        <span class="tn-eyebrow">O PRODUTO</span>
-        <h2 class="tn-h2 tn-h2--on-dark">Um app para o campo. Um painel para o escritório.</h2>
-        <p class="tn-lead tn-lead--on-dark">O mesmo projeto, visto de dois lugares: quem coleta usa o aplicativo offline-first; quem gerencia acompanha, revisa e valida pelo navegador.</p>
-      </div>
+    <div class="tn-product__header-text">
+      <span class="tn-eyebrow">O PRODUTO</span>
+      <h2 class="tn-h2 tn-h2--on-dark">Um app para o campo. Um painel para o escritório.</h2>
+      <p class="tn-lead tn-lead--on-dark">O mesmo projeto, visto de dois lugares: quem coleta usa o aplicativo offline-first; quem gerencia acompanha, revisa e valida pelo navegador.</p>
     </div>
 
-    <div class="tn-phones">
-      <div class="tn-phone tn-phone--offset">
-        <img src="assets/mobile-map.png" alt="App mobile: mapa de coleta">
-      </div>
-      <div class="tn-phone tn-phone--front">
-        <img src="assets/mobile-capture.png" alt="App mobile: captura de ponto">
-      </div>
-      <div class="tn-phone tn-phone--offset">
-        <img src="assets/mobile-sync.png" alt="App mobile: sincronização">
-      </div>
-    </div>
-
-    <div class="tn-product__highlights">
-      <div class="tn-highlight">
-        <span class="tn-highlight__title">Mapa em tempo real</span>
-        <span class="tn-highlight__desc">Pontos, linhas e polígonos do projeto sempre visíveis, mesmo sem conexão.</span>
-      </div>
-      <div class="tn-highlight">
-        <span class="tn-highlight__title">Captura guiada</span>
-        <span class="tn-highlight__desc">O formulário certo para cada coletor, com validação no momento do registro.</span>
-      </div>
-      <div class="tn-highlight">
-        <span class="tn-highlight__title">Fila de sincronização</span>
-        <span class="tn-highlight__desc">Cada foto, áudio e ponto na fila, com progresso visível até o último item subir.</span>
-      </div>
-    </div>
-
-    <div class="tn-product__panels">
-      <div class="tn-panel">
-        <div class="tn-lift tn-panel__image">
+    <div class="tn-pgrid tn-pgrid--web">
+      <div class="tn-lift tn-pcard">
+        <div class="tn-pcard__body">
+          <span class="tn-pcard__tag">Painel web</span>
+          <h3 class="tn-pcard__title">Visão geral do projeto</h3>
+          <p class="tn-pcard__desc">Coleta, revisão e atividade da equipe em um painel só, com resumo por membro e progresso por levantamento.</p>
+        </div>
+        <div class="tn-pcard__shot">
           <img src="assets/web-overview.png" alt="Painel web: visão geral do projeto">
         </div>
-        <div class="tn-panel__text">
-          <span class="tn-panel__title">Visão geral do projeto</span>
-          <span class="tn-panel__desc">Coleta, revisão e atividade da equipe em um painel só, com resumo por membro.</span>
-        </div>
       </div>
-      <div class="tn-panel">
-        <div class="tn-lift tn-panel__image">
+
+      <div class="tn-lift tn-pcard">
+        <div class="tn-pcard__body">
+          <span class="tn-pcard__tag">Painel web</span>
+          <h3 class="tn-pcard__title">Revisão de pontos</h3>
+          <p class="tn-pcard__desc">Fila de pendentes, respostas lado a lado com o mapa e validação em um clique — sem sair da tela.</p>
+        </div>
+        <div class="tn-pcard__shot">
           <img src="assets/web-review.png" alt="Painel web: revisão de pontos">
         </div>
-        <div class="tn-panel__text">
-          <span class="tn-panel__title">Revisão de pontos</span>
-          <span class="tn-panel__desc">Fila de pendentes, respostas lado a lado com o mapa e validação em um clique.</span>
+      </div>
+    </div>
+
+    <div class="tn-pgrid tn-pgrid--app">
+      <div class="tn-lift tn-pcard tn-pcard--compact">
+        <div class="tn-pcard__body">
+          <span class="tn-pcard__tag tn-pcard__tag--muted">App de campo</span>
+          <h3 class="tn-pcard__title">Mapa em tempo real</h3>
+          <p class="tn-pcard__desc">Pontos, linhas e polígonos sempre visíveis, mesmo sem conexão.</p>
+        </div>
+        <div class="tn-pcard__shot tn-pcard__shot--phone">
+          <img src="assets/mobile-map.png" alt="App mobile: mapa de coleta">
+        </div>
+      </div>
+
+      <div class="tn-lift tn-pcard tn-pcard--compact">
+        <div class="tn-pcard__body">
+          <span class="tn-pcard__tag tn-pcard__tag--muted">App de campo</span>
+          <h3 class="tn-pcard__title">Captura guiada</h3>
+          <p class="tn-pcard__desc">O formulário certo para cada coletor, com validação no registro.</p>
+        </div>
+        <div class="tn-pcard__shot tn-pcard__shot--phone">
+          <img src="assets/mobile-capture.png" alt="App mobile: captura de ponto">
+        </div>
+      </div>
+
+      <div class="tn-lift tn-pcard tn-pcard--compact">
+        <div class="tn-pcard__body">
+          <span class="tn-pcard__tag tn-pcard__tag--muted">App de campo</span>
+          <h3 class="tn-pcard__title">Fila de sincronização</h3>
+          <p class="tn-pcard__desc">Cada foto, áudio e ponto na fila, com progresso até o último item subir.</p>
+        </div>
+        <div class="tn-pcard__shot tn-pcard__shot--phone">
+          <img src="assets/mobile-sync.png" alt="App mobile: sincronização">
         </div>
       </div>
     </div>
@@ -422,241 +545,277 @@
   </div>
 </div>
 
-<div class="tn-section tn-section--white tn-section--border-top">
+<div class="tn-section tn-section--surface tn-section--border-top">
+  <div class="tn-section__inner tn-uc" data-uc-root>
 
-  <div class="tn-section__inner tn-gnss">
-    <div class="tn-gnss__top">
-      <div class="tn-gnss__photo">
-        <img src="https://d8j0ntlcm91z4.cloudfront.net/user_3GxdsKlGUaogeow5akSseF6dWZJ/hf_20260728_214158_4a469c9c-e5a6-4c70-a3c7-f5cb01d68143.png" alt="Receptor GNSS RTK em bastão com celular acoplado rodando o TerraNode">
-        <div class="tn-photo-badge">
-          <span class="tn-photo-badge__dot"></span>
-          <span class="tn-photo-badge__text tn-photo-badge__text--mono">GNSS conectado · ±2 cm</span>
-        </div>
+    <div class="tn-uc__header">
+      <div class="tn-uc__eyebrow-row">
+        <span class="tn-eyebrow">CASOS DE USO</span>
+        <div class="tn-uc__rule"></div>
       </div>
-      <div class="tn-gnss__header">
-        <span class="tn-eyebrow">PRECISÃO PROFISSIONAL</span>
-        <h2 class="tn-h2">Conecte seu receptor GNSS por Bluetooth ou USB.</h2>
-        <p class="tn-lead tn-gnss__desc">Quando o GPS do celular não basta, pareie um receptor externo e o TerraNode passa a gravar cada ponto com a precisão do instrumento, sem mudar nada no fluxo de coleta.</p>
-      </div>
-    </div>
-    <div class="tn-gnss__strip">
-      <div class="tn-gnss__strip-item">
-        <div class="tn-icon-box tn-icon-box--orange">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M11 24V14.4L5.4 20L4 18.6L10.6 12L4 5.4L5.4 4L11 9.6V0H12L18.6 6.6L13.4 12L18.6 17.4L12 24H11ZM13 9.6L15.8 6.8L13 4.1V9.6ZM13 19.9L15.8 17.2L13 14.4V19.9Z" fill="#FF6629"></path></svg>
-        </div>
-        <div class="tn-gnss__strip-item-text">
-          <span class="tn-gnss__strip-item-title">Pareamento por Bluetooth</span>
-          <span class="tn-gnss__strip-item-desc">Descoberta automática de receptores próximos. Pareou uma vez, reconecta sozinho a cada saída de campo.</span>
-        </div>
-      </div>
-      <div class="tn-gnss__strip-item">
-        <div class="tn-icon-box tn-icon-box--orange">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M15 7V11H16.5V14H13.5V3H10.5V14H7.5V11.05H9V7H3V11.05H4.5V14C4.5 15.1 4.95 16.05 5.85 16.85C6.75 17.65 7.8 18.05 9 18.05H10.5V24H13.5V18.05H15C16.2 18.05 17.25 17.65 18.15 16.85C19.05 16.05 19.5 15.1 19.5 14V11H21V7H15Z" fill="#FF6629"></path></svg>
-        </div>
-        <div class="tn-gnss__strip-item-text">
-          <span class="tn-gnss__strip-item-title">Cabo USB, zero configuração</span>
-          <span class="tn-gnss__strip-item-desc">Ligou o cabo, o aplicativo reconhece o instrumento e troca a fonte de posição na hora. Ideal para bases fixas.</span>
-        </div>
-      </div>
-      <div class="tn-gnss__strip-item">
-        <div class="tn-icon-box tn-icon-box--orange">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 21.325C11.7667 21.325 11.5333 21.2833 11.3 21.2C11.0667 21.1167 10.8583 20.9917 10.675 20.825C9.59167 19.825 8.63333 18.85 7.8 17.9C6.96667 16.95 6.27083 16.0292 5.7125 15.1375C5.15417 14.2458 4.72917 13.3875 4.4375 12.5625C4.14583 11.7375 4 10.95 4 10.2C4 7.7 4.80417 5.70833 6.4125 4.225C8.02083 2.74167 9.88333 2 12 2C14.1167 2 15.9792 2.74167 17.5875 4.225C19.1958 5.70833 20 7.7 20 10.2C20 10.95 19.8542 11.7375 19.5625 12.5625C19.2708 13.3875 18.8458 14.2458 18.2875 15.1375C17.7292 16.0292 17.0333 16.95 16.2 17.9C15.3667 18.85 14.4083 19.825 13.325 20.825C13.1417 20.9917 12.9333 21.1167 12.7 21.2C12.4667 21.2833 12.2333 21.325 12 21.325ZM12 12C12.55 12 13.0208 11.8042 13.4125 11.4125C13.8042 11.0208 14 10.55 14 10C14 9.45 13.8042 8.97917 13.4125 8.5875C13.0208 8.19583 12.55 8 12 8C11.45 8 10.9792 8.19583 10.5875 8.5875C10.1958 8.97917 10 9.45 10 10C10 10.55 10.1958 11.0208 10.5875 11.4125C10.9792 11.8042 11.45 12 12 12Z" fill="#FF6629"></path></svg>
-        </div>
-        <div class="tn-gnss__strip-item-text">
-          <span class="tn-gnss__strip-item-title">Precisão registrada no ponto</span>
-          <span class="tn-gnss__strip-item-desc">Cada registro guarda a fonte de posição e a margem de erro, e a revisora vê tudo isso no painel.</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<div id="lista" class="tn-section tn-section--surface tn-section--border-top">
-  <div class="tn-section__inner tn-waitlist__grid">
-
-    <div class="tn-waitlist__info">
-      <span class="tn-eyebrow">LANÇAMENTO EM BREVE</span>
-      <h2 class="tn-h2">Seja avisado no lançamento ou use antes de todo mundo.</h2>
-      <p class="tn-lead tn-waitlist__desc">Estamos finalizando o TerraNode com equipes de campo reais. Deixe seu e-mail e escolha como quer participar: só receber o aviso do lançamento, ou entrar no grupo de early testers e influenciar o produto.</p>
-      <div class="tn-waitlist__social">
-        <div class="tn-waitlist__avatars">
-          <div class="tn-avatar tn-avatar--a"><span class="tn-avatar__text">CA</span></div>
-          <div class="tn-avatar tn-avatar--b"><span class="tn-avatar__text">JL</span></div>
-          <div class="tn-avatar tn-avatar--c"><span class="tn-avatar__text">PN</span></div>
-          <div class="tn-avatar tn-avatar--d"><span class="tn-avatar__text">+</span></div>
-        </div>
-        <span class="tn-waitlist__social-text">412 pessoas já estão na lista</span>
+      <div class="tn-uc__head-grid">
+        <h2 class="tn-h2 tn-uc__h2">Seis levantamentos, o mesmo fluxo de trabalho</h2>
+        <p class="tn-lead tn-uc__lead">Abra um levantamento para ver como a equipe monta o formulário e o que registra em campo.</p>
       </div>
     </div>
 
-    <form id="tn-waitlist-form" class="tn-form-card" action="https://formsubmit.co/ajax/bruno@terranode.com.br" method="POST" novalidate>
-      <input type="hidden" name="_subject" value="Nova inscrição na lista de espera — TerraNode">
-      <input type="hidden" name="_template" value="table">
-      <input type="text" name="_honey" class="tn-form-honey" tabindex="-1" autocomplete="off" aria-hidden="true">
-      <div class="tn-form-field">
-        <label class="tn-form-label" for="tn-wf-name">Nome</label>
-        <input class="tn-form-input" type="text" id="tn-wf-name" name="Nome" placeholder="Seu nome" autocomplete="name" required>
+    <div class="tn-uc__split">
+
+      <div class="tn-uc__stage">
+        <img class="tn-uc__img is-active" data-uc="0" src="https://d8j0ntlcm91z4.cloudfront.net/user_3GxdsKlGUaogeow5akSseF6dWZJ/hf_20260811_182257_7720936b-3dd3-41e9-89c1-afc671ecf92b.png" alt="Topógrafo levantando divisa de propriedade rural com celular na mão">
+        <img class="tn-uc__img" data-uc="1" src="https://d8j0ntlcm91z4.cloudfront.net/user_3GxdsKlGUaogeow5akSseF6dWZJ/hf_20260811_182257_5147db9d-c7ef-4337-a2ba-d81fc2c0815e.png" alt="Técnico de campo inspecionando torre de transmissão com celular">
+        <img class="tn-uc__img" data-uc="2" src="https://d8j0ntlcm91z4.cloudfront.net/user_3GxdsKlGUaogeow5akSseF6dWZJ/hf_20260811_182257_ea4b1ac1-6fab-4cc9-91a1-8cc74b478136.png" alt="Técnica ambiental medindo árvore em inventário florestal com celular">
+        <img class="tn-uc__img" data-uc="3" src="https://d8j0ntlcm91z4.cloudfront.net/user_3GxdsKlGUaogeow5akSseF6dWZJ/hf_20260811_182432_3c789fce-28c2-420e-bd6b-a19111bc581b.png" alt="Agente municipal fotografando fachada de imóvel em recadastramento">
+        <img class="tn-uc__img" data-uc="4" src="https://d8j0ntlcm91z4.cloudfront.net/user_3GxdsKlGUaogeow5akSseF6dWZJ/hf_20260811_182432_cdb433c3-69b9-434e-ba1d-c0ed89ac855e.png" alt="Agrônomo em lavoura de soja registrando talhão pelo celular">
+        <img class="tn-uc__img" data-uc="5" src="https://d8j0ntlcm91z4.cloudfront.net/user_3GxdsKlGUaogeow5akSseF6dWZJ/hf_20260811_182257_371a5960-d549-4a75-a582-b2a0beda7fa4.png" alt="Engenheiro fiscalizando vala de saneamento em obra com celular">
+        <div class="tn-uc__scrim"></div>
+        <div class="tn-uc__badge">
+          <span class="tn-uc__badge-dot"></span>
+          <span class="tn-uc__badge-text" data-uc-caption>Topografia e cadastro</span>
+        </div>
       </div>
-      <div class="tn-form-field">
-        <label class="tn-form-label" for="tn-wf-email">E-mail de trabalho</label>
-        <input class="tn-form-input" type="email" id="tn-wf-email" name="E-mail" placeholder="voce@empresa.com" autocomplete="email" required>
-      </div>
-      <div class="tn-form-choice-group" role="radiogroup" aria-label="Como você quer participar?">
-        <span class="tn-form-label">Como você quer participar?</span>
-        <label class="tn-form-radio">
-          <input class="tn-form-radio__input" type="radio" name="Participação" value="Só me avise no lançamento" checked>
-          <span class="tn-form-radio__dot"><span class="tn-form-radio__dot-inner"></span></span>
-          <span class="tn-form-radio__text">
-            <span class="tn-form-radio__title">Só me avise no lançamento</span>
-            <span class="tn-form-radio__desc">Um único e-mail quando o TerraNode estiver disponível</span>
-          </span>
-        </label>
-        <label class="tn-form-radio">
-          <input class="tn-form-radio__input" type="radio" name="Participação" value="Quero ser early tester">
-          <span class="tn-form-radio__dot"><span class="tn-form-radio__dot-inner"></span></span>
-          <span class="tn-form-radio__text">
-            <span class="tn-form-radio__title-row">
-              <span class="tn-form-radio__title">Quero ser early tester</span>
-              <span class="tn-badge-soft">vagas limitadas</span>
+
+      <div class="tn-uc__rows">
+        <button class="tn-uc__row is-active" type="button" data-uc="0" aria-expanded="true" aria-controls="tn-uc-detail-0">
+          <span class="tn-uc__track"><span class="tn-uc__fill"></span></span>
+          <span class="tn-uc__row-head">
+            <span class="tn-uc__num">01</span>
+            <span class="tn-uc__meta">
+              <span class="tn-uc__tag">Topografia e cadastro</span>
+              <span class="tn-uc__title">Levantamentos e cadastro técnico</span>
             </span>
-            <span class="tn-form-radio__desc">Acesso antecipado com sua equipe e canal direto com o time do produto</span>
+            <svg class="tn-uc__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14m0 0-6-6m6 6 6-6" stroke="#FF6629" stroke-width="1.8" stroke-linecap="round"></path></svg>
           </span>
-        </label>
+          <span class="tn-uc__detail" id="tn-uc-detail-0">
+            <span class="tn-uc__detail-inner">
+              <span class="tn-uc__detail-text">Vértices, testadas e benfeitorias marcados com precisão, com croqui e foto anexados a cada ponto. O memorial descritivo sai do dado já validado, sem passar por planilha.</span>
+              <span class="tn-uc__fields">
+                <span class="tn-uc__fields-label">Campos típicos do formulário</span>
+                <span class="tn-uc__chips">
+                  <span class="tn-uc__chip">Vértice</span>
+                  <span class="tn-uc__chip">Confrontante</span>
+                  <span class="tn-uc__chip">Foto do marco</span>
+                  <span class="tn-uc__chip">Área (m²)</span>
+                </span>
+              </span>
+            </span>
+          </span>
+        </button>
+
+        <button class="tn-uc__row" type="button" data-uc="1" aria-expanded="false" aria-controls="tn-uc-detail-1">
+          <span class="tn-uc__track"><span class="tn-uc__fill"></span></span>
+          <span class="tn-uc__row-head">
+            <span class="tn-uc__num">02</span>
+            <span class="tn-uc__meta">
+              <span class="tn-uc__tag">Energia e telecom</span>
+              <span class="tn-uc__title">Inspeção de redes e torres</span>
+            </span>
+            <svg class="tn-uc__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14m0 0-6-6m6 6 6-6" stroke="#FF6629" stroke-width="1.8" stroke-linecap="round"></path></svg>
+          </span>
+          <span class="tn-uc__detail" id="tn-uc-detail-1">
+            <span class="tn-uc__detail-inner">
+              <span class="tn-uc__detail-text">Uma ficha por estrutura: número da torre, estado dos componentes, fotos obrigatórias e ocorrências registradas com data, hora e responsável.</span>
+              <span class="tn-uc__fields">
+                <span class="tn-uc__fields-label">Campos típicos do formulário</span>
+                <span class="tn-uc__chips">
+                  <span class="tn-uc__chip">Nº da torre</span>
+                  <span class="tn-uc__chip">Componente</span>
+                  <span class="tn-uc__chip">Severidade</span>
+                  <span class="tn-uc__chip">Fotos (mín. 3)</span>
+                </span>
+              </span>
+            </span>
+          </span>
+        </button>
+
+        <button class="tn-uc__row" type="button" data-uc="2" aria-expanded="false" aria-controls="tn-uc-detail-2">
+          <span class="tn-uc__track"><span class="tn-uc__fill"></span></span>
+          <span class="tn-uc__row-head">
+            <span class="tn-uc__num">03</span>
+            <span class="tn-uc__meta">
+              <span class="tn-uc__tag">Meio ambiente</span>
+              <span class="tn-uc__title">Licenciamento e monitoramento</span>
+            </span>
+            <svg class="tn-uc__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14m0 0-6-6m6 6 6-6" stroke="#FF6629" stroke-width="1.8" stroke-linecap="round"></path></svg>
+          </span>
+          <span class="tn-uc__detail" id="tn-uc-detail-2">
+            <span class="tn-uc__detail-inner">
+              <span class="tn-uc__detail-text">Inventário florestal, pontos de coleta de água e áreas de intervenção mapeados com o rigor que o órgão ambiental exige no relatório final.</span>
+              <span class="tn-uc__fields">
+                <span class="tn-uc__fields-label">Campos típicos do formulário</span>
+                <span class="tn-uc__chips">
+                  <span class="tn-uc__chip">Espécie</span>
+                  <span class="tn-uc__chip">CAP / altura</span>
+                  <span class="tn-uc__chip">Ponto de coleta</span>
+                  <span class="tn-uc__chip">Área de APP</span>
+                </span>
+              </span>
+            </span>
+          </span>
+        </button>
+
+        <button class="tn-uc__row" type="button" data-uc="3" aria-expanded="false" aria-controls="tn-uc-detail-3">
+          <span class="tn-uc__track"><span class="tn-uc__fill"></span></span>
+          <span class="tn-uc__row-head">
+            <span class="tn-uc__num">04</span>
+            <span class="tn-uc__meta">
+              <span class="tn-uc__tag">Municípios</span>
+              <span class="tn-uc__title">Cadastro imobiliário e IPTU</span>
+            </span>
+            <svg class="tn-uc__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14m0 0-6-6m6 6 6-6" stroke="#FF6629" stroke-width="1.8" stroke-linecap="round"></path></svg>
+          </span>
+          <span class="tn-uc__detail" id="tn-uc-detail-3">
+            <span class="tn-uc__detail-inner">
+              <span class="tn-uc__detail-text">Recadastramento porta a porta com formulário padronizado, foto da fachada e geometria do lote — sem prancheta, sem redigitação no fim do dia.</span>
+              <span class="tn-uc__fields">
+                <span class="tn-uc__fields-label">Campos típicos do formulário</span>
+                <span class="tn-uc__chips">
+                  <span class="tn-uc__chip">Inscrição</span>
+                  <span class="tn-uc__chip">Uso do imóvel</span>
+                  <span class="tn-uc__chip">Fachada</span>
+                  <span class="tn-uc__chip">Geometria do lote</span>
+                </span>
+              </span>
+            </span>
+          </span>
+        </button>
+
+        <button class="tn-uc__row" type="button" data-uc="4" aria-expanded="false" aria-controls="tn-uc-detail-4">
+          <span class="tn-uc__track"><span class="tn-uc__fill"></span></span>
+          <span class="tn-uc__row-head">
+            <span class="tn-uc__num">05</span>
+            <span class="tn-uc__meta">
+              <span class="tn-uc__tag">Agro</span>
+              <span class="tn-uc__title">Mapeamento de lavouras</span>
+            </span>
+            <svg class="tn-uc__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14m0 0-6-6m6 6 6-6" stroke="#FF6629" stroke-width="1.8" stroke-linecap="round"></path></svg>
+          </span>
+          <span class="tn-uc__detail" id="tn-uc-detail-4">
+            <span class="tn-uc__detail-inner">
+              <span class="tn-uc__detail-text">Talhões, focos de praga e amostragens de solo coletados offline pela equipe de campo e consolidados por safra no painel do agrônomo.</span>
+              <span class="tn-uc__fields">
+                <span class="tn-uc__fields-label">Campos típicos do formulário</span>
+                <span class="tn-uc__chips">
+                  <span class="tn-uc__chip">Talhão</span>
+                  <span class="tn-uc__chip">Cultura</span>
+                  <span class="tn-uc__chip">Praga / dano</span>
+                  <span class="tn-uc__chip">Amostra de solo</span>
+                </span>
+              </span>
+            </span>
+          </span>
+        </button>
+
+        <button class="tn-uc__row" type="button" data-uc="5" aria-expanded="false" aria-controls="tn-uc-detail-5">
+          <span class="tn-uc__track"><span class="tn-uc__fill"></span></span>
+          <span class="tn-uc__row-head">
+            <span class="tn-uc__num">06</span>
+            <span class="tn-uc__meta">
+              <span class="tn-uc__tag">Saneamento e obras</span>
+              <span class="tn-uc__title">Fiscalização de infraestrutura</span>
+            </span>
+            <svg class="tn-uc__arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 5v14m0 0-6-6m6 6 6-6" stroke="#FF6629" stroke-width="1.8" stroke-linecap="round"></path></svg>
+          </span>
+          <span class="tn-uc__detail" id="tn-uc-detail-5">
+            <span class="tn-uc__detail-inner">
+              <span class="tn-uc__detail-text">Diário de obra georreferenciado: cada medição, ligação e não conformidade fica amarrada ao ponto exato, com histórico de quem registrou.</span>
+              <span class="tn-uc__fields">
+                <span class="tn-uc__fields-label">Campos típicos do formulário</span>
+                <span class="tn-uc__chips">
+                  <span class="tn-uc__chip">Serviço</span>
+                  <span class="tn-uc__chip">Medição</span>
+                  <span class="tn-uc__chip">Não conformidade</span>
+                  <span class="tn-uc__chip">Assinatura</span>
+                </span>
+              </span>
+            </span>
+          </span>
+        </button>
+
+        <div class="tn-uc__foot">
+          <span class="tn-uc__foot-text">Seu levantamento não está na lista? É só montar o formulário do seu jeito.</span>
+          <a href="https://form.typeform.com/to/ZVQYTFV5" target="_blank" rel="noopener" data-mp-cta="use_cases_footer" class="tn-uc__foot-link">Entrar na lista de espera →</a>
+        </div>
       </div>
-      <button type="submit" class="tn-btn tn-btn--primary tn-btn--block">
-        <span class="tn-form-submit__label">Entrar na lista</span>
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M16.175 13H4V11H16.175L10.575 5.4L12 4L20 12L12 20L10.575 18.6L16.175 13Z" fill="#fff"></path></svg>
-      </button>
-      <p class="tn-form-note" data-form-note>Sem spam. Você pode sair da lista a qualquer momento.</p>
-    </form>
-    <script>
-    (function () {
-      // Delegated on document: this page's runtime replaces the form node after
-      // initial render, which would silently drop a listener bound directly to it.
-      document.addEventListener('click', function (event) {
-        var cta = event.target.closest('[data-mp-cta]');
-        if (!cta || typeof mixpanel === 'undefined') return;
-        mixpanel.track('CTA Clicked', {
-          cta_id: cta.getAttribute('data-mp-cta'),
-          label: cta.textContent.trim()
-        });
-      });
 
-      var waitlistFormStarted = false;
-      document.addEventListener('focusin', function (event) {
-        if (waitlistFormStarted || typeof mixpanel === 'undefined') return;
-        var form = event.target.closest('#tn-waitlist-form');
-        if (!form) return;
-        waitlistFormStarted = true;
-        mixpanel.track('Waitlist Form Started');
-      });
+    </div>
 
-      function ensureDefaultChoice(form) {
-        var group = form.querySelectorAll('.tn-form-radio__input');
-        var anyChecked = Array.prototype.some.call(group, function (i) { return i.checked; });
-        if (!anyChecked) {
-          var defaultRadio = form.querySelector('.tn-form-radio__input[value="Só me avise no lançamento"]');
-          if (defaultRadio) defaultRadio.checked = true;
+  </div>
+</div>
+
+<div class="tn-section tn-video-section">
+  <div class="tn-section__inner tn-video-section__inner">
+
+    <div class="tn-videobox">
+      <video class="tn-videobox__media" autoplay muted loop playsinline preload="auto">
+        <source src="assets/TNVideoBG_2.mp4" type="video/mp4">
+      </video>
+      <script>
+      (function () {
+        // This platform's renderer periodically re-syncs elements against their compiled
+        // template and silently resets bare boolean attributes (muted/loop) back to false
+        // on the live property too — same class of issue as the waitlist form's stripped
+        // checked/required, but here a one-time fix or MutationObserver doesn't survive it,
+        // so this keeps re-asserting the state instead of fixing it once.
+        function enforce() {
+          var v = document.querySelector('.tn-videobox__media');
+          if (!v) return;
+          if (!v.muted) v.muted = true;
+          if (!v.loop) v.loop = true;
+          if (!v.playsInline) v.playsInline = true;
+          if (v.paused) v.play().catch(function () {});
         }
-      }
+        enforce();
+        setInterval(enforce, 400);
+      })();
+      </script>
+      <div class="tn-videobox__scrim"></div>
 
-      var observer = new MutationObserver(function () {
-        var form = document.getElementById('tn-waitlist-form');
-        if (form) ensureDefaultChoice(form);
-      });
-      observer.observe(document.body, { childList: true, subtree: true });
-      var initialForm = document.getElementById('tn-waitlist-form');
-      if (initialForm) ensureDefaultChoice(initialForm);
+      <div class="tn-videobox__content">
+        <div class="tn-videobox__head">
+          <span class="tn-eyebrow">APLICATIVO NATIVO</span>
+          <h2 class="tn-h2 tn-h2--on-dark tn-videobox__title">Feito para durar o dia inteiro no campo</h2>
+        </div>
+        <p class="tn-lead tn-lead--on-dark tn-videobox__desc">O TerraNode é um app nativo para iOS e Android — não é um site dentro de um navegador. Veja a coleta acontecendo em condição real, com sol na tela e sem sinal.</p>
+        <div class="tn-videobox__meta">
+          <div class="tn-videobox__badge">
+            <span class="tn-videobox__badge-dot"></span>
+            <span class="tn-videobox__badge-text">Coleta real · sem cortes</span>
+          </div>
+          <span class="tn-videobox__platforms">iOS · Android</span>
+        </div>
+      </div>
+    </div>
 
-      // This platform strips boolean/native validation attributes (checked, required)
-      // during hydration, so HTML5 constraint validation can't be relied on here.
-      function isValidEmail(value) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-      }
-
-      function validate(form) {
-        var name = form.querySelector('#tn-wf-name');
-        var email = form.querySelector('#tn-wf-email');
-        if (!name.value.trim()) return { field: name, message: 'Digite seu nome.' };
-        if (!email.value.trim() || !isValidEmail(email.value.trim())) {
-          return { field: email, message: 'Digite um e-mail válido.' };
-        }
-        return null;
-      }
-
-      document.addEventListener('submit', function (event) {
-        var form = event.target;
-        if (!form || form.id !== 'tn-waitlist-form') return;
-        event.preventDefault();
-
-        var note = form.querySelector('[data-form-note]');
-        var submitBtn = form.querySelector('button[type="submit"]');
-        var submitLabel = form.querySelector('.tn-form-submit__label');
-        var defaultNote = note.textContent;
-        var defaultLabel = submitLabel.textContent;
-
-        var problem = validate(form);
-        if (problem) {
-          note.textContent = problem.message;
-          note.classList.add('tn-form-note--error');
-          problem.field.focus();
-          if (typeof mixpanel !== 'undefined') {
-            mixpanel.track('Waitlist Form Validation Error', { field: problem.field.name });
-          }
-          return;
-        }
-
-        var participation = form.querySelector('.tn-form-radio__input:checked');
-        var participationType = participation ? participation.value : null;
-
-        submitBtn.disabled = true;
-        submitLabel.textContent = 'Enviando…';
-        note.textContent = defaultNote;
-        note.classList.remove('tn-form-note--error');
-
-        fetch(form.action, {
-          method: 'POST',
-          headers: { 'Accept': 'application/json' },
-          body: new FormData(form)
-        })
-          .then(function (response) { return response.json().then(function (data) { return { response: response, data: data }; }); })
-          .then(function (result) {
-            var data = result.data || {};
-            var succeeded = result.response.ok && (data.success === true || data.success === 'true');
-            var needsActivation = !succeeded && /activation/i.test(data.message || '');
-            if (succeeded) {
-              form.reset();
-              ensureDefaultChoice(form);
-              submitLabel.textContent = 'Você está na lista ✓';
-              note.textContent = 'Recebido! Avisaremos por e-mail.';
-              if (typeof mixpanel !== 'undefined') {
-                mixpanel.track('Waitlist Signup Succeeded', { participation_type: participationType });
-              }
-            } else if (needsActivation) {
-              submitBtn.disabled = false;
-              submitLabel.textContent = defaultLabel;
-              note.textContent = 'Formulário ainda não ativado: confirme o e-mail de ativação enviado ao dono do formulário.';
-              note.classList.add('tn-form-note--error');
-              if (typeof mixpanel !== 'undefined') {
-                mixpanel.track('Waitlist Signup Failed', { reason: 'form_not_activated' });
-              }
-            } else {
-              throw new Error(data.message || 'request-failed');
-            }
-          })
-          .catch(function () {
-            submitBtn.disabled = false;
-            submitLabel.textContent = defaultLabel;
-            note.textContent = 'Algo deu errado. Tente novamente em instantes.';
-            note.classList.add('tn-form-note--error');
-            if (typeof mixpanel !== 'undefined') {
-              mixpanel.track('Waitlist Signup Failed', { reason: 'request_error' });
-            }
-          });
-      });
-    })();
-    </script>
+    <div class="tn-video-feats">
+      <div class="tn-video-feat">
+        <div class="tn-icon-box tn-icon-box--orange">
+          <svg width="17" height="17" viewBox="0 -960 960 960" fill="none"><path d="M423.5-183.5Q400-207 400-240t23.5-56.5Q447-320 480-320t56.5 23.5Q560-273 560-240t-23.5 56.5Q513-160 480-160t-56.5-23.5ZM302-520l-110-77q-10 6-19 12.5T155-571q-20 16-45.5 15.5T66-574q-17-17-17-42t20-40q5-4 9.5-7t9.5-7l-18-12q-17-12-20.5-32t8.5-37q12-17 32.5-21t37.5 8l704 494q17 12 21 32t-8 37q-12 17-32.5 20.5T775-189L424-435q-26 5-50.5 14.5T326-397q-22 14-47 12.5T236-404q-17-17-16.5-41.5T240-484q15-11 30.5-19.5T302-520Zm123-157-135-95q46-14 93.5-21t96.5-7q113 0 218 37t193 107q20 15 20 40t-17 42q-18 18-43.5 18.5T805-571q-70-54-153-81.5T480-680q-14 0-27.5.5T425-677Z" fill="#FF6629"></path></svg>
+        </div>
+        <div class="tn-video-feat__text">
+          <span class="tn-video-feat__title">Offline de verdade</span>
+          <span class="tn-video-feat__desc">O formulário, o mapa e as fotos ficam no aparelho. Nada trava esperando conexão — a fila sincroniza sozinha quando o sinal volta.</span>
+        </div>
+      </div>
+      <div class="tn-video-feat">
+        <div class="tn-icon-box tn-icon-box--orange">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M12 17q1.9 0 3.2-1.3T16.5 12.5q0-1.9-1.3-3.2T12 8q-1.9 0-3.2 1.3T7.5 12.5q0 1.9 1.3 3.2T12 17Zm0-2q-1.05 0-1.78-.72T9.5 12.5q0-1.05.72-1.78T12 10q1.05 0 1.78.72t.72 1.78q0 1.05-.72 1.78T12 15ZM4 21q-.83 0-1.41-.59Q2 19.83 2 19V8q0-.82.59-1.41Q3.17 6 4 6h3.15l1.85-2h6l1.85 2H20q.83 0 1.41.59Q22 7.18 22 8v11q0 .83-.59 1.41Q20.83 21 20 21Z" fill="#FF6629"></path></svg>
+        </div>
+        <div class="tn-video-feat__text">
+          <span class="tn-video-feat__title">Câmera, GPS e sensores nativos</span>
+          <span class="tn-video-feat__desc">Foto tirada dentro do formulário, com posição, precisão e horário gravados no mesmo registro. Sem galeria, sem arquivo perdido.</span>
+        </div>
+      </div>
+      <div class="tn-video-feat">
+        <div class="tn-icon-box tn-icon-box--orange">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none"><path d="M15.67 4H14V2h-4v2H8.33C7.6 4 7 4.6 7 5.33v15.34C7 21.4 7.6 22 8.33 22h7.34c.74 0 1.33-.6 1.33-1.33V5.33C17 4.6 16.41 4 15.67 4ZM15 20H9V6h6v14Zm-1-9H10v6h4v-6Z" fill="#FF6629"></path></svg>
+        </div>
+        <div class="tn-video-feat__text">
+          <span class="tn-video-feat__title">Leve na bateria</span>
+          <span class="tn-video-feat__desc">Rastro de GPS otimizado e telas escuras: uma jornada inteira de coleta sem depender de power bank.</span>
+        </div>
+      </div>
+    </div>
 
   </div>
 </div>
@@ -689,13 +848,28 @@
   </div>
 </div>
 
+<div class="tn-launch">
+  <div class="tn-launch__panel">
+    <img src="assets/cta-mark.svg" alt="" aria-hidden="true" class="tn-launch__mark">
+    <div class="tn-launch__content">
+      <span class="tn-eyebrow">LANÇAMENTO EM BREVE</span>
+      <div class="tn-launch__text">
+        <h2 class="tn-launch__title">Seja avisado no lançamento ou use antes de todo mundo.</h2>
+        <p class="tn-launch__desc">Estamos finalizando o TerraNode com equipes de campo reais. Deixe seu e-mail e escolha como quer participar: só receber o aviso do lançamento, ou entrar no grupo de early testers e influenciar o produto.</p>
+      </div>
+      <a href="https://form.typeform.com/to/ZVQYTFV5" target="_blank" rel="noopener" data-mp-cta="launch_cta" class="tn-btn tn-btn--primary">Entrar na lista
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M16.175 13H4V11H16.175L10.575 5.4L12 4L20 12L12 20L10.575 18.6L16.175 13Z" fill="#fff"></path></svg>
+      </a>
+    </div>
+  </div>
+</div>
+
 <div class="tn-section tn-section--dark tn-footer">
   <div class="tn-section__inner tn-footer__inner">
     <div class="tn-footer__top">
       <div class="tn-footer__brand">
         <div class="tn-footer__brand-row">
-          <img src="uploads/TerraNodeIcon-iOS-Dark-1024x1024@1x.png" alt="TerraNode" class="tn-footer__brand-icon">
-          <span class="tn-footer__brand-name">TerraNode</span>
+          <img src="assets/terranode-logo.svg" alt="TerraNode" class="tn-footer__logo">
         </div>
         <span class="tn-footer__brand-desc">Coleta de dados geoespaciais em campo, offline-first. Em breve.</span>
       </div>
@@ -704,7 +878,7 @@
           <span class="tn-footer__col-title">Produto</span>
           <a href="#" class="tn-footer__link">Como funciona</a>
           <a href="#" class="tn-footer__link">O app</a>
-          <a href="#lista" class="tn-footer__link" data-mp-cta="footer_waitlist">Lista de espera</a>
+          <a href="https://form.typeform.com/to/ZVQYTFV5" target="_blank" rel="noopener" data-mp-cta="footer_waitlist" class="tn-footer__link">Lista de espera</a>
         </div>
         <div class="tn-footer__col">
           <span class="tn-footer__col-title">Empresa</span>
@@ -720,6 +894,243 @@
     </div>
   </div>
 </div>
+
+<script>
+(function () {
+  // Step carousel. Like the use-case rows, nothing here caches element references:
+  // this platform's renderer periodically re-syncs the DOM against the compiled
+  // template, so clicks are delegated on document and a ticker re-paints whenever
+  // the renderer has wiped our state (detected via the data-steps-painted marker).
+  var GAP = 24;
+  var active = 0;
+
+  function root() { return document.querySelector('[data-steps-root]'); }
+  function slidesOf(el) { return Array.prototype.slice.call(el.querySelectorAll('.tn-steps__card-slide')); }
+
+  function render(el) {
+    var slides = slidesOf(el);
+    if (!slides.length) return;
+    active = Math.max(0, Math.min(slides.length - 1, active));
+
+    var track = el.querySelector('.tn-steps__track');
+    var width = slides[0].getBoundingClientRect().width;
+    if (track && width) {
+      track.style.transform = 'translateX(' + -((width + GAP) * active + width / 2) + 'px)';
+    }
+
+    slides.forEach(function (slide, i) {
+      slide.classList.toggle('is-active', i === active);
+    });
+    el.querySelectorAll('.tn-steps__stop').forEach(function (stop, i) {
+      var on = i === active;
+      stop.classList.toggle('is-active', on);
+      stop.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+
+    var counter = el.querySelector('[data-steps-counter]');
+    if (counter) counter.textContent = '0' + (active + 1) + ' / 0' + slides.length;
+
+    var prev = el.querySelector('[data-steps-prev]');
+    var next = el.querySelector('[data-steps-next]');
+    if (prev) prev.disabled = active === 0;
+    if (next) next.disabled = active === slides.length - 1;
+
+    // Only meaningful once the track has a measurable width; until then the ticker
+    // keeps retrying because the marker stays unset.
+    if (width) el.setAttribute('data-steps-painted', String(active));
+  }
+
+  function go(el, i) {
+    active = i;
+    render(el);
+  }
+
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest) return;
+    var el = e.target.closest('[data-steps-root]');
+    if (!el) return;
+
+    var stop = e.target.closest('.tn-steps__stop');
+    if (stop) return go(el, Array.prototype.slice.call(el.querySelectorAll('.tn-steps__stop')).indexOf(stop));
+    if (e.target.closest('[data-steps-prev]')) return go(el, active - 1);
+    if (e.target.closest('[data-steps-next]')) return go(el, active + 1);
+  });
+
+  setInterval(function () {
+    var el = root();
+    if (el && el.getAttribute('data-steps-painted') !== String(active)) render(el);
+  }, 200);
+
+  // Card width is viewport-relative, so the centring offset has to be recomputed.
+  window.addEventListener('resize', function () {
+    var el = root();
+    if (el) el.removeAttribute('data-steps-painted');
+  });
+})();
+</script>
+
+<script>
+(function () {
+  // Use-case carousel. This platform's renderer periodically re-syncs the DOM against
+  // the compiled template, replacing nodes and dropping anything JS put on them — so
+  // nothing here caches element references or relies on listeners bound to a node.
+  // Clicks are delegated on document, and a ticker re-paints whenever the renderer
+  // has wiped our state (detected via the data-uc-painted marker it strips).
+  var CYCLE = 7000;
+  var active = 0;
+  var pausedAt = 0;
+  var remaining = CYCLE;
+  var deadline = Date.now() + CYCLE;
+
+  function root() { return document.querySelector('[data-uc-root]'); }
+  function rowsOf(el) { return Array.prototype.slice.call(el.querySelectorAll('.tn-uc__row')); }
+
+  function render(el, duration) {
+    var rows = rowsOf(el);
+    if (!rows.length) return;
+    active = Math.max(0, Math.min(rows.length - 1, active));
+
+    rows.forEach(function (row, i) {
+      var on = i === active;
+      row.classList.toggle('is-active', on);
+      row.setAttribute('aria-expanded', on ? 'true' : 'false');
+      var fill = row.querySelector('.tn-uc__fill');
+      if (fill && !on) {
+        fill.style.transition = 'none';
+        fill.style.width = '0%';
+      }
+    });
+
+    el.querySelectorAll('.tn-uc__img').forEach(function (img, i) {
+      img.classList.toggle('is-active', i === active);
+    });
+
+    var caption = el.querySelector('[data-uc-caption]');
+    var tag = rows[active].querySelector('.tn-uc__tag');
+    if (caption && tag) caption.textContent = tag.textContent;
+
+    runFill(rows[active], duration);
+    el.setAttribute('data-uc-painted', String(active));
+  }
+
+  function runFill(row, duration) {
+    var fill = row.querySelector('.tn-uc__fill');
+    if (!fill) return;
+    var from = duration < CYCLE ? 100 - (duration / CYCLE) * 100 : 0;
+    fill.style.transition = 'none';
+    fill.style.width = from + '%';
+    if (pausedAt) return;
+    requestAnimationFrame(function () {
+      fill.style.transition = 'width ' + duration + 'ms linear';
+      fill.style.width = '100%';
+    });
+  }
+
+  function open(el, i) {
+    active = i;
+    remaining = CYCLE;
+    deadline = Date.now() + CYCLE;
+    pausedAt = 0;
+    render(el, CYCLE);
+  }
+
+  document.addEventListener('click', function (e) {
+    var row = e.target.closest && e.target.closest('.tn-uc__row');
+    if (!row) return;
+    var el = row.closest('[data-uc-root]');
+    if (el) open(el, rowsOf(el).indexOf(row));
+  });
+
+  document.addEventListener('mouseover', function (e) {
+    var el = e.target.closest && e.target.closest('[data-uc-root]');
+    if (!el || pausedAt) return;
+    pausedAt = Date.now();
+    remaining = Math.max(0, deadline - pausedAt);
+    var fill = rowsOf(el)[active] && rowsOf(el)[active].querySelector('.tn-uc__fill');
+    if (fill) {
+      var track = fill.parentElement.getBoundingClientRect().width || 1;
+      fill.style.transition = 'none';
+      fill.style.width = (fill.getBoundingClientRect().width / track * 100) + '%';
+    }
+  });
+
+  document.addEventListener('mouseout', function (e) {
+    var el = e.target.closest && e.target.closest('[data-uc-root]');
+    if (!el || !pausedAt) return;
+    if (e.relatedTarget && el.contains(e.relatedTarget)) return;
+    pausedAt = 0;
+    deadline = Date.now() + remaining;
+    runFill(rowsOf(el)[active], remaining);
+    remaining = CYCLE;
+  });
+
+  setInterval(function () {
+    var el = root();
+    if (!el) return;
+    if (el.getAttribute('data-uc-painted') !== String(active)) {
+      // Renderer wiped our state (or this is the first tick): repaint from scratch.
+      render(el, pausedAt ? remaining : CYCLE);
+      if (!pausedAt) deadline = Date.now() + CYCLE;
+      return;
+    }
+    if (!pausedAt && Date.now() >= deadline) {
+      active = (active + 1) % rowsOf(el).length;
+      deadline = Date.now() + CYCLE;
+      render(el, CYCLE);
+    }
+  }, 200);
+
+})();
+</script>
+
+<script>
+(function () {
+  // Mixpanel events. Delegated on document because this platform's renderer replaces
+  // nodes after the initial render, which would drop listeners bound to them directly.
+  function track(event, props) {
+    if (!window.mixpanel || typeof mixpanel.track !== 'function') return;
+    mixpanel.track(event, props);
+  }
+
+  document.addEventListener('click', function (e) {
+    if (!e.target.closest) return;
+
+    var cta = e.target.closest('[data-mp-cta]');
+    if (cta) {
+      // Event name, attribute and cta_id vocabulary match the taxonomy already
+      // live in Mixpanel — renaming would split the existing history.
+      track('CTA Clicked', {
+        cta_id: cta.getAttribute('data-mp-cta'),
+        label: cta.textContent.trim(),
+        destination: cta.getAttribute('href')
+      });
+      return;
+    }
+
+    // Only manual opens are tracked. The carousel also advances on its own every 7s,
+    // and sending those would bury the intentional clicks under idle-tab noise.
+    var row = e.target.closest('.tn-uc__row');
+    if (row) {
+      var rows = Array.prototype.slice.call(document.querySelectorAll('.tn-uc__row'));
+      track('Use Case Opened', {
+        use_case: (row.querySelector('.tn-uc__title') || {}).textContent,
+        sector: (row.querySelector('.tn-uc__tag') || {}).textContent,
+        position: rows.indexOf(row) + 1
+      });
+      return;
+    }
+
+    var step = e.target.closest('.tn-steps__stop');
+    if (step) {
+      var stops = Array.prototype.slice.call(document.querySelectorAll('.tn-steps__stop'));
+      track('Step Opened', {
+        step: (step.querySelector('.tn-steps__stop-label') || {}).textContent,
+        position: stops.indexOf(step) + 1
+      });
+    }
+  });
+})();
+</script>
 </x-dc>
 </body>
 </html>
