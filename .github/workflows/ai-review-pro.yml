@@ -1,0 +1,28 @@
+name: AI Review (Pro)
+
+on:
+  issue_comment:
+    types: [created]
+
+concurrency:
+  group: ai-review-pro-${{ github.event.issue.number }}-${{ github.event.comment.id }}
+  cancel-in-progress: false
+
+jobs:
+  review:
+    name: PR-Agent review
+    if: >-
+      github.event.issue.pull_request &&
+      github.event.sender.type != 'Bot' &&
+      contains(github.event.comment.body, '/review')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write
+      pull-requests: write
+    steps:
+      - name: PR-Agent review
+        uses: docker://pragent/pr-agent:0.42.0-github_action
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEEPSEEK__KEY: ${{ secrets.DEEPSEEK_API_KEY }}
