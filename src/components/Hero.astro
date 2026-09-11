@@ -1,0 +1,53 @@
+---
+import { Image } from "astro:assets";
+import Header from "./Header.astro";
+import webOverview from "../assets/web-overview.png";
+---
+<div class="tn-hero">
+
+  <Header />
+
+  <div class="tn-hero__main">
+    <div class="tn-pill">
+      <span class="tn-pill__dot"></span>
+      <span class="tn-pill__text">LANÇAMENTO EM BREVE · COLETA DE DADOS EM CAMPO</span>
+    </div>
+    <h1 class="tn-hero__title tn-hero__recede">Do campo ao mapa,<br>sem perder um ponto.</h1>
+    <p class="tn-hero__subtitle tn-hero__recede">Formulários offline e GPS de precisão. Sua equipe coleta o dia inteiro sem sinal, e o dado chega validado no escritório.</p>
+    <div class="tn-hero__actions tn-hero__recede">
+      <a href="https://form.typeform.com/to/ZVQYTFV5" target="_blank" rel="noopener" data-mp-cta="hero_primary" class="tn-btn tn-btn--primary">Entrar na lista de espera
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M16.175 13H4V11H16.175L10.575 5.4L12 4L20 12L12 20L10.575 18.6L16.175 13Z" fill="#fff"></path></svg>
+      </a>
+      <a href="https://form.typeform.com/to/ZVQYTFV5" target="_blank" rel="noopener" data-mp-cta="hero_outline" class="tn-btn tn-btn--outline">Quero ser early tester</a>
+    </div>
+    <div class="tn-hero__stats tn-hero__recede">
+      <div class="tn-stat">
+        <span class="tn-stat__value">100%</span>
+        <span class="tn-stat__label">offline, sem exceção</span>
+      </div>
+      <div class="tn-stat__divider"></div>
+      <div class="tn-stat">
+        <span class="tn-stat__value">±3 cm</span>
+        <span class="tn-stat__label">precisão com GNSS externo</span>
+      </div>
+      <div class="tn-stat__divider"></div>
+      <div class="tn-stat">
+        <span class="tn-stat__value">iOS · Android</span>
+        <span class="tn-stat__label">apps nativos</span>
+      </div>
+    </div>
+
+    <div class="tn-browser">
+      <div class="tn-browser__bar">
+        <span class="tn-browser__dot"></span>
+        <span class="tn-browser__dot"></span>
+        <span class="tn-browser__dot"></span>
+        <div class="tn-browser__url"><span class="tn-browser__url-text">app.terranode.com/projetos/rede-sul</span></div>
+      </div>
+      <div class="tn-browser__image-wrap">
+        <Image src={webOverview} alt="Painel web: visão geral do projeto Vistoria Rede Sul" class="tn-browser__image" loading="eager" />
+      </div>
+    </div>
+  </div>
+
+</div>

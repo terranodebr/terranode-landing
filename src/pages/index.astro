@@ -1,0 +1,27 @@
+---
+import Base from "../layouts/Base.astro";
+import Hero from "../components/Hero.astro";
+import Features from "../components/Features.astro";
+import Steps from "../components/Steps.astro";
+import Cta from "../components/Cta.astro";
+import Product from "../components/Product.astro";
+import UseCases from "../components/UseCases.astro";
+import AppVideo from "../components/AppVideo.astro";
+import Faq from "../components/Faq.astro";
+import Launch from "../components/Launch.astro";
+
+const title = "TerraNode · Coleta GIS offline-first para o campo brasileiro";
+const description =
+  "Plataforma brasileira de coleta de dados geoespaciais em campo. 100% offline, integração nativa com ArcGIS e PostGIS, data residency no Brasil e LGPD por arquitetura.";
+---
+<Base title={title} description={description}>
+  <Hero />
+  <Features />
+  <Steps />
+  <Cta />
+  <Product />
+  <UseCases />
+  <AppVideo />
+  <Faq />
+  <Launch />
+</Base>
