@@ -35,7 +35,12 @@ jobs:
         if: github.event.action != 'closed'
         env:
           PREVIEW_BASE: /pr-preview/pr-${{ github.event.number }}
-        run: npm run build
+        run: |
+          npm run build
+          # CNAME only means anything at the branch root, and the deploy action
+          # preserves it on cleanup — so shipping it would leave one stray file
+          # behind per closed PR.
+          rm -f dist/CNAME
 
       - uses: rossjrw/pr-preview-action@v1
         with:
