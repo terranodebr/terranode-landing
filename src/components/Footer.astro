@@ -1,5 +1,9 @@
 ---
 import { asset } from "../lib/asset";
+
+// Root-relative for the same reason as Header.astro: the footer renders on every
+// page, and a bare "#faq" would resolve against a sector page instead of the home page.
+const home = asset("/");
 ---
 <div class="tn-section tn-section--dark tn-footer">
   <div class="tn-section__inner tn-footer__inner">
@@ -13,13 +17,14 @@ import { asset } from "../lib/asset";
       <div class="tn-footer__cols">
         <div class="tn-footer__col">
           <span class="tn-footer__col-title">Produto</span>
-          <a href="#como-funciona" class="tn-footer__link">Como funciona</a>
-          <a href="#o-app" class="tn-footer__link">O app</a>
+          <a href={`${home}#como-funciona`} class="tn-footer__link">Como funciona</a>
+          <a href={`${home}#o-app`} class="tn-footer__link">O app</a>
+          <a href={asset("/solucoes/")} class="tn-footer__link">Soluções por setor</a>
           <a href="https://form.typeform.com/to/ZVQYTFV5" target="_blank" rel="noopener" data-mp-cta="footer_waitlist" class="tn-footer__link">Lista de espera</a>
         </div>
         <div class="tn-footer__col">
           <span class="tn-footer__col-title">Empresa</span>
-          <a href="#faq" class="tn-footer__link">Perguntas frequentes</a>
+          <a href={`${home}#faq`} class="tn-footer__link">Perguntas frequentes</a>
           <a href="https://form.typeform.com/to/ZVQYTFV5" target="_blank" rel="noopener" data-mp-cta="footer_contact" class="tn-footer__link">Falar com o time</a>
         </div>
       </div>

@@ -549,3 +549,31 @@ a:hover { color: var(--tn-accent); }
 /* Short hero variant — used by the 404 page, which has no panel below the fold. */
 .tn-hero--short { min-height: auto; padding-bottom: clamp(64px, 12vh, 140px); }
 .tn-hero--short .tn-hero__main { padding-bottom: 0; }
+
+/* ---------- Páginas de solução por setor (/solucoes/) ---------- */
+
+.tn-dores { gap: 40px; }
+.tn-dores__head { display: flex; flex-direction: column; gap: 12px; }
+.tn-dores__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+
+.tn-solucao-card { display: flex; flex-direction: column; gap: 10px; text-decoration: none; transition: border-color 160ms ease, transform 160ms ease; }
+.tn-solucao-card:hover { border-color: var(--tn-accent); transform: translateY(-2px); }
+.tn-solucao-card__link { font-family: var(--font-mono); font-size: 11.5px; color: var(--tn-accent); margin-top: auto; padding-top: 8px; }
+
+.tn-campos { gap: 16px; }
+.tn-campos__chips { margin-top: 12px; }
+
+/* O corpo do markdown é o único trecho da página que não vem do frontmatter. */
+.tn-prosa { max-width: 720px; gap: 0; }
+.tn-prosa :where(h2) { font-family: var(--font-sans); font-weight: 700; font-size: clamp(22px, 4vw, 28px); line-height: 1.2; color: var(--tn-ink); margin: 40px 0 12px; }
+.tn-prosa :where(h3) { font-family: var(--font-sans); font-weight: 700; font-size: 18px; color: var(--tn-ink); margin: 28px 0 8px; }
+.tn-prosa :where(p, li) { font-family: var(--font-sans); font-weight: 500; font-size: 15.5px; line-height: 1.65; color: var(--tn-ink-muted); }
+.tn-prosa :where(p) { margin: 0 0 16px; }
+.tn-prosa :where(ul, ol) { margin: 0 0 16px; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
+.tn-prosa :where(a) { color: var(--tn-accent); text-decoration: underline; text-underline-offset: 2px; }
+.tn-prosa > :first-child { margin-top: 0; }
+.tn-prosa > :last-child { margin-bottom: 0; }
+
+@media (max-width: 900px) {
+  .tn-dores__grid { grid-template-columns: 1fr; }
+}

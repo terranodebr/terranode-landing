@@ -1,15 +1,21 @@
 ---
 import { asset } from "../lib/asset";
+
+// Section links have to be root-relative rather than bare fragments: this header is
+// mounted on /solucoes/ pages too, where "#produto" would resolve against the sector
+// page and go nowhere. asset() keeps them working under the PR-preview base path.
+const home = asset("/");
 ---
   <div class="tn-header">
     <div class="tn-header__brand">
-      <img src={asset("/terranode-logo.svg")} alt="TerraNode" class="tn-header__logo">
+      <a href={home}><img src={asset("/terranode-logo.svg")} alt="TerraNode" class="tn-header__logo"></a>
     </div>
     <div class="tn-nav-links">
-      <a href="#produto">Produto</a>
-      <a href="#como-funciona">Como funciona</a>
-      <a href="#o-app">O app</a>
-      <a href="#faq">Perguntas</a>
+      <a href={`${home}#produto`}>Produto</a>
+      <a href={`${home}#como-funciona`}>Como funciona</a>
+      <a href={`${home}#o-app`}>O app</a>
+      <a href={asset("/solucoes/")}>Soluções</a>
+      <a href={`${home}#faq`}>Perguntas</a>
     </div>
     <div class="tn-header__actions">
       <a href="https://form.typeform.com/to/ZVQYTFV5" target="_blank" rel="noopener" data-mp-cta="header_cta" class="tn-header__cta">Entrar na lista</a>

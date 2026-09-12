@@ -1,0 +1,49 @@
+---
+import Base from "../../layouts/Base.astro";
+import Header from "../../components/Header.astro";
+import Cta from "../../components/Cta.astro";
+import { asset } from "../../lib/asset";
+import { getSolucoes } from "../../lib/solucoes";
+
+const solucoes = await getSolucoes();
+
+const title = "Soluções por setor · TerraNode";
+const description =
+  "Como equipes de topografia, energia, meio ambiente, municípios, agro e saneamento usam o TerraNode para coletar dados em campo sem depender de sinal.";
+---
+<!-- Enquanto todas as páginas de setor forem rascunho, esta listagem não tem conteúdo
+     nenhum para mostrar. Indexá-la vazia só cria um beco sem saída no índice do Google. -->
+<Base title={title} description={description} noindex={solucoes.length === 0}>
+
+  <div class="tn-hero tn-hero--short">
+    <Header />
+    <div class="tn-hero__main">
+      <div class="tn-pill">
+        <span class="tn-pill__dot"></span>
+        <span class="tn-pill__text">SOLUÇÕES POR SETOR</span>
+      </div>
+      <h1 class="tn-hero__title">Um fluxo,<br>seis tipos de levantamento.</h1>
+      <p class="tn-hero__subtitle">O TerraNode não muda de setor para setor — o formulário muda. Veja como cada equipe monta o dela.</p>
+    </div>
+  </div>
+
+  <div class="tn-section tn-section--surface tn-section--border-top">
+    <div class="tn-section__inner tn-dores">
+      <div class="tn-dores__grid">
+        {solucoes.map((s) => (
+          <a href={asset(`/solucoes/${s.id}/`)} class="tn-feature-card tn-solucao-card" data-mp-cta="solucoes_index_card">
+            <span class="tn-eyebrow">{s.data.setor.toUpperCase()}</span>
+            <h2 class="tn-feature-card__title">{s.data.h1}</h2>
+            <p class="tn-feature-card__desc">{s.data.subtitulo}</p>
+            <span class="tn-solucao-card__link">Ver solução →</span>
+          </a>
+        ))}
+      </div>
+      {solucoes.length === 0 && (
+        <p class="tn-lead">Nenhuma página de setor publicada ainda.</p>
+      )}
+    </div>
+  </div>
+
+  <Cta />
+</Base>
