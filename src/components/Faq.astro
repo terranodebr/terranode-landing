@@ -1,0 +1,74 @@
+---
+// Data-driven so the same component serves the home page and any frontmatter-supplied
+// FAQ, and so FAQPage JSON-LD is emitted from one place wherever it is mounted.
+export interface FaqItem { q: string; a: string; badge?: string }
+
+interface Props {
+  id?: string;
+  eyebrow?: string;
+  title?: string;
+  items?: FaqItem[];
+}
+
+const defaultItems: FaqItem[] = [
+  {
+    q: "Quando o TerraNode será lançado?",
+    a: "Estamos em beta fechado com equipes de campo selecionadas. O lançamento público está previsto para os próximos meses, e quem está na lista é avisado primeiro.",
+    badge: "Mais perguntada",
+  },
+  {
+    q: "O que um early tester recebe?",
+    a: "Acesso antecipado para sua equipe, onboarding acompanhado e um canal direto com o time do produto. Em troca, pedimos feedback das campanhas reais de campo.",
+  },
+  {
+    q: "Funciona mesmo sem nenhum sinal?",
+    a: "Sim. O aplicativo guarda formulários, fotos, áudios e geometrias no dispositivo e sincroniza tudo automaticamente quando a conexão volta.",
+  },
+  {
+    q: "Meus dados de campo ficam com quem?",
+    a: "Com você. Os dados pertencem à sua organização e podem ser exportados a qualquer momento nos formatos abertos usuais de GIS.",
+  },
+];
+
+const {
+  id = "faq",
+  eyebrow = "PERGUNTAS FREQUENTES",
+  title = "Antes de entrar na lista",
+  items = defaultItems,
+} = Astro.props;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: items.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: { "@type": "Answer", text: item.a },
+  })),
+};
+
+const itemClass = (i: number) =>
+  [
+    "tn-faq__item",
+    i === 0 ? "tn-faq__item--spotlight" : "",
+    i === items.length - 1 ? "tn-faq__item--last" : "",
+  ].filter(Boolean).join(" ");
+---
+<div class="tn-section tn-section--white tn-section--border-top" id={id}>
+  <div class="tn-section__inner tn-faq__inner">
+    <div class="tn-faq__header">
+      <span class="tn-eyebrow">{eyebrow}</span>
+      <h2 class="tn-h2 tn-h2--sm">{title}</h2>
+    </div>
+    <div class="tn-faq__list">
+      {items.map((item, i) => (
+        <div class={itemClass(i)}>
+          {item.badge && <span class="tn-badge-soft">{item.badge}</span>}
+          <span class="tn-faq__question">{item.q}</span>
+          <span class="tn-faq__answer">{item.a}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</div>
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

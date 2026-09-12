@@ -1,0 +1,26 @@
+---
+import Base from "../layouts/Base.astro";
+import Header from "../components/Header.astro";
+---
+<Base
+  title="Página não encontrada — TerraNode"
+  description="A página que você procura não existe ou foi movida."
+  noindex={true}
+>
+  <div class="tn-hero tn-hero--short">
+    <Header />
+    <div class="tn-hero__main">
+      <div class="tn-pill">
+        <span class="tn-pill__dot"></span>
+        <span class="tn-pill__text">ERRO 404</span>
+      </div>
+      <h1 class="tn-hero__title">Essa página<br>saiu do mapa.</h1>
+      <p class="tn-hero__subtitle">O endereço não existe ou foi movido. Volte para a página inicial para continuar.</p>
+      <div class="tn-hero__actions">
+        <a href="/" class="tn-btn tn-btn--primary" data-mp-cta="404_home">Voltar para o início
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M16.175 13H4V11H16.175L10.575 5.4L12 4L20 12L12 20L10.575 18.6L16.175 13Z" fill="#fff"></path></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</Base>

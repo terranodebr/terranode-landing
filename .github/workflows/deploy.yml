@@ -1,0 +1,45 @@
+name: Deploy
+
+# Builds the Astro site and publishes dist/ to the gh-pages branch.
+# GitHub Pages must be configured as: Source = "Deploy from a branch", gh-pages / root.
+# (The branch model is required because pr-preview-action publishes previews into
+# subdirectories of the same branch; the artifact-based actions/deploy-pages cannot
+# coexist with that.)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Shared with preview.yml: both workflows push to gh-pages.
+concurrency:
+  group: gh-pages-write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+
+      - name: Publish to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: gh-pages
+          # Previews live under pr-preview/ on this same branch — don't wipe them.
+          keep_files: true
+          user_name: github-actions[bot]
+          user_email: github-actions[bot]@users.noreply.github.com

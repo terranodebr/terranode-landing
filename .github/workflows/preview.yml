@@ -1,0 +1,45 @@
+name: PR Preview
+
+# Publishes each PR to https://terranode.com.br/pr-preview/pr-<N>/ and removes it on close.
+# Previews are excluded from indexing by robots.txt and by a noindex meta tag that
+# Base.astro emits whenever the build's base path starts with /pr-preview.
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, closed]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+# Shared with deploy.yml: both workflows push to gh-pages.
+concurrency:
+  group: gh-pages-write
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        if: github.event.action != 'closed'
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+        if: github.event.action != 'closed'
+
+      - name: Build with the preview base path
+        if: github.event.action != 'closed'
+        env:
+          PREVIEW_BASE: /pr-preview/pr-${{ github.event.number }}
+        run: npm run build
+
+      - uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: ./dist/
+          preview-branch: gh-pages
+          umbrella-dir: pr-preview
+          action: auto
