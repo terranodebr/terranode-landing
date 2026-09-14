@@ -1,0 +1,89 @@
+---
+import Base from "./Base.astro";
+import Header from "../components/Header.astro";
+import Steps from "../components/Steps.astro";
+import Faq from "../components/Faq.astro";
+import Cta from "../components/Cta.astro";
+import { asset } from "../lib/asset";
+import type { Solucao } from "../lib/solucoes";
+
+interface Props {
+  entry: Solucao;
+}
+
+const { entry } = Astro.props;
+const d = entry.data;
+
+const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
+---
+<Base title={d.title} description={d.description} image={d.image} noindex={d.draft}>
+
+  <div class="tn-hero tn-hero--short">
+    <Header />
+    <div class="tn-hero__main">
+      <div class="tn-pill">
+        <span class="tn-pill__dot"></span>
+        <span class="tn-pill__text">{d.setor.toUpperCase()}</span>
+      </div>
+      <h1 class="tn-hero__title">{d.h1}</h1>
+      <p class="tn-hero__subtitle">{d.subtitulo}</p>
+      <div class="tn-hero__actions">
+        <a href={WAITLIST} target="_blank" rel="noopener" data-mp-cta="solucao_hero_primary" class="tn-btn tn-btn--primary">Entrar na lista de espera
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M16.175 13H4V11H16.175L10.575 5.4L12 4L20 12L12 20L10.575 18.6L16.175 13Z" fill="#fff"></path></svg>
+        </a>
+        <a href={asset("/solucoes/")} class="tn-btn tn-btn--outline" data-mp-cta="solucao_hero_index">Ver todos os setores</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dores do setor -->
+  <div class="tn-section tn-section--surface tn-section--border-top">
+    <div class="tn-section__inner tn-dores">
+      <div class="tn-dores__head">
+        <span class="tn-eyebrow">O PROBLEMA HOJE</span>
+        <h2 class="tn-h2">O que trava uma campanha de {d.setor.toLowerCase()}</h2>
+      </div>
+      <div class="tn-dores__grid">
+        {d.dores.map((dor) => (
+          <div class="tn-feature-card">
+            <h3 class="tn-feature-card__title">{dor.titulo}</h3>
+            <p class="tn-feature-card__desc">{dor.texto}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <Steps
+    id="como-funciona"
+    title={`Como uma equipe de ${d.setor.toLowerCase()} usa o TerraNode`}
+    lead="Do desenho do formulário à exportação, tudo acontece em um único fluxo. Sem planilhas paralelas, sem redigitação, sem dado perdido no caminho."
+    items={d.passos.map((p) => ({ label: p.label, titulo: p.titulo, texto: p.texto }))}
+  />
+
+  <!-- Campos típicos do formulário do setor -->
+  <div class="tn-section tn-section--white tn-section--border-top">
+    <div class="tn-section__inner tn-campos">
+      <span class="tn-eyebrow">FORMULÁRIO</span>
+      <h2 class="tn-h2">Campos típicos de {d.setor.toLowerCase()}</h2>
+      <p class="tn-lead">Um ponto de partida. Cada equipe monta o formulário que precisa, com os campos, regras e obrigatoriedades do seu próprio levantamento.</p>
+      <div class="tn-uc__chips tn-campos__chips">
+        {d.campos.map((campo) => <span class="tn-uc__chip">{campo}</span>)}
+      </div>
+    </div>
+  </div>
+
+  <!-- Prosa: o único trecho vindo do corpo do markdown -->
+  <div class="tn-section tn-section--surface tn-section--border-top">
+    <div class="tn-section__inner tn-prosa">
+      <slot />
+    </div>
+  </div>
+
+  <Faq
+    title={`Perguntas sobre ${d.setor.toLowerCase()}`}
+    items={d.faq}
+  />
+
+  <Cta />
+</Base>
