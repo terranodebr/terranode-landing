@@ -40,6 +40,12 @@ const solucoes = defineCollection({
       )
       .min(1),
 
+    /**
+     * No máximo 4: Steps.astro casa cada passo com um dos quatro mockups em
+     * src/components/steps/, e um quinto passo renderizaria um slide sem visual.
+     * O limite aqui faz o build falhar com mensagem clara, em vez de publicar a
+     * página torta.
+     */
     passos: z
       .array(
         z.object({
@@ -48,7 +54,8 @@ const solucoes = defineCollection({
           texto: z.string(),
         }),
       )
-      .min(1),
+      .min(1)
+      .max(4),
 
     /** Typical form fields for the sector, rendered as chips. */
     campos: z.array(z.string()).min(1),
