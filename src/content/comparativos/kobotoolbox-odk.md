@@ -78,6 +78,10 @@ faq:
   - q: "Consigo importar meu XLSForm?"
     a: "A confirmar com o time."
 
+fechamento:
+  titulo: "Quando a geometria importa, colete num mapa."
+  texto: "Polígonos, redes e vértices com ±3 cm, no iOS e no Android. Entre como early tester e leve um levantamento real para o TerraNode."
+
 fontes:
   - label: "ODK, planos e recursos"
     url: "https://getodk.org/"

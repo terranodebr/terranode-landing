@@ -596,6 +596,20 @@ a:hover { color: var(--tn-accent); }
 .tn-comp-fontes { gap: 12px; }
 .tn-comp-fontes ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; font-family: var(--font-sans); font-weight: 500; font-size: 13.5px; color: var(--tn-ink-muted); }
 
+/* Fechamento: banner escuro da home, em duas colunas e alinhado à esquerda. */
+.tn-fechamento { display: grid; grid-template-columns: 1.4fr 1fr; align-items: center; text-align: left; gap: clamp(28px, 5vw, 56px); }
+.tn-fechamento__main { display: flex; flex-direction: column; gap: 18px; }
+.tn-fechamento__main .tn-cta-banner__desc { max-width: 520px; }
+.tn-fechamento__pontos, .tn-fechamento__beneficios { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.tn-fechamento__pontos li, .tn-fechamento__beneficios li { display: flex; align-items: flex-start; gap: 10px; font-family: var(--font-sans); font-weight: 600; font-size: 14.5px; line-height: 1.45; color: var(--tn-on-dark); }
+.tn-fechamento__check { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--tn-accent-wash-strong); color: var(--tn-accent); }
+.tn-fechamento__actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 8px; }
+.tn-fechamento__card { display: flex; flex-direction: column; gap: 14px; background: var(--tn-on-dark-6); border: 1px solid var(--tn-on-dark-14); border-radius: 14px; padding: 28px; backdrop-filter: blur(4px); }
+.tn-fechamento__card-tag { align-self: flex-start; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--tn-accent); border: 1px solid var(--tn-accent); border-radius: 100px; padding: 4px 10px; }
+.tn-fechamento__card-title { font-family: var(--font-sans); font-weight: 700; font-size: 18px; color: var(--tn-on-dark); letter-spacing: -0.01em; }
+.tn-fechamento__beneficios li { font-weight: 500; color: var(--tn-on-dark-80); }
+.tn-fechamento__card-note { font-family: var(--font-sans); font-weight: 500; font-size: 12.5px; line-height: 1.5; color: var(--tn-on-dark-55); }
+
 /* Fluxo lado a lado: ilustração do mesmo levantamento em cada ferramenta. */
 .tn-fluxo { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .tn-fluxo__col { border: 1px solid var(--tn-border); border-radius: 14px; background: var(--tn-surface); padding: 28px; display: flex; flex-direction: column; gap: 22px; }
@@ -624,6 +638,7 @@ a:hover { color: var(--tn-accent); }
 @media (max-width: 900px) {
   .tn-dores__grid { grid-template-columns: 1fr; }
   .tn-fluxo { grid-template-columns: 1fr; }
+  .tn-fechamento { grid-template-columns: 1fr; }
   .tn-fluxo__shots { grid-template-columns: 1fr; }
   .tn-fluxo__shot--phone { max-width: 220px; }
 }

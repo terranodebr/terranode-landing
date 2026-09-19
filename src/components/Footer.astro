@@ -31,7 +31,7 @@ const comparativos = await getComparativos();
           <div class="tn-footer__col">
             <span class="tn-footer__col-title">Comparativos</span>
             {comparativos.map((c) => (
-              <a href={asset(`/comparativos/${c.id}/`)} class="tn-footer__link">TerraNode vs {c.data.concorrente}</a>
+              <a href={asset(`/comparativos/${c.id}/`)} class="tn-footer__link">TN vs {c.data.concorrente}</a>
             ))}
           </div>
         )}

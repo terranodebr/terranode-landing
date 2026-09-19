@@ -1,0 +1,58 @@
+---
+// Closing section for comparison pages. Replaces the generic home-page Cta so the
+// last thing a reader sees answers "why switch" for this competitor specifically,
+// then asks for one action. Both CTAs go to the same Typeform, which already asks
+// whether the person wants to be an early tester.
+
+interface Props {
+  titulo: string;
+  texto: string;
+  /** Short recap lines, usually the page's `diferencas` titles. */
+  pontos: string[];
+}
+
+const { titulo, texto, pontos } = Astro.props;
+
+const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
+
+const beneficios = [
+  "Acesso antecipado para a sua equipe",
+  "Onboarding acompanhado no primeiro levantamento",
+  "Canal direto com o time do produto",
+];
+
+const check = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>';
+---
+<div class="tn-section tn-section--white tn-section--border-top">
+  <div class="tn-section__inner">
+    <div class="tn-cta-banner tn-fechamento">
+      <div class="tn-fechamento__main">
+        <span class="tn-eyebrow">PRÓXIMO PASSO</span>
+        <h2 class="tn-h2 tn-h2--sm tn-h2--on-dark">{titulo}</h2>
+        <p class="tn-cta-banner__desc">{texto}</p>
+        <ul class="tn-fechamento__pontos">
+          {pontos.map((p) => (
+            <li><span class="tn-fechamento__check" set:html={check} />{p}</li>
+          ))}
+        </ul>
+        <div class="tn-fechamento__actions">
+          <a href={WAITLIST} target="_blank" rel="noopener" data-mp-cta="comparativo_fechamento_primary" class="tn-btn tn-btn--primary">Quero ser early tester
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M16.175 13H4V11H16.175L10.575 5.4L12 4L20 12L12 20L10.575 18.6L16.175 13Z" fill="#fff"></path></svg>
+          </a>
+          <a href={WAITLIST} target="_blank" rel="noopener" data-mp-cta="comparativo_fechamento_outline" class="tn-btn tn-btn--outline">Entrar na lista de espera</a>
+        </div>
+      </div>
+
+      <div class="tn-fechamento__card">
+        <span class="tn-fechamento__card-tag">Beta fechado</span>
+        <span class="tn-fechamento__card-title">O que um early tester recebe</span>
+        <ul class="tn-fechamento__beneficios">
+          {beneficios.map((b) => (
+            <li><span class="tn-fechamento__check" set:html={check} />{b}</li>
+          ))}
+        </ul>
+        <span class="tn-fechamento__card-note">Em troca, pedimos feedback das campanhas reais de campo.</span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -78,6 +78,10 @@ faq:
   - q: "O TerraNode tem mínimo de usuários?"
     a: "A confirmar com o time."
 
+fechamento:
+  titulo: "Coleta de campo feita para equipes brasileiras."
+  texto: "Suporte em português, revisão pronta e formulário gerado por IA. Entre como early tester e fale direto com quem constrói o produto."
+
 fontes:
   - label: "Fulcrum, preços"
     url: "https://www.fulcrumapp.com/pricing/"

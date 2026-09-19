@@ -2,7 +2,7 @@
 import Base from "./Base.astro";
 import Header from "../components/Header.astro";
 import Faq from "../components/Faq.astro";
-import Cta from "../components/Cta.astro";
+import Fechamento from "../components/Fechamento.astro";
 import FluxoComparado from "../components/FluxoComparado.astro";
 import { asset } from "../lib/asset";
 import type { Comparativo } from "../lib/comparativos";
@@ -138,5 +138,9 @@ const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
     </div>
   </div>
 
-  <Cta />
+  <Fechamento
+    titulo={d.fechamento.titulo}
+    texto={d.fechamento.texto}
+    pontos={d.diferencas.map((item) => item.titulo)}
+  />
 </Base>

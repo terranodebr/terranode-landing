@@ -75,6 +75,10 @@ faq:
   - q: "O TerraNode é gratuito como o QField?"
     a: "O preço ainda não foi divulgado. Early testers têm acesso antecipado."
 
+fechamento:
+  titulo: "Deixe o QGIS para a análise. A coleta começa no navegador."
+  texto: "Quem conhece o levantamento monta o formulário, e o QGIS recebe só o dado validado. Entre como early tester e compare no seu próximo campo."
+
 fontes:
   - label: "QFieldCloud, preços"
     url: "https://qfield.cloud/pricing"

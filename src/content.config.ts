@@ -163,6 +163,15 @@ const comparativos = defineCollection({
       )
       .min(1),
 
+    /**
+     * Closing CTA (Fechamento.astro). Written for someone who uses this competitor
+     * today: why switch, in one line, then the ask. The recap list reuses `diferencas`.
+     */
+    fechamento: z.object({
+      titulo: z.string(),
+      texto: z.string(),
+    }),
+
     /** Pages the competitor claims were taken from. Prices change, so re-check before publishing. */
     fontes: z
       .array(

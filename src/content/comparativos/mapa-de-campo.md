@@ -84,6 +84,10 @@ faq:
   - q: "Consigo exportar para Shapefile?"
     a: "No TerraNode, sim, além de CSV e GeoJSON."
 
+fechamento:
+  titulo: "Seu próximo levantamento, validado ponto a ponto."
+  texto: "Se a sua equipe já coleta offline, o próximo passo é garantir que só dado revisado saia do projeto. Entre como early tester e monte o primeiro formulário com o nosso time."
+
 fontes:
   - label: "Mapa de Campo, site oficial"
     url: "https://mapadecampo.com"

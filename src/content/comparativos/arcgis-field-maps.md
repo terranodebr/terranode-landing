@@ -81,6 +81,10 @@ faq:
   - q: "Preciso de um analista GIS para usar o TerraNode?"
     a: "Não. Quem monta o formulário é quem conhece o levantamento."
 
+fechamento:
+  titulo: "Coleta de campo sem montar uma plataforma GIS."
+  texto: "Crie o projeto, monte o formulário e convide o coletor no mesmo dia. Entre como early tester e teste com um levantamento real da sua equipe."
+
 fontes:
   - label: "ArcGIS Field Maps, página de compra"
     url: "https://www.esri.com/en-us/arcgis/products/arcgis-field-maps/buy"
