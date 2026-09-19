@@ -107,7 +107,14 @@ const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
           </tbody>
         </table>
       </div>
-      <p class="tn-comp-nota">Informações sobre {d.concorrente} tiradas do site oficial, consultado em {d.consultadoEm}. <a href="#fontes">Ver fontes</a>.</p>
+      <!-- Fontes: nota de rodapé da tabela, de propósito sem destaque. -->
+      <p class="tn-comp-fontes" id="fontes">
+        Fontes, consultadas em {d.consultadoEm}:{" "}
+        {d.fontes.map((f, i) => (
+          <>{i > 0 && " · "}<a href={f.url} target="_blank" rel="noopener nofollow">{f.label}</a></>
+        ))}.
+        Preços e recursos de outras empresas mudam. Viu algo desatualizado? <a href={WAITLIST} target="_blank" rel="noopener">Avise o time</a>.
+      </p>
     </div>
   </div>
 
@@ -124,19 +131,6 @@ const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
     title={`TerraNode e ${d.concorrente}`}
     items={d.faq}
   />
-
-  <!-- Fontes -->
-  <div class="tn-section tn-section--surface tn-section--border-top" id="fontes">
-    <div class="tn-section__inner tn-comp-fontes">
-      <span class="tn-eyebrow">FONTES</span>
-      <p class="tn-comp-nota">Consultadas em {d.consultadoEm}. Preços e recursos de outras empresas mudam. Se algo aqui estiver desatualizado, <a href={WAITLIST} target="_blank" rel="noopener">avise o time</a>.</p>
-      <ul>
-        {d.fontes.map((f) => (
-          <li><a href={f.url} target="_blank" rel="noopener nofollow">{f.label}</a></li>
-        ))}
-      </ul>
-    </div>
-  </div>
 
   <Fechamento
     titulo={d.fechamento.titulo}

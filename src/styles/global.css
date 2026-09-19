@@ -590,11 +590,10 @@ a:hover { color: var(--tn-accent); }
 .tn-comp-tabela .tn-comp-tabela__tn { color: var(--tn-ink); background: var(--tn-accent-tint-bg); }
 .tn-comp-tabela thead .tn-comp-tabela__tn { color: var(--tn-accent-soft-text); background: var(--tn-accent-soft-bg); }
 
-.tn-comp-nota { margin: 0; font-family: var(--font-sans); font-weight: 500; font-size: 13px; line-height: 1.6; color: var(--tn-ink-faint); }
-.tn-comp-nota a, .tn-comp-fontes a { color: var(--tn-accent); text-decoration: underline; text-underline-offset: 2px; }
+.tn-comp-fontes { margin: 0; font-family: var(--font-sans); font-weight: 500; font-size: 12px; line-height: 1.6; color: var(--tn-ink-faint-2); }
+.tn-comp-fontes a { color: inherit; text-decoration: underline; text-decoration-color: var(--tn-border-dashed); text-underline-offset: 2px; }
+.tn-comp-fontes a:hover { color: var(--tn-ink-muted); }
 .tn-comp-onde { max-width: 720px; }
-.tn-comp-fontes { gap: 12px; }
-.tn-comp-fontes ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; font-family: var(--font-sans); font-weight: 500; font-size: 13.5px; color: var(--tn-ink-muted); }
 
 /* Fechamento: banner escuro da home, em duas colunas e alinhado à esquerda. */
 .tn-fechamento { display: grid; grid-template-columns: 1.4fr 1fr; align-items: center; text-align: left; gap: clamp(28px, 5vw, 56px); }
