@@ -3,6 +3,7 @@ import Base from "./Base.astro";
 import Header from "../components/Header.astro";
 import Faq from "../components/Faq.astro";
 import Cta from "../components/Cta.astro";
+import FluxoComparado from "../components/FluxoComparado.astro";
 import { asset } from "../lib/asset";
 import type { Comparativo } from "../lib/comparativos";
 
@@ -30,7 +31,7 @@ const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
         <a href={WAITLIST} target="_blank" rel="noopener" data-mp-cta="comparativo_hero_primary" class="tn-btn tn-btn--primary">Entrar na lista de espera
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M16.175 13H4V11H16.175L10.575 5.4L12 4L20 12L12 20L10.575 18.6L16.175 13Z" fill="#fff"></path></svg>
         </a>
-        <a href={asset("/comparativos/")} class="tn-btn tn-btn--outline" data-mp-cta="comparativo_hero_index">Ver todos os comparativos</a>
+        <a href={`${asset("/")}#como-funciona`} class="tn-btn tn-btn--outline" data-mp-cta="comparativo_hero_como_funciona">Ver como funciona</a>
       </div>
     </div>
   </div>
@@ -55,6 +56,26 @@ const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
           <span class="tn-eyebrow">A DIFERENÇA PRINCIPAL</span>
           <p class="tn-feature-card__desc">{d.resumo.diferenca}</p>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <FluxoComparado titulo={d.fluxo.titulo} passos={d.fluxo.passos} />
+
+  <!-- O que muda para a equipe -->
+  <div class="tn-section tn-section--surface tn-section--border-top">
+    <div class="tn-section__inner tn-dores">
+      <div class="tn-dores__head">
+        <span class="tn-eyebrow">O QUE MUDA NO DIA A DIA</span>
+        <h2 class="tn-h2">O que o TerraNode faz diferente</h2>
+      </div>
+      <div class="tn-dores__grid">
+        {d.diferencas.map((item) => (
+          <div class="tn-feature-card">
+            <h3 class="tn-feature-card__title">{item.titulo}</h3>
+            <p class="tn-feature-card__desc">{item.texto}</p>
+          </div>
+        ))}
       </div>
     </div>
   </div>
@@ -90,26 +111,8 @@ const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
     </div>
   </div>
 
-  <!-- O que muda para a equipe -->
-  <div class="tn-section tn-section--surface tn-section--border-top">
-    <div class="tn-section__inner tn-dores">
-      <div class="tn-dores__head">
-        <span class="tn-eyebrow">O QUE MUDA NO DIA A DIA</span>
-        <h2 class="tn-h2">O que o TerraNode faz diferente</h2>
-      </div>
-      <div class="tn-dores__grid">
-        {d.diferencas.map((item) => (
-          <div class="tn-feature-card">
-            <h3 class="tn-feature-card__title">{item.titulo}</h3>
-            <p class="tn-feature-card__desc">{item.texto}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </div>
-
   <!-- Onde o concorrente vai melhor -->
-  <div class="tn-section tn-section--white tn-section--border-top">
+  <div class="tn-section tn-section--surface tn-section--border-top">
     <div class="tn-section__inner tn-campos">
       <span class="tn-eyebrow">SENDO HONESTOS</span>
       <h2 class="tn-h2">{d.ondeMelhor.titulo}</h2>

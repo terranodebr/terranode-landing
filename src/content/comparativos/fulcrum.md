@@ -4,7 +4,6 @@ description: "Coleta offline, formulário sem código e GNSS de precisão, com s
 concorrente: "Fulcrum"
 h1: "TerraNode vs Fulcrum"
 subtitulo: "Coleta offline, formulário sem código e GNSS de precisão, feito para equipes brasileiras e com suporte em português."
-cartao: "A mesma proposta, em português e sem contrato anual em dólar."
 ordem: 5
 draft: true
 
@@ -41,6 +40,22 @@ tabela:
   - criterio: "Moeda"
     terranode: "Real (a confirmar)"
     concorrente: "Dólar"
+
+fluxo:
+  titulo: "Com o Fulcrum"
+  passos:
+    - icone: "navegador"
+      titulo: "Monte o app no builder"
+      detalhe: "Campos, lógica e cálculos arrastáveis."
+    - icone: "config"
+      titulo: "Configure o fluxo de revisão"
+      detalhe: "Campo de status e fluxos definidos pela equipe."
+    - icone: "app"
+      titulo: "Colete no app"
+      detalhe: "iOS ou Android, offline."
+    - icone: "exportar"
+      titulo: "Revise e exporte"
+      detalhe: "Conforme o fluxo configurado."
 
 diferencas:
   - titulo: "Feito para o campo brasileiro"

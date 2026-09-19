@@ -4,7 +4,6 @@ description: "Monte o formulário no navegador, sem QGIS, e valide cada ponto an
 concorrente: "QField / Mergin Maps"
 h1: "TerraNode vs QField e Mergin Maps"
 subtitulo: "Com QField e Mergin Maps, o projeto nasce no QGIS. Com o TerraNode, nasce no navegador, e quem monta o formulário é quem conhece o levantamento."
-cartao: "Formulário montado no navegador, sem abrir o QGIS."
 ordem: 3
 draft: true
 
@@ -38,6 +37,22 @@ tabela:
   - criterio: "Idioma e suporte"
     terranode: "Português, direto com o time do produto"
     concorrente: "Comunidade e suporte pago em inglês"
+
+fluxo:
+  titulo: "Com QField ou Mergin Maps"
+  passos:
+    - icone: "desktop"
+      titulo: "Monte o projeto no QGIS"
+      detalhe: "Camadas, formulário e widgets de edição nas propriedades da camada."
+    - icone: "nuvem"
+      titulo: "Sincronize pela nuvem"
+      detalhe: "QFieldCloud ou Mergin Maps levam o projeto aos aparelhos."
+    - icone: "app"
+      titulo: "Colete no app"
+      detalhe: "QField ou Mergin Maps, com o projeto do QGIS."
+    - icone: "desktop"
+      titulo: "Revise no QGIS"
+      detalhe: "A conferência dos pontos volta para o desktop."
 
 diferencas:
   - titulo: "O formulário não depende do analista GIS"

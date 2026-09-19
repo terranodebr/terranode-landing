@@ -61,8 +61,7 @@ src/
       index.astro     -> /solucoes/
       [...slug].astro -> /solucoes/<setor>/
     comparativos/
-      index.astro     -> /comparativos/
-      [...slug].astro -> /comparativos/<concorrente>/
+      [...slug].astro -> /comparativos/<concorrente>/ (sem índice, listados no rodapé)
   content/
     solucoes/       Páginas de setor, uma por arquivo .md
     blog/           (vazio, ainda não implementado)

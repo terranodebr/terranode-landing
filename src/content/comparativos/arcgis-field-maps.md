@@ -4,7 +4,6 @@ description: "Coleta offline, GNSS de precisão e revisão de pontos sem precisa
 concorrente: "ArcGIS Field Maps / Survey123"
 h1: "TerraNode vs ArcGIS Field Maps e Survey123"
 subtitulo: "O ArcGIS é uma plataforma inteira de GIS. O TerraNode é só a parte que sua equipe de campo usa, em português, sem licença de plataforma."
-cartao: "A coleta da Esri, sem precisar de uma organização ArcGIS."
 ordem: 2
 draft: true
 
@@ -41,6 +40,25 @@ tabela:
   - criterio: "Análise espacial e integração com ArcGIS Pro"
     terranode: "Não"
     concorrente: "Sim"
+
+fluxo:
+  titulo: "Com o ArcGIS"
+  passos:
+    - icone: "servidor"
+      titulo: "Publique as camadas"
+      detalhe: "Feature layers no ArcGIS Online ou Enterprise."
+    - icone: "navegador"
+      titulo: "Configure mapa e formulário"
+      detalhe: "Mapa web no Field Maps Designer, ou formulário no Survey123."
+    - icone: "config"
+      titulo: "Atribua tipos de usuário"
+      detalhe: "Cada coletor precisa de licença Mobile Worker ou superior."
+    - icone: "app"
+      titulo: "Colete no Field Maps ou Survey123"
+      detalhe: "O app muda conforme o fluxo."
+    - icone: "painel"
+      titulo: "Monte a revisão"
+      detalhe: "Campos de status, filtros e dashboards configurados pela equipe GIS."
 
 diferencas:
   - titulo: "Do cadastro à coleta no mesmo dia"

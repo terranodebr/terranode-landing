@@ -86,9 +86,7 @@ const comparativos = defineCollection({
     h1: z.string(),
     /** Hero paragraph under the H1. */
     subtitulo: z.string(),
-    /** One sentence for the card on the /comparativos/ index. */
-    cartao: z.string(),
-    /** Position in the /comparativos/ index, ascending. */
+    /** Position in the footer's Comparativos column, ascending. */
     ordem: z.number(),
     /** Same contract as solucoes: defaults to true, production builds skip drafts. */
     draft: z.boolean().default(true),
@@ -115,6 +113,28 @@ const comparativos = defineCollection({
         }),
       )
       .min(1),
+
+    /**
+     * Competitor side of the flow illustration (FluxoComparado.astro). The TerraNode
+     * side is fixed in the component. `icone` picks one of its line icons.
+     */
+    fluxo: z.object({
+      /** Column heading, with the article: "Com o Fulcrum". */
+      titulo: z.string(),
+      passos: z
+        .array(
+          z.object({
+            icone: z.enum([
+              "navegador", "desktop", "app", "nuvem", "planilha",
+              "painel", "exportar", "config", "servidor", "revisao",
+            ]),
+            titulo: z.string(),
+            detalhe: z.string(),
+          }),
+        )
+        .min(3)
+        .max(5),
+    }),
 
     diferencas: z
       .array(

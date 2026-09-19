@@ -4,7 +4,6 @@ description: "Os dois coletam sem sinal. Veja a diferença em precisão, revisã
 concorrente: "Mapa de Campo"
 h1: "TerraNode vs Mapa de Campo"
 subtitulo: "Os dois coletam sem sinal. O TerraNode leva o ponto até a validação, com precisão de ±3 cm e uma fila de revisão que devolve a correção ao coletor."
-cartao: "Os dois coletam offline. O TerraNode adiciona revisão ponto a ponto e ±3 cm."
 ordem: 1
 draft: true
 
@@ -47,6 +46,22 @@ tabela:
   - criterio: "Disponibilidade"
     terranode: "Beta fechado"
     concorrente: "Disponível, com teste grátis"
+
+fluxo:
+  titulo: "Com o Mapa de Campo"
+  passos:
+    - icone: "navegador"
+      titulo: "Monte o formulário"
+      detalhe: "Campos arrastáveis e lógica condicional."
+    - icone: "app"
+      titulo: "Colete offline"
+      detalhe: "Ponto, foto e assinatura salvos no aparelho."
+    - icone: "painel"
+      titulo: "Acompanhe no dashboard"
+      detalhe: "Indicadores, gráficos e mapas da operação."
+    - icone: "exportar"
+      titulo: "Exporte os registros"
+      detalhe: "Tudo o que foi coletado, sem etapa de validação por ponto."
 
 diferencas:
   - titulo: "Nenhum ponto sai sem revisão"

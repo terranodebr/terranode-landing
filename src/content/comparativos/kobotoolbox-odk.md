@@ -4,7 +4,6 @@ description: "Kobo e ODK são para questionários. O TerraNode é para levantame
 concorrente: "KoboToolbox / ODK"
 h1: "TerraNode vs KoboToolbox e ODK"
 subtitulo: "Kobo e ODK foram feitos para questionários. O TerraNode foi feito para levantamentos em que a geometria importa tanto quanto as respostas."
-cartao: "Feito para mapear, não só para aplicar questionário."
 ordem: 4
 draft: true
 
@@ -41,6 +40,22 @@ tabela:
   - criterio: "Preço"
     terranode: "Ainda não divulgado"
     concorrente: "Kobo tem plano gratuito para ONGs (5.000 envios/mês). ODK Cloud a partir de US$ 199/mês"
+
+fluxo:
+  titulo: "Com Kobo ou ODK"
+  passos:
+    - icone: "planilha"
+      titulo: "Escreva o formulário"
+      detalhe: "No editor web ou numa planilha XLSForm."
+    - icone: "app"
+      titulo: "Colete no Android"
+      detalhe: "No iPhone, a coleta é por formulário web."
+    - icone: "painel"
+      titulo: "Revise os envios"
+      detalhe: "Tabela de respostas. O ODK Central marca aprovado ou rejeitado."
+    - icone: "exportar"
+      titulo: "Leve a geometria para o GIS"
+      detalhe: "Exporte e monte o mapa em outra ferramenta."
 
 diferencas:
   - titulo: "O mapa é a tela principal"

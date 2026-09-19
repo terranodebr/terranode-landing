@@ -1,9 +1,14 @@
 ---
 import { asset } from "../lib/asset";
+import { getComparativos } from "../lib/comparativos";
 
 // Root-relative for the same reason as Header.astro: the footer renders on every
 // page, and a bare "#faq" would resolve against a sector page instead of the home page.
 const home = asset("/");
+
+// There is no /comparativos/ index: the footer is the only place that lists them.
+// Uses the same draft filter as the pages, so production never links to a draft.
+const comparativos = await getComparativos();
 ---
 <div class="tn-section tn-section--dark tn-footer">
   <div class="tn-section__inner tn-footer__inner">
@@ -20,9 +25,16 @@ const home = asset("/");
           <a href={`${home}#como-funciona`} class="tn-footer__link">Como funciona</a>
           <a href={`${home}#o-app`} class="tn-footer__link">O app</a>
           <a href={asset("/solucoes/")} class="tn-footer__link">Soluções por setor</a>
-          <a href={asset("/comparativos/")} class="tn-footer__link">Comparativos</a>
           <a href="https://form.typeform.com/to/ZVQYTFV5" target="_blank" rel="noopener" data-mp-cta="footer_waitlist" class="tn-footer__link">Lista de espera</a>
         </div>
+        {comparativos.length > 0 && (
+          <div class="tn-footer__col">
+            <span class="tn-footer__col-title">Comparativos</span>
+            {comparativos.map((c) => (
+              <a href={asset(`/comparativos/${c.id}/`)} class="tn-footer__link">TerraNode vs {c.data.concorrente}</a>
+            ))}
+          </div>
+        )}
         <div class="tn-footer__col">
           <span class="tn-footer__col-title">Empresa</span>
           <a href={`${home}#faq`} class="tn-footer__link">Perguntas frequentes</a>
