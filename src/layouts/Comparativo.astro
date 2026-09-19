@@ -1,0 +1,139 @@
+---
+import Base from "./Base.astro";
+import Header from "../components/Header.astro";
+import Faq from "../components/Faq.astro";
+import Cta from "../components/Cta.astro";
+import { asset } from "../lib/asset";
+import type { Comparativo } from "../lib/comparativos";
+
+interface Props {
+  entry: Comparativo;
+}
+
+const { entry } = Astro.props;
+const d = entry.data;
+
+const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
+---
+<Base title={d.title} description={d.description} image={d.image} noindex={d.draft}>
+
+  <div class="tn-hero tn-hero--short">
+    <Header />
+    <div class="tn-hero__main">
+      <div class="tn-pill">
+        <span class="tn-pill__dot"></span>
+        <span class="tn-pill__text">COMPARATIVO</span>
+      </div>
+      <h1 class="tn-hero__title">{d.h1}</h1>
+      <p class="tn-hero__subtitle">{d.subtitulo}</p>
+      <div class="tn-hero__actions">
+        <a href={WAITLIST} target="_blank" rel="noopener" data-mp-cta="comparativo_hero_primary" class="tn-btn tn-btn--primary">Entrar na lista de espera
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M16.175 13H4V11H16.175L10.575 5.4L12 4L20 12L12 20L10.575 18.6L16.175 13Z" fill="#fff"></path></svg>
+        </a>
+        <a href={asset("/comparativos/")} class="tn-btn tn-btn--outline" data-mp-cta="comparativo_hero_index">Ver todos os comparativos</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resumo: quando escolher cada um -->
+  <div class="tn-section tn-section--surface tn-section--border-top">
+    <div class="tn-section__inner tn-dores">
+      <div class="tn-dores__head">
+        <span class="tn-eyebrow">EM RESUMO</span>
+        <h2 class="tn-h2">Qual escolher</h2>
+      </div>
+      <div class="tn-dores__grid">
+        <div class="tn-feature-card">
+          <span class="tn-eyebrow tn-eyebrow--muted">QUANDO ESCOLHER {d.concorrente.toUpperCase()}</span>
+          <p class="tn-feature-card__desc">{d.resumo.concorrente}</p>
+        </div>
+        <div class="tn-feature-card">
+          <span class="tn-eyebrow">QUANDO ESCOLHER O TERRANODE</span>
+          <p class="tn-feature-card__desc">{d.resumo.terranode}</p>
+        </div>
+        <div class="tn-feature-card tn-comp-resumo--destaque">
+          <span class="tn-eyebrow">A DIFERENÇA PRINCIPAL</span>
+          <p class="tn-feature-card__desc">{d.resumo.diferenca}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabela lado a lado -->
+  <div class="tn-section tn-section--white tn-section--border-top">
+    <div class="tn-section__inner tn-dores">
+      <div class="tn-dores__head">
+        <span class="tn-eyebrow">LADO A LADO</span>
+        <h2 class="tn-h2">Critério por critério</h2>
+      </div>
+      <div class="tn-comp-tabela__wrap">
+        <table class="tn-comp-tabela">
+          <thead>
+            <tr>
+              <th scope="col">Critério</th>
+              <th scope="col" class="tn-comp-tabela__tn">TerraNode</th>
+              <th scope="col">{d.concorrente}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {d.tabela.map((linha) => (
+              <tr>
+                <th scope="row">{linha.criterio}</th>
+                <td class="tn-comp-tabela__tn">{linha.terranode}</td>
+                <td>{linha.concorrente}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="tn-comp-nota">Informações sobre {d.concorrente} tiradas do site oficial, consultado em {d.consultadoEm}. <a href="#fontes">Ver fontes</a>.</p>
+    </div>
+  </div>
+
+  <!-- O que muda para a equipe -->
+  <div class="tn-section tn-section--surface tn-section--border-top">
+    <div class="tn-section__inner tn-dores">
+      <div class="tn-dores__head">
+        <span class="tn-eyebrow">O QUE MUDA NO DIA A DIA</span>
+        <h2 class="tn-h2">O que o TerraNode faz diferente</h2>
+      </div>
+      <div class="tn-dores__grid">
+        {d.diferencas.map((item) => (
+          <div class="tn-feature-card">
+            <h3 class="tn-feature-card__title">{item.titulo}</h3>
+            <p class="tn-feature-card__desc">{item.texto}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- Onde o concorrente vai melhor -->
+  <div class="tn-section tn-section--white tn-section--border-top">
+    <div class="tn-section__inner tn-campos">
+      <span class="tn-eyebrow">SENDO HONESTOS</span>
+      <h2 class="tn-h2">{d.ondeMelhor.titulo}</h2>
+      <p class="tn-lead tn-comp-onde">{d.ondeMelhor.texto}</p>
+    </div>
+  </div>
+
+  <Faq
+    title={`TerraNode e ${d.concorrente}`}
+    items={d.faq}
+  />
+
+  <!-- Fontes -->
+  <div class="tn-section tn-section--surface tn-section--border-top" id="fontes">
+    <div class="tn-section__inner tn-comp-fontes">
+      <span class="tn-eyebrow">FONTES</span>
+      <p class="tn-comp-nota">Consultadas em {d.consultadoEm}. Preços e recursos de outras empresas mudam. Se algo aqui estiver desatualizado, <a href={WAITLIST} target="_blank" rel="noopener">avise o time</a>.</p>
+      <ul>
+        {d.fontes.map((f) => (
+          <li><a href={f.url} target="_blank" rel="noopener nofollow">{f.label}</a></li>
+        ))}
+      </ul>
+    </div>
+  </div>
+
+  <Cta />
+</Base>

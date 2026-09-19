@@ -1,0 +1,16 @@
+---
+import Comparativo from "../../layouts/Comparativo.astro";
+import { getComparativos } from "../../lib/comparativos";
+
+// The glob loader derives `id` from the filename: fulcrum.md -> /comparativos/fulcrum/.
+export async function getStaticPaths() {
+  const entries = await getComparativos();
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+---
+<Comparativo entry={entry} />

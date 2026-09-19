@@ -1,0 +1,48 @@
+---
+import Base from "../../layouts/Base.astro";
+import Header from "../../components/Header.astro";
+import Cta from "../../components/Cta.astro";
+import { asset } from "../../lib/asset";
+import { getComparativos } from "../../lib/comparativos";
+
+const comparativos = await getComparativos();
+
+const title = "TerraNode vs concorrentes · Coleta GIS em campo";
+const description =
+  "Compare o TerraNode com Mapa de Campo, ArcGIS, QField, Kobo e Fulcrum. Veja onde cada ferramenta vai melhor.";
+---
+<!-- Same rule as /solucoes/: an empty listing is a dead end in the search index. -->
+<Base title={title} description={description} noindex={comparativos.length === 0}>
+
+  <div class="tn-hero tn-hero--short">
+    <Header />
+    <div class="tn-hero__main">
+      <div class="tn-pill">
+        <span class="tn-pill__dot"></span>
+        <span class="tn-pill__text">COMPARATIVOS</span>
+      </div>
+      <h1 class="tn-hero__title">Como o TerraNode se compara</h1>
+      <p class="tn-hero__subtitle">Comparativos honestos com as ferramentas de coleta em campo mais usadas no Brasil. Cada página diz também quando a outra ferramenta é a melhor escolha.</p>
+    </div>
+  </div>
+
+  <div class="tn-section tn-section--surface tn-section--border-top">
+    <div class="tn-section__inner tn-dores">
+      <div class="tn-dores__grid">
+        {comparativos.map((c) => (
+          <a href={asset(`/comparativos/${c.id}/`)} class="tn-feature-card tn-solucao-card" data-mp-cta="comparativos_index_card">
+            <span class="tn-eyebrow">TERRANODE VS</span>
+            <h2 class="tn-feature-card__title">{c.data.concorrente}</h2>
+            <p class="tn-feature-card__desc">{c.data.cartao}</p>
+            <span class="tn-solucao-card__link">Ver comparativo →</span>
+          </a>
+        ))}
+      </div>
+      {comparativos.length === 0 && (
+        <p class="tn-lead">Nenhum comparativo publicado ainda.</p>
+      )}
+    </div>
+  </div>
+
+  <Cta />
+</Base>

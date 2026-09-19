@@ -60,11 +60,14 @@ src/
     solucoes/
       index.astro     -> /solucoes/
       [...slug].astro -> /solucoes/<setor>/
+    comparativos/
+      index.astro     -> /comparativos/
+      [...slug].astro -> /comparativos/<concorrente>/
   content/
     solucoes/       Páginas de setor, uma por arquivo .md
     blog/           (vazio, ainda não implementado)
     ajuda/          (vazio, ainda não implementado)
-    comparativos/   (vazio, ainda não implementado)
+    comparativos/   Páginas "TerraNode vs X", uma por arquivo .md (mesma regra de draft)
   content.config.ts Define quais campos cada .md precisa ter
   layouts/          Estruturas de página reaproveitadas
   components/       Blocos visuais (Hero, Steps, Faq, ...)

@@ -3,8 +3,8 @@ import { glob } from "astro/loaders";
 
 // Astro 7 has no implicit "directory under src/content = collection" behaviour;
 // a collection exists only once it is declared here with a loader.
-// Only `solucoes` is declared for now — blog/, ajuda/ and comparativos/ are still
-// empty, and a glob over an empty directory only produces warnings.
+// Only `solucoes` and `comparativos` are declared for now — blog/ and ajuda/ are
+// still empty, and a glob over an empty directory only produces warnings.
 
 // Every field the page renders lives in frontmatter so that Pages CMS can present
 // it as a form field. The markdown body carries prose only.
@@ -73,4 +73,88 @@ const solucoes = defineCollection({
   }),
 });
 
-export const collections = { solucoes };
+const comparativos = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/comparativos" }),
+  schema: z.object({
+    /** <title> and og:title. Written for search ("alternativa a X"), not for the H1. */
+    title: z.string(),
+    /** <meta name="description">. */
+    description: z.string(),
+    /** Competitor name as it appears in the table header and the index card. */
+    concorrente: z.string(),
+    /** Page H1. Written for the reader. */
+    h1: z.string(),
+    /** Hero paragraph under the H1. */
+    subtitulo: z.string(),
+    /** One sentence for the card on the /comparativos/ index. */
+    cartao: z.string(),
+    /** Position in the /comparativos/ index, ascending. */
+    ordem: z.number(),
+    /** Same contract as solucoes: defaults to true, production builds skip drafts. */
+    draft: z.boolean().default(true),
+    /** Path under public/, or an absolute URL. Falls back to the site default. */
+    image: z.string().optional(),
+
+    /** The three summary cards. Each text is a full sentence, starting with "Se". */
+    resumo: z.object({
+      concorrente: z.string(),
+      terranode: z.string(),
+      diferenca: z.string(),
+    }),
+
+    /**
+     * Side-by-side table. Every claim about the competitor has to be backed by one
+     * of the `fontes` below, and "A confirmar" is only acceptable while draft: true.
+     */
+    tabela: z
+      .array(
+        z.object({
+          criterio: z.string(),
+          terranode: z.string(),
+          concorrente: z.string(),
+        }),
+      )
+      .min(1),
+
+    diferencas: z
+      .array(
+        z.object({
+          titulo: z.string(),
+          texto: z.string(),
+        }),
+      )
+      .min(1)
+      .max(3),
+
+    /** Where the competitor is the better choice. Kept on purpose: it is what makes the rest credible. */
+    ondeMelhor: z.object({
+      titulo: z.string(),
+      texto: z.string(),
+    }),
+
+    /** Shape mirrors FaqItem in src/components/Faq.astro so it passes straight through. */
+    faq: z
+      .array(
+        z.object({
+          q: z.string(),
+          a: z.string(),
+          badge: z.string().optional(),
+        }),
+      )
+      .min(1),
+
+    /** Pages the competitor claims were taken from. Prices change, so re-check before publishing. */
+    fontes: z
+      .array(
+        z.object({
+          label: z.string(),
+          url: z.string().url(),
+        }),
+      )
+      .min(1),
+    /** Date the sources were last checked, as shown on the page (e.g. "18/09/2026"). */
+    consultadoEm: z.string(),
+  }),
+});
+
+export const collections = { solucoes, comparativos };

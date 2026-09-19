@@ -574,6 +574,28 @@ a:hover { color: var(--tn-accent); }
 .tn-prosa > :first-child { margin-top: 0; }
 .tn-prosa > :last-child { margin-bottom: 0; }
 
+/* ---------- Páginas de comparativo (/comparativos/) ---------- */
+
+.tn-eyebrow--muted { color: var(--tn-ink-faint); }
+.tn-comp-resumo--destaque { border-color: var(--tn-accent); background: var(--tn-accent-tint-bg); }
+
+/* Scrolls inside its own box on phones so the page itself never scrolls sideways. */
+.tn-comp-tabela__wrap { overflow-x: auto; border: 1px solid var(--tn-border); border-radius: 14px; background: #fff; }
+.tn-comp-tabela { width: 100%; min-width: 560px; border-collapse: collapse; font-family: var(--font-sans); font-size: 14px; line-height: 1.5; }
+.tn-comp-tabela :where(th, td) { text-align: left; vertical-align: top; padding: 14px 18px; border-bottom: 1px solid var(--tn-border); }
+.tn-comp-tabela tbody tr:last-child :where(th, td) { border-bottom: 0; }
+.tn-comp-tabela thead th { font-family: var(--font-mono); font-weight: 500; font-size: 11.5px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--tn-ink-faint); background: var(--tn-surface); }
+.tn-comp-tabela tbody th { width: 30%; font-weight: 600; color: var(--tn-ink); }
+.tn-comp-tabela td { font-weight: 500; color: var(--tn-ink-muted); }
+.tn-comp-tabela .tn-comp-tabela__tn { color: var(--tn-ink); background: var(--tn-accent-tint-bg); }
+.tn-comp-tabela thead .tn-comp-tabela__tn { color: var(--tn-accent-soft-text); background: var(--tn-accent-soft-bg); }
+
+.tn-comp-nota { margin: 0; font-family: var(--font-sans); font-weight: 500; font-size: 13px; line-height: 1.6; color: var(--tn-ink-faint); }
+.tn-comp-nota a, .tn-comp-fontes a { color: var(--tn-accent); text-decoration: underline; text-underline-offset: 2px; }
+.tn-comp-onde { max-width: 720px; }
+.tn-comp-fontes { gap: 12px; }
+.tn-comp-fontes ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; font-family: var(--font-sans); font-weight: 500; font-size: 13.5px; color: var(--tn-ink-muted); }
+
 @media (max-width: 900px) {
   .tn-dores__grid { grid-template-columns: 1fr; }
 }
