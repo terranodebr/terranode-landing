@@ -1079,11 +1079,6 @@ a:hover { color: var(--tn-accent); }
 .tn-rec-tipos--grupos { grid-template-columns: repeat(3, 1fr); }
 .tn-form-grupo span { font-size: 12px; color: var(--rec-muted); border: 1px solid var(--rec-line-2); border-radius: 100px; padding: 4px 10px; }
 
-/* Five-cell bento: the 2×2 grid, then the fifth cell across both columns. */
-.tn-rec-bento--cinco .tn-rec-bento__celula:nth-child(3), .tn-rec-bento--cinco .tn-rec-bento__celula:nth-child(4) { border-bottom-width: 1px; }
-.tn-rec-bento--cinco .tn-rec-bento__celula:nth-child(5) { grid-column: 1 / -1; border-right-width: 0; }
-.tn-rec-bento--cinco .tn-rec-bento__celula:nth-child(5) .tn-rec-mini { max-width: 400px; }
-
 /* Bento sketches (FormBento.astro) */
 .tn-form-mini { gap: 8px; }
 .tn-form-mini__paleta { display: flex; flex-wrap: wrap; gap: 5px; padding-bottom: 10px; border-bottom: 1px solid var(--rec-line); }
@@ -1107,11 +1102,6 @@ a:hover { color: var(--tn-accent); }
 .tn-form-mini__botoes { display: flex; justify-content: flex-end; gap: 6px; margin-top: 2px; }
 .tn-form-mini__botoes span { font-weight: 600; font-size: 11px; border: 1px solid var(--rec-line-2); border-radius: 8px; padding: 6px 11px; }
 .tn-form-mini__botoes .is-primario { color: #0C1312; background: var(--rec-text); border-color: var(--rec-text); }
-.tn-form-mini__card--erro { border-color: rgba(240, 139, 121, 0.6); background: rgba(224, 92, 72, 0.08); color: var(--rec-muted); font-style: italic; }
-.tn-form-mini__card--erro .tn-form-mini__tag { font-style: normal; }
-.tn-form-mini__erro { display: flex; align-items: center; gap: 6px; font-size: 11px; color: #F08B79; }
-.tn-form-mini__erro > span { display: flex; }
-.tn-form-mini__publicar { display: flex; justify-content: flex-end; margin-top: 6px; padding-top: 10px; border-top: 1px solid var(--rec-line); }
 .tn-form-mini__card--coluna { flex-direction: column; align-items: stretch; gap: 9px; white-space: normal; }
 .tn-form-mini__linha { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
 .tn-form-mini__opcoes { display: flex; flex-wrap: wrap; gap: 5px; }
@@ -1121,7 +1111,6 @@ a:hover { color: var(--tn-accent); }
 .tn-form-mini__regra > span { display: flex; color: var(--tn-accent); }
 .tn-form-mini__regra strong { font-weight: 600; color: var(--rec-text); }
 .tn-form-mini__card--condicional { margin-left: 18px; border-style: dashed; border-color: rgba(255, 102, 41, 0.55); background: rgba(255, 102, 41, 0.06); }
-.tn-form-mini__btn { font-weight: 600; font-size: 11px; color: rgba(12, 19, 18, 0.55); background: rgba(238, 243, 241, 0.35); border-radius: 8px; padding: 6px 12px; }
 
 /* Story visuals (FormCampo.astro): the canvas card beside the properties panel, light
    like the app, the same way the style editor sketch is. */
