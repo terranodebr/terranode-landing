@@ -11,7 +11,8 @@ export default defineConfig({
   base,
   trailingSlash: 'always',
   build: { format: 'directory' },
-  integrations: [sitemap()],
+  // /v2/ is the home redesign under review: noindex, and kept out of the sitemap.
+  integrations: [sitemap({ filter: (page) => !new URL(page).pathname.startsWith('/v2/') })],
   vite: {
     // Pre-bundle GSAP and ScrollTrigger together at dev-server start. Discovered one at a
     // time, they can land in separate optimize passes and load two copies of the GSAP

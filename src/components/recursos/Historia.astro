@@ -13,6 +13,7 @@ export interface Capitulo {
   /** Phrase inside `titulo` that gets circled. Must appear in it verbatim. */
   marca: string;
   texto: string;
+  /** Items with an empty `titulo` show only the text, with no bold lead. */
   itens: { titulo: string; texto: string }[];
   /** Short line under the items, with a lock icon. Used for privacy. */
   nota?: string;
@@ -51,7 +52,7 @@ const ponto = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" strok
               {c.itens.map((item) => (
                 <li>
                   <span class="tn-rec-cap__icone" set:html={ponto} />
-                  <span><strong>{item.titulo}</strong> {item.texto}</span>
+                  <span>{item.titulo && <strong>{item.titulo}</strong>} {item.texto}</span>
                 </li>
               ))}
               {c.nota && (
