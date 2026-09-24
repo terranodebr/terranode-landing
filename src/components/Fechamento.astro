@@ -9,9 +9,16 @@ interface Props {
   texto: string;
   /** Short recap lines, usually the page's `diferencas` titles. */
   pontos: string[];
+  /** Prefix for the buttons' data-mp-cta ids, so each page family reports on its own. */
+  cta?: string;
+  /**
+   * "escuro" sets the section on the footer's dark, so the page runs into the footer
+   * without a seam (use it when this is the last section). Defaults to the white section.
+   */
+  fundo?: "claro" | "escuro";
 }
 
-const { titulo, texto, pontos } = Astro.props;
+const { titulo, texto, pontos, cta = "comparativo_fechamento", fundo = "claro" } = Astro.props;
 
 const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
 
@@ -23,27 +30,27 @@ const beneficios = [
 
 const check = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>';
 ---
-<div class="tn-section tn-section--white tn-section--border-top">
+<div class:list={["tn-section", fundo === "escuro" ? "tn-section--dark tn-fechamento-secao--escura" : "tn-section--white tn-section--border-top"]}>
   <div class="tn-section__inner">
-    <div class="tn-cta-banner tn-fechamento">
+    <div class="tn-cta-banner tn-fechamento" data-anim-bloco data-anim="scale">
       <div class="tn-fechamento__main">
         <span class="tn-eyebrow">PRÓXIMO PASSO</span>
         <h2 class="tn-h2 tn-h2--sm tn-h2--on-dark">{titulo}</h2>
         <p class="tn-cta-banner__desc">{texto}</p>
-        <ul class="tn-fechamento__pontos">
+        <ul class="tn-fechamento__pontos" data-anim-group="left">
           {pontos.map((p) => (
             <li><span class="tn-fechamento__check" set:html={check} />{p}</li>
           ))}
         </ul>
         <div class="tn-fechamento__actions">
-          <a href={WAITLIST} target="_blank" rel="noopener" data-mp-cta="comparativo_fechamento_primary" class="tn-btn tn-btn--primary">Quero ser early tester
+          <a href={WAITLIST} target="_blank" rel="noopener" data-mp-cta={`${cta}_primary`} class="tn-btn tn-btn--primary">Quero ser early tester
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M16.175 13H4V11H16.175L10.575 5.4L12 4L20 12L12 20L10.575 18.6L16.175 13Z" fill="#fff"></path></svg>
           </a>
-          <a href={WAITLIST} target="_blank" rel="noopener" data-mp-cta="comparativo_fechamento_outline" class="tn-btn tn-btn--outline">Entrar na lista de espera</a>
+          <a href={WAITLIST} target="_blank" rel="noopener" data-mp-cta={`${cta}_outline`} class="tn-btn tn-btn--outline">Entrar na lista de espera</a>
         </div>
       </div>
 
-      <div class="tn-fechamento__card">
+      <div class="tn-fechamento__card" data-anim="right">
         <span class="tn-fechamento__card-tag">Beta fechado</span>
         <span class="tn-fechamento__card-title">O que um early tester recebe</span>
         <ul class="tn-fechamento__beneficios">

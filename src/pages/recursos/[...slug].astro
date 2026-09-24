@@ -1,0 +1,16 @@
+---
+import Recurso from "../../layouts/Recurso.astro";
+import { getRecursos } from "../../lib/recursos";
+
+// The glob loader derives `id` from the filename: catalogos.md -> /recursos/catalogos/.
+export async function getStaticPaths() {
+  const entries = await getRecursos();
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+---
+<Recurso entry={entry} />

@@ -9,6 +9,11 @@ interface Props {
   /** Path under public/, or an absolute URL. */
   image?: string;
   noindex?: boolean;
+  /**
+   * Colour of the last section above the footer. The footer opens in this colour and
+   * fades into its own dark, so the two blend instead of meeting at a seam.
+   */
+  rodapeTopo?: string;
 }
 
 const {
@@ -16,6 +21,7 @@ const {
   description,
   image = "/og-default.jpg",
   noindex = false,
+  rodapeTopo,
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -59,7 +65,9 @@ const software = {
 <meta name="robots" content={blockIndexing ? "noindex, nofollow" : "index, follow"}>
 <meta name="theme-color" content="#1e3736">
 <link rel="canonical" href={canonical.href}>
-<link rel="icon" href={asset("/favicon.svg")} type="image/svg+xml">
+<link rel="icon" href={asset("/favicon.ico")} sizes="48x48">
+<link rel="icon" href={asset("/favicon-32x32.png")} type="image/png" sizes="32x32">
+<link rel="icon" href={asset("/favicon-96x96.png")} type="image/png" sizes="96x96">
 <link rel="apple-touch-icon" href={asset("/apple-touch-icon.png")}>
 <link rel="sitemap" href={asset("/sitemap-index.xml")}>
 
@@ -96,7 +104,32 @@ const software = {
 </head>
 <body>
 <slot />
-<Footer />
+<Footer topo={rodapeTopo} />
+
+<script is:inline>
+// Links to a section of the page you're on scroll there instead of jumping. Covers bare
+// "#id" links and the root-relative "/#id" ones the header uses. A sticky bar marked
+// data-rolagem-offset is measured so the section lands just below it; reduced motion
+// keeps the instant jump.
+document.addEventListener('click', function (e) {
+  if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  var link = e.target.closest && e.target.closest('a[href*="#"]');
+  if (!link || link.target === '_blank') return;
+  var url = new URL(link.href, location.href);
+  if (!url.hash || url.origin !== location.origin || url.pathname !== location.pathname) return;
+  var alvo = document.getElementById(decodeURIComponent(url.hash.slice(1)));
+  if (!alvo) return;
+  e.preventDefault();
+  var barra = document.querySelector('[data-rolagem-offset]');
+  var folga = barra ? barra.getBoundingClientRect().height : 0;
+  var reduzir = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.scrollTo({ top: alvo.getBoundingClientRect().top + window.scrollY - folga, behavior: reduzir ? 'auto' : 'smooth' });
+  history.pushState(null, '', url.hash);
+  // Move keyboard focus along with the view, as a native jump would.
+  if (!alvo.hasAttribute('tabindex')) alvo.setAttribute('tabindex', '-1');
+  alvo.focus({ preventScroll: true });
+});
+</script>
 
 <script is:inline>
 (function () {

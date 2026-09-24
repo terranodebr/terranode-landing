@@ -1,0 +1,32 @@
+---
+// Small vector map shared by the catalog illustrations: the same lots, roads and river,
+// coloured by land use. Reused on purpose: the point of the catalog is that every
+// project sees exactly this map, and the style editor previews the same one.
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+
+type Uso = "res" | "com" | "ind" | "verde" | "nulo";
+
+// [x, y, w, h, uso]
+const lotes: [number, number, number, number, Uso][] = [
+  [8, 8, 24, 17, "res"], [34, 8, 24, 17, "res"], [60, 8, 24, 17, "com"],
+  [8, 27, 37, 17, "verde"], [47, 27, 37, 17, "res"],
+  [100, 8, 32, 36, "ind"], [134, 8, 30, 17, "com"], [134, 27, 30, 17, "res"],
+  [180, 8, 52, 17, "res"], [180, 27, 25, 17, "nulo"], [207, 27, 25, 17, "com"],
+  [8, 60, 24, 38, "verde"], [34, 60, 24, 18, "res"], [60, 60, 24, 18, "res"], [34, 80, 50, 18, "com"],
+  [100, 60, 30, 38, "res"], [132, 60, 32, 18, "res"], [132, 80, 32, 18, "ind"],
+  [180, 60, 52, 38, "verde"],
+];
+---
+<svg class:list={["tn-cat-mapa", className]} viewBox="0 0 240 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+  <rect width="240" height="150" class="tn-cat-mapa__fundo" />
+  <path d="M-5 124 C 40 110, 70 140, 120 127 S 200 106, 245 118" class="tn-cat-mapa__rio" />
+  <path d="M0 52H240M92 0V106M172 0V106" class="tn-cat-mapa__via" />
+  {lotes.map(([x, y, w, h, uso]) => (
+    <rect x={x} y={y} width={w} height={h} rx="1.5" class={`tn-cat-mapa__lote tn-cat-uso--${uso}`} />
+  ))}
+</svg>

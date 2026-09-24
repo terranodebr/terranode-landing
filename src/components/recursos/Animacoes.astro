@@ -1,0 +1,171 @@
+---
+// Entrance animations for feature pages, driven by data attributes in the markup:
+//
+//   data-anim="<efeito>"          the element itself animates in
+//   data-anim-group="<efeito>"    each direct child animates in, one after another
+//   data-anim-stagger="random|center[:segundos]"
+//                                 on a group: children go as one batch, in random order
+//                                 or rippling out from the middle (default 0.8 s spread)
+//   data-anim-bloco               one trigger for everything inside it
+//   data-anim-delay="0.4"         on a bloco: wait this long after it triggers
+//   data-anim-skip                nothing inside is touched (another script animates it)
+//
+// Efeitos: up, left, right, scale, reveal (left-to-right clip), blur (rise out of a blur),
+// words (a heading, word by word), pop (scale up from small), grow (bars rise from their
+// base), wipe (colour ramp sweeps in), rise (panel unmasked from the bottom).
+//
+// A bloco plays when it scrolls into view; blocos already on screen play on load. An
+// animated element outside any bloco is its own bloco. Must be mounted before the
+// animated markup: the inline script hides it before first paint.
+---
+<script is:inline>
+  // Hide animated elements before first paint, but only when motion is welcome. If the
+  // animation script never runs (blocked, failed to load), show everything anyway.
+  (function () {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var d = document.documentElement;
+    d.classList.add("tn-anim");
+    setTimeout(function () {
+      if (!d.classList.contains("tn-anim-on")) d.classList.remove("tn-anim");
+    }, 3000);
+  })();
+</script>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const root = document.documentElement;
+
+  const inicio: Record<string, gsap.TweenVars> = {
+    up: { y: 28 },
+    left: { x: -36 },
+    right: { x: 36 },
+    scale: { y: 32, scale: 0.96 },
+    reveal: { clipPath: "inset(0 100% 0 0)" },
+    blur: { y: 16, filter: "blur(10px)" },
+    pop: { scale: 0.4, transformOrigin: "50% 50%" },
+    grow: { scaleY: 0, transformOrigin: "50% 100%" },
+    wipe: { clipPath: "inset(0 100% 0 0 round 7px)" },
+    rise: { y: 70, clipPath: "inset(22% 5% 0% 5% round 24px)" },
+  };
+  const fim: Record<string, gsap.TweenVars> = {
+    reveal: { clipPath: "inset(0 0% 0 0)" },
+    blur: { filter: "blur(0px)" },
+    wipe: { clipPath: "inset(0 0% 0 0 round 7px)" },
+    rise: { clipPath: "inset(0% 0% 0% 0% round 24px)", duration: 1.2, ease: "power4.out" },
+  };
+  const LIMPA = "transform,clipPath,filter";
+
+  const ALVOS = "[data-anim], [data-anim-group] > *";
+
+  /** Effect for an element: its own data-anim, or the data-anim-group of its parent. */
+  const efeito = (el: Element) =>
+    el.getAttribute("data-anim") ?? el.parentElement?.getAttribute("data-anim-group") ?? "up";
+
+  const para = (nome: string): gsap.TweenVars => ({
+    autoAlpha: 1, x: 0, y: 0, scale: 1, scaleY: 1, ...fim[nome], clearProps: LIMPA,
+  });
+
+  /** "random" or "center", with an optional spread in seconds: "center:1.4". */
+  function espalhar(valor: string): gsap.StaggerVars {
+    const [de, segundos] = valor.split(":");
+    const amount = Number(segundos) || 0.8;
+    // "auto" grid reads each child's position, so a map of dots ripples out spatially.
+    return de === "center" ? { amount, from: "center", grid: "auto" } : { amount, from: "random" };
+  }
+
+  /**
+   * Wraps every word of the heading in its own span so the words can rise one by one.
+   * The heading keeps its full text as the accessible name; the pieces are hidden.
+   */
+  function palavras(el: Element): HTMLElement[] {
+    el.setAttribute("aria-label", (el.textContent ?? "").trim().replace(/\s+/g, " "));
+    const textos: Text[] = [];
+    const andar = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    while (andar.nextNode()) textos.push(andar.currentNode as Text);
+    const pecas: HTMLElement[] = [];
+    for (const texto of textos) {
+      const frag = document.createDocumentFragment();
+      for (const parte of (texto.textContent ?? "").split(/(\s+)/)) {
+        if (!parte) continue;
+        if (/^\s+$/.test(parte)) { frag.append(parte); continue; }
+        const span = document.createElement("span");
+        span.className = "tn-palavra";
+        span.setAttribute("aria-hidden", "true");
+        span.textContent = parte;
+        frag.append(span);
+        pecas.push(span);
+      }
+      texto.replaceWith(frag);
+    }
+    return pecas;
+  }
+
+  function linhaDoTempo(alvos: Element[], vars: gsap.TimelineVars = {}) {
+    const tl = gsap.timeline({ defaults: { duration: 0.8, ease: "power3.out" }, ...vars });
+    const feitos = new Set<Element>();
+    let k = 0;
+    for (const el of alvos) {
+      if (feitos.has(el)) continue;
+      // Long lists would otherwise keep the last items waiting; the gap shrinks as they pile up.
+      const pos = Math.min(k * 0.07, 0.35 + k * 0.03);
+      k++;
+      const nome = efeito(el);
+      const pai = el.parentElement;
+      const lote = pai?.getAttribute("data-anim-stagger");
+
+      if (lote && pai?.hasAttribute("data-anim-group")) {
+        const irmaos = alvos.filter((a) => a.parentElement === pai);
+        irmaos.forEach((a) => feitos.add(a));
+        tl.fromTo(irmaos, { autoAlpha: 0, ...inicio[nome] }, { ...para(nome), stagger: espalhar(lote) }, pos);
+      } else if (nome === "words") {
+        const pecas = palavras(el);
+        gsap.set(el, { autoAlpha: 1 });
+        tl.fromTo(
+          pecas,
+          { autoAlpha: 0, y: "0.4em", filter: "blur(8px)" },
+          { autoAlpha: 1, y: 0, filter: "blur(0px)", duration: 0.9, stagger: 0.045, clearProps: LIMPA },
+          pos,
+        );
+      } else {
+        tl.fromTo(el, { autoAlpha: 0, ...inicio[nome] }, para(nome), pos);
+      }
+      feitos.add(el);
+    }
+    return tl;
+  }
+
+  if (root.classList.contains("tn-anim")) {
+    const todos = [...document.querySelectorAll(ALVOS)].filter((el) => !el.closest("[data-anim-skip]"));
+    const blocos = new Map<Element, Element[]>();
+    for (const el of todos) {
+      const bloco = el.closest("[data-anim-bloco]") ?? el;
+      blocos.set(bloco, [...(blocos.get(bloco) ?? []), el]);
+    }
+
+    // A bloco already on screen at load (the hero, or anything above a restored scroll
+    // position) plays right away. The rest play once on enter through toggleActions,
+    // not `once: true`: a `once` trigger that turns out active during another trigger's
+    // refresh kills itself mid-loop, leaves a hole in ScrollTrigger's list and throws
+    // "reading 'end'", which stops every trigger on the page.
+    const dobra = window.innerHeight * 0.82;
+    blocos.forEach((alvos, bloco) => {
+      const atraso = Number(bloco.getAttribute("data-anim-delay")) || 0;
+      if (bloco.getBoundingClientRect().top < dobra) {
+        linhaDoTempo(alvos, { delay: 0.1 + atraso });
+      } else {
+        linhaDoTempo(alvos, {
+          delay: atraso,
+          scrollTrigger: { trigger: bloco, start: "top 82%", toggleActions: "play none none none" },
+        });
+      }
+    });
+
+    // Every element now holds its hidden state inline, so the pre-paint rule can go.
+    root.classList.add("tn-anim-on");
+    root.classList.remove("tn-anim");
+  }
+</script>

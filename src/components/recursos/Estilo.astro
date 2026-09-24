@@ -1,0 +1,54 @@
+---
+import MiniMapa from "./MiniMapa.astro";
+
+// Style editor illustration: categories built from the layer's own values, with the
+// feature count per class, next to a live preview of the same map. Counts are illustrative.
+
+const tipos = ["Único", "Categorias", "Graduado", "Contínuo"];
+
+const categorias = [
+  { uso: "res", nome: "Residencial", conta: "2.140" },
+  { uso: "com", nome: "Comercial", conta: "612" },
+  { uso: "ind", nome: "Industrial", conta: "188" },
+  { uso: "verde", nome: "Área verde", conta: "431" },
+  { uso: "nulo", nome: "Sem valor", conta: "37", padrao: true },
+];
+---
+<div class="tn-cat-painel tn-cat-estilo" role="img" aria-label="Editor de estilo por categorias no campo uso_solo, com a contagem de feições por categoria e a prévia do mapa ao lado.">
+  <div class="tn-cat-editor">
+    <div class="tn-cat-editor__head">
+      <span class="tn-cat-editor__titulo">Estilo · lotes</span>
+      <span class="tn-badge-soft">usado por 6 camadas</span>
+    </div>
+    <div class="tn-cat-editor__tipos">
+      {tipos.map((t) => (
+        <span class:list={["tn-cat-editor__tipo", t === "Categorias" && "is-active"]}>{t}</span>
+      ))}
+    </div>
+    <div class="tn-cat-editor__campo">
+      <span class="tn-cat-editor__label">Campo</span>
+      <span class="tn-cat-editor__select">uso_solo
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+      </span>
+    </div>
+    <ul class="tn-cat-editor__cats" data-anim-group="left">
+      {categorias.map((c) => (
+        <li class="tn-cat-editor__cat">
+          <span class={`tn-cat-editor__cor tn-cat-uso--${c.uso}`}></span>
+          <span class="tn-cat-editor__nome">{c.nome}</span>
+          {c.padrao && <span class="tn-cat-editor__padrao">padrão</span>}
+          <span class="tn-cat-editor__conta">{c.conta}</span>
+        </li>
+      ))}
+    </ul>
+    <div class="tn-cat-editor__acoes">
+      <span class="tn-cat-editor__btn">Carregar</span>
+      <span class="tn-cat-editor__btn tn-cat-editor__btn--primario">Salvar estilo</span>
+    </div>
+  </div>
+
+  <div class="tn-cat-preview" data-anim="up">
+    <MiniMapa class="tn-cat-preview__mapa" />
+    <span class="tn-cat-preview__badge"><span class="tn-cat-preview__dot"></span>Prévia no mapa</span>
+  </div>
+</div>
