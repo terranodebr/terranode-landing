@@ -115,8 +115,8 @@ const comparativos = defineCollection({
       .min(1),
 
     /**
-     * Competitor side of the flow illustration (FluxoComparado.astro). The TerraNode
-     * side is fixed in the component. `icone` picks one of its line icons.
+     * Competitor side of the flow comparison (src/layouts/Comparativo.astro). The TerraNode
+     * side is fixed in src/lib/fluxo.ts. `icone` picks one of its line icons.
      */
     fluxo: z.object({
       /** Column heading, with the article: "Com o Fulcrum". */
@@ -164,7 +164,7 @@ const comparativos = defineCollection({
       .min(1),
 
     /**
-     * Closing CTA (Fechamento.astro). Written for someone who uses this competitor
+     * Closing CTA card. Written for someone who uses this competitor
      * today: why switch, in one line, then the ask. The recap list reuses `diferencas`.
      */
     fechamento: z.object({
@@ -293,7 +293,7 @@ const recursos = defineCollection({
       })
       .optional(),
 
-    /** Closing CTA (Fechamento.astro). `pontos` is the one-line recap of the page. */
+    /** Closing CTA card. `pontos` is the one-line recap of the page. */
     fechamento: z.object({
       titulo: z.string(),
       texto: z.string(),

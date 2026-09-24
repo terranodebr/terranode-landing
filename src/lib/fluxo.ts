@@ -1,6 +1,5 @@
-// The flow comparison shared by both comparison layouts (FluxoComparado.astro in v1,
-// ComparativoV2.astro in v2): the TerraNode side, which is the same on every page, and
-// the line icons both sides pick from.
+// The flow comparison on the comparison pages (src/layouts/Comparativo.astro): the
+// TerraNode side, which is the same on every page, and the line icons both sides pick from.
 
 export type Icone =
   | "navegador" | "desktop" | "app" | "nuvem" | "planilha"

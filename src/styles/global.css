@@ -658,74 +658,8 @@ a:hover { color: var(--tn-accent); }
 .tn-prosa > :first-child { margin-top: 0; }
 .tn-prosa > :last-child { margin-bottom: 0; }
 
-/* ---------- Páginas de comparativo (/comparativos/) ---------- */
-
-.tn-eyebrow--muted { color: var(--tn-ink-faint); }
-.tn-comp-resumo--destaque { border-color: var(--tn-accent); background: var(--tn-accent-tint-bg); }
-
-/* Scrolls inside its own box on phones so the page itself never scrolls sideways. */
-.tn-comp-tabela__wrap { overflow-x: auto; border: 1px solid var(--tn-border); border-radius: 14px; background: #fff; }
-.tn-comp-tabela { width: 100%; min-width: 560px; border-collapse: collapse; font-family: var(--font-sans); font-size: 14px; line-height: 1.5; }
-.tn-comp-tabela :where(th, td) { text-align: left; vertical-align: top; padding: 14px 18px; border-bottom: 1px solid var(--tn-border); }
-.tn-comp-tabela tbody tr:last-child :where(th, td) { border-bottom: 0; }
-.tn-comp-tabela thead th { font-family: var(--font-mono); font-weight: 500; font-size: 11.5px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--tn-ink-faint); background: var(--tn-surface); }
-.tn-comp-tabela tbody th { width: 30%; font-weight: 600; color: var(--tn-ink); }
-.tn-comp-tabela td { font-weight: 500; color: var(--tn-ink-muted); }
-.tn-comp-tabela .tn-comp-tabela__tn { color: var(--tn-ink); background: var(--tn-accent-tint-bg); }
-.tn-comp-tabela thead .tn-comp-tabela__tn { color: var(--tn-accent-soft-text); background: var(--tn-accent-soft-bg); }
-
-.tn-comp-fontes { margin: 0; font-family: var(--font-sans); font-weight: 500; font-size: 12px; line-height: 1.6; color: var(--tn-ink-faint-2); }
-.tn-comp-fontes a { color: inherit; text-decoration: underline; text-decoration-color: var(--tn-border-dashed); text-underline-offset: 2px; }
-.tn-comp-fontes a:hover { color: var(--tn-ink-muted); }
-.tn-comp-onde { max-width: 720px; }
-
-/* Fechamento: banner escuro da home, em duas colunas e alinhado à esquerda. */
-/* On the dark section variant the banner would melt into its background: a hairline keeps its edge. */
-.tn-fechamento-secao--escura .tn-cta-banner { box-shadow: 0 0 0 1px var(--tn-on-dark-10); }
-.tn-fechamento { display: grid; grid-template-columns: 1.4fr 1fr; align-items: center; text-align: left; gap: clamp(28px, 5vw, 56px); }
-.tn-fechamento__main { display: flex; flex-direction: column; gap: 18px; }
-.tn-fechamento__main .tn-cta-banner__desc { max-width: 520px; }
-.tn-fechamento__pontos, .tn-fechamento__beneficios { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
-.tn-fechamento__pontos li, .tn-fechamento__beneficios li { display: flex; align-items: flex-start; gap: 10px; font-family: var(--font-sans); font-weight: 600; font-size: 14.5px; line-height: 1.45; color: var(--tn-on-dark); }
-.tn-fechamento__check { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--tn-accent-wash-strong); color: var(--tn-accent); }
-.tn-fechamento__actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 8px; }
-.tn-fechamento__card { display: flex; flex-direction: column; gap: 14px; background: var(--tn-on-dark-6); border: 1px solid var(--tn-on-dark-14); border-radius: 14px; padding: 28px; backdrop-filter: blur(4px); }
-.tn-fechamento__card-tag { align-self: flex-start; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--tn-accent); border: 1px solid var(--tn-accent); border-radius: 100px; padding: 4px 10px; }
-.tn-fechamento__card-title { font-family: var(--font-sans); font-weight: 700; font-size: 18px; color: var(--tn-on-dark); letter-spacing: -0.01em; }
-.tn-fechamento__beneficios li { font-weight: 500; color: var(--tn-on-dark-80); }
-.tn-fechamento__card-note { font-family: var(--font-sans); font-weight: 500; font-size: 12.5px; line-height: 1.5; color: var(--tn-on-dark-55); }
-
-/* Fluxo lado a lado: ilustração do mesmo levantamento em cada ferramenta. */
-.tn-fluxo { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.tn-fluxo__col { border: 1px solid var(--tn-border); border-radius: 14px; background: var(--tn-surface); padding: 28px; display: flex; flex-direction: column; gap: 22px; }
-.tn-fluxo__col--tn { border-color: var(--tn-accent); background: var(--tn-accent-tint-bg); }
-.tn-fluxo__head { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--tn-ink-faint); }
-.tn-fluxo__col--tn .tn-fluxo__head { color: var(--tn-accent); }
-.tn-fluxo__steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 22px; }
-.tn-fluxo__step { position: relative; display: flex; gap: 14px; }
-/* Connector from each icon down to the next one. */
-.tn-fluxo__step:not(:last-child)::before { content: ""; position: absolute; left: 20px; top: 44px; bottom: -18px; width: 1px; background: var(--tn-border-dashed); }
-.tn-fluxo__col--tn .tn-fluxo__step:not(:last-child)::before { background: var(--tn-accent); opacity: 0.4; }
-.tn-fluxo__icon { width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: #fff; border: 1px solid var(--tn-border-2); color: var(--tn-ink-muted); }
-.tn-fluxo__col--tn .tn-fluxo__icon { background: var(--tn-accent-wash-strong); border-color: transparent; color: var(--tn-accent); }
-.tn-fluxo__text { display: flex; flex-direction: column; gap: 3px; padding-top: 1px; }
-.tn-fluxo__num { font-family: var(--font-mono); font-size: 10.5px; color: var(--tn-ink-faint); }
-.tn-fluxo__title { font-family: var(--font-sans); font-weight: 700; font-size: 15px; color: var(--tn-ink); letter-spacing: -0.01em; }
-.tn-fluxo__detail { font-family: var(--font-sans); font-weight: 500; font-size: 13.5px; line-height: 1.55; color: var(--tn-ink-muted); text-wrap: pretty; }
-.tn-fluxo__volta { margin-top: 6px; align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-sans); font-weight: 600; font-size: 11.5px; color: var(--tn-accent-soft-text); background: var(--tn-accent-soft-bg); border-radius: 100px; padding: 4px 10px; }
-
-.tn-fluxo__shots { display: grid; grid-template-columns: 1fr 220px; gap: 20px; align-items: end; }
-.tn-fluxo__shot { margin: 0; display: flex; flex-direction: column; gap: 10px; }
-.tn-fluxo__shot img { display: block; width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--tn-border); box-shadow: var(--shadow-soft); }
-.tn-fluxo__shot--phone img { border-radius: 22px; }
-.tn-fluxo__shot figcaption { font-family: var(--font-mono); font-size: 11px; color: var(--tn-ink-faint); }
-
 @media (max-width: 900px) {
   .tn-dores__grid { grid-template-columns: 1fr; }
-  .tn-fluxo { grid-template-columns: 1fr; }
-  .tn-fechamento { grid-template-columns: 1fr; }
-  .tn-fluxo__shots { grid-template-columns: 1fr; }
-  .tn-fluxo__shot--phone { max-width: 220px; }
 }
 
 /* ---------- Páginas de recurso (/recursos/) ---------- */
@@ -1225,7 +1159,7 @@ a:hover { color: var(--tn-accent); }
   .tn-form-campo { grid-template-columns: 1fr; }
 }
 
-/* ---------- Comparativos v2 (/comparativos/v2/): a linguagem das páginas de recurso ---------- */
+/* ---------- Comparativos (/comparativos/): a linguagem das páginas de recurso ---------- */
 
 /* Hero stage: the web panel as the window, the field app's phone in front of it. */
 .tn-cmp-palco { padding-right: clamp(16px, 16vw, 210px); }
@@ -1270,16 +1204,16 @@ a:hover { color: var(--tn-accent); }
 
 /* Table: hairline rows on a dark card, the TerraNode column lit. */
 .tn-cmp-tabela__caixa { width: 100%; max-width: var(--container-max); border-radius: 22px; border: 1px solid var(--rec-line); background: var(--rec-card); overflow: hidden; }
-.tn-cmp-tabela2 { width: 100%; border-collapse: collapse; font-size: 14.5px; line-height: 1.5; }
-.tn-cmp-tabela2 th, .tn-cmp-tabela2 td { padding: 16px 22px; text-align: left; vertical-align: top; border-top: 1px solid var(--rec-line); }
-.tn-cmp-tabela2 thead th { border-top: 0; font-family: var(--font-mono); font-weight: 400; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--rec-faint); }
-.tn-cmp-tabela2 tbody th { width: 28%; font-weight: 600; color: var(--rec-text); }
-.tn-cmp-tabela2 td { color: var(--rec-muted); }
-.tn-cmp-tabela2 .tn-cmp-tabela2__tn { width: 36%; background: rgba(255, 102, 41, 0.06); color: var(--rec-text); }
-.tn-cmp-tabela2 thead .tn-cmp-tabela2__tn { color: var(--tn-accent); }
-.tn-cmp-fontes2 { width: 100%; max-width: var(--container-max); margin: -24px 0 0; font-size: 12.5px; line-height: 1.6; color: var(--rec-faint); }
-.tn-cmp-fontes2 a { color: var(--rec-muted); text-decoration: underline; text-underline-offset: 2px; }
-.tn-cmp-fontes2 a:hover { color: var(--rec-text); }
+.tn-cmp-tabela { width: 100%; border-collapse: collapse; font-size: 14.5px; line-height: 1.5; }
+.tn-cmp-tabela th, .tn-cmp-tabela td { padding: 16px 22px; text-align: left; vertical-align: top; border-top: 1px solid var(--rec-line); }
+.tn-cmp-tabela thead th { border-top: 0; font-family: var(--font-mono); font-weight: 400; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--rec-faint); }
+.tn-cmp-tabela tbody th { width: 28%; font-weight: 600; color: var(--rec-text); }
+.tn-cmp-tabela td { color: var(--rec-muted); }
+.tn-cmp-tabela .tn-cmp-tabela__tn { width: 36%; background: rgba(255, 102, 41, 0.06); color: var(--rec-text); }
+.tn-cmp-tabela thead .tn-cmp-tabela__tn { color: var(--tn-accent); }
+.tn-cmp-fontes { width: 100%; max-width: var(--container-max); margin: -24px 0 0; font-size: 12.5px; line-height: 1.6; color: var(--rec-faint); }
+.tn-cmp-fontes a { color: var(--rec-muted); text-decoration: underline; text-underline-offset: 2px; }
+.tn-cmp-fontes a:hover { color: var(--rec-text); }
 
 /* Being honest: the competitor's strengths, larger than a lead. */
 .tn-cmp-honesto__texto { max-width: 720px; font-size: clamp(17px, 1.8vw, 19px); color: var(--rec-text); }
@@ -1299,14 +1233,14 @@ a:hover { color: var(--tn-accent); }
 }
 /* Phones: each table row becomes a card, the two answers labelled. */
 @media (max-width: 640px) {
-  .tn-cmp-tabela2 thead { display: none; }
-  .tn-cmp-tabela2, .tn-cmp-tabela2 tbody, .tn-cmp-tabela2 tr, .tn-cmp-tabela2 th, .tn-cmp-tabela2 td { display: block; width: auto !important; }
-  .tn-cmp-tabela2 tr { padding: 16px 18px; border-top: 1px solid var(--rec-line); }
-  .tn-cmp-tabela2 tbody tr:first-child { border-top: 0; }
-  .tn-cmp-tabela2 th, .tn-cmp-tabela2 td { padding: 0; border: 0; }
-  .tn-cmp-tabela2 tbody th { margin-bottom: 10px; }
-  .tn-cmp-tabela2 td { display: grid; grid-template-columns: 96px 1fr; gap: 10px; padding: 7px 10px; border-radius: 8px; }
-  .tn-cmp-tabela2 td::before { content: attr(data-rotulo); font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--rec-faint); padding-top: 2px; }
-  .tn-cmp-tabela2 .tn-cmp-tabela2__tn::before { color: var(--tn-accent); }
+  .tn-cmp-tabela thead { display: none; }
+  .tn-cmp-tabela, .tn-cmp-tabela tbody, .tn-cmp-tabela tr, .tn-cmp-tabela th, .tn-cmp-tabela td { display: block; width: auto !important; }
+  .tn-cmp-tabela tr { padding: 16px 18px; border-top: 1px solid var(--rec-line); }
+  .tn-cmp-tabela tbody tr:first-child { border-top: 0; }
+  .tn-cmp-tabela th, .tn-cmp-tabela td { padding: 0; border: 0; }
+  .tn-cmp-tabela tbody th { margin-bottom: 10px; }
+  .tn-cmp-tabela td { display: grid; grid-template-columns: 96px 1fr; gap: 10px; padding: 7px 10px; border-radius: 8px; }
+  .tn-cmp-tabela td::before { content: attr(data-rotulo); font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--rec-faint); padding-top: 2px; }
+  .tn-cmp-tabela .tn-cmp-tabela__tn::before { color: var(--tn-accent); }
   .tn-cmp-palco__celular { bottom: -8%; }
 }
