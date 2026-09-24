@@ -2,8 +2,8 @@
 title: "Catálogo de mapas para projetos de campo · TerraNode"
 description: "Importe shapefiles, GeoPackages e imagens, ou sincronize do ArcGIS. Estilize vetores e rasters uma vez e todo projeto de campo recebe o mesmo mapa."
 recurso: "Catálogos"
-h1: "Importe e estilize seus mapas uma vez. Todo projeto usa a mesma versão."
-subtitulo: "O catálogo guarda os mapas da sua organização: mapas base, camadas de referência, imagens e modelos de elevação. Qualquer projeto de campo pode usar esses dados, e eles aparecem iguais em todos."
+h1: "Seus dados prontos para qualquer projeto."
+subtitulo: "Importe uma vez, use em todos. Estilize à mão ou com IA."
 ordem: 1
 draft: true
 
