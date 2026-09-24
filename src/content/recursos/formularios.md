@@ -22,6 +22,8 @@ secoes:
         texto: "Se o campo já tem propriedades ajustadas, o TerraNode avisa o que vai se perder antes de trocar."
       - titulo: "Nenhum campo sem pergunta."
         texto: "Um campo sem rótulo bloqueia a publicação, e o editor mostra qual é."
+      - titulo: "Perguntas que só aparecem quando fazem sentido."
+        texto: "Algumas perguntas podem ficar escondidas até que uma resposta anterior atenda ao critério que você definiu. Se a condição estrutural for “Requer manutenção”, por exemplo, o formulário passa a pedir as fotos do dano."
 
   - id: campos
     eyebrow: "CAMPOS"

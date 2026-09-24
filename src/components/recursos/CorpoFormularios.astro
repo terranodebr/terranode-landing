@@ -27,10 +27,11 @@ const campos = secao("campos");
 const tipos = secao("tipos");
 const semPonto = (s: string) => s.replace(/\.$/, "");
 
-// Bento: the builder behaviours after the lead item, each with its sketch.
-const bento = montar.itens.slice(1, 5).map((item, i) => ({
+// Bento: the builder behaviours after the lead item, each with its sketch. The fifth,
+// conditional visibility, closes the grid as one full-width cell.
+const bento = montar.itens.slice(1, 6).map((item, i) => ({
   ...item,
-  visual: (["arrastar", "teclado", "tipo", "rotulo"] as const)[i],
+  visual: (["arrastar", "teclado", "tipo", "rotulo", "condicional"] as const)[i],
 }));
 
 // Scroll story: media, then the other types, then geometry, then the preview.
@@ -81,7 +82,7 @@ const capitulos: Capitulo[] = [
     : []),
 ];
 ---
-<!-- Montagem: bento 2×2 + os seis grupos de campo -->
+<!-- Montagem: bento 2×2 + uma célula larga, e os seis grupos de campo -->
 <section id={montar.id} class="tn-rec-secao">
   <div class="tn-rec-head" data-anim-bloco>
     <span class="tn-rec-pilula" data-anim="up">{montar.eyebrow}</span>
@@ -89,7 +90,7 @@ const capitulos: Capitulo[] = [
     <p class="tn-rec-lead" data-anim="blur">{montar.itens[0].titulo} {montar.itens[0].texto}</p>
   </div>
 
-  <div class="tn-rec-bento">
+  <div class="tn-rec-bento tn-rec-bento--cinco">
     {bento.map((b) => (
       <div class="tn-rec-bento__celula" data-anim="up" data-anim-bloco>
         <div class="tn-rec-bento__visual"><FormBento tipo={b.visual} /></div>
