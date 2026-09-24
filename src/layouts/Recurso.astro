@@ -1,16 +1,11 @@
 ---
-// Feature page layout (/recursos/<recurso>/), after voxt.actnow.dev: near-black and
-// monochrome, centred section heads, a bento grid, a pinned scroll story and a card
-// CTA. Copy comes from the content entry; the arrangement below (which item goes
-// where, which illustration) is written for the catalogs page.
+// Feature page shell (/recursos/<recurso>/), after voxt.actnow.dev: near-black and
+// monochrome, a hero with the real recording on an aerial photo, and a card CTA to
+// close. What goes between them is written per page (src/components/recursos/Corpo*.astro)
+// and passed in as the default slot; copy comes from the content entry.
 import Base from "./Base.astro";
 import Header from "../components/Header.astro";
 import Animacoes from "../components/recursos/Animacoes.astro";
-import Estilo from "../components/recursos/Estilo.astro";
-import Raster from "../components/recursos/Raster.astro";
-import Bento from "../components/recursos/Bento.astro";
-import IaCard from "../components/recursos/IaCard.astro";
-import MapaPontilhado from "../components/recursos/MapaPontilhado.astro";
 import { asset } from "../lib/asset";
 import type { Recurso } from "../lib/recursos";
 
@@ -23,83 +18,14 @@ const d = entry.data;
 
 const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
 
-const [importar, estilo, rasters] = d.secoes;
-const semPonto = (s: string) => s.replace(/\.$/, "");
+// The hero links down to the first content section.
+const ancora = `#${d.secoes[0].id}`;
 
 // Two-tone H1: first sentence bright, the rest muted.
 const corte = d.h1.indexOf(". ");
 const h1 = corte > 0 ? [d.h1.slice(0, corte + 1), d.h1.slice(corte + 2)] : [d.h1, ""];
 
-// Bento: the import items after the drag-and-drop one, each with its sketch.
-const bento = importar.itens.slice(1, 5).map((item, i) => ({
-  ...item,
-  visual: (["camadas", "progresso", "cog", "arcgis"] as const)[i],
-}));
-// The first import item lists the formats (shown as the marquee) and then the cloud
-// sources (kept in the lead), one sentence each.
-const [, nuvem] = importar.itens[0].texto.split(/(?<=\.) /);
-const formatos = [
-  "Shapefile", "GeoPackage", "GeoJSON", "FlatGeobuf", "File Geodatabase", "MapInfo",
-  "CSV com coordenadas", "GeoTIFF", "IMG", "VRT",
-];
-
-// Scroll story: one chapter per styling capability. `marca` is the phrase that gets
-// circled when the chapter is active; it must appear in `titulo`.
-const porTitulo = (itens: typeof estilo.itens, prefixo: string) =>
-  itens.find((i) => i.titulo.startsWith(prefixo))!;
-const valoresReais = porTitulo(estilo.itens, "Categorias");
-const primeiraAbertura = rasters.itens[0];
-const capitulos = [
-  {
-    id: "estilo",
-    rotulo: estilo.eyebrow,
-    titulo: semPonto(valoresReais.titulo),
-    marca: "valores reais",
-    texto: valoresReais.texto,
-    itens: estilo.itens.filter(
-      (i) => i !== valoresReais && !i.titulo.startsWith("Estilize") && !i.titulo.startsWith("Quatro"),
-    ),
-    visual: "estilo",
-  },
-  {
-    id: "rasters",
-    rotulo: rasters.eyebrow,
-    titulo: semPonto(primeiraAbertura.titulo),
-    marca: "primeira abertura",
-    texto: primeiraAbertura.texto,
-    itens: rasters.itens.slice(1),
-    visual: "raster",
-  },
-  ...(d.destaque
-    ? [{
-        id: d.destaque.id,
-        rotulo: d.destaque.eyebrow,
-        titulo: d.destaque.titulo,
-        marca: "IA",
-        texto: d.destaque.texto,
-        itens: (d.destaque.video?.capitulos ?? []).map((c) => ({ titulo: c.titulo, texto: c.texto })),
-        nota: d.destaque.nota,
-        visual: "ia",
-      }]
-    : []),
-];
-const partes = (titulo: string, marca: string) => {
-  const i = titulo.indexOf(marca);
-  return i < 0 ? [titulo, "", ""] : [titulo.slice(0, i), marca, titulo.slice(i + marca.length)];
-};
-
-// "Quatro tipos de estilo": names come from the copy, the legends are drawn.
-const quatro = porTitulo(estilo.itens, "Quatro");
-const tipos = [
-  { nome: "Símbolo único", legenda: "unico" },
-  { nome: "Categorias por valor", legenda: "categorias" },
-  { nome: "Classes graduadas", legenda: "graduado" },
-  { nome: "Rampas contínuas", legenda: "rampa" },
-];
-
 const seta = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
-const lock = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7.5a4 4 0 0 1 8 0V11"/></svg>';
-const ponto = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><circle cx="12" cy="12" r="3"/></svg>';
 ---
 <Base title={d.title} description={d.description} image={d.image} noindex={d.draft} rodapeTopo="#0C1312">
   <Animacoes />
@@ -110,7 +36,7 @@ const ponto = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" strok
     <!-- Hero -->
     <section class="tn-rec-hero">
       <div class="tn-rec-hero__texto" data-anim-bloco>
-        <a href={`#${importar.id}`} class="tn-rec-selo" data-anim="up">
+        <a href={ancora} class="tn-rec-selo" data-anim="up">
           <span class="tn-rec-selo__tag">RECURSO</span>
           {d.recurso}
           <span class="tn-rec-selo__seta" set:html={seta} />
@@ -118,7 +44,7 @@ const ponto = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" strok
         <h1 class="tn-rec-h1" data-anim="words">{h1[0]} <span class="tn-rec-h1__apagado">{h1[1]}</span></h1>
         <p class="tn-rec-lead tn-rec-hero__lead" data-anim="blur">{d.subtitulo}</p>
         <div class="tn-rec-acoes" data-anim="up">
-          <a href={`#${importar.id}`} class="tn-rec-btn" data-mp-cta="recurso_hero_secoes">Ver como funciona</a>
+          <a href={ancora} class="tn-rec-btn" data-mp-cta="recurso_hero_secoes">Ver como funciona</a>
           <a href={WAITLIST} target="_blank" rel="noopener" class="tn-rec-btn tn-rec-btn--claro" data-mp-cta="recurso_hero_primary">Entrar na lista de espera</a>
         </div>
       </div>
@@ -150,140 +76,7 @@ const ponto = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" strok
       )}
     </section>
 
-    <!-- Importação: bento 2×2 + faixa de formatos -->
-    <section id={importar.id} class="tn-rec-secao">
-      <div class="tn-rec-head" data-anim-bloco>
-        <span class="tn-rec-pilula" data-anim="up">{importar.eyebrow}</span>
-        <h2 class="tn-rec-h2" data-anim="words">{importar.titulo}</h2>
-        <p class="tn-rec-lead" data-anim="blur">{importar.itens[0].titulo} {nuvem}</p>
-      </div>
-
-      <div class="tn-rec-bento">
-        {bento.map((b) => (
-          <div class="tn-rec-bento__celula" data-anim="up" data-anim-bloco>
-            <div class="tn-rec-bento__visual"><Bento tipo={b.visual} /></div>
-            <span class="tn-rec-bento__rotulo" data-anim="up">{semPonto(b.titulo)}</span>
-            <p class="tn-rec-bento__texto" data-anim="blur">{b.texto}</p>
-          </div>
-        ))}
-      </div>
-
-      <div class="tn-rec-formatos" data-anim="blur">
-      <span class="tn-rec-faixa__legenda">Formatos aceitos, compactados ou não</span>
-      <div class="tn-rec-faixa" aria-label={`Formatos aceitos: ${formatos.join(", ")}`}>
-        <div class="tn-rec-faixa__trilho">
-          {[0, 1].map((copia) => (
-            <div class="tn-rec-faixa__grupo" aria-hidden={copia === 1 ? "true" : undefined}>
-              {formatos.map((f) => <span class="tn-rec-faixa__item">{f}</span>)}
-            </div>
-          ))}
-        </div>
-      </div>
-      </div>
-    </section>
-
-    <!-- Estilo: história com o visual fixo -->
-    <section id={estilo.id} class="tn-rec-secao tn-rec-secao--linha">
-      <div class="tn-rec-head" data-anim-bloco>
-        <span class="tn-rec-pilula" data-anim="up">{estilo.eyebrow}</span>
-        <h2 class="tn-rec-h2" data-anim="words">{estilo.titulo}</h2>
-        <p class="tn-rec-lead" data-anim="blur">{estilo.itens[0].titulo} {estilo.itens[0].texto}</p>
-      </div>
-
-      <!-- Desktop pins one stage beside the chapters; phones get each chapter's visual inline. -->
-      <div class="tn-rec-historia" data-rec-historia>
-        <div class="tn-rec-historia__capitulos">
-          {capitulos.map((c, i) => {
-            const [antes, marca, depois] = partes(c.titulo, c.marca);
-            return (
-              <article id={c.id === estilo.id ? undefined : c.id} class:list={["tn-rec-cap", i === 0 && "is-active"]} data-rec-cap={i} data-anim-bloco>
-                <span class="tn-rec-cap__rotulo" data-anim="up">{c.rotulo}</span>
-                <h3 class="tn-rec-h3" data-anim="words">
-                  {antes}<span class="tn-rec-marca">{marca}<svg viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M14 36 C 8 14, 186 4, 193 28 C 199 50, 30 60, 9 40 C 1 30, 44 12, 88 9" pathLength="1" /></svg></span>{depois}
-                </h3>
-                <p class="tn-rec-cap__texto" data-anim="blur">{c.texto}</p>
-                <ul class="tn-rec-cap__itens" data-anim-group="up">
-                  {c.itens.map((item) => (
-                    <li>
-                      <span class="tn-rec-cap__icone" set:html={ponto} />
-                      <span><strong>{item.titulo}</strong> {item.texto}</span>
-                    </li>
-                  ))}
-                  {"nota" in c && c.nota && (
-                    <li class="tn-rec-cap__nota">
-                      <span class="tn-rec-cap__icone" set:html={lock} />
-                      <span>{c.nota}</span>
-                    </li>
-                  )}
-                </ul>
-                <div class="tn-rec-cap__visual">
-                  {c.visual === "estilo" && <Estilo />}
-                  {c.visual === "raster" && <Raster />}
-                  {c.visual === "ia" && <IaCard />}
-                </div>
-              </article>
-            );
-          })}
-        </div>
-
-        <!-- The stage fades in with the section; what is inside it is replayed by the
-             story script each time a chapter becomes active, so Animacoes skips it. -->
-        <div class="tn-rec-historia__palco" aria-hidden="true" data-anim="scale">
-          <div class="tn-rec-historia__moldura" data-anim-skip>
-            {capitulos.map((c, i) => (
-              <div class:list={["tn-rec-historia__visual", i === 0 && "is-active"]} data-rec-visual={i}>
-                {c.visual === "estilo" && <Estilo />}
-                {c.visual === "raster" && <Raster />}
-                {c.visual === "ia" && <IaCard />}
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Quatro tipos de estilo -->
-    <section class="tn-rec-secao tn-rec-secao--curta">
-      <div class="tn-rec-head tn-rec-head--pequeno" data-anim-bloco>
-        <h2 class="tn-rec-h2 tn-rec-h2--pequeno" data-anim="words">{semPonto(quatro.titulo)}</h2>
-        <p class="tn-rec-lead" data-anim="blur">{quatro.texto}</p>
-      </div>
-      <div class="tn-rec-tipos">
-        {tipos.map((t, i) => (
-          <div class="tn-rec-tipo" data-anim="up" data-anim-bloco>
-            <span class="tn-rec-tipo__num">{String(i + 1).padStart(2, "0")}</span>
-            <span class="tn-rec-tipo__nome">{t.nome}</span>
-            <div class={`tn-rec-legenda tn-rec-legenda--${t.legenda}`} aria-hidden="true">
-              {t.legenda === "unico" && <span class="tn-rec-legenda__sw" data-anim="pop"></span>}
-              {t.legenda === "categorias" && [0, 1, 2, 3, 4].map(() => <span class="tn-rec-legenda__sw" data-anim="pop"></span>)}
-              {t.legenda === "graduado" && (
-                <>
-                  <div class="tn-rec-legenda__classes" data-anim-group="grow">{[0, 1, 2, 3, 4].map(() => <span></span>)}</div>
-                  <div class="tn-rec-legenda__metodos" data-anim-group="up"><span>Intervalos iguais</span><span>Quantis</span><span>Quebras naturais</span></div>
-                </>
-              )}
-              {t.legenda === "rampa" && <span class="tn-rec-legenda__rampa" data-anim="wipe"></span>}
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
-
-    <!-- Catálogos públicos -->
-    {d.complemento && (
-      <section class="tn-rec-secao tn-rec-publicos">
-        <div class="tn-rec-publicos__mapa" data-anim-bloco><MapaPontilhado /></div>
-        <div class="tn-rec-head tn-rec-publicos__head" data-anim-bloco>
-          <span class="tn-rec-pilula" data-anim="up">{d.complemento.eyebrow}</span>
-          <h2 class="tn-rec-h2" data-anim="words">{d.complemento.titulo}</h2>
-          <p class="tn-rec-lead" data-anim="blur">{d.complemento.texto}</p>
-          <div class="tn-rec-publicos__pilulas" data-anim-group="pop">
-            <span>Mapas base</span>
-            <span>Limites oficiais</span>
-          </div>
-        </div>
-      </section>
-    )}
+    <slot />
 
     <!-- Fechamento -->
     <section class="tn-rec-secao tn-rec-secao--curta">
@@ -332,46 +125,6 @@ const ponto = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" strok
       scale: 1,
       ease: "none",
       scrollTrigger: { trigger: palco, start: "top bottom", end: "center center", scrub: true },
-    });
-  }
-
-  // Scroll story: the chapter crossing the middle of the viewport is the active one; its
-  // phrase gets circled and the pinned stage swaps to its visual.
-  const historia = document.querySelector("[data-rec-historia]");
-  if (historia) {
-    const caps = [...historia.querySelectorAll<HTMLElement>("[data-rec-cap]")];
-    const visuais = [...historia.querySelectorAll<HTMLElement>("[data-rec-visual]")];
-    // The parts of each stage visual (its data-anim markers, which Animacoes skips here)
-    // replay every time their chapter becomes active, and hide again once it is not.
-    const partes = visuais.map((v) => [...v.querySelectorAll("[data-anim], [data-anim-group] > *")]);
-    if (!reduzir) partes.forEach((p) => gsap.set(p, { autoAlpha: 0 }));
-
-    let atual = -1;
-    const ativar = (i: number) => {
-      if (i === atual) return;
-      atual = i;
-      caps.forEach((c, j) => c.classList.toggle("is-active", i === j));
-      visuais.forEach((v, j) => v.classList.toggle("is-active", i === j));
-      if (reduzir) return;
-      partes.forEach((p, j) => {
-        gsap.killTweensOf(p);
-        if (j === i) {
-          gsap.fromTo(p, { autoAlpha: 0, y: 14 }, {
-            autoAlpha: 1, y: 0, duration: 0.6, ease: "power3.out", stagger: 0.05, delay: 0.15, clearProps: "transform",
-          });
-        } else {
-          // After the stage's own crossfade (0.55 s), so the outgoing visual fades whole.
-          gsap.to(p, { autoAlpha: 0, duration: 0, delay: 0.6 });
-        }
-      });
-    };
-    caps.forEach((cap, i) => {
-      ScrollTrigger.create({
-        trigger: cap,
-        start: "top center",
-        end: "bottom center",
-        onToggle: (self) => { if (self.isActive) ativar(i); },
-      });
     });
   }
 </script>

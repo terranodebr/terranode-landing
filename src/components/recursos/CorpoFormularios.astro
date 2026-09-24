@@ -1,0 +1,140 @@
+---
+// Body of /recursos/formularios/, between the shared hero and closing CTA
+// (src/layouts/Recurso.astro): the builder bento with the field-type groups, the
+// per-field scroll story ending on the preview, and generating a form from a layer.
+// Claims follow the survey-form-builder, survey-management and
+// survey-datasource-generation specs in terranode-backend.
+import FormBento from "./FormBento.astro";
+import FormCampo from "./FormCampo.astro";
+import FormCelular from "./FormCelular.astro";
+import FormColunas from "./FormColunas.astro";
+import Historia, { type Capitulo } from "./Historia.astro";
+import type { Recurso } from "../../lib/recursos";
+
+interface Props {
+  entry: Recurso;
+}
+
+const d = Astro.props.entry.data;
+
+const secao = (id: string) => {
+  const s = d.secoes.find((x) => x.id === id);
+  if (!s) throw new Error(`src/content/recursos/formularios.md has no secao "${id}"`);
+  return s;
+};
+const montar = secao("montar");
+const campos = secao("campos");
+const tipos = secao("tipos");
+const semPonto = (s: string) => s.replace(/\.$/, "");
+
+// Bento: the builder behaviours after the lead item, each with its sketch.
+const bento = montar.itens.slice(1, 5).map((item, i) => ({
+  ...item,
+  visual: (["arrastar", "teclado", "tipo", "rotulo"] as const)[i],
+}));
+
+// Scroll story: media, then the other types, then geometry, then the preview.
+const porTitulo = (prefixo: string) => {
+  const item = campos.itens.find((i) => i.titulo.startsWith(prefixo));
+  if (!item) throw new Error(`secao "campos" has no item starting with "${prefixo}"`);
+  return item;
+};
+const capitulos: Capitulo[] = [
+  {
+    rotulo: "MÍDIA",
+    titulo: semPonto(porTitulo("Fotos").titulo),
+    marca: "posição gravada",
+    texto: porTitulo("Fotos").texto,
+    itens: [porTitulo("Vídeo"), porTitulo("Áudio"), porTitulo("Assinatura")],
+    visual: FormCampo,
+    visualProps: { tipo: "fotos" },
+  },
+  {
+    rotulo: "ESCOLHA, NÚMERO, TEXTO E DATA",
+    titulo: semPonto(porTitulo("Escolhas").titulo),
+    marca: "crescem em campo",
+    texto: porTitulo("Escolhas").texto,
+    itens: [porTitulo("Números"), porTitulo("Texto"), porTitulo("Datas")],
+    visual: FormCampo,
+    visualProps: { tipo: "escolha" },
+  },
+  {
+    rotulo: "GEOMETRIA",
+    titulo: semPonto(porTitulo("Uma geometria").titulo),
+    marca: "Uma geometria",
+    texto: porTitulo("Uma geometria").texto,
+    itens: [],
+    visual: FormCampo,
+    visualProps: { tipo: "geometria" },
+  },
+  ...(d.destaque
+    ? [{
+        id: d.destaque.id,
+        rotulo: d.destaque.eyebrow,
+        titulo: d.destaque.titulo,
+        marca: "como no app",
+        texto: d.destaque.texto,
+        itens: (d.destaque.video?.capitulos ?? []).map((c) => ({ titulo: c.titulo, texto: c.texto })),
+        nota: d.destaque.nota,
+        visual: FormCelular,
+      }]
+    : []),
+];
+---
+<!-- Montagem: bento 2×2 + os seis grupos de campo -->
+<section id={montar.id} class="tn-rec-secao">
+  <div class="tn-rec-head" data-anim-bloco>
+    <span class="tn-rec-pilula" data-anim="up">{montar.eyebrow}</span>
+    <h2 class="tn-rec-h2" data-anim="words">{montar.titulo}</h2>
+    <p class="tn-rec-lead" data-anim="blur">{montar.itens[0].titulo} {montar.itens[0].texto}</p>
+  </div>
+
+  <div class="tn-rec-bento">
+    {bento.map((b) => (
+      <div class="tn-rec-bento__celula" data-anim="up" data-anim-bloco>
+        <div class="tn-rec-bento__visual"><FormBento tipo={b.visual} /></div>
+        <span class="tn-rec-bento__rotulo" data-anim="up">{semPonto(b.titulo)}</span>
+        <p class="tn-rec-bento__texto" data-anim="blur">{b.texto}</p>
+      </div>
+    ))}
+  </div>
+
+  <div id={tipos.id} class="tn-rec-formatos" data-anim-bloco>
+    <span class="tn-rec-faixa__legenda" data-anim="up">{tipos.titulo}</span>
+    <div class="tn-rec-tipos tn-rec-tipos--grupos">
+      {tipos.itens.map((g, i) => (
+        <div class="tn-rec-tipo" data-anim="up">
+          <span class="tn-rec-tipo__num">{String(i + 1).padStart(2, "0")}</span>
+          <span class="tn-rec-tipo__nome">{g.titulo}</span>
+          <div class="tn-rec-legenda tn-form-grupo" data-anim-group="pop">
+            {g.texto.split(" · ").map((t) => <span>{t}</span>)}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- Campos: história com o visual fixo, terminando na pré-visualização -->
+<section id={campos.id} class="tn-rec-secao tn-rec-secao--linha">
+  <div class="tn-rec-head" data-anim-bloco>
+    <span class="tn-rec-pilula" data-anim="up">{campos.eyebrow}</span>
+    <h2 class="tn-rec-h2" data-anim="words">{campos.titulo}</h2>
+    <p class="tn-rec-lead" data-anim="blur">{campos.itens[0].titulo} {campos.itens[0].texto}</p>
+  </div>
+  <Historia capitulos={capitulos} />
+</section>
+
+<!-- A partir de uma camada do catálogo -->
+{d.complemento && (
+  <section class="tn-rec-secao tn-rec-secao--linha">
+    <div class="tn-form-origem">
+      <div class="tn-rec-head tn-form-origem__head" data-anim-bloco>
+        <span class="tn-rec-pilula" data-anim="up">{d.complemento.eyebrow}</span>
+        <h2 class="tn-rec-h2" data-anim="words">{d.complemento.titulo}</h2>
+        <p class="tn-rec-lead" data-anim="blur">{d.complemento.texto}</p>
+      </div>
+      <div data-anim="scale" data-anim-bloco><FormColunas /></div>
+    </div>
+  </section>
+)}

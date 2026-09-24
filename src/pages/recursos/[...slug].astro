@@ -1,6 +1,15 @@
 ---
 import Recurso from "../../layouts/Recurso.astro";
+import CorpoCatalogos from "../../components/recursos/CorpoCatalogos.astro";
+import CorpoFormularios from "../../components/recursos/CorpoFormularios.astro";
 import { getRecursos } from "../../lib/recursos";
+
+// Each feature page arranges its sections differently, so every entry needs a body here.
+// A new .md without one fails the build instead of shipping a hero with nothing under it.
+const corpos = {
+  catalogos: CorpoCatalogos,
+  formularios: CorpoFormularios,
+} as const;
 
 // The glob loader derives `id` from the filename: catalogos.md -> /recursos/catalogos/.
 export async function getStaticPaths() {
@@ -12,5 +21,11 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
+const Corpo = corpos[entry.id as keyof typeof corpos];
+if (!Corpo) {
+  throw new Error(`src/content/recursos/${entry.id}.md has no body in src/pages/recursos/[...slug].astro`);
+}
 ---
-<Recurso entry={entry} />
+<Recurso entry={entry}>
+  <Corpo entry={entry} />
+</Recurso>

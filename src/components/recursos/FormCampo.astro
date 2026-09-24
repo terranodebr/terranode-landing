@@ -1,0 +1,92 @@
+---
+// Builder illustration for the forms scroll story: one field's card on the canvas next
+// to its properties panel, as the recording shows them. Labels and property names are
+// the builder's; the values are illustrative.
+
+interface Props {
+  tipo: "fotos" | "escolha" | "geometria";
+}
+
+const { tipo } = Astro.props;
+
+const alca = '<svg width="10" height="14" viewBox="0 0 10 14" fill="currentColor" aria-hidden="true"><circle cx="2.5" cy="2.5" r="1.3"/><circle cx="7.5" cy="2.5" r="1.3"/><circle cx="2.5" cy="7" r="1.3"/><circle cx="7.5" cy="7" r="1.3"/><circle cx="2.5" cy="11.5" r="1.3"/><circle cx="7.5" cy="11.5" r="1.3"/></svg>';
+const imagem = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="4.5" width="17" height="15" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="m20.5 16-5-5-8.5 8.5"/></svg>';
+
+const rotulos = {
+  fotos: "Editor com o campo Fotos da estrutura selecionado: de 1 a 5 fotos, só da câmera, com geotag exigida.",
+  escolha: "Editor com o campo Espécie identificada selecionado: múltipla escolha com três opções, nova entrada permitida e aprovação exigida.",
+  geometria: "Editor com o campo Área de intervenção selecionado: polígono, precisão mínima do GPS de 10 metros e desenho manual permitido. O item de geometria da paleta fica desativado.",
+};
+
+const opcoes = ["Ipê-amarelo", "Pau-brasil", "Jatobá"];
+---
+<div class="tn-cat-painel tn-form-campo" role="img" aria-label={rotulos[tipo]}>
+  <div class="tn-form-campo__canvas">
+    {tipo === "fotos" && (
+      <div class="tn-form-campo__card is-selecionado" data-anim="up">
+        <div class="tn-form-campo__head"><span class="tn-form-campo__alca" set:html={alca} /><span class="tn-form-campo__rotulo">Fotos da estrutura</span><span class="tn-form-campo__tag">Fotos</span></div>
+        <div class="tn-form-campo__fotos" data-anim-group="pop">
+          <span set:html={imagem} /><span set:html={imagem} /><span class="is-adicionar"><span set:html={imagem} />Adicionar</span>
+        </div>
+        <span class="tn-form-campo__resumo">Até 5 fotos · câmera · grava coordenadas</span>
+      </div>
+    )}
+    {tipo === "escolha" && (
+      <div class="tn-form-campo__card is-selecionado" data-anim="up">
+        <div class="tn-form-campo__head"><span class="tn-form-campo__alca" set:html={alca} /><span class="tn-form-campo__rotulo">Espécie identificada</span><span class="tn-form-campo__tag">Múltipla</span></div>
+        <div class="tn-form-campo__opcoes" data-anim-group="pop">
+          {opcoes.map((o, i) => <span class:list={[i !== 1 && "is-marcada"]}>{o}</span>)}
+        </div>
+        <span class="tn-form-campo__nova">+ Adicionar nova opção…</span>
+      </div>
+    )}
+    {tipo === "geometria" && (
+      <div class="tn-form-campo__card is-selecionado" data-anim="up">
+        <div class="tn-form-campo__head"><span class="tn-form-campo__alca" set:html={alca} /><span class="tn-form-campo__rotulo">Área de intervenção</span><span class="tn-form-campo__tag">Geometria</span></div>
+        <svg class="tn-form-campo__mapa" viewBox="0 0 220 110" aria-hidden="true">
+          <polygon points="52,78 70,28 132,20 170,52 146,88 88,94" data-anim="pop" />
+          {[[52, 78], [70, 28], [132, 20], [170, 52], [146, 88], [88, 94]].map(([x, y]) => <circle cx={x} cy={y} r="3.4" />)}
+        </svg>
+        <div class="tn-form-campo__seg tn-form-campo__seg--3"><span>Ponto</span><span>Linha</span><span class="is-ativo">Polígono</span></div>
+      </div>
+    )}
+  </div>
+
+  <div class="tn-form-campo__props" data-anim-group="up">
+    <span class="tn-form-campo__sobre">Propriedades do campo</span>
+    {tipo === "fotos" && (
+      <>
+        <div class="tn-form-campo__par">
+          <div><span class="tn-form-campo__label">Mín. de fotos</span><span class="tn-form-campo__input">1</span></div>
+          <div><span class="tn-form-campo__label">Máx. de fotos</span><span class="tn-form-campo__input">5</span></div>
+        </div>
+        <div><span class="tn-form-campo__label">Fonte</span><div class="tn-form-campo__seg tn-form-campo__seg--3"><span class="is-ativo">Câmera</span><span>Galeria</span><span>Ambas</span></div></div>
+        <div class="tn-form-campo__chave is-ligada"><span class="tn-form-campo__switch"></span><span>Exigir geotag na foto<small>Cada foto grava as coordenadas de captura.</small></span></div>
+        <div class="tn-form-campo__chave"><span class="tn-form-campo__switch"></span><span>Campo obrigatório</span></div>
+      </>
+    )}
+    {tipo === "escolha" && (
+      <>
+        <div>
+          <span class="tn-form-campo__label">Opções</span>
+          <ul class="tn-form-campo__lista">
+            {opcoes.map((o) => <li><span class="tn-form-campo__alca" set:html={alca} />{o}</li>)}
+          </ul>
+        </div>
+        <div class="tn-form-campo__chave is-ligada"><span class="tn-form-campo__switch"></span><span>Permitir nova entrada</span></div>
+        <div class="tn-form-campo__chave is-ligada"><span class="tn-form-campo__switch"></span><span>Exigir aprovação da revisora</span></div>
+      </>
+    )}
+    {tipo === "geometria" && (
+      <>
+        <div><span class="tn-form-campo__label">Precisão mínima do GPS</span><span class="tn-form-campo__input">10<small>m</small></span></div>
+        <div class="tn-form-campo__chave is-ligada"><span class="tn-form-campo__switch"></span><span>Permitir desenho manual</span></div>
+        <div class="tn-form-campo__bloqueio">
+          <span class="tn-form-campo__label">Paleta</span>
+          <span class="tn-form-campo__desativado">Pontos, linhas e polígonos</span>
+          <small>Só um campo de geometria por formulário.</small>
+        </div>
+      </>
+    )}
+  </div>
+</div>
