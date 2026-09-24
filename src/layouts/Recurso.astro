@@ -25,6 +25,20 @@ const ancora = `#${d.secoes[0].id}`;
 const corte = d.h1.indexOf(". ");
 const h1 = corte > 0 ? [d.h1.slice(0, corte + 1), d.h1.slice(corte + 2)] : [d.h1, ""];
 
+// Crop box for the recording: shows only the browser window inside it. Without a
+// `janela` in the entry, the CSS defaults (the catalog recording's window) apply.
+const janela = d.destaque?.video?.janela;
+const pct = (n: number) => `${+(n * 100).toFixed(3)}%`;
+const recorte = janela && [
+  `aspect-ratio: ${janela.largura} / ${janela.altura}`,
+  `border-radius: ${pct(janela.raio / janela.largura)} ${pct(janela.raio / janela.largura)} 0 0 / ${pct(janela.raio / janela.altura)} ${pct(janela.raio / janela.altura)} 0 0`,
+].join("; ");
+const enquadramento = janela && [
+  `width: ${pct(janela.quadro[0] / janela.largura)}`,
+  `left: ${pct(-janela.x / janela.largura)}`,
+  `top: ${pct(-janela.y / janela.altura)}`,
+].join("; ");
+
 const seta = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 ---
 <Base title={d.title} description={d.description} image={d.image} noindex={d.draft} rodapeTopo="#0C1312">
@@ -58,9 +72,10 @@ const seta = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke
             <img src={asset("/favicon-96x96.png")} alt="" width="30" height="30" class="tn-rec-palco__marca" />
             <span class="tn-rec-palco__status"><span class="tn-rec-palco__dot"></span>Gravação real do TerraNode</span>
           </div>
-          <div class="tn-rec-janela">
+          <div class="tn-rec-janela" style={recorte}>
             <video
               class="tn-rec-janela__video"
+              style={enquadramento}
               src={asset(d.destaque.video.src)}
               poster={asset(d.destaque.video.poster)}
               muted

@@ -73,6 +73,9 @@ destaque:
   video:
     src: "/recursos/formularios-editor.mp4"
     poster: "/recursos/formularios-editor.jpg"
+    # Janela em (58, 39)–(1513, 1040) com cantos de raio ~26: 2 px para dentro e sem
+    # os cantos de baixo, que o palco corta retos.
+    janela: { quadro: [1572, 1080], x: 60, y: 41, largura: 1452, altura: 970, raio: 24 }
     legenda: "Gravação do TerraNode: o Formulário de Inspeção recebe, arrastados da paleta, uma geometria, uma observação por áudio, uma assinatura, a data e hora do registro e fotos da estrutura. Cada campo é ajustado no painel de propriedades e, no fim, o formulário é aberto na pré-visualização do aplicativo."
     capitulos:
       - inicio: 0

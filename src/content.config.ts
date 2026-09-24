@@ -245,6 +245,22 @@ const recursos = defineCollection({
             src: z.string(),
             /** Quadro estático em public/, mostrado antes de tocar e com movimento reduzido. */
             poster: z.string(),
+            /**
+             * A janela do navegador dentro da gravação, em pixels do quadro (largura ×
+             * altura do vídeo). O hero recorta só essa área. `raio` arredonda os cantos
+             * de cima do recorte. Meça alguns pixels para dentro da borda, para o fundo
+             * preto da gravação não vazar. Sem isso, vale a janela da gravação de Catálogos.
+             */
+            janela: z
+              .object({
+                quadro: z.tuple([z.number().positive(), z.number().positive()]),
+                x: z.number().min(0),
+                y: z.number().min(0),
+                largura: z.number().positive(),
+                altura: z.number().positive(),
+                raio: z.number().min(0).default(0),
+              })
+              .optional(),
             /** Descreve o que acontece no vídeo, para leitor de tela. */
             legenda: z.string(),
             /**
