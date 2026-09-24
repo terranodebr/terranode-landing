@@ -1,0 +1,20 @@
+---
+import ComparativoV2 from "../../../layouts/ComparativoV2.astro";
+import { getComparativos } from "../../../lib/comparativos";
+
+// v2 of the comparison pages, for review next to v1. Built only in dev and PR previews
+// (both noindex), never in production, whatever the entry's draft flag says.
+export async function getStaticPaths() {
+  const emRevisao =
+    import.meta.env.DEV || import.meta.env.BASE_URL.startsWith("/pr-preview");
+  if (!emRevisao) return [];
+  const entries = await getComparativos();
+  return entries.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+---
+<ComparativoV2 entry={entry} />
