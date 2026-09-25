@@ -29,7 +29,6 @@ export interface RecursoEmBreve {
  * delete it then.
  */
 const emBreve: RecursoEmBreve[] = [
-  { nome: "Formulários", chamada: "Arraste os campos ou descreva o levantamento para a IA.", icone: "formulario" },
   { nome: "Relatórios", icone: "relatorio" },
 ];
 
