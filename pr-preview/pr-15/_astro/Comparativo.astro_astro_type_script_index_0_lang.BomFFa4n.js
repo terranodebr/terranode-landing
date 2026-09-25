@@ -1,1 +1,0 @@
-import{n as e,t}from"./ScrollTrigger.BJZ90ViQ.js";e.registerPlugin(t);var n=document.querySelector(`[data-rec-palco]`);n&&!window.matchMedia(`(prefers-reduced-motion: reduce)`).matches&&e.fromTo(n,{scale:.94},{scale:1,ease:`none`,scrollTrigger:{trigger:n,start:`top bottom`,end:`center center`,scrub:!0}});
