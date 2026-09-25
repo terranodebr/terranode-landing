@@ -1280,7 +1280,7 @@ a:hover { color: var(--tn-accent); }
   .tn-cmp-palco__celular { bottom: -8%; }
 }
 
-/* ---------- Home v2 (/v2/): a home no layout das páginas de recurso ---------- */
+/* ---------- Home: no layout das páginas de recurso ---------- */
 
 .tn-home-mono { font-family: var(--font-mono); font-size: 11px; }
 
@@ -1649,7 +1649,7 @@ a.tn-home-caso:hover { color: var(--rec-text); border-color: var(--rec-line-2); 
   .tn-home-arcgis__servicos li:not(.is-ativo) { display: none; }
 }
 
-/* Home v2 colour themes. Each one only redefines the --rec-* tokens the feature-page
+/* Home colour themes. Each one only redefines the --rec-* tokens the feature-page
    classes read, so a section changes colour by class and its content follows.
    --rec-inverso is text set on a --rec-text fill (light buttons, tags, step numbers). */
 .tn-tema-escuro, .tn-home .tn-rec-mini {
