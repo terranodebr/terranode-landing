@@ -1,0 +1,204 @@
+---
+// Small dark UI sketches for the home, in the feature pages' style (see
+// recursos/Bento.astro). Ids, names and counts are illustrative; the states they show
+// are the product's.
+
+interface Props {
+  tipo: "offline" | "geometria" | "foto" | "bateria" | "formulario" | "time" | "coleta" | "revisao";
+}
+
+const { tipo } = Astro.props;
+
+const ok = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>';
+const gira = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" aria-hidden="true" class="tn-cat-gira"><path d="M12 3a9 9 0 1 0 9 9"/></svg>';
+const mais = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>';
+const semSinal = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M2 8.8a15 15 0 0 1 4.2-2.6M9.5 5.2A15 15 0 0 1 22 8.8M5 12.5a10 10 0 0 1 3-1.9M13.3 10.3A10 10 0 0 1 19 12.5M8.5 16a5 5 0 0 1 7 0M12 20h.01M3 3l18 18"/></svg>';
+
+const fila = [
+  { id: "PT-0339", texto: "3 fotos enviadas", estado: "ok" },
+  { id: "PT-0340", texto: "enviando áudio…", estado: "andamento" },
+  { id: "PT-0341", texto: "geometria + 2 fotos", estado: "espera" },
+];
+
+const campos = [
+  { nome: "Número da torre", tipo: "texto", meta: "obrigatório" },
+  { nome: "Fotos da estrutura", tipo: "foto", meta: "mín. 3" },
+  { nome: "Área de intervenção", tipo: "geometria", meta: "polígono" },
+];
+
+const pessoas = [
+  { sigla: "MR", nome: "Marina Reis", papel: "Coletora · campo", meta: "3 formulários" },
+  { sigla: "JC", nome: "Joel Camargo", papel: "Coletor · campo", meta: "2 formulários" },
+  { sigla: "AL", nome: "Ana Lobo", papel: "Revisora", meta: "fila de revisão" },
+];
+---
+{tipo === "offline" && (
+  <div class="tn-rec-mini" aria-hidden="true">
+    <div class="tn-rec-mini__arquivo" data-anim="up">
+      <span class="tn-home-sinal" set:html={semSinal} />
+      Sincronizando
+      <span class="tn-rec-mini__meta">18 de 42</span>
+    </div>
+    <div class="tn-rec-mini__barra" data-anim="wipe"><span></span></div>
+    <ul class="tn-rec-mini__etapas" data-anim-group="left">
+      {fila.map((f) => (
+        <li class={`tn-rec-mini__etapa tn-rec-mini__etapa--${f.estado}`}>
+          <span class="tn-rec-mini__marco" set:html={f.estado === "ok" ? ok : f.estado === "andamento" ? gira : ""} />
+          <span class="tn-rec-mini__nome tn-home-mono">{f.id}</span>
+          <span class="tn-rec-mini__meta">{f.texto}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
+
+{tipo === "geometria" && (
+  <div class="tn-rec-mini tn-home-geo" aria-hidden="true">
+    <svg viewBox="0 0 280 150" class="tn-home-geo__mapa" data-anim="up">
+      <defs>
+        <pattern id="tn-home-grade" width="20" height="20" patternUnits="userSpaceOnUse">
+          <path d="M20 0H0V20" fill="none" stroke="rgba(255,255,255,0.05)" />
+        </pattern>
+      </defs>
+      <rect width="280" height="150" fill="url(#tn-home-grade)" />
+      <path d="M-4 118 C 40 104, 80 136, 130 122 S 220 100, 284 112" class="tn-home-geo__rio" />
+      <polygon points="26,30 118,22 132,92 44,104" class="tn-home-geo__poligono" />
+      {[[26, 30], [118, 22], [132, 92], [44, 104]].map(([x, y]) => <circle cx={x} cy={y} r="3.2" class="tn-home-geo__vertice" />)}
+      <path d="M156 110 L186 64 L222 78 L256 34" class="tn-home-geo__linha" />
+      {[[156, 110], [186, 64], [222, 78], [256, 34]].map(([x, y]) => <circle cx={x} cy={y} r="3.2" class="tn-home-geo__vertice" />)}
+      <circle cx="212" cy="124" r="14" class="tn-home-geo__halo" />
+      <circle cx="212" cy="124" r="4" class="tn-home-geo__ponto" />
+    </svg>
+    <div class="tn-rec-mini__chips" data-anim-group="pop">
+      <span>Ponto</span><span>Linha</span><span>Polígono</span><span class="tn-home-chip--acento">GPS ±3 cm</span>
+    </div>
+  </div>
+)}
+
+{tipo === "foto" && (
+  <div class="tn-rec-mini" aria-hidden="true">
+    <div class="tn-home-foto" data-anim="up">
+      <span class="tn-home-foto__mira"></span>
+      <span class="tn-home-foto__tag">Foto 2 de 3</span>
+    </div>
+    <ul class="tn-home-dados" data-anim-group="left">
+      <li><span>Latitude</span><code>-27.59541°</code></li>
+      <li><span>Longitude</span><code>-48.54820°</code></li>
+      <li><span>Precisão</span><code class="tn-home-dados__ok">±3 cm</code></li>
+      <li><span>Horário</span><code>11:30:42</code></li>
+    </ul>
+  </div>
+)}
+
+{tipo === "bateria" && (
+  <div class="tn-rec-mini" aria-hidden="true">
+    <div class="tn-rec-mini__arquivo" data-anim="up">
+      Jornada de coleta
+      <span class="tn-rec-mini__meta">07:00 → 17:00</span>
+    </div>
+    <svg viewBox="0 0 280 90" class="tn-home-rastro" data-anim="reveal">
+      <path d="M6 70 C 30 66, 40 40, 70 44 S 110 76, 140 58 S 190 18, 220 30 S 260 52, 274 40" />
+      {[[6, 70], [70, 44], [140, 58], [220, 30], [274, 40]].map(([x, y]) => <circle cx={x} cy={y} r="3" />)}
+    </svg>
+    <div class="tn-home-bateria" data-anim="up">
+      <span class="tn-home-bateria__corpo"><span class="tn-home-bateria__carga"></span></span>
+      <span class="tn-home-bateria__texto">Sem power bank</span>
+      <span class="tn-rec-mini__meta">rastro otimizado · tela escura</span>
+    </div>
+  </div>
+)}
+
+{tipo === "formulario" && (
+  <div class="tn-rec-mini tn-home-largo" aria-hidden="true">
+    <div class="tn-rec-mini__arquivo" data-anim="up">
+      <span class="tn-rec-mini__ext">v3</span>
+      Inspeção de torres
+      <span class="tn-rec-mini__meta">publicado</span>
+    </div>
+    <ul class="tn-rec-mini__lista" data-anim-group="left">
+      {campos.map((c) => (
+        <li class="tn-rec-mini__linha">
+          <span class={`tn-rec-mini__geo tn-rec-mini__geo--${c.tipo === "geometria" ? "poly" : c.tipo === "foto" ? "ponto" : "linha"}`}></span>
+          <span class="tn-home-campo">{c.nome}</span>
+          <span class="tn-rec-mini__meta">{c.meta}</span>
+        </li>
+      ))}
+      <li class="tn-rec-mini__linha tn-home-tracejado"><span class="tn-home-mais" set:html={mais} />Adicionar campo</li>
+    </ul>
+    <div class="tn-home-ia" data-anim="up">
+      <span class="tn-home-ia__brilho">✦</span>
+      “Vistoria de torres com fotos e severidade”
+    </div>
+  </div>
+)}
+
+{tipo === "time" && (
+  <div class="tn-rec-mini tn-home-largo" aria-hidden="true">
+    <ul class="tn-rec-mini__lista" data-anim-group="left">
+      {pessoas.map((p, i) => (
+        <li class="tn-rec-mini__linha">
+          <span class={`tn-home-avatar tn-home-avatar--${i}`}>{p.sigla}</span>
+          <span class="tn-home-pessoa">
+            <span>{p.nome}</span>
+            <span class="tn-home-pessoa__papel">{p.papel}</span>
+          </span>
+          <span class="tn-rec-mini__meta">{p.meta}</span>
+        </li>
+      ))}
+      <li class="tn-rec-mini__linha tn-home-tracejado"><span class="tn-home-mais" set:html={mais} />Convidar por e-mail</li>
+    </ul>
+  </div>
+)}
+
+{tipo === "coleta" && (
+  <div class="tn-rec-mini tn-home-largo" aria-hidden="true">
+    <div class="tn-home-offline" data-anim="up">
+      <span class="tn-home-sinal" set:html={semSinal} />
+      Sem sinal · salvando localmente
+    </div>
+    <div class="tn-home-ponto" data-anim="up">
+      <div class="tn-home-ponto__topo">
+        <span class="tn-home-mono">PT-0341</span>
+        <span class="tn-home-gps"><span></span>GPS ±3 cm</span>
+      </div>
+      <svg viewBox="0 0 260 90" class="tn-home-ponto__mapa">
+        <path d="M24 70 L90 26 L160 48 L236 18" class="tn-home-geo__linha" />
+        {[[24, 70], [90, 26], [160, 48], [236, 18]].map(([x, y]) => <circle cx={x} cy={y} r="4" class="tn-home-geo__vertice" />)}
+      </svg>
+      <div class="tn-home-ponto__anexos" data-anim-group="pop">
+        <span>Foto</span><span>Foto</span><span>Áudio</span><span>Croqui</span>
+      </div>
+      <span class="tn-home-ponto__salvar">Salvar ponto</span>
+    </div>
+  </div>
+)}
+
+{tipo === "revisao" && (
+  <div class="tn-rec-mini tn-home-largo" aria-hidden="true">
+    <ul class="tn-rec-mini__lista" data-anim-group="left">
+      <li class="tn-rec-mini__linha">
+        <span class="tn-home-mono">PT-0339</span>
+        <span class="tn-home-status tn-home-status--ok"><span set:html={ok} />Validado</span>
+      </li>
+      <li class="tn-home-revisao">
+        <div class="tn-home-revisao__topo">
+          <span class="tn-home-mono">PT-0340</span>
+          <span class="tn-home-status">Em revisão</span>
+        </div>
+        <p>“Falta a foto do isolador.”</p>
+        <div class="tn-home-revisao__acoes">
+          <span>Rejeitar</span>
+          <span class="tn-home-revisao__validar">Validar</span>
+        </div>
+      </li>
+      <li class="tn-rec-mini__linha">
+        <span class="tn-home-mono">PT-0341</span>
+        <span class="tn-home-status">Em revisão</span>
+      </li>
+    </ul>
+    <div class="tn-rec-mini__rodape tn-home-rodape" data-anim="up">
+      <span>2 de 3 pontos revisados</span>
+      <span class="tn-home-rodape__link">CSV · GeoJSON · SHP →</span>
+    </div>
+  </div>
+)}

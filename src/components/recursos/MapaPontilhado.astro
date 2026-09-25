@@ -1,0 +1,13 @@
+---
+// Brazil as a dot grid. The points are a 1.1° grid clipped to Brazil's outline from
+// Natural Earth 110m (world-atlas package), stored as [x, y] offsets in degrees from
+// 74°W, 6°N. A handful of dots pulse in the accent colour.
+import pontos from "./brasil-pontos.json";
+
+const destaque = new Set([37, 118, 205, 262, 331, 402, 455, 521]);
+---
+<svg class="tn-rec-mapa" viewBox="-1 -1 42 42" aria-hidden="true" data-anim-group="pop" data-anim-stagger="center:1.6">
+  {(pontos as [number, number][]).map(([x, y], i) => (
+    <circle cx={x} cy={y} r="0.34" class:list={[destaque.has(i) && "is-destaque"]} style={destaque.has(i) ? `--d:${(i % 7) * 0.4}s` : undefined} />
+  ))}
+</svg>

@@ -60,11 +60,18 @@ src/
     solucoes/
       index.astro     -> /solucoes/
       [...slug].astro -> /solucoes/<setor>/
+    comparativos/
+      [...slug].astro -> /comparativos/<concorrente>/ (sem índice, listados no rodapé)
+    recursos/
+      [...slug].astro -> /recursos/<recurso>/ (sem índice; no menu Funcionalidades e no rodapé)
   content/
     solucoes/       Páginas de setor, uma por arquivo .md
     blog/           (vazio, ainda não implementado)
     ajuda/          (vazio, ainda não implementado)
-    comparativos/   (vazio, ainda não implementado)
+    comparativos/   Páginas "TerraNode vs X", uma por arquivo .md (mesma regra de draft)
+    recursos/       Páginas de recurso do produto (ex.: Catálogos), mesma regra de draft.
+                    O layout (layouts/Recurso.astro) monta a página e escolhe as
+                    ilustrações, que ficam em components/recursos/.
   content.config.ts Define quais campos cada .md precisa ter
   layouts/          Estruturas de página reaproveitadas
   components/       Blocos visuais (Hero, Steps, Faq, ...)

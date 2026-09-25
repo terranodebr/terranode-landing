@@ -1,23 +1,186 @@
 ---
 import { asset } from "../lib/asset";
+import { getRecursos, getRecursosEmBreve } from "../lib/recursos";
 
 // Section links have to be root-relative rather than bare fragments: this header is
 // mounted on /solucoes/ pages too, where "#produto" would resolve against the sector
 // page and go nowhere. asset() keeps them working under the PR-preview base path.
 const home = asset("/");
+
+// Feature pages for the Funcionalidades menu. Same draft filter as the pages, so
+// production never links to a draft; with none published the menu is left out.
+const recursos = await getRecursos();
+const emBreve = getRecursosEmBreve(recursos);
+/** First sentence of the page's H1, as the one-line pitch under each menu item. */
+const chamada = (h1: string) => h1.split(/(?<=\.) /)[0];
+
+const icones: Record<string, string> = {
+  formulario: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="3" width="15" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>',
+  relatorio: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
+};
+// Published pages: the forms page keeps the icon it had while "Em breve"; the rest use
+// the layers icon.
+const iconePorPagina: Record<string, string> = { formularios: "formulario" };
+const icone = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 8.5 4.5L12 12 3.5 7.5z"/><path d="m3.5 12 8.5 4.5 8.5-4.5M3.5 16.5 12 21l8.5-4.5"/></svg>';
+const menu = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path class="tn-header__menu-linha tn-header__menu-linha--1" d="M4 8h16"/><path class="tn-header__menu-linha tn-header__menu-linha--2" d="M4 16h16"/></svg>';
+const links = [
+  { href: `${home}#produto`, rotulo: "Produto" },
+  { href: `${home}#como-funciona`, rotulo: "Como funciona" },
+  { href: `${home}#o-app`, rotulo: "O app" },
+  { href: asset("/solucoes/"), rotulo: "Soluções" },
+  { href: `${home}#faq`, rotulo: "Perguntas" },
+];
+const seta = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
 ---
-  <div class="tn-header">
+  <div class="tn-header" data-header>
     <div class="tn-header__brand">
       <a href={home}><img src={asset("/terranode-logo.svg")} alt="TerraNode" class="tn-header__logo"></a>
     </div>
-    <div class="tn-nav-links">
+    <nav class="tn-nav-links" aria-label="Principal">
       <a href={`${home}#produto`}>Produto</a>
+      {recursos.length > 0 && (
+        <div class="tn-nav-menu" data-nav-menu>
+          <button type="button" class="tn-nav-menu__botao" aria-expanded="false" aria-controls="tn-menu-funcionalidades" data-nav-menu-botao>
+            Funcionalidades<span class="tn-nav-menu__seta" set:html={seta} />
+          </button>
+          <div class="tn-nav-menu__painel" id="tn-menu-funcionalidades" data-nav-menu-painel>
+            <div class="tn-nav-menu__lista">
+            {recursos.map((r) => (
+              <a href={asset(`/recursos/${r.id}/`)} class="tn-nav-menu__item" data-mp-cta="header_funcionalidade">
+                <span class="tn-nav-menu__icone" set:html={icones[iconePorPagina[r.id]] ?? icone} />
+                <span class="tn-nav-menu__texto">
+                  <span class="tn-nav-menu__nome">{r.data.recurso}</span>
+                  <span class="tn-nav-menu__chamada">{chamada(r.data.h1)}</span>
+                </span>
+              </a>
+            ))}
+            {emBreve.map((r) => (
+              <div class="tn-nav-menu__item tn-nav-menu__item--breve" aria-disabled="true">
+                <span class="tn-nav-menu__icone" set:html={icones[r.icone]} />
+                <span class="tn-nav-menu__texto">
+                  <span class="tn-nav-menu__nome">{r.nome}<span class="tn-nav-menu__breve">Em breve</span></span>
+                  {r.chamada && <span class="tn-nav-menu__chamada">{r.chamada}</span>}
+                </span>
+              </div>
+            ))}
+            </div>
+          </div>
+        </div>
+      )}
       <a href={`${home}#como-funciona`}>Como funciona</a>
       <a href={`${home}#o-app`}>O app</a>
       <a href={asset("/solucoes/")}>Soluções</a>
       <a href={`${home}#faq`}>Perguntas</a>
-    </div>
+    </nav>
     <div class="tn-header__actions">
       <a href="https://form.typeform.com/to/ZVQYTFV5" target="_blank" rel="noopener" data-mp-cta="header_cta" class="tn-header__cta">Entrar na lista</a>
+      <button type="button" class="tn-header__menu" aria-expanded="false" aria-controls="tn-menu-movel" aria-label="Abrir menu" data-header-menu set:html={menu} />
     </div>
+
+    <!-- Phones: the nav above is hidden under 760px, so the menu button opens this panel
+         with the same links, the feature pages listed under Funcionalidades. -->
+    <nav class="tn-menu-movel" id="tn-menu-movel" aria-label="Principal" data-header-painel>
+      <div class="tn-menu-movel__lista">
+        <a href={links[0].href} class="tn-menu-movel__link">{links[0].rotulo}</a>
+        {(recursos.length > 0 || emBreve.length > 0) && (
+          <div class="tn-menu-movel__grupo">
+            <span class="tn-menu-movel__rotulo">Funcionalidades</span>
+            {recursos.map((r) => (
+              <a href={asset(`/recursos/${r.id}/`)} class="tn-menu-movel__recurso" data-mp-cta="header_movel_funcionalidade">
+                <span class="tn-nav-menu__icone" set:html={icones[iconePorPagina[r.id]] ?? icone} />
+                <span class="tn-nav-menu__texto">
+                  <span class="tn-nav-menu__nome">{r.data.recurso}</span>
+                  <span class="tn-nav-menu__chamada">{chamada(r.data.h1)}</span>
+                </span>
+              </a>
+            ))}
+            {emBreve.map((r) => (
+              <div class="tn-menu-movel__recurso tn-menu-movel__recurso--breve" aria-disabled="true">
+                <span class="tn-nav-menu__icone" set:html={icones[r.icone]} />
+                <span class="tn-nav-menu__texto">
+                  <span class="tn-nav-menu__nome">{r.nome}<span class="tn-nav-menu__breve">Em breve</span></span>
+                  {r.chamada && <span class="tn-nav-menu__chamada">{r.chamada}</span>}
+                </span>
+              </div>
+            ))}
+          </div>
+        )}
+        {links.slice(1).map((l) => <a href={l.href} class="tn-menu-movel__link">{l.rotulo}</a>)}
+      </div>
+    </nav>
   </div>
+
+<script>
+  // Phone menu: the button toggles the panel. A link inside it, Escape, a click outside
+  // or widening past the phone breakpoint closes it.
+  document.querySelectorAll<HTMLElement>("[data-header]").forEach((header) => {
+    const botao = header.querySelector<HTMLButtonElement>("[data-header-menu]");
+    const painel = header.querySelector<HTMLElement>("[data-header-painel]");
+    if (!botao || !painel) return;
+
+    const abrir = (sim: boolean) => {
+      header.classList.toggle("is-menu-aberto", sim);
+      botao.setAttribute("aria-expanded", String(sim));
+      botao.setAttribute("aria-label", sim ? "Fechar menu" : "Abrir menu");
+    };
+    const aberto = () => header.classList.contains("is-menu-aberto");
+
+    botao.addEventListener("click", () => abrir(!aberto()));
+    painel.addEventListener("click", (e) => {
+      if ((e.target as Element).closest("a")) abrir(false);
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && aberto()) { abrir(false); botao.focus(); }
+    });
+    document.addEventListener("click", (e) => {
+      if (aberto() && !header.contains(e.target as Node)) abrir(false);
+    });
+    window.matchMedia("(min-width: 761px)").addEventListener("change", (e) => {
+      if (e.matches) abrir(false);
+    });
+  });
+
+  // Funcionalidades menu: a disclosure button. Click (or Enter/Space) toggles it, a
+  // mouse can also open it by hovering, and Escape or a click elsewhere closes it.
+  // Open/closed is the is-aberto class rather than `hidden`, so CSS can animate the way
+  // out as well as the way in; closed, the panel is visibility:hidden (unfocusable).
+  document.querySelectorAll<HTMLElement>("[data-nav-menu]").forEach((menu) => {
+    const botao = menu.querySelector<HTMLButtonElement>("[data-nav-menu-botao]")!;
+    let fechar: number | undefined;
+    let aberto = false;
+    // Set when a mouse hover opened the menu: the click that usually follows the hover
+    // must keep it open rather than toggle it shut.
+    let porHover = false;
+
+    const abrir = (sim: boolean) => {
+      window.clearTimeout(fechar);
+      if (!sim) porHover = false;
+      aberto = sim;
+      menu.classList.toggle("is-aberto", sim);
+      botao.setAttribute("aria-expanded", String(sim));
+    };
+
+    botao.addEventListener("click", () => {
+      if (porHover) { porHover = false; abrir(true); return; }
+      abrir(!aberto);
+    });
+    menu.addEventListener("pointerenter", (e) => {
+      if (e.pointerType !== "mouse") return;
+      if (!aberto) porHover = true;
+      abrir(true);
+    });
+    // A short grace period so crossing the gap between button and panel doesn't close it.
+    menu.addEventListener("pointerleave", (e) => {
+      if (e.pointerType === "mouse") fechar = window.setTimeout(() => abrir(false), 160);
+    });
+    menu.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && aberto) { abrir(false); botao.focus(); }
+    });
+    menu.addEventListener("focusout", (e) => {
+      if (!menu.contains(e.relatedTarget as Node)) abrir(false);
+    });
+    document.addEventListener("click", (e) => {
+      if (!menu.contains(e.target as Node)) abrir(false);
+    });
+  });
+</script>

@@ -1,0 +1,33 @@
+---
+import { Image } from "astro:assets";
+import relevo from "../../assets/relevo-brasil.webp";
+
+// Raster illustration: a shaded-relief elevation model of Brazil opened with a ramp
+// stretched to the data's min and max, over a dark grainy backdrop. Outside the country
+// is NoData, left transparent. The source image had a white background, turned into
+// transparency when it was added. Values are illustrative.
+
+const modos = ["Valores", "Intervalos", "Rampa", "RGB"];
+---
+<div class="tn-cat-painel tn-cat-raster" role="img" aria-label="Modelo de elevação do Brasil aberto com uma rampa contínua ajustada ao mínimo e ao máximo dos dados, com a área sem dado transparente.">
+  <Image src={relevo} alt="" class="tn-cat-raster__relevo" widths={[370, 740]} sizes="(max-width: 900px) 90vw, 520px" loading="lazy" />
+
+  <div class="tn-cat-raster__card" data-anim="up">
+    <div class="tn-cat-raster__head">
+      <span class="tn-cat-raster__arquivo">mdt_brasil.tif</span>
+      <span class="tn-cat-raster__banda-label">banda 1</span>
+    </div>
+    <div class="tn-cat-raster__modos">
+      {modos.map((m) => (
+        <span class:list={["tn-cat-raster__modo", m === "Rampa" && "is-active"]}>{m}</span>
+      ))}
+    </div>
+    <div class="tn-cat-raster__rampa"></div>
+    <div class="tn-cat-raster__escala"><span>0 m</span><span>2.995 m</span></div>
+    <div class="tn-cat-raster__linha">
+      <span class="tn-cat-raster__label">NoData</span>
+      <span class="tn-cat-raster__valor">-9999</span>
+      <span class="tn-cat-raster__seta">→ transparente</span>
+    </div>
+  </div>
+</div>

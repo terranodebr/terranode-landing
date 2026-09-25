@@ -1,0 +1,125 @@
+---
+// "Integração ArcGIS" on the home: the copy and its points beside a sketch of the
+// layer picker. Claims follow the ArcGIS integration in terranode-backend
+// (docs/dev/content/integrations.md, the catalog-style-symbology and
+// survey-datasource-generation specs); the picker's labels are the ones
+// frontend/app/src/integrations/ArcGISBrowser.tsx shows. Service and layer names are
+// illustrative, as in Esboco.astro.
+
+const pontos = [
+  {
+    titulo: "ArcGIS Online e Enterprise.",
+    texto: "Conecte por OAuth ou chave de API. O TerraNode nunca pede a senha do portal.",
+  },
+  {
+    titulo: "Escolha o que vai para o campo.",
+    texto: "Navegue pelas pastas do portal e marque camadas, tabelas, Image Services e rasters.",
+  },
+  {
+    titulo: "A simbologia vem junto.",
+    texto: "Símbolo único, valores únicos e quebras de classe viram estilo no TerraNode. O que não dá para converter é avisado, não some.",
+  },
+  {
+    titulo: "O formulário sai da camada.",
+    texto: "Cada coluna vira um campo. OBJECTID, GlobalID e Shape_Area ficam de fora.",
+  },
+  {
+    titulo: "Sincronize de novo quando quiser.",
+    texto: "A camada é atualizada no lugar, e os projetos que usam ela continuam funcionando. O mapa não fica vazio durante a atualização.",
+  },
+];
+const nota = "Credenciais guardadas criptografadas. O TerraNode só lê do portal: nada é alterado no seu ArcGIS.";
+
+const servicos = [
+  { nome: "Rede de distribuição", tipo: "Serviço de feições", ativo: true },
+  { nome: "Lotes urbanos 2025", tipo: "Serviço de feições", ativo: false },
+  { nome: "Ortofoto 2025", tipo: "Image Service", ativo: false },
+];
+const grupos = [
+  {
+    rotulo: "Camadas",
+    itens: [
+      { nome: "Postes", tipo: "Ponto", marcado: true },
+      { nome: "Trechos de rede", tipo: "Linha", marcado: true },
+      { nome: "Subestações", tipo: "Polígono", marcado: false },
+    ],
+  },
+  { rotulo: "Tabelas", itens: [{ nome: "Inspeções", tipo: "Tabela", marcado: true }] },
+];
+const depois = ["Simbologia importada", "Formulário das colunas", "Sincronizar de novo"];
+
+const ponto = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><circle cx="12" cy="12" r="3"/></svg>';
+const lock = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7.5a4 4 0 0 1 8 0V11"/></svg>';
+const ok = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>';
+const busca = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.3-4.3"/></svg>';
+const desce = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>';
+---
+<section id="arcgis" class="tn-rec-secao tn-tema-laranja">
+  <div class="tn-home-arcgis">
+    <div class="tn-home-arcgis__texto" data-anim-bloco>
+      <span class="tn-rec-pilula" data-anim="up">INTEGRAÇÃO ARCGIS</span>
+      <h2 class="tn-rec-h2" data-anim="words">Seu portal ArcGIS, pronto para o campo</h2>
+      <p class="tn-rec-lead" data-anim="blur">Conecte o portal da sua organização uma vez. As camadas que você já mantém no ArcGIS chegam ao TerraNode com a simbologia, viram o mapa de quem coleta e o ponto de partida do formulário.</p>
+      <ul class="tn-rec-cap__itens tn-home-arcgis__itens" data-anim-group="up">
+        {pontos.map((p) => (
+          <li>
+            <span class="tn-rec-cap__icone" set:html={ponto} />
+            <span><strong>{p.titulo}</strong> {p.texto}</span>
+          </li>
+        ))}
+        <li class="tn-rec-cap__nota">
+          <span class="tn-rec-cap__icone" set:html={lock} />
+          <span>{nota}</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- The layer picker: services on the left, the chosen one's layers and tables on
+         the right, then what the catalog does with them. -->
+    <div class="tn-home-arcgis__visual" data-anim="scale" data-anim-bloco aria-hidden="true">
+      <div class="tn-rec-mini tn-home-arcgis__janela">
+        <div class="tn-home-arcgis__barra" data-anim="up">
+          <span class="tn-home-arcgis__titulo">Escolher camadas no ArcGIS</span>
+          <span class="tn-home-arcgis__status"><span></span>ArcGIS Online</span>
+        </div>
+        <div class="tn-home-arcgis__paineis">
+          <div class="tn-home-arcgis__servicos">
+            <span class="tn-home-arcgis__busca"><span set:html={busca} />Filtrar serviços…</span>
+            <ul data-anim-group="up">
+              {servicos.map((s) => (
+                <li class:list={[s.ativo && "is-ativo"]}>
+                  <span class="tn-home-arcgis__servico">{s.nome}</span>
+                  <span class="tn-home-arcgis__tipo">{s.tipo}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div class="tn-home-arcgis__camadas">
+            {grupos.map((g) => (
+              <div class="tn-home-arcgis__grupo">
+                <span class="tn-home-arcgis__rotulo">{g.rotulo}</span>
+                <ul data-anim-group="left">
+                  {g.itens.map((c) => (
+                    <li class:list={[c.marcado && "is-marcada"]}>
+                      <span class="tn-home-arcgis__caixa" set:html={c.marcado ? ok : ""} />
+                      <span class="tn-home-arcgis__camada">{c.nome}</span>
+                      <span class="tn-home-arcgis__tipo">{c.tipo}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="tn-home-arcgis__rodape" data-anim="up">
+          <span>3 camadas selecionadas</span>
+          <span class="tn-home-arcgis__botao">Adicionar ao catálogo</span>
+        </div>
+      </div>
+      <span class="tn-home-arcgis__seta" data-anim="up" set:html={desce} />
+      <div class="tn-home-arcgis__depois" data-anim-group="pop">
+        {depois.map((d) => <span>{d}</span>)}
+      </div>
+    </div>
+  </div>
+</section>

@@ -8,6 +8,8 @@ interface Props {
   eyebrow?: string;
   title?: string;
   items?: FaqItem[];
+  /** "escuro" for the near-black feature and comparison pages. */
+  tema?: "claro" | "escuro";
 }
 
 const defaultItems: FaqItem[] = [
@@ -35,7 +37,9 @@ const {
   eyebrow = "PERGUNTAS FREQUENTES",
   title = "Antes de entrar na lista",
   items = defaultItems,
+  tema = "claro",
 } = Astro.props;
+const escuro = tema === "escuro";
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -54,21 +58,41 @@ const itemClass = (i: number) =>
     i === items.length - 1 ? "tn-faq__item--last" : "",
   ].filter(Boolean).join(" ");
 ---
-<div class="tn-section tn-section--white tn-section--border-top" id={id}>
-  <div class="tn-section__inner tn-faq__inner">
-    <div class="tn-faq__header">
-      <span class="tn-eyebrow">{eyebrow}</span>
-      <h2 class="tn-h2 tn-h2--sm">{title}</h2>
+{escuro ? (
+  <section class="tn-rec-secao tn-rec-secao--linha" id={id}>
+    <div class="tn-faq__inner tn-faq--escuro">
+      <div class="tn-rec-head" data-anim-bloco>
+        <span class="tn-rec-pilula" data-anim="up">{eyebrow}</span>
+        <h2 class="tn-rec-h2 tn-rec-h2--pequeno" data-anim="words">{title}</h2>
+      </div>
+      <div class="tn-faq__list" data-anim-group="up">
+        {items.map((item, i) => (
+          <div class={itemClass(i)}>
+            {item.badge && <span class="tn-badge-soft">{item.badge}</span>}
+            <span class="tn-faq__question">{item.q}</span>
+            <span class="tn-faq__answer">{item.a}</span>
+          </div>
+        ))}
+      </div>
     </div>
-    <div class="tn-faq__list">
-      {items.map((item, i) => (
-        <div class={itemClass(i)}>
-          {item.badge && <span class="tn-badge-soft">{item.badge}</span>}
-          <span class="tn-faq__question">{item.q}</span>
-          <span class="tn-faq__answer">{item.a}</span>
-        </div>
-      ))}
+  </section>
+) : (
+  <div class="tn-section tn-section--white tn-section--border-top" id={id}>
+    <div class="tn-section__inner tn-faq__inner">
+      <div class="tn-faq__header">
+        <span class="tn-eyebrow">{eyebrow}</span>
+        <h2 class="tn-h2 tn-h2--sm">{title}</h2>
+      </div>
+      <div class="tn-faq__list">
+        {items.map((item, i) => (
+          <div class={itemClass(i)}>
+            {item.badge && <span class="tn-badge-soft">{item.badge}</span>}
+            <span class="tn-faq__question">{item.q}</span>
+            <span class="tn-faq__answer">{item.a}</span>
+          </div>
+        ))}
+      </div>
     </div>
   </div>
-</div>
+)}
 <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

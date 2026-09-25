@@ -1,0 +1,86 @@
+---
+// Small dark UI sketches for the forms page's bento grid, one per builder behaviour.
+// Field names are the builder's own default labels; the dialog and screen-reader
+// texts are the ones the builder shows (frontend/app/src/surveys in terranode-backend).
+// The conditional-visibility sketch's wording is ours; the question and options come
+// from the survey-schema example.
+
+interface Props {
+  tipo: "arrastar" | "teclado" | "tipo" | "condicional";
+}
+
+const { tipo } = Astro.props;
+
+const alca = '<svg width="10" height="14" viewBox="0 0 10 14" fill="currentColor" aria-hidden="true"><circle cx="2.5" cy="2.5" r="1.3"/><circle cx="7.5" cy="2.5" r="1.3"/><circle cx="2.5" cy="7" r="1.3"/><circle cx="7.5" cy="7" r="1.3"/><circle cx="2.5" cy="11.5" r="1.3"/><circle cx="7.5" cy="11.5" r="1.3"/></svg>';
+const som = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>';
+
+const olho = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></svg>';
+const opcoes = ["Boa", "Requer manutenção", "Crítica"];
+
+const paleta = ["Fotos", "Vídeos", "Áudios", "Assinatura"];
+---
+{tipo === "arrastar" && (
+  <div class="tn-rec-mini tn-form-mini" aria-hidden="true">
+    <div class="tn-form-mini__paleta" data-anim-group="pop">
+      {paleta.map((p) => <span class:list={[p === "Assinatura" && "is-pego"]}>{p}</span>)}
+    </div>
+    <div class="tn-form-mini__canvas">
+      <div class="tn-form-mini__card" data-anim="up">
+        <span class="tn-form-mini__alca" set:html={alca} />Área de intervenção<span class="tn-form-mini__tag">Geometria</span>
+      </div>
+      <div class="tn-form-mini__encaixe" data-anim="reveal"></div>
+      <div class="tn-form-mini__card tn-form-mini__card--arrastado" data-anim="left">
+        <span class="tn-form-mini__alca" set:html={alca} />Assinatura do responsável<span class="tn-form-mini__tag tn-form-mini__tag--acento">Assinatura</span>
+      </div>
+      <div class="tn-form-mini__card" data-anim="up">
+        <span class="tn-form-mini__alca" set:html={alca} />Observação por áudio<span class="tn-form-mini__tag">Áudios</span>
+      </div>
+    </div>
+  </div>
+)}
+
+{tipo === "teclado" && (
+  <div class="tn-rec-mini tn-form-mini" aria-hidden="true">
+    <div class="tn-form-mini__canvas" data-anim-group="up">
+      <div class="tn-form-mini__card"><span class="tn-form-mini__alca" set:html={alca} />Área de intervenção</div>
+      <div class="tn-form-mini__card tn-form-mini__card--foco">
+        <span class="tn-form-mini__alca" set:html={alca} />Fotos da estrutura
+        <span class="tn-form-mini__teclas"><kbd>↑</kbd><kbd>↓</kbd></span>
+      </div>
+      <div class="tn-form-mini__card"><span class="tn-form-mini__alca" set:html={alca} />Observação por áudio</div>
+    </div>
+    <div class="tn-form-mini__anuncio" data-anim="up">
+      <span set:html={som} />
+      “Fotos da estrutura, posição 2 de 3.”
+    </div>
+  </div>
+)}
+
+{tipo === "tipo" && (
+  <div class="tn-rec-mini tn-form-mini tn-form-mini--dialogo" aria-hidden="true">
+    <span class="tn-form-mini__titulo" data-anim="up">Trocar tipo do campo</span>
+    <p class="tn-form-mini__texto" data-anim="up">Este campo já tem propriedades preenchidas. Trocar o tipo descarta essas propriedades. Deseja continuar?</p>
+    <div class="tn-form-mini__botoes" data-anim-group="pop">
+      <span>Cancelar</span>
+      <span class="is-primario">Trocar tipo</span>
+    </div>
+  </div>
+)}
+
+{tipo === "condicional" && (
+  <div class="tn-rec-mini tn-form-mini tn-form-mini--condicional" aria-hidden="true">
+    <div class="tn-form-mini__card tn-form-mini__card--coluna" data-anim="up">
+      <span class="tn-form-mini__linha"><span class="tn-form-mini__alca" set:html={alca} />Condição estrutural<span class="tn-form-mini__tag">Múltipla</span></span>
+      <span class="tn-form-mini__opcoes" data-anim-group="pop">
+        {opcoes.map((o) => <span class:list={[o === "Requer manutenção" && "is-marcada"]}>{o}</span>)}
+      </span>
+    </div>
+    <div class="tn-form-mini__regra" data-anim="left">
+      <span set:html={olho} />
+      Mostrar se <strong>Condição estrutural</strong> = <strong>Requer manutenção</strong>
+    </div>
+    <div class="tn-form-mini__card tn-form-mini__card--condicional" data-anim="up">
+      <span class="tn-form-mini__alca" set:html={alca} />Fotos do dano<span class="tn-form-mini__tag tn-form-mini__tag--acento">Fotos</span>
+    </div>
+  </div>
+)}

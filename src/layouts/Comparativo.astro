@@ -1,0 +1,234 @@
+---
+// Comparison page (/comparativos/<concorrente>/), in the feature pages' visual
+// language: near-black and monochrome, centred section heads, entrance animations from
+// Animacoes.astro, the aerial-photo stage and the card CTA. Copy comes from the entry.
+import { Image } from "astro:assets";
+import Base from "./Base.astro";
+import Header from "../components/Header.astro";
+import Faq from "../components/Faq.astro";
+import Animacoes from "../components/recursos/Animacoes.astro";
+import webReview from "../assets/web-review.png";
+import mobileMap from "../assets/mobile-map.png";
+import { asset } from "../lib/asset";
+import { icone, passosTerranode } from "../lib/fluxo";
+import type { Comparativo } from "../lib/comparativos";
+
+interface Props {
+  entry: Comparativo;
+}
+
+const { entry } = Astro.props;
+const d = entry.data;
+
+const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
+
+// Two-tone H1: "TerraNode" bright, "vs <concorrente>" muted.
+const corte = d.h1.indexOf(" vs ");
+const h1 = corte > 0 ? [d.h1.slice(0, corte), d.h1.slice(corte + 1)] : [d.h1, ""];
+
+// "Com o Fulcrum" -> "o Fulcrum": the competitor with the article its page uses.
+const comArtigo = d.fluxo.titulo.replace(/^Com /, "");
+
+const colunas = [
+  { nome: "Com o TerraNode", passos: passosTerranode, tn: true },
+  { nome: d.fluxo.titulo, passos: d.fluxo.passos, tn: false },
+];
+
+const seta = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+const volta = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg>';
+---
+<Base title={d.title} description={d.description} image={d.image} noindex={d.draft} rodapeTopo="#0C1312">
+  <Animacoes />
+  <div class="tn-rec">
+
+    <div class="tn-rec-topo" data-rolagem-offset><Header /></div>
+
+    <!-- Hero -->
+    <section class="tn-rec-hero">
+      <div class="tn-rec-hero__texto" data-anim-bloco>
+        <a href="#resumo" class="tn-rec-selo" data-anim="up">
+          <span class="tn-rec-selo__tag">COMPARATIVO</span>
+          Qual escolher
+          <span class="tn-rec-selo__seta" set:html={seta} />
+        </a>
+        <h1 class="tn-rec-h1" data-anim="words">{h1[0]} <span class="tn-rec-h1__apagado">{h1[1]}</span></h1>
+        <p class="tn-rec-lead tn-rec-hero__lead" data-anim="blur">{d.subtitulo}</p>
+        <div class="tn-rec-acoes" data-anim="up">
+          <a href="#lado-a-lado" class="tn-rec-btn" data-mp-cta="comparativo_hero_tabela">Ver critério por critério</a>
+          <a href={WAITLIST} target="_blank" rel="noopener" class="tn-rec-btn tn-rec-btn--claro" data-mp-cta="comparativo_hero_primary">Entrar na lista de espera</a>
+        </div>
+      </div>
+
+      <!-- TerraNode's own screens on the aerial photo: the review queue in the web
+           panel, and the field app's map in front of it. No competitor screenshots. -->
+      <div class="tn-rec-palco-entrada" data-anim="rise" data-anim-bloco data-anim-delay="0.45">
+        <div class="tn-rec-palco tn-cmp-palco" data-rec-palco>
+          <div class="tn-rec-palco__barra">
+            <img src={asset("/favicon-96x96.png")} alt="" width="30" height="30" class="tn-rec-palco__marca" />
+            <span class="tn-rec-palco__status"><span class="tn-rec-palco__dot"></span>Painel web e app de campo do TerraNode</span>
+          </div>
+          <div class="tn-cmp-janela">
+            <Image src={webReview} alt="Painel web do TerraNode: fila de revisão de pontos, com as respostas ao lado do mapa" widths={[720, 1180, 1442]} sizes="(max-width: 1180px) 90vw, 940px" loading="eager" />
+          </div>
+          <Image src={mobileMap} class="tn-cmp-palco__celular" alt="App de campo do TerraNode: mapa de coleta com um polígono e pontos, sem conexão" widths={[240, 480]} sizes="(max-width: 700px) 30vw, 240px" loading="eager" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Resumo: quando escolher cada um -->
+    <section id="resumo" class="tn-rec-secao">
+      <div class="tn-rec-head" data-anim-bloco>
+        <span class="tn-rec-pilula" data-anim="up">EM RESUMO</span>
+        <h2 class="tn-rec-h2" data-anim="words">Qual escolher</h2>
+      </div>
+      <div class="tn-cmp-resumo">
+        <div class="tn-cmp-resumo__card tn-cmp-resumo__card--tn" data-anim="up" data-anim-bloco>
+          <span class="tn-cmp-resumo__rotulo">Escolha o TerraNode</span>
+          <p class="tn-cmp-resumo__texto" data-anim="blur">{d.resumo.terranode}</p>
+        </div>
+        <div class="tn-cmp-resumo__card" data-anim="up" data-anim-bloco>
+          <span class="tn-cmp-resumo__rotulo">Escolha {comArtigo}</span>
+          <p class="tn-cmp-resumo__texto" data-anim="blur">{d.resumo.concorrente}</p>
+        </div>
+        <div class="tn-cmp-resumo__diferenca" data-anim="up" data-anim-bloco>
+          <span class="tn-rec-cap__rotulo">A DIFERENÇA PRINCIPAL</span>
+          <p data-anim="blur">{d.resumo.diferenca}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- O fluxo, lado a lado -->
+    <section id="fluxo" class="tn-rec-secao tn-rec-secao--linha">
+      <div class="tn-rec-head" data-anim-bloco>
+        <span class="tn-rec-pilula" data-anim="up">O FLUXO</span>
+        <h2 class="tn-rec-h2" data-anim="words">Do formulário ao dado validado</h2>
+        <p class="tn-rec-lead" data-anim="blur">O mesmo levantamento, feito nas duas ferramentas. Os passos de cada lado estão simplificados.</p>
+      </div>
+      <div class="tn-cmp-fluxo">
+        {colunas.map((col) => (
+          <div class:list={["tn-cmp-fluxo__col", col.tn && "tn-cmp-fluxo__col--tn"]} data-anim="up" data-anim-bloco>
+            <div class="tn-cmp-fluxo__head">
+              <span>{col.nome}</span>
+              <span class="tn-cmp-fluxo__conta">{col.passos.length} passos</span>
+            </div>
+            <ol class="tn-cmp-fluxo__passos" data-anim-group="left">
+              {col.passos.map((p, i) => (
+                <li class="tn-cmp-fluxo__passo">
+                  <span class="tn-cmp-fluxo__icone" set:html={icone(p.icone)} />
+                  <div class="tn-cmp-fluxo__texto">
+                    <span class="tn-cmp-fluxo__num">{String(i + 1).padStart(2, "0")}</span>
+                    <span class="tn-cmp-fluxo__titulo">{p.titulo}</span>
+                    <span class="tn-cmp-fluxo__detalhe">{p.detalhe}</span>
+                    {"volta" in p && p.volta && (
+                      <span class="tn-cmp-fluxo__volta"><span set:html={volta} />{p.volta}</span>
+                    )}
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- O que muda no dia a dia -->
+    <section id="diferencas" class="tn-rec-secao tn-rec-secao--linha">
+      <div class="tn-rec-head" data-anim-bloco>
+        <span class="tn-rec-pilula" data-anim="up">O QUE MUDA NO DIA A DIA</span>
+        <h2 class="tn-rec-h2" data-anim="words">O que o TerraNode faz diferente</h2>
+      </div>
+      <div class="tn-rec-tipos tn-cmp-diferencas">
+        {d.diferencas.map((item, i) => (
+          <div class="tn-rec-tipo" data-anim="up" data-anim-bloco>
+            <span class="tn-rec-tipo__num">{String(i + 1).padStart(2, "0")}</span>
+            <h3 class="tn-rec-tipo__nome">{item.titulo}</h3>
+            <p class="tn-cmp-diferencas__texto" data-anim="blur">{item.texto}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Tabela lado a lado -->
+    <section id="lado-a-lado" class="tn-rec-secao tn-rec-secao--linha">
+      <div class="tn-rec-head" data-anim-bloco>
+        <span class="tn-rec-pilula" data-anim="up">LADO A LADO</span>
+        <h2 class="tn-rec-h2" data-anim="words">Critério por critério</h2>
+      </div>
+      <div class="tn-cmp-tabela__caixa" data-anim="up" data-anim-bloco>
+        <table class="tn-cmp-tabela">
+          <thead>
+            <tr>
+              <th scope="col">Critério</th>
+              <th scope="col" class="tn-cmp-tabela__tn">TerraNode</th>
+              <th scope="col">{d.concorrente}</th>
+            </tr>
+          </thead>
+          <tbody data-anim-group="up">
+            {d.tabela.map((linha) => (
+              <tr>
+                <th scope="row">{linha.criterio}</th>
+                <td class="tn-cmp-tabela__tn" data-rotulo="TerraNode">{linha.terranode}</td>
+                <td data-rotulo={d.concorrente}>{linha.concorrente}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <!-- Fontes: nota de rodapé da tabela, de propósito sem destaque. -->
+      <p class="tn-cmp-fontes" id="fontes">
+        Fontes, consultadas em {d.consultadoEm}:{" "}
+        {d.fontes.map((f, i) => (
+          <>{i > 0 && " · "}<a href={f.url} target="_blank" rel="noopener nofollow">{f.label}</a></>
+        ))}.
+        Preços e recursos de outras empresas mudam. Viu algo desatualizado? <a href={WAITLIST} target="_blank" rel="noopener">Avise o time</a>.
+      </p>
+    </section>
+
+    <!-- Onde o concorrente vai melhor -->
+    <section class="tn-rec-secao tn-rec-secao--linha tn-cmp-honesto">
+      <div class="tn-rec-head" data-anim-bloco>
+        <span class="tn-rec-pilula" data-anim="up">SENDO HONESTOS</span>
+        <h2 class="tn-rec-h2" data-anim="words">{d.ondeMelhor.titulo}</h2>
+        <p class="tn-rec-lead tn-cmp-honesto__texto" data-anim="blur">{d.ondeMelhor.texto}</p>
+      </div>
+    </section>
+
+    <Faq title={`TerraNode e ${d.concorrente}`} items={d.faq} tema="escuro" />
+
+    <!-- Fechamento -->
+    <section class="tn-rec-secao tn-rec-secao--curta">
+      <div class="tn-rec-cta" data-anim="up" data-anim-bloco>
+        <div class="tn-rec-cta__texto">
+          <h2 class="tn-rec-h2 tn-rec-h2--pequeno" data-anim="words">{d.fechamento.titulo}</h2>
+          <p class="tn-rec-lead" data-anim="blur">{d.fechamento.texto}</p>
+          <div class="tn-rec-acoes tn-rec-acoes--esquerda">
+            <a href={WAITLIST} target="_blank" rel="noopener" class="tn-rec-btn tn-rec-btn--claro" data-mp-cta="comparativo_fechamento_primary">Quero ser early tester</a>
+            <a href={WAITLIST} target="_blank" rel="noopener" class="tn-rec-btn" data-mp-cta="comparativo_fechamento_outline">Entrar na lista de espera</a>
+          </div>
+        </div>
+        <ol class="tn-rec-passos" data-anim-group="left">
+          {d.diferencas.map((item, i) => (
+            <li><span class="tn-rec-passos__num">{i + 1}</span>{item.titulo}</li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // The stage grows into place as the hero scrolls away, as on the feature pages.
+  const palco = document.querySelector("[data-rec-palco]");
+  if (palco && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    gsap.fromTo(palco, { scale: 0.94 }, {
+      scale: 1,
+      ease: "none",
+      scrollTrigger: { trigger: palco, start: "top bottom", end: "center center", scrub: true },
+    });
+  }
+</script>

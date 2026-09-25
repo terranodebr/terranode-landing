@@ -1,0 +1,37 @@
+---
+// Dark sketch of the AI styling result, built from what the recording shows: the
+// request, the app's "Sugestão pronta" notice, the chosen field and its green ramp.
+
+const classes = ["11", "12", "13", "14", "15"];
+const verdes = ["#E3F2DF", "#C3E6BC", "#8FD08A", "#4FAF55", "#1F7A34"];
+
+const brilho = '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5 13.9 9 20.5 11l-6.6 2L12 19.5 10.1 13 3.5 11l6.6-2z"/></svg>';
+const ok = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>';
+---
+<div class="tn-rec-ia" aria-hidden="true">
+  <div class="tn-rec-ia__pedido" data-anim="left">
+    <span class="tn-rec-ia__brilho" set:html={brilho} />
+    “Colorir os cd_uf utilizando uma rampa de cores verdes”
+  </div>
+  <div class="tn-rec-ia__card" data-anim="up">
+    <div class="tn-rec-ia__aviso">
+      <span class="tn-rec-ia__ok" set:html={ok} />
+      <span>Sugestão pronta. Nada foi salvo: ajuste abaixo e use “Salvar estilo” quando estiver bom.</span>
+    </div>
+    <div class="tn-rec-ia__campo">
+      <span class="tn-rec-ia__label">Campo</span>
+      <code>cd_uf (texto)</code>
+      <span class="tn-rec-ia__meta">27 classes</span>
+    </div>
+    <ul class="tn-rec-ia__classes" data-anim-group="left">
+      {classes.map((c, i) => (
+        <li><span class="tn-rec-ia__valor">{c}</span><span class="tn-rec-ia__cor" style={`background:${verdes[i]}`}></span></li>
+      ))}
+    </ul>
+  </div>
+  <div class="tn-rec-ia__modos" data-anim-group="pop">
+    <span>Símbolo único</span>
+    <span class="is-active">Categorizado</span>
+    <span>Graduado</span>
+  </div>
+</div>

@@ -1,0 +1,145 @@
+---
+// Feature page shell (/recursos/<recurso>/), after voxt.actnow.dev: near-black and
+// monochrome, a hero with the real recording on an aerial photo, and a card CTA to
+// close. What goes between them is written per page (src/components/recursos/Corpo*.astro)
+// and passed in as the default slot; copy comes from the content entry.
+import Base from "./Base.astro";
+import Header from "../components/Header.astro";
+import Animacoes from "../components/recursos/Animacoes.astro";
+import { asset } from "../lib/asset";
+import type { Recurso } from "../lib/recursos";
+
+interface Props {
+  entry: Recurso;
+}
+
+const { entry } = Astro.props;
+const d = entry.data;
+
+const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
+
+// The hero links down to the first content section.
+const ancora = `#${d.secoes[0].id}`;
+
+// Two-tone H1: first sentence bright, the rest muted.
+const corte = d.h1.indexOf(". ");
+const h1 = corte > 0 ? [d.h1.slice(0, corte + 1), d.h1.slice(corte + 2)] : [d.h1, ""];
+
+// Crop box for the recording: shows only the browser window inside it. Without a
+// `janela` in the entry, the CSS defaults (the catalog recording's window) apply.
+const janela = d.destaque?.video?.janela;
+const pct = (n: number) => `${+(n * 100).toFixed(3)}%`;
+const recorte = janela && [
+  `aspect-ratio: ${janela.largura} / ${janela.altura}`,
+  `border-radius: ${pct(janela.raio / janela.largura)} ${pct(janela.raio / janela.largura)} 0 0 / ${pct(janela.raio / janela.altura)} ${pct(janela.raio / janela.altura)} 0 0`,
+].join("; ");
+const enquadramento = janela && [
+  `width: ${pct(janela.quadro[0] / janela.largura)}`,
+  `left: ${pct(-janela.x / janela.largura)}`,
+  `top: ${pct(-janela.y / janela.altura)}`,
+].join("; ");
+
+const seta = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+---
+<Base title={d.title} description={d.description} image={d.image} noindex={d.draft} rodapeTopo="#0C1312">
+  <Animacoes />
+  <div class="tn-rec">
+
+    <div class="tn-rec-topo" data-rolagem-offset><Header /></div>
+
+    <!-- Hero -->
+    <section class="tn-rec-hero">
+      <div class="tn-rec-hero__texto" data-anim-bloco>
+        <a href={ancora} class="tn-rec-selo" data-anim="up">
+          <span class="tn-rec-selo__tag">RECURSO</span>
+          {d.recurso}
+          <span class="tn-rec-selo__seta" set:html={seta} />
+        </a>
+        <h1 class="tn-rec-h1" data-anim="words">{h1[0]} <span class="tn-rec-h1__apagado">{h1[1]}</span></h1>
+        <p class="tn-rec-lead tn-rec-hero__lead" data-anim="blur">{d.subtitulo}</p>
+        <div class="tn-rec-acoes" data-anim="up">
+          <a href={ancora} class="tn-rec-btn" data-mp-cta="recurso_hero_secoes">Ver como funciona</a>
+          <a href={WAITLIST} target="_blank" rel="noopener" class="tn-rec-btn tn-rec-btn--claro" data-mp-cta="recurso_hero_primary">Entrar na lista de espera</a>
+        </div>
+      </div>
+
+      <!-- The recording, cropped to the browser window inside it and set on an aerial
+           photo the way an app screenshot sits on a desktop wallpaper. -->
+      {d.destaque?.video && (
+        <div class="tn-rec-palco-entrada" data-anim="rise" data-anim-bloco data-anim-delay="0.45">
+        <div class="tn-rec-palco" data-rec-palco>
+          <div class="tn-rec-palco__barra">
+            <img src={asset("/favicon-96x96.png")} alt="" width="30" height="30" class="tn-rec-palco__marca" />
+            <span class="tn-rec-palco__status"><span class="tn-rec-palco__dot"></span>Gravação real do TerraNode</span>
+          </div>
+          <div class="tn-rec-janela" style={recorte}>
+            <video
+              class="tn-rec-janela__video"
+              style={enquadramento}
+              src={asset(d.destaque.video.src)}
+              poster={asset(d.destaque.video.poster)}
+              muted
+              loop
+              playsinline
+              preload="metadata"
+              aria-label={d.destaque.video.legenda}
+              data-rec-video
+            ></video>
+          </div>
+        </div>
+        </div>
+      )}
+    </section>
+
+    <slot />
+
+    <!-- Fechamento -->
+    <section class="tn-rec-secao tn-rec-secao--curta">
+      <div class="tn-rec-cta" data-anim="up" data-anim-bloco>
+        <div class="tn-rec-cta__texto">
+          <h2 class="tn-rec-h2 tn-rec-h2--pequeno" data-anim="words">{d.fechamento.titulo}</h2>
+          <p class="tn-rec-lead" data-anim="blur">{d.fechamento.texto}</p>
+          <div class="tn-rec-acoes tn-rec-acoes--esquerda">
+            <a href={WAITLIST} target="_blank" rel="noopener" class="tn-rec-btn tn-rec-btn--claro" data-mp-cta="recurso_fechamento_primary">Quero ser early tester</a>
+            <a href={WAITLIST} target="_blank" rel="noopener" class="tn-rec-btn" data-mp-cta="recurso_fechamento_outline">Entrar na lista de espera</a>
+          </div>
+        </div>
+        <ol class="tn-rec-passos" data-anim-group="left">
+          {d.fechamento.pontos.map((p, i) => (
+            <li><span class="tn-rec-passos__num">{i + 1}</span>{p}</li>
+          ))}
+        </ol>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+  const reduzir = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Hero recording: plays while on screen. Reduced motion keeps the poster, with controls.
+  const video = document.querySelector<HTMLVideoElement>("[data-rec-video]");
+  if (video) {
+    if (reduzir) video.controls = true;
+    else {
+      new IntersectionObserver(([e]) => {
+        if (e.isIntersecting) video.play().catch(() => { video.controls = true; });
+        else video.pause();
+      }, { threshold: 0.3 }).observe(video);
+    }
+  }
+
+  // The stage grows into place as the hero scrolls away, like a window being brought forward.
+  const palco = document.querySelector("[data-rec-palco]");
+  if (palco && !reduzir) {
+    gsap.fromTo(palco, { scale: 0.94 }, {
+      scale: 1,
+      ease: "none",
+      scrollTrigger: { trigger: palco, start: "top bottom", end: "center center", scrub: true },
+    });
+  }
+</script>

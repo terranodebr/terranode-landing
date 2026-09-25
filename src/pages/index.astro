@@ -1,27 +1,476 @@
 ---
+// Home, in the feature pages' language (layouts/Recurso.astro, after
+// voxt.actnow.dev): centred section heads, a stage in the hero, a bento grid, a pinned
+// scroll story and card CTAs, over alternating colour themes.
+import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
-import Hero from "../components/Hero.astro";
-import Features from "../components/Features.astro";
-import Steps from "../components/Steps.astro";
-import Cta from "../components/Cta.astro";
-import Product from "../components/Product.astro";
-import UseCases from "../components/UseCases.astro";
-import AppVideo from "../components/AppVideo.astro";
-import Faq from "../components/Faq.astro";
-import Launch from "../components/Launch.astro";
+import Header from "../components/Header.astro";
+import Animacoes from "../components/recursos/Animacoes.astro";
+import Historia, { type Capitulo } from "../components/recursos/Historia.astro";
+import MapaPontilhado from "../components/recursos/MapaPontilhado.astro";
+import Esboco from "../components/home/Esboco.astro";
+import Produto from "../components/home/Produto.astro";
+import ArcGIS from "../components/home/ArcGIS.astro";
+import { asset } from "../lib/asset";
+import { getSolucoes } from "../lib/solucoes";
+import campoMarca from "../assets/campo-marca.webp";
+import webOverview from "../assets/web-overview.png";
+import mobileCapture from "../assets/mobile-capture.png";
+import ucAgro from "../assets/uc-agro.png";
+import ucAmbiental from "../assets/uc-ambiental.png";
+import ucEnergia from "../assets/uc-energia.png";
+import ucMunicipios from "../assets/uc-municipios.png";
+import ucSaneamento from "../assets/uc-saneamento.png";
+import ucTopografia from "../assets/uc-topografia.png";
 
-const title = "TerraNode · Coleta GIS offline-first para o campo brasileiro";
+const title = "TerraNode · Coleta GIS offline integrada ao ArcGIS";
 const description =
-  "Plataforma brasileira de coleta de dados geoespaciais em campo. 100% offline, integração nativa com ArcGIS e PostGIS, data residency no Brasil e LGPD por arquitetura.";
+  "Coleta de dados geoespaciais em campo, 100% offline e integrada ao ArcGIS Online e Enterprise. Arquivos criptografados no aparelho e no servidor, dados no Brasil e LGPD por arquitetura.";
+
+const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
+
+// Bento: why TerraNode, one sketch per capability.
+const bento = [
+  {
+    rotulo: "Offline de verdade",
+    texto: "Colete o dia inteiro sem rede. Os arquivos ficam criptografados no aparelho e, quando o sinal volta, fotos, áudios e geometrias sobem sozinhos, com fila visível e sem duplicar nada.",
+    visual: "offline",
+  },
+  {
+    rotulo: "Pontos, linhas e polígonos",
+    texto: "Capture qualquer geometria por GPS ou desenho no mapa, com precisão mínima configurável por campo.",
+    visual: "geometria",
+  },
+  {
+    rotulo: "Câmera, GPS e sensores nativos",
+    texto: "Foto tirada dentro do formulário, com posição, precisão e horário gravados no mesmo registro. Sem galeria, sem arquivo perdido.",
+    visual: "foto",
+  },
+  {
+    rotulo: "Leve na bateria",
+    texto: "Rastro de GPS otimizado e telas escuras. Uma jornada inteira de coleta sem depender de power bank.",
+    visual: "bateria",
+  },
+] as const;
+
+const integra = ["ArcGIS Online", "ArcGIS Enterprise", "GeoJSON", "Shapefile", "CSV", "GNSS externo", "iOS", "Android"];
+
+// Scroll story: the four steps. `marca` is circled when the chapter is active.
+const passos = [
+  {
+    id: "passo-formulario",
+    rotulo: "PASSO 01 · MONTAR FORMULÁRIO",
+    titulo: "Monte o formulário",
+    marca: "formulário",
+    texto: "Arraste os campos, defina regras de obrigatoriedade e publique a versão que vai para o campo. Ou descreva o levantamento e deixe a IA montar o formulário.",
+    lista: [
+      "Campos de texto, número, foto, áudio e geometria",
+      "Regras de validação e campos obrigatórios",
+      "Versões publicadas com histórico de alterações",
+      "Geração assistida por IA a partir de uma descrição",
+    ],
+    visual: "formulario",
+  },
+  {
+    id: "passo-time",
+    rotulo: "PASSO 02 · MONTAR O TIME",
+    titulo: "Monte o time",
+    marca: "time",
+    texto: "Convide coletores e revisores, defina permissões e atribua cada formulário a quem vai preencher em campo.",
+    lista: [
+      "Convite por e-mail ou link do projeto",
+      "Perfis de coletor, revisor e gestor",
+      "Formulários atribuídos pessoa por pessoa",
+      "Produção individual acompanhada em tempo real",
+    ],
+    visual: "time",
+  },
+  {
+    id: "passo-coleta",
+    rotulo: "PASSO 03 · COLETAR EM CAMPO",
+    titulo: "Colete em campo",
+    marca: "campo",
+    texto: "A equipe registra pontos com foto, áudio e geometria pelo aplicativo. Com ou sem sinal, o dado nunca se perde.",
+    lista: [
+      "Funciona 100% offline, no modo avião",
+      "Precisão centimétrica com GNSS externo",
+      "Fotos, áudios e croquis anexados ao ponto",
+      "Sincronização automática quando o sinal volta",
+    ],
+    visual: "coleta",
+  },
+  {
+    id: "passo-revisao",
+    rotulo: "PASSO 04 · REVISAR E VALIDAR",
+    titulo: "Revise e valide",
+    marca: "valide",
+    texto: "Cada ponto entra na fila de revisão. Valide, rejeite com comentário e exporte só o dado confiável.",
+    lista: [
+      "Fila de revisão organizada por projeto",
+      "Validar ou rejeitar com comentário do revisor",
+      "Retorno direto ao coletor para correção",
+      "Exportação em CSV, GeoJSON e Shapefile",
+    ],
+    visual: "revisao",
+  },
+] as const;
+// The steps as story chapters: each list line is an item with no bold lead.
+const capitulos: Capitulo[] = passos.map((p) => ({
+  id: p.id,
+  rotulo: p.rotulo,
+  titulo: p.titulo,
+  marca: p.marca,
+  texto: p.texto,
+  itens: p.lista.map((texto) => ({ titulo: "", texto })),
+  visual: Esboco,
+  visualProps: { tipo: p.visual },
+}));
+
+// Use cases. A case links to its sector page when this build publishes one.
+const solucoes = new Set((await getSolucoes()).map((s) => s.id));
+const casos = [
+  {
+    slug: "topografia", tag: "Topografia e cadastro", titulo: "Levantamentos e cadastro técnico", img: ucTopografia,
+    alt: "Topógrafo levantando divisa de propriedade rural com celular na mão",
+    texto: "Vértices, testadas e benfeitorias marcados com precisão, com croqui e foto anexados a cada ponto. O memorial descritivo sai do dado já validado, sem passar por planilha.",
+    campos: ["Vértice", "Confrontante", "Foto do marco", "Área (m²)"],
+  },
+  {
+    slug: "energia-e-telecom", tag: "Energia e telecom", titulo: "Inspeção de redes e torres", img: ucSaneamento,
+    alt: "Técnico de campo inspecionando torre de transmissão com celular",
+    texto: "Uma ficha por estrutura: número da torre, estado dos componentes, fotos obrigatórias e ocorrências registradas com data, hora e responsável.",
+    campos: ["Nº da torre", "Componente", "Severidade", "Fotos (mín. 3)"],
+  },
+  {
+    slug: "meio-ambiente", tag: "Meio ambiente", titulo: "Licenciamento e monitoramento", img: ucEnergia,
+    alt: "Técnica ambiental medindo árvore em inventário florestal com celular",
+    texto: "Inventário florestal, pontos de coleta de água e áreas de intervenção mapeados no formato que o relatório de licenciamento pede.",
+    campos: ["Espécie", "CAP / altura", "Ponto de coleta", "Área de APP"],
+  },
+  {
+    slug: "municipios", tag: "Municípios", titulo: "Cadastro imobiliário e IPTU", img: ucMunicipios,
+    alt: "Agente municipal fotografando fachada de imóvel em recadastramento",
+    texto: "Recadastramento porta a porta com formulário padronizado, foto da fachada e geometria do lote. Sem prancheta, sem redigitação no fim do dia.",
+    campos: ["Inscrição", "Uso do imóvel", "Fachada", "Geometria do lote"],
+  },
+  {
+    slug: "agro", tag: "Agro", titulo: "Mapeamento de lavouras", img: ucAgro,
+    alt: "Agrônomo em lavoura de soja registrando talhão pelo celular",
+    texto: "Talhões, focos de praga e amostragens de solo coletados offline pela equipe de campo e consolidados por safra no painel do agrônomo.",
+    campos: ["Talhão", "Cultura", "Praga / dano", "Amostra de solo"],
+  },
+  {
+    slug: "saneamento-e-obras", tag: "Saneamento e obras", titulo: "Fiscalização de infraestrutura", img: ucAmbiental,
+    alt: "Engenheiro fiscalizando vala de saneamento em obra com celular",
+    texto: "Diário de obra georreferenciado: cada medição, ligação e não conformidade fica amarrada ao ponto exato, com histórico de quem registrou.",
+    campos: ["Serviço", "Medição", "Não conformidade", "Assinatura"],
+  },
+];
+
+const numeros = [
+  { valor: "100%", texto: "da coleta funciona sem sinal" },
+  { valor: "±3 cm", texto: "de precisão com GNSS externo" },
+  { valor: "3", texto: "formatos de exportação: CSV, GeoJSON e SHP" },
+];
+
+const faq = [
+  {
+    q: "Quando o TerraNode será lançado?",
+    a: "Estamos em beta fechado com equipes de campo selecionadas. O lançamento público está previsto para os próximos meses, e quem está na lista é avisado primeiro.",
+  },
+  {
+    q: "O que um early tester recebe?",
+    a: "Acesso antecipado para sua equipe, onboarding acompanhado e um canal direto com o time do produto. Em troca, pedimos feedback das campanhas reais de campo.",
+  },
+  {
+    q: "Funciona mesmo sem nenhum sinal?",
+    a: "Sim. O aplicativo guarda formulários, fotos, áudios e geometrias no dispositivo, criptografados, e sincroniza tudo automaticamente quando a conexão volta.",
+  },
+  {
+    q: "O TerraNode funciona com o meu ArcGIS?",
+    a: "Sim. Conecte o ArcGIS Online ou Enterprise da sua organização por OAuth ou chave de API e escolha as camadas, tabelas e Image Services que vão para o catálogo, com a simbologia. O TerraNode só lê do portal: nada é alterado no seu ArcGIS.",
+  },
+  {
+    q: "Meus dados de campo ficam com quem?",
+    a: "Com você. Os dados pertencem à sua organização e podem ser exportados a qualquer momento nos formatos abertos usuais de GIS. Os arquivos coletados offline ficam criptografados no aparelho e continuam criptografados no servidor.",
+  },
+];
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+};
+
+const participar = [
+  "Deixe seu e-mail na lista",
+  "Escolha: só o aviso do lançamento, ou o grupo de early testers",
+  "Early testers usam antes e ajudam a definir o que entra primeiro",
+];
+
+const seta = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+const abre = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>';
 ---
-<Base title={title} description={description}>
-  <Hero />
-  <Features />
-  <Steps />
-  <Cta />
-  <Product />
-  <UseCases />
-  <AppVideo />
-  <Faq />
-  <Launch />
+<Base title={title} description={description} rodapeTopo="#0F1508">
+  <Animacoes />
+  <div class="tn-rec tn-home">
+
+    <div class="tn-rec-topo" data-rolagem-offset><Header /></div>
+
+    <!-- Hero -->
+    <section class="tn-rec-hero tn-home-hero tn-tema-claro">
+      <div class="tn-rec-hero__texto" data-anim-bloco>
+        <a href="#como-funciona" class="tn-rec-selo" data-anim="up">
+          <span class="tn-rec-selo__tag">EM BREVE</span>
+          Coleta de dados em campo
+          <span class="tn-rec-selo__seta" set:html={seta} />
+        </a>
+        <h1 class="tn-rec-h1" data-anim="words">Do campo ao mapa, <span class="tn-rec-h1__apagado">sem perder um ponto.</span></h1>
+        <p class="tn-rec-lead tn-rec-hero__lead" data-anim="blur">Formulários offline, GPS de precisão e as camadas do seu ArcGIS no campo. Sua equipe coleta o dia inteiro sem sinal, e o dado chega validado no escritório.</p>
+        <div class="tn-rec-acoes" data-anim="up">
+          <a href="#como-funciona" class="tn-rec-btn" data-mp-cta="hero_como_funciona">Ver como funciona</a>
+          <a href={WAITLIST} target="_blank" rel="noopener" class="tn-rec-btn tn-rec-btn--claro" data-mp-cta="hero_primary">Entrar na lista de espera</a>
+        </div>
+        <ul class="tn-home-provas" data-anim-group="up">
+          <li><strong>100%</strong> offline</li>
+          <li><strong>±3 cm</strong> com GNSS externo</li>
+          <li><strong>iOS · Android</strong> nativos</li>
+          <li><strong>ArcGIS</strong> Online e Enterprise</li>
+        </ul>
+      </div>
+
+      <!-- The web panel as a browser window on the aerial wallpaper, the field app
+           beside it: the same project, seen from the office and from the field. -->
+      <div class="tn-rec-palco-entrada" data-anim="rise" data-anim-bloco data-anim-delay="0.45">
+        <div class="tn-rec-palco tn-home-palco" data-rec-palco>
+          <div class="tn-rec-palco__barra">
+            <img src={asset("/favicon-96x96.png")} alt="" width="30" height="30" class="tn-rec-palco__marca" />
+            <span class="tn-rec-palco__status"><span class="tn-rec-palco__dot"></span>Sem sinal · coleta salva localmente</span>
+          </div>
+          <div class="tn-home-janela">
+            <div class="tn-home-janela__barra" aria-hidden="true">
+              <span></span><span></span><span></span>
+              <span class="tn-home-janela__url">app.terranode.com/projetos/rede-sul</span>
+            </div>
+            <Image src={webOverview} alt="Painel web: visão geral do projeto Vistoria Rede Sul" class="tn-home-janela__img" loading="eager" widths={[720, 1442]} sizes="(max-width: 900px) 92vw, 940px" />
+          </div>
+          <Image src={mobileCapture} alt="App de campo: captura de ponto sem conexão" class="tn-home-palco__celular" widths={[260, 520]} sizes="(max-width: 560px) 34vw, 240px" loading="eager" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Por que TerraNode: bento 2×2 + faixa de integrações -->
+    <section id="produto" class="tn-rec-secao tn-tema-claro">
+      <div class="tn-rec-head" data-anim-bloco>
+        <span class="tn-rec-pilula" data-anim="up">POR QUE TERRANODE</span>
+        <h2 class="tn-rec-h2" data-anim="words">Feito para quem coleta dados onde o sinal não chega</h2>
+        <p class="tn-rec-lead" data-anim="blur">Do formulário à validação, um fluxo único. A equipe de campo coleta pelo aplicativo e quem revisa acompanha tudo no navegador.</p>
+      </div>
+
+      <div class="tn-rec-bento">
+        {bento.map((b) => (
+          <div class="tn-rec-bento__celula" data-anim="up" data-anim-bloco>
+            <div class="tn-rec-bento__visual"><Esboco tipo={b.visual} /></div>
+            <span class="tn-rec-bento__rotulo" data-anim="up">{b.rotulo}</span>
+            <p class="tn-rec-bento__texto" data-anim="blur">{b.texto}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="tn-rec-formatos" data-anim="blur">
+        <span class="tn-rec-faixa__legenda">Integra com o que você já usa</span>
+        <div class="tn-rec-faixa" aria-label={`Integrações e formatos: ${integra.join(", ")}`}>
+          <div class="tn-rec-faixa__trilho">
+            {[0, 1].map((copia) => (
+              <div class="tn-rec-faixa__grupo" aria-hidden={copia === 1 ? "true" : undefined}>
+                {integra.map((f) => <span class="tn-rec-faixa__item">{f}</span>)}
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Integração ArcGIS: o portal da organização no catálogo e no campo -->
+    <ArcGIS />
+
+    <!-- Como funciona: história com o visual fixo -->
+    <section id="como-funciona" class="tn-rec-secao tn-tema-escuro">
+      <div class="tn-rec-head" data-anim-bloco>
+        <span class="tn-rec-pilula" data-anim="up">COMO FUNCIONA</span>
+        <h2 class="tn-rec-h2" data-anim="words">Quatro passos entre o planejamento e o dado validado</h2>
+        <p class="tn-rec-lead" data-anim="blur">Do desenho do formulário à exportação, tudo acontece em um único fluxo. Sem planilhas paralelas, sem redigitação, sem dado perdido no caminho.</p>
+      </div>
+
+      <Historia capitulos={capitulos} />
+    </section>
+
+    <!-- O produto: painel web e app de campo, em abas -->
+    <Produto />
+
+    <!-- O app: vídeo real de coleta -->
+    <section id="o-app" class="tn-rec-secao tn-tema-claro">
+      <div class="tn-home-video tn-tema-escuro" data-anim="rise" data-anim-bloco>
+        <video class="tn-home-video__media" muted loop playsinline preload="metadata" data-home-video>
+          <source src={asset("/TNVideoBG_2.mp4")} type="video/mp4">
+        </video>
+        <div class="tn-home-video__scrim"></div>
+        <div class="tn-home-video__texto">
+          <span class="tn-rec-pilula">APLICATIVO NATIVO</span>
+          <h2 class="tn-rec-h2">Feito para durar o dia inteiro no campo</h2>
+          <p class="tn-rec-lead">O TerraNode é um app nativo para iOS e Android, não um site dentro de um navegador. Veja a coleta acontecendo em condição real, com sol na tela e sem sinal.</p>
+        </div>
+        <div class="tn-home-video__meta">
+          <span class="tn-rec-palco__status"><span class="tn-rec-palco__dot"></span>Coleta real · sem cortes</span>
+          <span class="tn-rec-palco__status">iOS · Android</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Casos de uso -->
+    <section class="tn-rec-secao tn-tema-claro tn-home-casos-secao">
+      <div class="tn-rec-head" data-anim-bloco>
+        <span class="tn-rec-pilula" data-anim="up">CASOS DE USO</span>
+        <h2 class="tn-rec-h2" data-anim="words">Seis levantamentos, o mesmo fluxo de trabalho</h2>
+        <p class="tn-rec-lead" data-anim="blur">Cada setor monta o formulário do seu jeito. O caminho do campo ao dado validado é o mesmo.</p>
+      </div>
+
+      <div class="tn-home-casos">
+        {casos.map((c, i) => {
+          const Tag = solucoes.has(c.slug) ? "a" : "div";
+          return (
+            <Tag
+              class="tn-home-caso"
+              href={Tag === "a" ? asset(`/solucoes/${c.slug}/`) : undefined}
+              data-mp-cta={Tag === "a" ? "use_case_card" : undefined}
+              data-anim="up"
+              data-anim-bloco
+            >
+              <div class="tn-home-caso__foto">
+                <Image src={c.img} alt={c.alt} widths={[400, 800]} sizes="(max-width: 560px) 92vw, (max-width: 900px) 46vw, 370px" loading="lazy" />
+                <span class="tn-home-caso__num">{String(i + 1).padStart(2, "0")}</span>
+              </div>
+              <div class="tn-home-caso__corpo">
+                <span class="tn-rec-cap__rotulo">{c.tag.toUpperCase()}</span>
+                <h3 class="tn-home-caso__titulo">{c.titulo}{Tag === "a" && <span class="tn-home-caso__seta" set:html={seta} />}</h3>
+                <p class="tn-home-caso__texto">{c.texto}</p>
+                <ul class="tn-home-caso__campos" aria-label="Campos típicos do formulário">
+                  {c.campos.map((f) => <li>{f}</li>)}
+                </ul>
+              </div>
+            </Tag>
+          );
+        })}
+      </div>
+      <p class="tn-home-casos__rodape" data-anim="up">
+        Seu levantamento não está na lista? É só montar o formulário do seu jeito.
+        <a href={WAITLIST} target="_blank" rel="noopener" data-mp-cta="use_cases_footer">Entrar na lista de espera <span set:html={seta} /></a>
+      </p>
+    </section>
+
+    <!-- Dados no Brasil, sobre o mapa pontilhado -->
+    <section class="tn-rec-secao tn-rec-publicos tn-tema-verde">
+      <div class="tn-rec-publicos__mapa" data-anim-bloco><MapaPontilhado /></div>
+      <div class="tn-rec-head tn-rec-publicos__head" data-anim-bloco>
+        <span class="tn-rec-pilula" data-anim="up">FEITO NO BRASIL</span>
+        <h2 class="tn-rec-h2" data-anim="words">Seus dados de campo ficam com você</h2>
+        <p class="tn-rec-lead" data-anim="blur">Os dados pertencem à sua organização e podem ser exportados a qualquer momento nos formatos abertos usuais de GIS. O que é coletado offline fica criptografado nas duas pontas: no aparelho e no servidor.</p>
+        <div class="tn-rec-publicos__pilulas" data-anim-group="pop">
+          <span>Data residency no Brasil</span>
+          <span>LGPD por arquitetura</span>
+          <span>Criptografia no aparelho e no servidor</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Por que estamos construindo isso -->
+    <section class="tn-rec-secao tn-tema-pessego">
+      <figure class="tn-home-citacao" data-anim-bloco>
+        <svg width="34" height="26" viewBox="0 0 34 26" fill="none" aria-hidden="true" data-anim="pop"><path d="M0 26V16.4C0 11.9333 1.06667 8.26667 3.2 5.4C5.33333 2.53333 8.53333 0.733334 12.8 0V5.6C10.9333 6.13333 9.46667 7.13333 8.4 8.6C7.33333 10.0667 6.8 11.8 6.8 13.8H13.2V26H0ZM20.8 26V16.4C20.8 11.9333 21.8667 8.26667 24 5.4C26.1333 2.53333 29.3333 0.733334 33.6 0V5.6C31.7333 6.13333 30.2667 7.13333 29.2 8.6C28.1333 10.0667 27.6 11.8 27.6 13.8H34V26H20.8Z" fill="currentColor"></path></svg>
+        <blockquote class="tn-home-citacao__texto" data-anim="words">Toda campanha de campo termina igual: planilha incompleta, foto solta no WhatsApp e uma semana de redigitação antes de fechar o relatório. <span class="tn-rec-h1__apagado">O TerraNode existe para apagar essa etapa.</span></blockquote>
+        <figcaption class="tn-home-citacao__autor" data-anim="up">
+          <span class="tn-home-citacao__avatar">TN</span>
+          <span><strong>Equipe TerraNode</strong>Por que estamos construindo isso</span>
+        </figcaption>
+      </figure>
+      <div class="tn-home-numeros" data-anim-group="up">
+        {numeros.map((n) => (
+          <div class="tn-home-numero">
+            <span class="tn-home-numero__valor">{n.valor}</span>
+            <span class="tn-home-numero__texto">{n.texto}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Como participar + perguntas -->
+    <section id="faq" class="tn-rec-secao tn-tema-claro">
+      <div class="tn-home-faq">
+        <div class="tn-home-participar tn-tema-escuro" data-anim="up" data-anim-bloco>
+          <span class="tn-rec-cap__rotulo">LANÇAMENTO EM BREVE</span>
+          <h2 class="tn-rec-h2 tn-rec-h2--pequeno" data-anim="words">Seja avisado no lançamento ou use antes de todo mundo</h2>
+          <ol class="tn-rec-passos" data-anim-group="left">
+            {participar.map((p, i) => <li><span class="tn-rec-passos__num">{i + 1}</span>{p}</li>)}
+          </ol>
+          <a href={WAITLIST} target="_blank" rel="noopener" class="tn-rec-btn tn-rec-btn--claro" data-mp-cta="participar_cta">Entrar na lista</a>
+        </div>
+        <div class="tn-home-perguntas" data-anim-bloco>
+          <span class="tn-rec-pilula" data-anim="up">PERGUNTAS FREQUENTES</span>
+          <div class="tn-home-perguntas__lista" data-anim-group="up">
+            {faq.map((f, i) => (
+              <details class="tn-home-pergunta" open={i === 0}>
+                <summary>{f.q}<span class="tn-home-pergunta__icone" set:html={abre} /></summary>
+                <p>{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Fechamento: a foto da marca, com o texto no céu e a lavoura descendo para o rodapé -->
+    <section class="tn-home-marca tn-tema-claro">
+      <div class="tn-home-marca__texto" data-anim-bloco>
+        <span class="tn-rec-pilula" data-anim="up">LANÇAMENTO EM BREVE</span>
+        <h2 class="tn-rec-h2" data-anim="words">Leve sua próxima campanha de campo para o TerraNode.</h2>
+        <p class="tn-rec-lead" data-anim="blur">Entre na lista para ser avisado, ou candidate-se a early tester e ajude a definir o que entra primeiro.</p>
+        <div class="tn-rec-acoes" data-anim="up">
+          <a href={WAITLIST} target="_blank" rel="noopener" class="tn-rec-btn" data-mp-cta="launch_falar_com_time">Falar com o time</a>
+          <a href={WAITLIST} target="_blank" rel="noopener" class="tn-rec-btn tn-rec-btn--claro" data-mp-cta="launch_cta">Entrar na lista de espera</a>
+        </div>
+      </div>
+      <div class="tn-home-marca__foto">
+        <Image src={campoMarca} alt="Agricultor consultando o celular no meio de uma lavoura, sob o símbolo do TerraNode" widths={[800, 1400, 2000, 2880, 4000]} sizes="(max-width: 760px) 216vw, 100vw" loading="lazy" />
+      </div>
+    </section>
+  </div>
+  <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
 </Base>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Hero stage grows into place as the hero scrolls away (same as Recurso.astro).
+  const palco = document.querySelector("[data-rec-palco]");
+  if (palco && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    gsap.fromTo(palco, { scale: 0.94 }, {
+      scale: 1,
+      ease: "none",
+      scrollTrigger: { trigger: palco, start: "top bottom", end: "center center", scrub: true },
+    });
+  }
+
+  // Field video: plays while on screen. Reduced motion shows the first frame, with controls.
+  const video = document.querySelector<HTMLVideoElement>("[data-home-video]");
+  if (video) {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) video.controls = true;
+    else {
+      new IntersectionObserver(([e]) => {
+        if (e.isIntersecting) video.play().catch(() => { video.controls = true; });
+        else video.pause();
+      }, { threshold: 0.25 }).observe(video);
+    }
+  }
+</script>

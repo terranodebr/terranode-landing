@@ -1,0 +1,97 @@
+---
+// Small dark UI sketches for the bento grid, one per import feature. File names,
+// counts and times are illustrative; the states they show are the product's.
+
+interface Props {
+  tipo: "camadas" | "progresso" | "cog" | "arcgis";
+}
+
+const { tipo } = Astro.props;
+
+const ok = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>';
+const gira = '<svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" aria-hidden="true" class="tn-cat-gira"><path d="M12 3a9 9 0 1 0 9 9"/></svg>';
+
+const camadas = [
+  { nome: "lotes", geo: "polígono", estado: "ok" },
+  { nome: "vias", geo: "linha", estado: "ok" },
+  { nome: "hidrografia", geo: "linha", estado: "erro" },
+  { nome: "postes", geo: "ponto", estado: "ok" },
+];
+
+const etapas = [
+  { nome: "Enviando arquivo", info: "100%", estado: "ok" },
+  { nome: "Lendo 12 camadas", info: "12/12", estado: "ok" },
+  { nome: "Criando índice espacial", info: "vias", estado: "andamento" },
+  { nome: "Publicando no catálogo", info: "", estado: "espera" },
+];
+
+// Which tiles of the 6×4 COG grid have already loaded; the rest show the loading shimmer.
+const carregados = new Set([0, 1, 2, 6, 7, 8, 9, 12, 13, 14, 15, 19, 20]);
+---
+{tipo === "camadas" && (
+  <div class="tn-rec-mini" aria-hidden="true">
+    <div class="tn-rec-mini__arquivo" data-anim="up">
+      <span class="tn-rec-mini__ext">GPKG</span>
+      levantamento.gpkg
+      <span class="tn-rec-mini__meta">12 camadas</span>
+    </div>
+    <ul class="tn-rec-mini__lista" data-anim-group="left">
+      {camadas.map((c) => (
+        <li class={`tn-rec-mini__linha tn-rec-mini__linha--${c.estado}`}>
+          <span class={`tn-rec-mini__geo tn-rec-mini__geo--${c.geo === "polígono" ? "poly" : c.geo === "linha" ? "linha" : "ponto"}`}></span>
+          <span class="tn-rec-mini__nome">{c.nome}</span>
+          <span class="tn-rec-mini__estado">{c.estado === "erro" ? "erro · as outras seguem" : "pronta"}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
+
+{tipo === "progresso" && (
+  <div class="tn-rec-mini" aria-hidden="true">
+    <div class="tn-rec-mini__barra" data-anim="wipe"><span></span></div>
+    <ul class="tn-rec-mini__etapas" data-anim-group="left">
+      {etapas.map((e) => (
+        <li class={`tn-rec-mini__etapa tn-rec-mini__etapa--${e.estado}`}>
+          <span class="tn-rec-mini__marco" set:html={e.estado === "ok" ? ok : e.estado === "andamento" ? gira : ""} />
+          <span class="tn-rec-mini__nome">{e.nome}</span>
+          <span class="tn-rec-mini__meta">{e.info}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
+
+{tipo === "cog" && (
+  <div class="tn-rec-mini" aria-hidden="true">
+    <div class="tn-rec-mini__cog" data-anim-group="pop" data-anim-stagger="random:0.9">
+      {Array.from({ length: 24 }, (_, i) => (
+        <span class:list={["tn-rec-mini__tile", carregados.has(i) && "is-loaded"]} style={`--i:${i}`}></span>
+      ))}
+    </div>
+    <div class="tn-rec-mini__rodape" data-anim="up">
+      <span>ortofoto_2025.tif → COG</span>
+      <span class="tn-rec-mini__meta">estatísticas do arquivo inteiro</span>
+    </div>
+  </div>
+)}
+
+{tipo === "arcgis" && (
+  <div class="tn-rec-mini tn-rec-mini--sync" aria-hidden="true" data-anim-group="up">
+    <div class="tn-rec-mini__no">
+      <span class="tn-rec-mini__no-tag">Portal</span>
+      ArcGIS
+    </div>
+    <div class="tn-rec-mini__fio">
+      <span class="tn-rec-mini__pulso"></span>
+    </div>
+    <div class="tn-rec-mini__no tn-rec-mini__no--tn">
+      <span class="tn-rec-mini__no-tag">Catálogo</span>
+      TerraNode
+    </div>
+    <div class="tn-rec-mini__chips">
+      <span>Camadas vetoriais + simbologia</span>
+      <span>Image Services</span>
+    </div>
+  </div>
+)}

@@ -1,0 +1,33 @@
+---
+// Generating a form from a catalog layer: each column on the left, the field it becomes
+// on the right, following the column-to-field rules of the survey-datasource-generation
+// spec. The layer and its columns are illustrative.
+
+const colunas = [
+  { nome: "OBJECTID", tipo: "inteiro", campo: null },
+  { nome: "especie", tipo: "texto · 4 valores", campo: "Múltipla escolha · 4 opções" },
+  { nome: "altura_m", tipo: "decimal", campo: "Numérico · 2 casas" },
+  { nome: "data_plantio", tipo: "data", campo: "Data" },
+  { nome: "observacao", tipo: "texto livre", campo: "Texto longo" },
+  { nome: "Shape_Area", tipo: "decimal", campo: null },
+  { nome: "geometria", tipo: "ponto", campo: "Geometria · ponto" },
+];
+
+const seta = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+---
+<div class="tn-form-colunas" aria-hidden="true">
+  <div class="tn-form-colunas__head" data-anim="up">
+    <span class="tn-rec-mini__ext">GPKG</span>
+    arvores_plantio
+    <span class="tn-rec-mini__meta">camada do catálogo</span>
+  </div>
+  <ul class="tn-form-colunas__lista" data-anim-group="left">
+    {colunas.map((c) => (
+      <li class:list={["tn-form-colunas__linha", !c.campo && "is-excluida"]}>
+        <span class="tn-form-colunas__coluna"><code>{c.nome}</code><small>{c.tipo}</small></span>
+        <span class="tn-form-colunas__seta" set:html={seta} />
+        <span class="tn-form-colunas__campo">{c.campo ?? "fica de fora"}</span>
+      </li>
+    ))}
+  </ul>
+</div>

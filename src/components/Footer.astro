@@ -1,37 +1,86 @@
 ---
 import { asset } from "../lib/asset";
+import { getComparativos } from "../lib/comparativos";
+import { getRecursos, getRecursosEmBreve } from "../lib/recursos";
+
+interface Props {
+  /** Colour of the section above; see `rodapeTopo` in Base.astro. Defaults to the footer's dark. */
+  topo?: string;
+}
+
+const { topo } = Astro.props;
 
 // Root-relative for the same reason as Header.astro: the footer renders on every
 // page, and a bare "#faq" would resolve against a sector page instead of the home page.
 const home = asset("/");
+
+// There is no /comparativos/ index: the footer is the only place that lists them.
+// Uses the same draft filter as the pages, so production never links to a draft.
+const comparativos = await getComparativos();
+// Same draft filter for feature pages, which get their own Funcionalidades column.
+const recursos = await getRecursos();
+const emBreve = getRecursosEmBreve(recursos);
+
+const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
 ---
-<div class="tn-section tn-section--dark tn-footer">
+<footer class="tn-section tn-section--dark tn-footer" style={topo ? `--rodape-topo: ${topo}` : undefined}>
   <div class="tn-section__inner tn-footer__inner">
     <div class="tn-footer__top">
       <div class="tn-footer__brand">
-        <div class="tn-footer__brand-row">
+        <a href={home} class="tn-footer__brand-row" aria-label="TerraNode, página inicial">
           <img src={asset("/terranode-logo.svg")} alt="TerraNode" class="tn-footer__logo">
-        </div>
-        <span class="tn-footer__brand-desc">Coleta de dados geoespaciais em campo, offline-first. Em breve.</span>
+        </a>
+        <p class="tn-footer__brand-desc">Coleta de dados geoespaciais em campo, offline-first. Do formulário ao dado validado, sem depender de sinal.</p>
+        <a href={WAITLIST} target="_blank" rel="noopener" class="tn-footer__status" data-mp-cta="footer_status">
+          <span class="tn-footer__status-dot" aria-hidden="true"></span>
+          Lançamento em breve · lista de espera aberta
+        </a>
       </div>
-      <div class="tn-footer__cols">
+
+      <nav class="tn-footer__cols" aria-label="Rodapé">
         <div class="tn-footer__col">
           <span class="tn-footer__col-title">Produto</span>
           <a href={`${home}#como-funciona`} class="tn-footer__link">Como funciona</a>
           <a href={`${home}#o-app`} class="tn-footer__link">O app</a>
           <a href={asset("/solucoes/")} class="tn-footer__link">Soluções por setor</a>
-          <a href="https://form.typeform.com/to/ZVQYTFV5" target="_blank" rel="noopener" data-mp-cta="footer_waitlist" class="tn-footer__link">Lista de espera</a>
+          <a href={WAITLIST} target="_blank" rel="noopener" data-mp-cta="footer_waitlist" class="tn-footer__link">Lista de espera</a>
         </div>
+        {recursos.length > 0 && (
+          <div class="tn-footer__col">
+            <span class="tn-footer__col-title">Funcionalidades</span>
+            {recursos.map((r) => (
+              <a href={asset(`/recursos/${r.id}/`)} class="tn-footer__link">{r.data.recurso}</a>
+            ))}
+            {emBreve.map((r) => (
+              <span class="tn-footer__link tn-footer__link--breve">{r.nome}<span class="tn-footer__breve">em breve</span></span>
+            ))}
+          </div>
+        )}
+        {comparativos.length > 0 && (
+          <div class="tn-footer__col">
+            <span class="tn-footer__col-title">TerraNode vs</span>
+            {comparativos.map((c) => (
+              <a href={asset(`/comparativos/${c.id}/`)} class="tn-footer__link">{c.data.concorrente}</a>
+            ))}
+          </div>
+        )}
         <div class="tn-footer__col">
           <span class="tn-footer__col-title">Empresa</span>
           <a href={`${home}#faq`} class="tn-footer__link">Perguntas frequentes</a>
-          <a href="https://form.typeform.com/to/ZVQYTFV5" target="_blank" rel="noopener" data-mp-cta="footer_contact" class="tn-footer__link">Falar com o time</a>
+          <a href={WAITLIST} target="_blank" rel="noopener" data-mp-cta="footer_contact" class="tn-footer__link">Falar com o time</a>
         </div>
+      </nav>
+    </div>
+
+    <div class="tn-footer__bottom">
+      <p class="tn-footer__copyright">© 2026 TerraNode. Feito no Brasil, com quem trabalha em campo.</p>
+      <div class="tn-footer__acoes">
+        <a href={WAITLIST} target="_blank" rel="noopener" data-mp-cta="footer_bottom_contact" class="tn-footer__acao">Falar com o time</a>
+        <a href={WAITLIST} target="_blank" rel="noopener" data-mp-cta="footer_bottom_waitlist" class="tn-footer__acao tn-footer__acao--forte">
+          Entrar na lista
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
       </div>
     </div>
-    <div class="tn-footer__bottom">
-      <span class="tn-footer__copyright">© 2026 TerraNode. Feito no Brasil.</span>
-      <span class="tn-footer__tagline">Feito com quem trabalha em campo.</span>
-    </div>
   </div>
-</div>
+</footer>

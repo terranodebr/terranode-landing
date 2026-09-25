@@ -1,0 +1,134 @@
+---
+// Scroll story for feature pages: chapters on the left, one pinned stage on the right
+// whose visual swaps to the chapter crossing the middle of the viewport. The active
+// chapter's `marca` (a phrase inside `titulo`) gets a hand-drawn circle. Phones drop the
+// stage and show each chapter's visual inline under its text.
+import type { AstroComponentFactory } from "astro/runtime/server/index.js";
+
+export interface Capitulo {
+  /** Anchor for the chapter. Omit when the section around the story already has it. */
+  id?: string;
+  rotulo: string;
+  titulo: string;
+  /** Phrase inside `titulo` that gets circled. Must appear in it verbatim. */
+  marca: string;
+  texto: string;
+  /** Items with an empty `titulo` show only the text, with no bold lead. */
+  itens: { titulo: string; texto: string }[];
+  /** Short line under the items, with a lock icon. Used for privacy. */
+  nota?: string;
+  visual: AstroComponentFactory;
+  visualProps?: Record<string, unknown>;
+}
+
+interface Props {
+  capitulos: Capitulo[];
+}
+
+const { capitulos } = Astro.props;
+
+const partes = (titulo: string, marca: string) => {
+  const i = titulo.indexOf(marca);
+  return i < 0 ? [titulo, "", ""] : [titulo.slice(0, i), marca, titulo.slice(i + marca.length)];
+};
+
+const lock = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7.5a4 4 0 0 1 8 0V11"/></svg>';
+const ponto = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><circle cx="12" cy="12" r="3"/></svg>';
+---
+<div class="tn-rec-historia" data-rec-historia>
+  <div class="tn-rec-historia__capitulos">
+    {capitulos.map((c, i) => {
+      const [antes, marca, depois] = partes(c.titulo, c.marca);
+      const Visual = c.visual;
+      return (
+        <article id={c.id} class:list={["tn-rec-cap", i === 0 && "is-active"]} data-rec-cap={i} data-anim-bloco>
+          <span class="tn-rec-cap__rotulo" data-anim="up">{c.rotulo}</span>
+          <h3 class="tn-rec-h3" data-anim="words">
+            {antes}<span class="tn-rec-marca">{marca}<svg viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path d="M14 36 C 8 14, 186 4, 193 28 C 199 50, 30 60, 9 40 C 1 30, 44 12, 88 9" pathLength="1" /></svg></span>{depois}
+          </h3>
+          <p class="tn-rec-cap__texto" data-anim="blur">{c.texto}</p>
+          {(c.itens.length > 0 || c.nota) && (
+            <ul class="tn-rec-cap__itens" data-anim-group="up">
+              {c.itens.map((item) => (
+                <li>
+                  <span class="tn-rec-cap__icone" set:html={ponto} />
+                  <span>{item.titulo && <strong>{item.titulo}</strong>} {item.texto}</span>
+                </li>
+              ))}
+              {c.nota && (
+                <li class="tn-rec-cap__nota">
+                  <span class="tn-rec-cap__icone" set:html={lock} />
+                  <span>{c.nota}</span>
+                </li>
+              )}
+            </ul>
+          )}
+          <div class="tn-rec-cap__visual"><Visual {...c.visualProps} /></div>
+        </article>
+      );
+    })}
+  </div>
+
+  <!-- The stage fades in with the section; what is inside it is replayed by the
+       story script each time a chapter becomes active, so Animacoes skips it. -->
+  <div class="tn-rec-historia__palco" aria-hidden="true" data-anim="scale">
+    <div class="tn-rec-historia__moldura" data-anim-skip>
+      {capitulos.map((c, i) => {
+        const Visual = c.visual;
+        return (
+          <div class:list={["tn-rec-historia__visual", i === 0 && "is-active"]} data-rec-visual={i}>
+            <Visual {...c.visualProps} />
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</div>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+  const reduzir = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // The chapter crossing the middle of the viewport is the active one; its phrase gets
+  // circled and the pinned stage swaps to its visual.
+  const historia = document.querySelector("[data-rec-historia]");
+  if (historia) {
+    const caps = [...historia.querySelectorAll<HTMLElement>("[data-rec-cap]")];
+    const visuais = [...historia.querySelectorAll<HTMLElement>("[data-rec-visual]")];
+    // The parts of each stage visual (its data-anim markers, which Animacoes skips here)
+    // replay every time their chapter becomes active, and hide again once it is not.
+    const partes = visuais.map((v) => [...v.querySelectorAll("[data-anim], [data-anim-group] > *")]);
+    if (!reduzir) partes.forEach((p) => gsap.set(p, { autoAlpha: 0 }));
+
+    let atual = -1;
+    const ativar = (i: number) => {
+      if (i === atual) return;
+      atual = i;
+      caps.forEach((c, j) => c.classList.toggle("is-active", i === j));
+      visuais.forEach((v, j) => v.classList.toggle("is-active", i === j));
+      if (reduzir) return;
+      partes.forEach((p, j) => {
+        gsap.killTweensOf(p);
+        if (j === i) {
+          gsap.fromTo(p, { autoAlpha: 0, y: 14 }, {
+            autoAlpha: 1, y: 0, duration: 0.6, ease: "power3.out", stagger: 0.05, delay: 0.15, clearProps: "transform",
+          });
+        } else {
+          // After the stage's own crossfade (0.55 s), so the outgoing visual fades whole.
+          gsap.to(p, { autoAlpha: 0, duration: 0, delay: 0.6 });
+        }
+      });
+    };
+    caps.forEach((cap, i) => {
+      ScrollTrigger.create({
+        trigger: cap,
+        start: "top center",
+        end: "bottom center",
+        onToggle: (self) => { if (self.isActive) ativar(i); },
+      });
+    });
+  }
+</script>
