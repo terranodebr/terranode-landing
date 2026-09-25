@@ -2,6 +2,7 @@
 import { asset } from "../lib/asset";
 import { getComparativos } from "../lib/comparativos";
 import { getRecursos, getRecursosEmBreve } from "../lib/recursos";
+import { getSolucoes } from "../lib/solucoes";
 
 interface Props {
   /** Colour of the section above; see `rodapeTopo` in Base.astro. Defaults to the footer's dark. */
@@ -17,6 +18,8 @@ const home = asset("/");
 // There is no /comparativos/ index: the footer is the only place that lists them.
 // Uses the same draft filter as the pages, so production never links to a draft.
 const comparativos = await getComparativos();
+// Same for sector pages: no link to /solucoes/ while it would be an empty list.
+const temSolucoes = (await getSolucoes()).length > 0;
 // Same draft filter for feature pages, which get their own Funcionalidades column.
 const recursos = await getRecursos();
 const emBreve = getRecursosEmBreve(recursos);
@@ -42,7 +45,7 @@ const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
           <span class="tn-footer__col-title">Produto</span>
           <a href={`${home}#como-funciona`} class="tn-footer__link">Como funciona</a>
           <a href={`${home}#o-app`} class="tn-footer__link">O app</a>
-          <a href={asset("/solucoes/")} class="tn-footer__link">Soluções por setor</a>
+          {temSolucoes && <a href={asset("/solucoes/")} class="tn-footer__link">Soluções por setor</a>}
           <a href={WAITLIST} target="_blank" rel="noopener" data-mp-cta="footer_waitlist" class="tn-footer__link">Lista de espera</a>
         </div>
         {recursos.length > 0 && (
