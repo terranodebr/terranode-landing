@@ -163,6 +163,41 @@ a:hover { color: var(--tn-accent); }
 .tn-header__actions { display: flex; align-items: center; gap: 12px; }
 .tn-header__cta { font-family: var(--font-sans); font-weight: 600; font-size: 13px; color: var(--tn-ink); background: #fff; border-radius: 8px; padding: 10px 18px; }
 
+/* Phone menu (Header.astro): a button beside the CTA opens a panel under the header with
+   the same links. Desktop never shows either. */
+.tn-header__menu { display: none; width: 40px; height: 40px; flex-shrink: 0; align-items: center; justify-content: center; margin: 0; padding: 0; border: 1px solid var(--tn-on-dark-16); border-radius: 8px; background: transparent; color: #fff; cursor: pointer; }
+.tn-header__menu-linha { transition: transform 0.2s ease; transform-origin: 12px 12px; }
+.is-menu-aberto .tn-header__menu-linha--1 { transform: translateY(4px) rotate(45deg); }
+.is-menu-aberto .tn-header__menu-linha--2 { transform: translateY(-4px) rotate(-45deg); }
+.tn-menu-movel { display: none; }
+@media (max-width: 760px) {
+  .tn-header { position: relative; flex-wrap: nowrap; }
+  .tn-header__actions { gap: 8px; }
+  .tn-header__cta { padding: 10px 14px; white-space: nowrap; }
+  .tn-header__menu { display: inline-flex; }
+  .tn-menu-movel { display: block; position: absolute; left: 0; right: 0; top: 100%; z-index: 60; padding-top: 8px; visibility: hidden; pointer-events: none; transition: visibility 0s linear 130ms; }
+  .is-menu-aberto .tn-menu-movel { visibility: visible; pointer-events: auto; transition-delay: 0s; }
+  .tn-menu-movel__lista { --menu-borda: #2A3433; --menu-hover: #222C2B; max-height: calc(100dvh - 110px); overflow-y: auto; overscroll-behavior: contain; display: flex; flex-direction: column; margin: 0 12px; padding: 8px; border-radius: 16px; border: 1px solid var(--menu-borda); background: color-mix(in srgb, var(--tn-dark) 96%, transparent); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); box-shadow: 0 24px 48px -20px rgba(0, 0, 0, 0.55); opacity: 0; transform: translateY(-6px); transition: opacity 130ms ease-in, transform 130ms ease-in; }
+  .is-menu-aberto .tn-menu-movel__lista { opacity: 1; transform: none; transition: opacity 160ms cubic-bezier(0.22, 1, 0.36, 1), transform 160ms cubic-bezier(0.22, 1, 0.36, 1); }
+  .tn-menu-movel__link { display: block; padding: 13px 12px; border-radius: 8px; font-family: var(--font-sans); font-weight: 500; font-size: 16px; color: #fff; }
+  .tn-menu-movel__link:hover, .tn-menu-movel__link:active { background: var(--menu-hover); color: #fff; }
+  .tn-menu-movel__grupo { display: flex; flex-direction: column; margin: 4px 0; padding: 8px 0; border-top: 1px solid var(--menu-borda); border-bottom: 1px solid var(--menu-borda); }
+  .tn-menu-movel__rotulo { padding: 4px 12px 8px; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--tn-on-dark-55); }
+  .tn-menu-movel__recurso { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px; color: #fff; }
+  a.tn-menu-movel__recurso:hover, a.tn-menu-movel__recurso:active { background: var(--menu-hover); color: #fff; }
+  .tn-menu-movel__recurso--breve .tn-nav-menu__nome { color: var(--tn-on-dark-75); }
+  /* The home's floating header already sits inside the page gutter. */
+  .tn-home .tn-menu-movel__lista { margin: 0; }
+}
+@media (max-width: 380px) {
+  .tn-header__logo { height: 26px; }
+  .tn-header__cta { padding: 9px 11px; font-size: 12.5px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tn-menu-movel__lista, .is-menu-aberto .tn-menu-movel__lista, .tn-header__menu-linha { transition: none; }
+  .tn-menu-movel { transition: none; }
+}
+
 /* Hero */
 .tn-hero {
   min-height: 100vh;
