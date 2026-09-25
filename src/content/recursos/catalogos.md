@@ -5,7 +5,7 @@ recurso: "Catálogos"
 h1: "Seus dados prontos para qualquer projeto."
 subtitulo: "Importe uma vez, use em todos. Estilize à mão ou com IA."
 ordem: 1
-draft: true
+draft: false
 
 secoes:
   - id: importar

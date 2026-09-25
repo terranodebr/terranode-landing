@@ -5,7 +5,7 @@ recurso: "Formulários"
 h1: "Simples de montar, não importa o tamanho."
 subtitulo: "Do checklist de campo ao levantamento cheio de regras, é arrastar, testar e publicar. Ou partir das colunas de uma camada que você já tem."
 ordem: 2
-draft: true
+draft: false
 
 secoes:
   - id: montar
