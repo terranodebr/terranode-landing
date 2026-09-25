@@ -1,0 +1,316 @@
+---
+// "O produto" on the home v2: the office panel and the field app as two tabs, each a 2×2
+// grid of wide and narrow cards (after isomeet.com's "We've done the hard part"). Every
+// card is a small scene: a real screenshot cut out over a soft colour blob, with UI chips
+// floating in front. Layers marked data-prof drift with the pointer and with scroll, the
+// deeper the value the more. Ids, names and counts are illustrative, as in Esboco.astro.
+import { Image } from "astro:assets";
+import webOverview from "../../assets/web-overview.png";
+import webReview from "../../assets/web-review.png";
+import mobileCapture from "../../assets/mobile-capture.png";
+import mobileMap from "../../assets/mobile-map.png";
+import mobileSync from "../../assets/mobile-sync.png";
+
+const ok = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>';
+const tela = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>';
+const celular = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>';
+const semSinal = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M2 8.8a15 15 0 0 1 4.2-2.6M9.5 5.2A15 15 0 0 1 22 8.8M5 12.5a10 10 0 0 1 3-1.9M13.3 10.3A10 10 0 0 1 19 12.5M8.5 16a5 5 0 0 1 7 0M12 20h.01M3 3l18 18"/></svg>';
+const mira = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.2" fill="currentColor"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3"/></svg>';
+const baixa = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>';
+
+const equipe = [
+  { sigla: "MR", nome: "Marina Reis", papel: "Coletora", pontos: 42, barra: 84 },
+  { sigla: "JC", nome: "Joel Camargo", papel: "Coletor", pontos: 31, barra: 62 },
+  { sigla: "AL", nome: "Ana Lobo", papel: "Revisora", pontos: 18, barra: 36 },
+];
+
+const arquivos = [
+  { ext: "CSV", nome: "rede-sul-validados.csv", peso: "184 KB" },
+  { ext: "GeoJSON", nome: "rede-sul-validados.geojson", peso: "1,2 MB" },
+  { ext: "SHP", nome: "rede-sul-validados.zip", peso: "860 KB" },
+];
+---
+<section id="o-produto" class="tn-rec-secao tn-tema-claro tn-home-prod" data-prod>
+  <div class="tn-rec-head" data-anim-bloco>
+    <span class="tn-rec-pilula" data-anim="up">O PRODUTO</span>
+    <h2 class="tn-rec-h2" data-anim="words">Um app para o <span class="tn-home-prod__marca">campo</span>. Um painel para o <span class="tn-home-prod__marca tn-home-prod__marca--verde">escritório</span>.</h2>
+    <p class="tn-rec-lead" data-anim="blur">O mesmo projeto, visto de dois lugares. Quem coleta usa o aplicativo offline-first. Quem gerencia acompanha, revisa e valida pelo navegador.</p>
+    <div class="tn-home-alterna" role="tablist" aria-label="Ver o produto por" data-anim="up" data-prod-abas>
+      <span class="tn-home-alterna__marcador" aria-hidden="true"></span>
+      <button type="button" role="tab" id="prod-aba-escritorio" aria-controls="prod-escritorio" aria-selected="true" class="tn-home-alterna__aba" data-prod-aba="escritorio"><span set:html={tela} />Escritório</button>
+      <button type="button" role="tab" id="prod-aba-campo" aria-controls="prod-campo" aria-selected="false" tabindex="-1" class="tn-home-alterna__aba" data-prod-aba="campo"><span set:html={celular} />Campo</button>
+    </div>
+  </div>
+
+  <!-- Escritório: the web panel -->
+  <div class="tn-home-prod__grade" id="prod-escritorio" role="tabpanel" aria-labelledby="prod-aba-escritorio" data-prod-painel="escritorio">
+    <article class="tn-home-prod__card tn-home-prod__card--largo" data-anim="up" data-anim-bloco data-prod-card>
+      <div class="tn-home-prod__texto">
+        <h3 class="tn-home-prod__titulo">Visão geral do projeto</h3>
+        <p class="tn-home-prod__desc">Coleta, revisão e atividade da equipe em um painel só.</p>
+      </div>
+      <div class="tn-home-prod__cena">
+        <span class="tn-home-prod__blob tn-home-prod__blob--laranja" data-prof="0.4"></span>
+        <div class="tn-home-prod__camada tn-home-prod__pos-janela" data-prof="0.5">
+          <div class="tn-home-prod__janela">
+            <div class="tn-home-prod__janela-barra" aria-hidden="true"><span></span><span></span><span></span></div>
+            <Image src={webOverview} alt="Painel web: visão geral do projeto Vistoria Rede Sul" widths={[640, 1280]} sizes="(max-width: 900px) 110vw, 620px" />
+          </div>
+        </div>
+        <div class="tn-home-prod__camada tn-home-prod__pos-atividade" data-prof="1.4" aria-hidden="true">
+          <div class="tn-home-prod__chip tn-home-prod__chip--pessoa">
+            <span class="tn-home-avatar tn-home-avatar--1">JL</span>
+            <span><strong>Julia Lima</strong> validou 32 pontos<small>há 4 min</small></span>
+          </div>
+        </div>
+        <div class="tn-home-prod__camada tn-home-prod__pos-numero" data-prof="1.1" aria-hidden="true">
+          <div class="tn-home-prod__chip tn-home-prod__chip--numero">
+            <span class="tn-home-prod__chip-rotulo">Pontos coletados</span>
+            <span class="tn-home-prod__chip-valor">342</span>
+            <span class="tn-home-prod__chip-alta">+42 hoje</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="tn-home-prod__card tn-home-prod__card--estreito tn-home-prod__card--pessego" data-anim="up" data-anim-bloco data-prod-card>
+      <div class="tn-home-prod__texto">
+        <h3 class="tn-home-prod__titulo">Revisão de pontos</h3>
+        <p class="tn-home-prod__desc">Respostas ao lado do mapa. Validar é um clique.</p>
+      </div>
+      <div class="tn-home-prod__cena">
+        <span class="tn-home-prod__verso" data-prof="0.3"></span>
+        <div class="tn-home-prod__camada tn-home-prod__pos-recorte" data-prof="0.6">
+          <div class="tn-home-prod__recorte">
+            <Image src={webReview} alt="Painel web: ponto PT-0340 em revisão, com as respostas, o mapa e o botão Validar" widths={[720, 1442]} sizes="(max-width: 900px) 150vw, 700px" />
+          </div>
+        </div>
+        <div class="tn-home-prod__camada tn-home-prod__pos-validado" data-prof="1.5" aria-hidden="true">
+          <div class="tn-home-prod__chip tn-home-prod__chip--ok">
+            <span class="tn-home-prod__ok" set:html={ok} />
+            <span><strong class="tn-home-mono">PT-0340</strong> validado</span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="tn-home-prod__card tn-home-prod__card--estreito tn-home-prod__card--verde" data-anim="up" data-anim-bloco data-prod-card>
+      <div class="tn-home-prod__texto">
+        <h3 class="tn-home-prod__titulo">Equipe em tempo real</h3>
+        <p class="tn-home-prod__desc">A produção de cada coletor, acompanhada ao vivo.</p>
+      </div>
+      <div class="tn-home-prod__cena" aria-hidden="true">
+        <span class="tn-home-prod__fantasma" data-prof="0.35"></span>
+        <div class="tn-home-prod__camada tn-home-prod__pos-equipe" data-prof="0.7">
+          <div class="tn-home-prod__lista">
+            <div class="tn-home-prod__lista-topo">Equipe · Rede Sul<span class="tn-home-mono">hoje</span></div>
+            {equipe.map((p, i) => (
+              <div class="tn-home-prod__membro">
+                <span class={`tn-home-avatar tn-home-avatar--${i}`}>{p.sigla}</span>
+                <span class="tn-home-prod__membro-nome"><strong>{p.nome}</strong>{p.papel}</span>
+                <span class="tn-home-prod__membro-barra"><span style={`width: ${p.barra}%`}></span></span>
+                <span class="tn-home-mono">{p.pontos} pts</span>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="tn-home-prod__camada tn-home-prod__pos-aovivo" data-prof="1.5">
+          <div class="tn-home-prod__chip tn-home-prod__chip--escuro">
+            <span class="tn-rec-palco__dot"></span>3 em campo agora
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="tn-home-prod__card tn-home-prod__card--largo tn-home-prod__card--base" data-anim="up" data-anim-bloco data-prod-card>
+      <div class="tn-home-prod__texto">
+        <h3 class="tn-home-prod__titulo">Exportação sem retrabalho</h3>
+        <p class="tn-home-prod__desc">Só o dado validado sai, em CSV, GeoJSON ou Shapefile.</p>
+      </div>
+      <div class="tn-home-prod__cena" aria-hidden="true">
+        <span class="tn-home-prod__blob tn-home-prod__blob--misto" data-prof="0.4"></span>
+        {arquivos.map((a, i) => (
+          <div class={`tn-home-prod__camada tn-home-prod__pos-arquivo tn-home-prod__pos-arquivo--${i}`} data-prof={[0.8, 1.2, 0.8][i]}>
+            <div class={`tn-home-prod__arquivo tn-home-prod__arquivo--${i}`}>
+              <span class="tn-home-prod__arquivo-ext">{a.ext}</span>
+              <span class="tn-home-prod__arquivo-linhas"><span></span><span></span><span></span></span>
+              <span class="tn-home-prod__arquivo-nome tn-home-mono">{a.nome}</span>
+              <span class="tn-home-prod__arquivo-peso">{a.peso}</span>
+            </div>
+          </div>
+        ))}
+        <div class="tn-home-prod__camada tn-home-prod__pos-exportar" data-prof="1.6">
+          <div class="tn-home-prod__chip tn-home-prod__chip--botao"><span set:html={baixa} />Exportar 318 pontos</div>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <!-- Campo: the field app -->
+  <div class="tn-home-prod__grade" id="prod-campo" role="tabpanel" aria-labelledby="prod-aba-campo" data-prod-painel="campo" hidden data-anim-skip>
+    <article class="tn-home-prod__card tn-home-prod__card--largo" data-prod-card>
+      <div class="tn-home-prod__texto">
+        <h3 class="tn-home-prod__titulo">Mapa em tempo real</h3>
+        <p class="tn-home-prod__desc">Pontos, linhas e polígonos sempre visíveis, mesmo sem conexão.</p>
+      </div>
+      <div class="tn-home-prod__cena">
+        <span class="tn-home-prod__blob tn-home-prod__blob--verde" data-prof="0.4"></span>
+        <div class="tn-home-prod__camada tn-home-prod__pos-celular-mapa" data-prof="0.6">
+          <Image src={mobileMap} alt="App de campo: mapa de coleta do projeto Vistoria Rede Sul" class="tn-home-prod__celular" widths={[300, 600]} sizes="(max-width: 560px) 50vw, 280px" />
+        </div>
+        <div class="tn-home-prod__camada tn-home-prod__pos-semsinal" data-prof="1.3" aria-hidden="true">
+          <div class="tn-home-prod__chip tn-home-prod__chip--escuro"><span class="tn-home-sinal" set:html={semSinal} />Sem sinal · coleta salva no aparelho</div>
+        </div>
+        <div class="tn-home-prod__camada tn-home-prod__pos-gps" data-prof="1.6" aria-hidden="true">
+          <div class="tn-home-prod__chip tn-home-prod__chip--gps">
+            <span class="tn-home-prod__gps-icone" set:html={mira} />
+            <span><strong>Ponto 13</strong><small class="tn-home-mono">-23.5972, -46.6912</small></span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="tn-home-prod__card tn-home-prod__card--estreito tn-home-prod__card--pessego" data-prod-card>
+      <div class="tn-home-prod__texto">
+        <h3 class="tn-home-prod__titulo">Captura guiada</h3>
+        <p class="tn-home-prod__desc">O formulário certo para cada coletor, com validação no registro.</p>
+      </div>
+      <div class="tn-home-prod__cena">
+        <span class="tn-home-prod__verso" data-prof="0.3"></span>
+        <div class="tn-home-prod__camada tn-home-prod__pos-celular-captura" data-prof="0.7">
+          <Image src={mobileCapture} alt="App de campo: captura de ponto com formulário" class="tn-home-prod__celular" widths={[300, 600]} sizes="(max-width: 560px) 50vw, 250px" />
+        </div>
+        <div class="tn-home-prod__camada tn-home-prod__pos-foto" data-prof="1.5" aria-hidden="true">
+          <div class="tn-home-prod__chip tn-home-prod__chip--ok">
+            <span class="tn-home-prod__ok" set:html={ok} />
+            <span>Fotos da estrutura<small>3 de 3 obrigatórias</small></span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="tn-home-prod__card tn-home-prod__card--estreito tn-home-prod__card--verde" data-prod-card>
+      <div class="tn-home-prod__texto">
+        <h3 class="tn-home-prod__titulo">Fila de sincronização</h3>
+        <p class="tn-home-prod__desc">Cada foto, áudio e ponto sobe sozinho quando o sinal volta.</p>
+      </div>
+      <div class="tn-home-prod__cena">
+        <div class="tn-home-prod__camada tn-home-prod__pos-celular-sync" data-prof="0.6">
+          <Image src={mobileSync} alt="App de campo: fila de sincronização" class="tn-home-prod__celular" widths={[300, 600]} sizes="(max-width: 560px) 50vw, 250px" />
+        </div>
+        <div class="tn-home-prod__camada tn-home-prod__pos-progresso" data-prof="1.5" aria-hidden="true">
+          <div class="tn-home-prod__chip tn-home-prod__chip--progresso">
+            <span class="tn-home-prod__progresso-topo">Sincronizando<span class="tn-home-mono">18 de 42</span></span>
+            <span class="tn-rec-mini__barra"><span></span></span>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="tn-home-prod__card tn-home-prod__card--largo tn-home-prod__card--base" data-prod-card>
+      <div class="tn-home-prod__texto">
+        <h3 class="tn-home-prod__titulo">Precisão de topógrafo</h3>
+        <p class="tn-home-prod__desc">Com um GNSS externo, cada ponto chega a ±3&nbsp;cm. A precisão mínima é definida por campo.</p>
+      </div>
+      <div class="tn-home-prod__cena" aria-hidden="true">
+        <svg class="tn-home-prod__alvo" viewBox="0 0 400 400" data-prof="0.4">
+          <circle cx="200" cy="200" r="190" /><circle cx="200" cy="200" r="140" /><circle cx="200" cy="200" r="90" /><circle cx="200" cy="200" r="42" class="is-foco" />
+          <path d="M200 0v400M0 200h400" />
+        </svg>
+        <div class="tn-home-prod__camada tn-home-prod__pos-leitura" data-prof="0.9">
+          <div class="tn-home-prod__leitura">
+            <span class="tn-home-prod__chip-rotulo">Precisão horizontal</span>
+            <span class="tn-home-prod__leitura-valor">±3<small>cm</small></span>
+            <span class="tn-home-prod__leitura-coord tn-home-mono">-15.7801, -47.9292</span>
+          </div>
+        </div>
+        <div class="tn-home-prod__camada tn-home-prod__pos-gnss" data-prof="1.5">
+          <div class="tn-home-prod__chip tn-home-prod__chip--escuro"><span class="tn-rec-palco__dot tn-home-prod__dot-verde"></span>GNSS externo conectado</div>
+        </div>
+        <div class="tn-home-prod__camada tn-home-prod__pos-minima" data-prof="1.2">
+          <div class="tn-home-prod__chip tn-home-prod__chip--ok">
+            <span class="tn-home-prod__ok" set:html={ok} />
+            <span>Dentro da mínima<small>campo exige 5 cm</small></span>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const secao = document.querySelector<HTMLElement>("[data-prod]");
+  const calmo = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (secao) {
+    const abas = [...secao.querySelectorAll<HTMLButtonElement>("[data-prod-aba]")];
+    const paineis = [...secao.querySelectorAll<HTMLElement>("[data-prod-painel]")];
+    const trilho = secao.querySelector<HTMLElement>("[data-prod-abas]");
+
+    function mostrar(nome: string, foco = false) {
+      const atual = paineis.find((p) => !p.hidden);
+      if (atual?.dataset.prodPainel === nome) return;
+      abas.forEach((a) => {
+        const ativa = a.dataset.prodAba === nome;
+        a.setAttribute("aria-selected", String(ativa));
+        a.tabIndex = ativa ? 0 : -1;
+        if (ativa && foco) a.focus();
+      });
+      trilho?.setAttribute("data-ativo", nome);
+      paineis.forEach((p) => { p.hidden = p.dataset.prodPainel !== nome; });
+      const novo = paineis.find((p) => !p.hidden);
+      if (!novo) return;
+      ScrollTrigger.refresh();
+      if (calmo) return;
+      // Cards rise in one after another, then their chips pop in front.
+      const cards = novo.querySelectorAll("[data-prod-card]");
+      const chips = novo.querySelectorAll(".tn-home-prod__camada > *");
+      gsap.killTweensOf([cards, chips]);
+      gsap.timeline()
+        .fromTo(cards, { autoAlpha: 0, y: 36 }, { autoAlpha: 1, y: 0, duration: 0.7, ease: "power3.out", stagger: 0.08, clearProps: "transform,opacity,visibility" })
+        .fromTo(chips, { autoAlpha: 0, scale: 0.9 }, { autoAlpha: 1, scale: 1, duration: 0.6, ease: "back.out(1.6)", stagger: 0.04, clearProps: "transform,opacity,visibility" }, 0.2);
+    }
+
+    abas.forEach((a, i) => {
+      a.addEventListener("click", () => mostrar(a.dataset.prodAba!));
+      a.addEventListener("keydown", (e) => {
+        if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+        e.preventDefault();
+        const outra = abas[(i + (e.key === "ArrowRight" ? 1 : abas.length - 1)) % abas.length];
+        mostrar(outra.dataset.prodAba!, true);
+      });
+    });
+
+    if (!calmo) {
+      // Pointer: layers lean toward the cursor, the chips in front more than the shot behind.
+      secao.querySelectorAll<HTMLElement>("[data-prod-card]").forEach((card) => {
+        card.addEventListener("pointermove", (e) => {
+          if (e.pointerType !== "mouse") return;
+          const r = card.getBoundingClientRect();
+          card.style.setProperty("--mx", ((e.clientX - r.left) / r.width - 0.5).toFixed(3));
+          card.style.setProperty("--my", ((e.clientY - r.top) / r.height - 0.5).toFixed(3));
+        });
+        card.addEventListener("pointerleave", () => {
+          card.style.setProperty("--mx", "0");
+          card.style.setProperty("--my", "0");
+        });
+      });
+
+      // Scroll: each layer drifts up at its own depth while its card crosses the screen.
+      secao.querySelectorAll<HTMLElement>("[data-prof]").forEach((el) => {
+        const prof = Number(el.dataset.prof) || 0;
+        el.style.setProperty("--p", String(prof));
+        gsap.fromTo(el, { y: prof * 26 }, {
+          y: prof * -26,
+          ease: "none",
+          scrollTrigger: { trigger: el.closest("[data-prod-card]"), start: "top bottom", end: "bottom top", scrub: true },
+        });
+      });
+    }
+  }
+</script>

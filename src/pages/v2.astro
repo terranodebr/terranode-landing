@@ -10,14 +10,12 @@ import Animacoes from "../components/recursos/Animacoes.astro";
 import Historia, { type Capitulo } from "../components/recursos/Historia.astro";
 import MapaPontilhado from "../components/recursos/MapaPontilhado.astro";
 import Esboco from "../components/home/Esboco.astro";
+import Produto from "../components/home/Produto.astro";
 import { asset } from "../lib/asset";
 import { getSolucoes } from "../lib/solucoes";
 import campoMarca from "../assets/campo-marca.webp";
 import webOverview from "../assets/web-overview.png";
-import webReview from "../assets/web-review.png";
 import mobileCapture from "../assets/mobile-capture.png";
-import mobileMap from "../assets/mobile-map.png";
-import mobileSync from "../assets/mobile-sync.png";
 import ucAgro from "../assets/uc-agro.png";
 import ucAmbiental from "../assets/uc-ambiental.png";
 import ucEnergia from "../assets/uc-energia.png";
@@ -127,12 +125,6 @@ const capitulos: Capitulo[] = passos.map((p) => ({
   visual: Esboco,
   visualProps: { tipo: p.visual },
 }));
-
-const telas = [
-  { img: mobileMap, titulo: "Mapa em tempo real", texto: "Pontos, linhas e polígonos sempre visíveis, mesmo sem conexão.", alt: "App mobile: mapa de coleta" },
-  { img: mobileCapture, titulo: "Captura guiada", texto: "O formulário certo para cada coletor, com validação no registro.", alt: "App mobile: captura de ponto" },
-  { img: mobileSync, titulo: "Fila de sincronização", texto: "Cada foto, áudio e ponto na fila, com progresso até o último item subir.", alt: "App mobile: sincronização" },
-];
 
 // Use cases. Image ↔ case pairing and alt text as on the current home. A case links to
 // its sector page when this build publishes one.
@@ -305,43 +297,8 @@ const abre = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke
       <Historia capitulos={capitulos} />
     </section>
 
-    <!-- O produto: painel web + app de campo -->
-    <section class="tn-rec-secao tn-tema-laranja">
-      <div class="tn-rec-head" data-anim-bloco>
-        <span class="tn-rec-pilula" data-anim="up">O PRODUTO</span>
-        <h2 class="tn-rec-h2" data-anim="words">Um app para o campo. Um painel para o escritório.</h2>
-        <p class="tn-rec-lead" data-anim="blur">O mesmo projeto, visto de dois lugares. Quem coleta usa o aplicativo offline-first. Quem gerencia acompanha, revisa e valida pelo navegador.</p>
-      </div>
-
-      <div class="tn-home-produto">
-        <div class="tn-home-tela tn-home-tela--web" data-anim="up" data-anim-bloco>
-          <div class="tn-home-tela__texto">
-            <span class="tn-rec-bento__rotulo">Painel web</span>
-            <h3 class="tn-home-tela__titulo">Visão geral do projeto</h3>
-            <p class="tn-home-tela__desc">Coleta, revisão e atividade da equipe em um painel só, com resumo por membro e progresso por levantamento.</p>
-          </div>
-          <div class="tn-home-tela__shot"><Image src={webOverview} alt="Painel web: visão geral do projeto" widths={[560, 1120]} sizes="(max-width: 900px) 88vw, 540px" /></div>
-        </div>
-        <div class="tn-home-tela tn-home-tela--web" data-anim="up" data-anim-bloco>
-          <div class="tn-home-tela__texto">
-            <span class="tn-rec-bento__rotulo">Painel web</span>
-            <h3 class="tn-home-tela__titulo">Revisão de pontos</h3>
-            <p class="tn-home-tela__desc">Fila de pendentes, respostas lado a lado com o mapa e validação em um clique, sem sair da tela.</p>
-          </div>
-          <div class="tn-home-tela__shot"><Image src={webReview} alt="Painel web: revisão de pontos" widths={[560, 1120]} sizes="(max-width: 900px) 88vw, 540px" /></div>
-        </div>
-        {telas.map((t) => (
-          <div class="tn-home-tela tn-home-tela--app" data-anim="up" data-anim-bloco>
-            <div class="tn-home-tela__texto">
-              <span class="tn-rec-bento__rotulo">App de campo</span>
-              <h3 class="tn-home-tela__titulo">{t.titulo}</h3>
-              <p class="tn-home-tela__desc">{t.texto}</p>
-            </div>
-            <div class="tn-home-tela__celular"><Image src={t.img} alt={t.alt} widths={[280, 560]} sizes="260px" /></div>
-          </div>
-        ))}
-      </div>
-    </section>
+    <!-- O produto: painel web e app de campo, em abas -->
+    <Produto />
 
     <!-- O app: vídeo real de coleta -->
     <section id="o-app" class="tn-rec-secao tn-tema-claro">
