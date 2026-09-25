@@ -16,7 +16,7 @@ const tela = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke
 const celular = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg>';
 const semSinal = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M2 8.8a15 15 0 0 1 4.2-2.6M9.5 5.2A15 15 0 0 1 22 8.8M5 12.5a10 10 0 0 1 3-1.9M13.3 10.3A10 10 0 0 1 19 12.5M8.5 16a5 5 0 0 1 7 0M12 20h.01M3 3l18 18"/></svg>';
 const mira = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.2" fill="currentColor"/><path d="M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3"/></svg>';
-const baixa = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg>';
+const documento = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg>';
 
 const equipe = [
   { sigla: "MR", nome: "Marina Reis", papel: "Coletora", pontos: 42, barra: 84 },
@@ -24,10 +24,20 @@ const equipe = [
   { sigla: "AL", nome: "Ana Lobo", papel: "Revisora", pontos: 18, barra: 36 },
 ];
 
-const arquivos = [
-  { ext: "CSV", nome: "rede-sul-validados.csv", peso: "184 KB" },
-  { ext: "GeoJSON", nome: "rede-sul-validados.geojson", peso: "1,2 MB" },
-  { ext: "SHP", nome: "rede-sul-validados.zip", peso: "860 KB" },
+// The report pages and queue row follow the Relatórios screens (templates, generation
+// queue and the A4 pages each template produces).
+const indicadores = [
+  { rotulo: "Registros", valor: 412, tom: "neutro" },
+  { rotulo: "Validados", valor: 388, tom: "ok" },
+  { rotulo: "Em revisão", valor: 19, tom: "alerta" },
+  { rotulo: "Técnicos", valor: 7, tom: "neutro" },
+];
+const semanas = [38, 62, 47, 86, 71];
+const formatos = [
+  { nome: "PDF", ativo: true },
+  { nome: "CSV", ativo: false },
+  { nome: "GeoJSON", ativo: true },
+  { nome: "Shapefile", ativo: true },
 ];
 ---
 <section id="o-produto" class="tn-rec-secao tn-tema-claro tn-home-prod" data-prod>
@@ -66,7 +76,7 @@ const arquivos = [
         <div class="tn-home-prod__camada tn-home-prod__pos-numero" data-prof="1.1" aria-hidden="true">
           <div class="tn-home-prod__chip tn-home-prod__chip--numero">
             <span class="tn-home-prod__chip-rotulo">Pontos coletados</span>
-            <span class="tn-home-prod__chip-valor">342</span>
+            <span class="tn-home-prod__chip-valor" data-prod-conta="342">342</span>
             <span class="tn-home-prod__chip-alta">+42 hoje</span>
           </div>
         </div>
@@ -108,8 +118,8 @@ const arquivos = [
               <div class="tn-home-prod__membro">
                 <span class={`tn-home-avatar tn-home-avatar--${i}`}>{p.sigla}</span>
                 <span class="tn-home-prod__membro-nome"><strong>{p.nome}</strong>{p.papel}</span>
-                <span class="tn-home-prod__membro-barra"><span style={`width: ${p.barra}%`}></span></span>
-                <span class="tn-home-mono">{p.pontos} pts</span>
+                <span class="tn-home-prod__membro-barra"><span style={`width: ${p.barra}%`} data-prod-enche></span></span>
+                <span class="tn-home-mono"><span data-prod-conta={p.pontos}>{p.pontos}</span> pts</span>
               </div>
             ))}
           </div>
@@ -124,23 +134,52 @@ const arquivos = [
 
     <article class="tn-home-prod__card tn-home-prod__card--largo tn-home-prod__card--base" data-anim="up" data-anim-bloco data-prod-card>
       <div class="tn-home-prod__texto">
-        <h3 class="tn-home-prod__titulo">Exportação sem retrabalho</h3>
-        <p class="tn-home-prod__desc">Só o dado validado sai, em CSV, GeoJSON ou Shapefile.</p>
+        <h3 class="tn-home-prod__titulo">Relatórios e exportação</h3>
+        <p class="tn-home-prod__desc">Só o dado validado sai: relatório em PDF para o cliente, CSV, GeoJSON ou Shapefile para o seu GIS.</p>
       </div>
       <div class="tn-home-prod__cena" aria-hidden="true">
         <span class="tn-home-prod__blob tn-home-prod__blob--misto" data-prof="0.4"></span>
-        {arquivos.map((a, i) => (
-          <div class={`tn-home-prod__camada tn-home-prod__pos-arquivo tn-home-prod__pos-arquivo--${i}`} data-prof={[0.8, 1.2, 0.8][i]}>
-            <div class={`tn-home-prod__arquivo tn-home-prod__arquivo--${i}`}>
-              <span class="tn-home-prod__arquivo-ext">{a.ext}</span>
-              <span class="tn-home-prod__arquivo-linhas"><span></span><span></span><span></span></span>
-              <span class="tn-home-prod__arquivo-nome tn-home-mono">{a.nome}</span>
-              <span class="tn-home-prod__arquivo-peso">{a.peso}</span>
-            </div>
+        <div class="tn-home-prod__camada tn-home-prod__pos-capa" data-prof="0.6">
+          <div class="tn-home-prod__pagina tn-home-prod__pagina--capa">
+            <span class="tn-home-prod__capa-marca"></span>
+            <span class="tn-home-prod__capa-titulo">Resumo<br />executivo</span>
+            <span class="tn-home-prod__capa-sub">Vistoria Rede Sul · agosto de 2026</span>
+            <span class="tn-home-prod__capa-rodape">412 registros · 12 camadas</span>
           </div>
-        ))}
-        <div class="tn-home-prod__camada tn-home-prod__pos-exportar" data-prof="1.6">
-          <div class="tn-home-prod__chip tn-home-prod__chip--botao"><span set:html={baixa} />Exportar 318 pontos</div>
+        </div>
+        <div class="tn-home-prod__camada tn-home-prod__pos-indicadores" data-prof="0.9">
+          <div class="tn-home-prod__pagina">
+            <span class="tn-home-prod__pagina-topo"><strong>VISTORIA REDE SUL</strong><span>01/08 — 31/08</span></span>
+            <span class="tn-home-prod__pagina-titulo">Indicadores do período</span>
+            <span class="tn-home-prod__indicadores">
+              {indicadores.map((n) => (
+                <span class={`tn-home-prod__indicador tn-home-prod__indicador--${n.tom}`}><small>{n.rotulo}</small><strong data-prod-conta={n.valor}>{n.valor}</strong></span>
+              ))}
+            </span>
+            <span class="tn-home-prod__pagina-titulo">Evolução semanal</span>
+            <span class="tn-home-prod__colunas">
+              {semanas.map((h, i) => <span class={i === 3 ? "is-destaque" : undefined} style={`height: ${h}%`} data-prod-cresce></span>)}
+            </span>
+            <span class="tn-home-prod__pagina-rodape"><span>TerraNode</span><span>2 / 6</span></span>
+          </div>
+        </div>
+        <div class="tn-home-prod__camada tn-home-prod__pos-formatos" data-prof="1.3">
+          <div class="tn-home-prod__chip tn-home-prod__chip--formatos">
+            <span class="tn-home-prod__chip-rotulo">Formatos de saída</span>
+            <span class="tn-home-prod__formatos">
+              {formatos.map((f) => <span class:list={["tn-home-prod__formato", { "is-ativo": f.ativo }]} data-prod-formato>{f.nome}</span>)}
+            </span>
+          </div>
+        </div>
+        <div class="tn-home-prod__camada tn-home-prod__pos-fila" data-prof="1.6">
+          <div class="tn-home-prod__chip tn-home-prod__chip--fila" data-prod-fila>
+            <span class="tn-home-prod__fila-icone" set:html={documento} />
+            <span class="tn-home-prod__fila-corpo">
+              <span class="tn-home-prod__fila-topo"><strong>Resumo executivo</strong><span class="tn-home-mono" data-prod-estado>Concluído</span></span>
+              <span class="tn-home-prod__fila-barra"><span data-prod-enche style="width: 100%"></span></span>
+              <small>Vistoria Rede Sul · PDF, 6 páginas</small>
+            </span>
+          </div>
         </div>
       </div>
     </article>
@@ -176,7 +215,7 @@ const arquivos = [
         <p class="tn-home-prod__desc">O formulário certo para cada coletor, com validação no registro.</p>
       </div>
       <div class="tn-home-prod__cena">
-        <span class="tn-home-prod__verso" data-prof="0.3"></span>
+        <span class="tn-home-prod__blob tn-home-prod__blob--laranja" data-prof="0.4"></span>
         <div class="tn-home-prod__camada tn-home-prod__pos-celular-captura" data-prof="0.7">
           <Image src={mobileCapture} alt="App de campo: captura de ponto com formulário" class="tn-home-prod__celular" widths={[300, 600]} sizes="(max-width: 560px) 50vw, 250px" />
         </div>
@@ -252,6 +291,57 @@ const arquivos = [
     const paineis = [...secao.querySelectorAll<HTMLElement>("[data-prod-painel]")];
     const trilho = secao.querySelector<HTMLElement>("[data-prod-abas]");
 
+    // Entrance of one card's scene: the backdrop fades up, the screenshot and then each
+    // chip rise into place one after another, and the numbers inside come alive (counters
+    // count up, bars fill, the chart grows, the report finishes generating). Until it
+    // plays, CSS keeps the pieces hidden (html.tn-anim / .tn-anim-on without .is-visto).
+    const PECAS = ".tn-home-prod__camada > *";
+    const FUNDOS = ".tn-home-prod__blob, .tn-home-prod__verso, .tn-home-prod__fantasma, .tn-home-prod__alvo";
+
+    function entrar(card: HTMLElement, atraso = 0) {
+      card.classList.add("is-visto");
+      if (calmo) return;
+      const pecas = card.querySelectorAll(PECAS);
+      const fundos = card.querySelectorAll(FUNDOS);
+      gsap.killTweensOf([pecas, fundos]);
+      const tl = gsap.timeline({ delay: atraso, defaults: { ease: "power3.out" } });
+      tl.fromTo(fundos, { autoAlpha: 0 }, { autoAlpha: 1, duration: 1, clearProps: "opacity,visibility" }, 0);
+      tl.fromTo(pecas, { autoAlpha: 0, y: 28, scale: 0.97 }, {
+        autoAlpha: 1, y: 0, scale: 1, duration: 0.75, stagger: 0.14, clearProps: "transform,opacity,visibility",
+      }, 0.1);
+
+      const vivos = 0.1 + pecas.length * 0.14;
+      card.querySelectorAll<HTMLElement>("[data-prod-conta]").forEach((el) => {
+        const alvo = Number(el.dataset.prodConta);
+        const n = { v: 0 };
+        tl.fromTo(n, { v: 0 }, { v: alvo, duration: 1.2, ease: "power2.out", onUpdate: () => { el.textContent = String(Math.round(n.v)); } }, 0.25);
+      });
+      tl.fromTo(card.querySelectorAll("[data-prod-cresce]"), { scaleY: 0 }, {
+        scaleY: 1, duration: 0.7, stagger: 0.08, transformOrigin: "50% 100%", clearProps: "transform",
+      }, 0.45);
+      card.querySelectorAll<HTMLElement>(".tn-home-prod__membro-barra [data-prod-enche]").forEach((el) => {
+        tl.fromTo(el, { width: "0%" }, { width: el.style.width, duration: 1, ease: "power2.out" }, 0.5);
+      });
+      card.querySelectorAll<HTMLElement>("[data-prod-formato]").forEach((el, i) => {
+        tl.fromTo(el, { autoAlpha: 0, y: 6 }, { autoAlpha: 1, y: 0, duration: 0.4, clearProps: "transform,opacity,visibility" }, 0.35 + i * 0.07);
+      });
+
+      // The report queue row: fills to 100 %, then flips to "Concluído".
+      const fila = card.querySelector<HTMLElement>("[data-prod-fila]");
+      if (fila) {
+        const barra = fila.querySelector<HTMLElement>("[data-prod-enche]")!;
+        const estado = fila.querySelector<HTMLElement>("[data-prod-estado]")!;
+        const p = { v: 0 };
+        fila.classList.remove("is-pronto");
+        tl.fromTo(p, { v: 0 }, {
+          v: 100, duration: 1.8, ease: "power1.inOut",
+          onStart: () => { estado.textContent = "0%"; },
+          onUpdate: () => { barra.style.width = `${p.v}%`; estado.textContent = `${Math.round(p.v)}%`; },
+          onComplete: () => { estado.textContent = "Concluído"; fila.classList.add("is-pronto"); },
+        }, Math.max(vivos - 0.2, 0.6));
+      }
+    }
+
     function mostrar(nome: string, foco = false) {
       const atual = paineis.find((p) => !p.hidden);
       if (atual?.dataset.prodPainel === nome) return;
@@ -266,14 +356,13 @@ const arquivos = [
       const novo = paineis.find((p) => !p.hidden);
       if (!novo) return;
       ScrollTrigger.refresh();
-      if (calmo) return;
-      // Cards rise in one after another, then their chips pop in front.
-      const cards = novo.querySelectorAll("[data-prod-card]");
-      const chips = novo.querySelectorAll(".tn-home-prod__camada > *");
-      gsap.killTweensOf([cards, chips]);
-      gsap.timeline()
-        .fromTo(cards, { autoAlpha: 0, y: 36 }, { autoAlpha: 1, y: 0, duration: 0.7, ease: "power3.out", stagger: 0.08, clearProps: "transform,opacity,visibility" })
-        .fromTo(chips, { autoAlpha: 0, scale: 0.9 }, { autoAlpha: 1, scale: 1, duration: 0.6, ease: "back.out(1.6)", stagger: 0.04, clearProps: "transform,opacity,visibility" }, 0.2);
+      const cards = [...novo.querySelectorAll<HTMLElement>("[data-prod-card]")];
+      cards.forEach((c) => c.classList.remove("is-visto"));
+      if (!calmo) {
+        gsap.killTweensOf(cards);
+        gsap.fromTo(cards, { autoAlpha: 0, y: 36 }, { autoAlpha: 1, y: 0, duration: 0.7, ease: "power3.out", stagger: 0.08, clearProps: "transform,opacity,visibility" });
+      }
+      cards.forEach((c, i) => entrar(c, 0.15 + i * 0.08));
     }
 
     abas.forEach((a, i) => {
@@ -283,6 +372,17 @@ const arquivos = [
         e.preventDefault();
         const outra = abas[(i + (e.key === "ArrowRight" ? 1 : abas.length - 1)) % abas.length];
         mostrar(outra.dataset.prodAba!, true);
+      });
+    });
+
+    // Cards of the tab shown at load play as they scroll in, just after the card itself.
+    const inicial = paineis.find((p) => !p.hidden);
+    inicial?.querySelectorAll<HTMLElement>("[data-prod-card]").forEach((card) => {
+      if (calmo) { entrar(card); return; }
+      ScrollTrigger.create({
+        trigger: card,
+        start: "top 82%",
+        onEnter: () => { if (!card.classList.contains("is-visto")) entrar(card, 0.2); },
       });
     });
 
