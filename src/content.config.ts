@@ -226,6 +226,8 @@ const recursos = defineCollection({
               }),
             )
             .min(1),
+          /** Linha curta abaixo dos itens, com ícone de cadeado. Usada para segurança. */
+          nota: z.string().optional(),
         }),
       )
       .min(1),

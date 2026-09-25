@@ -1569,6 +1569,51 @@ a.tn-home-caso:hover { color: var(--rec-text); border-color: var(--rec-line-2); 
   .tn-home-caso__foto img, .tn-home-pergunta__icone { transition: none; }
 }
 
+/* Integração ArcGIS (components/home/ArcGIS.astro): copy and points beside a sketch of
+   the layer picker, on the orange theme. The sketch is a .tn-rec-mini, so it keeps the
+   dark tokens. */
+.tn-home-arcgis { width: 100%; max-width: var(--container-max); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(40px, 6vw, 88px); align-items: center; }
+.tn-home-arcgis__texto { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
+.tn-home-arcgis__itens { margin-top: 6px; }
+.tn-home-arcgis__itens li { color: var(--rec-muted); }
+.tn-home-arcgis__visual { display: flex; flex-direction: column; align-items: center; gap: 12px; }
+.tn-home-arcgis__janela { max-width: 500px; gap: 0; padding: 0; overflow: hidden; }
+.tn-home-arcgis__barra { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; border-bottom: 1px solid var(--rec-line); }
+.tn-home-arcgis__titulo { font-weight: 600; font-size: 13px; }
+.tn-home-arcgis__status { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 10px; color: var(--rec-muted); white-space: nowrap; }
+.tn-home-arcgis__status span { width: 7px; height: 7px; border-radius: 50%; background: #2E9E5B; box-shadow: 0 0 0 3px rgba(46, 158, 91, 0.2); }
+.tn-home-arcgis__paineis { display: grid; grid-template-columns: 1fr 1.1fr; }
+.tn-home-arcgis__paineis ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.tn-home-arcgis__servicos { display: flex; flex-direction: column; gap: 8px; padding: 12px; border-right: 1px solid var(--rec-line); }
+.tn-home-arcgis__busca { display: flex; align-items: center; gap: 6px; padding: 6px 8px; border-radius: 8px; border: 1px solid var(--rec-line-2); font-size: 11px; color: var(--rec-faint); }
+.tn-home-arcgis__busca > span { display: flex; }
+.tn-home-arcgis__servicos li { display: flex; flex-direction: column; gap: 2px; padding: 8px 9px; border-radius: 9px; border: 1px solid transparent; }
+.tn-home-arcgis__servicos li.is-ativo { border-color: rgba(255, 102, 41, 0.5); background: rgba(255, 102, 41, 0.1); }
+.tn-home-arcgis__servico { font-weight: 600; font-size: 12px; }
+.tn-home-arcgis__tipo { font-family: var(--font-mono); font-size: 9.5px; color: var(--rec-faint); }
+.tn-home-arcgis__camadas { display: flex; flex-direction: column; gap: 12px; padding: 12px; }
+.tn-home-arcgis__grupo { display: flex; flex-direction: column; gap: 6px; }
+.tn-home-arcgis__rotulo { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--rec-faint); }
+.tn-home-arcgis__camadas li { display: grid; grid-template-columns: 14px minmax(0, 1fr) auto; align-items: center; gap: 8px; padding: 5px 2px; }
+.tn-home-arcgis__caixa { width: 14px; height: 14px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border-radius: 4px; border: 1.5px solid var(--rec-line-2); color: #fff; }
+.tn-home-arcgis__camadas li.is-marcada .tn-home-arcgis__caixa { border-color: transparent; background: var(--tn-accent); }
+.tn-home-arcgis__camada { font-size: 12px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tn-home-arcgis__rodape { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 12px 10px 14px; border-top: 1px solid var(--rec-line); font-size: 11px; color: var(--rec-muted); }
+.tn-home-arcgis__botao { padding: 6px 12px; border-radius: 100px; background: var(--tn-accent); color: #fff; font-weight: 600; font-size: 11px; white-space: nowrap; }
+.tn-home-arcgis__seta { display: flex; color: var(--rec-text); opacity: 0.55; }
+.tn-home-arcgis__depois { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.tn-home-arcgis__depois span { display: inline-flex; align-items: center; height: 32px; padding: 0 14px; border-radius: 100px; background: rgba(255, 255, 255, 0.9); color: var(--rec-text); font-weight: 600; font-size: 12.5px; box-shadow: 0 10px 24px -14px rgba(22, 32, 31, 0.5); }
+@media (max-width: 900px) {
+  .tn-home-arcgis { grid-template-columns: minmax(0, 1fr); }
+  .tn-home-arcgis__texto { align-items: center; text-align: center; }
+  .tn-home-arcgis__itens { text-align: left; max-width: 560px; }
+}
+@media (max-width: 560px) {
+  .tn-home-arcgis__paineis { grid-template-columns: minmax(0, 1fr); }
+  .tn-home-arcgis__servicos { border-right: 0; border-bottom: 1px solid var(--rec-line); }
+  .tn-home-arcgis__servicos li:not(.is-ativo) { display: none; }
+}
+
 /* Home v2 colour themes. Each one only redefines the --rec-* tokens the feature-page
    classes read, so a section changes colour by class and its content follows.
    --rec-inverso is text set on a --rec-text fill (light buttons, tags, step numbers). */

@@ -20,13 +20,13 @@ tabela:
     terranode: "Sim"
     concorrente: "Sim"
   - criterio: "Formulário sem código"
-    terranode: "Sim, com 10 tipos de campo"
+    terranode: "Sim, com 13 tipos de campo"
     concorrente: "Sim"
   - criterio: "Geração de formulário por IA"
     terranode: "Sim"
     concorrente: "Não informado"
   - criterio: "Lógica condicional"
-    terranode: "A confirmar"
+    terranode: "Sim"
     concorrente: "Sim"
   - criterio: "Precisão com GNSS externo"
     terranode: "±3 cm"
@@ -73,7 +73,7 @@ diferencas:
 
 ondeMelhor:
   titulo: "Onde o Mapa de Campo vai melhor"
-  texto: "O Mapa de Campo já está disponível, com teste sem cartão de crédito e preço por pessoa. Tem lógica condicional nos formulários e dashboards com indicadores e gráficos para acompanhar a operação em tela cheia. Se sua equipe precisa começar esta semana, ele resolve."
+  texto: "O Mapa de Campo já está disponível, com teste sem cartão de crédito e preço por pessoa. Tem dashboards com indicadores e gráficos para acompanhar a operação em tela cheia. Se sua equipe precisa começar esta semana, ele resolve."
 
 faq:
   - q: "O TerraNode é uma alternativa ao Mapa de Campo?"

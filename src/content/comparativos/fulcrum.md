@@ -23,7 +23,7 @@ tabela:
     terranode: "Sim, ±3 cm"
     concorrente: "Sim"
   - criterio: "Formulário sem código"
-    terranode: "Sim, com 10 tipos de campo e geração por IA"
+    terranode: "Sim, com 13 tipos de campo, lógica condicional e geração por IA"
     concorrente: "Sim, com lógica condicional, cálculos e registros vinculados"
   - criterio: "Revisão com validar, rejeitar e retorno ao coletor"
     terranode: "Nativa, em fila"
@@ -67,7 +67,7 @@ diferencas:
 
 ondeMelhor:
   titulo: "Onde o Fulcrum vai melhor"
-  texto: "O Fulcrum está no mercado há anos e tem recursos que o TerraNode ainda não tem, como lógica de visibilidade e cálculos, registros vinculados, captura de vídeo e código de barras, relatórios e recursos de IA no plano Elite. Para operações grandes, com integrações e automações, ele é a escolha mais segura hoje."
+  texto: "O Fulcrum está no mercado há anos e tem recursos que o TerraNode ainda não tem, como cálculos, registros vinculados, leitura de código de barras, relatórios e recursos de IA no plano Elite. Para operações grandes, com integrações e automações, ele é a escolha mais segura hoje."
 
 faq:
   - q: "Existe uma alternativa ao Fulcrum em português?"

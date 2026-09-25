@@ -47,6 +47,7 @@ secoes:
         texto: "Limite o intervalo aceito e preencha com a data de hoje, ou com a data e a hora atuais, por padrão."
       - titulo: "Uma geometria por formulário."
         texto: "Ponto, linha ou polígono, a precisão mínima do GPS e se o coletor pode desenhar direto no mapa."
+    nota: "Fotos, vídeos, áudios e assinaturas coletados offline ficam criptografados no aparelho até sincronizar, e continuam criptografados no servidor."
 
   - id: tipos
     eyebrow: "TIPOS DE CAMPO"
@@ -100,4 +101,5 @@ fechamento:
     - "Arraste treze tipos de campo e ajuste as regras de cada um."
     - "Gere os campos a partir de uma camada do catálogo."
     - "Responda o formulário como no app antes de publicar."
+    - "Arquivos offline criptografados no aparelho e no servidor."
 ---
