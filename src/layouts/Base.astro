@@ -25,7 +25,9 @@ const {
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
-const ogImage = new URL(image, Astro.site);
+// A path in public/ goes through asset() so PR previews point at their own copy rather
+// than production's; an absolute URL is left as is.
+const ogImage = new URL(/^https?:/.test(image) ? image : asset(image), Astro.site);
 
 // PR previews publish under the production domain, so they must never be indexed.
 // BASE_URL is always defined by Astro and reflects the `base` the site was built with.
