@@ -10,10 +10,12 @@ import Historia, { type Capitulo } from "../components/recursos/Historia.astro";
 import MapaPontilhado from "../components/recursos/MapaPontilhado.astro";
 import Esboco from "../components/home/Esboco.astro";
 import Produto from "../components/home/Produto.astro";
+import SegArcos from "../components/home/SegArcos.astro";
 import ArcGIS from "../components/home/ArcGIS.astro";
 import { asset } from "../lib/asset";
 import { getSolucoes } from "../lib/solucoes";
 import campoMarca from "../assets/campo-marca.webp";
+import segRealista from "../assets/seguranca-realista.webp";
 import webOverview from "../assets/web-overview.png";
 import mobileCapture from "../assets/mobile-capture.png";
 import ucAgro from "../assets/uc-agro.png";
@@ -207,6 +209,28 @@ const participar = [
   "Early testers usam antes e ajudam a definir o que entra primeiro",
 ];
 
+// Security: everything between the office and the field travels encrypted, both ways.
+const cadeadoIda = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="10" width="17" height="11.5" rx="2.5"/><path d="M7.5 10V7a4.5 4.5 0 0 1 9 0v3M8.5 15.75h7M13 13.25l2.5 2.5-2.5 2.5"/></svg>';
+const cadeadoVolta = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="10" width="17" height="11.5" rx="2.5"/><path d="M7.5 10V7a4.5 4.5 0 0 1 9 0v3M15.5 15.75h-7M11 13.25l-2.5 2.5 2.5 2.5"/></svg>';
+const escudo = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5 4.5 5.5v6c0 4.6 3.2 8.4 7.5 10 4.3-1.6 7.5-5.4 7.5-10v-6z"/><path d="m8.8 12 2.3 2.3 4.2-4.6"/></svg>';
+const seguranca = [
+  {
+    icone: cadeadoIda,
+    titulo: "Criptografado na ida",
+    texto: "Formulários e dados de referência saem do escritório já criptografados e seguem assim até o aparelho em campo.",
+  },
+  {
+    icone: cadeadoVolta,
+    titulo: "Criptografado na volta",
+    texto: "Cada ponto, foto e áudio é criptografado no próprio celular antes de voltar. Nenhum registro viaja aberto.",
+  },
+  {
+    icone: escudo,
+    titulo: "Cuidado com cada registro",
+    texto: "Um levantamento custa dias de campo e guarda informação sobre pessoas e território. Tratamos cada registro com o cuidado que isso pede.",
+  },
+];
+
 const seta = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 const abre = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>';
 ---
@@ -367,6 +391,32 @@ const abre = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke
       </p>
     </section>
 
+    <!-- Segurança: tudo o que circula entre o escritório e o campo vai criptografado, nos dois sentidos -->
+    <section id="seguranca" class="tn-rec-secao tn-tema-escuro tn-home-seg-secao">
+      <div class="tn-rec-head" data-anim-bloco>
+        <span class="tn-rec-pilula" data-anim="up">SEGURANÇA</span>
+        <h2 class="tn-rec-h2" data-anim="words">Seus dados protegidos em todo o caminho. <span class="tn-rec-h1__apagado">Na ida e na volta.</span></h2>
+        <p class="tn-rec-lead" data-anim="blur">Cadastro de imóveis, licenciamento e inspeção de redes carregam informação sensível. Por isso, tudo o que circula entre o escritório e o campo viaja criptografado nos dois sentidos, do formulário que sai ao último ponto que volta.</p>
+      </div>
+      <SegArcos
+        uid="seguranca"
+        img={segRealista}
+        alt="Miniaturas de um escritório e de uma lavoura com um topógrafo, com pacotes criptografados indo e voltando entre eles"
+        ida="M660 400 C1100 270 1560 262 1985 372"
+        volta="M1800 704 C1450 818 1060 828 742 692"
+        nos={[14, 82]}
+      />
+      <div class="tn-home-seg__pilares" data-anim-group="up">
+        {seguranca.map((s) => (
+          <div class="tn-home-seg__pilar">
+            <span class="tn-home-seg__pilar-icone" set:html={s.icone} />
+            <h3 class="tn-home-tela__titulo">{s.titulo}</h3>
+            <p class="tn-home-tela__desc">{s.texto}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
     <!-- Dados no Brasil, sobre o mapa pontilhado -->
     <section class="tn-rec-secao tn-rec-publicos tn-tema-verde">
       <div class="tn-rec-publicos__mapa" data-anim-bloco><MapaPontilhado /></div>
@@ -460,6 +510,11 @@ const abre = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke
       ease: "none",
       scrollTrigger: { trigger: palco, start: "top bottom", end: "center center", scrub: true },
     });
+  }
+
+  // Security illustration: SMIL packages stop in place under reduced motion.
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    document.querySelectorAll<SVGSVGElement>("[data-segc-anim]").forEach((svg) => svg.pauseAnimations());
   }
 
   // Field video: plays while on screen. Reduced motion shows the first frame, with controls.

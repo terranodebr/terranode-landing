@@ -1518,6 +1518,40 @@ a:hover { color: var(--tn-accent); }
 .tn-home-prod__fila-barra span { display: block; height: 100%; border-radius: 6px; background: var(--tn-accent); transition: background 0.3s; }
 .tn-home-prod__chip--fila.is-pronto .tn-home-prod__fila-barra span { background: #2E9E5B; }
 
+/* Security point title and text. */
+.tn-home-tela__titulo { margin: 0; font-weight: 600; font-size: 20px; letter-spacing: -0.02em; color: var(--rec-text); }
+.tn-home-tela__desc { margin: 0; font-weight: 500; font-size: 14.5px; line-height: 1.6; color: var(--rec-muted); text-wrap: pretty; }
+
+/* Security: the office and the field (components/home/SegArcos.astro), with encrypted
+   packages going both ways between them, then three points. */
+.tn-home-seg-secao { position: relative; isolation: isolate; overflow-x: clip; }
+/* The illustration's backdrop, so its faded edges meet the same colour. */
+.tn-home-seg-secao.tn-tema-escuro { --rec-bg: #07100F; }
+.tn-home-seg-secao .tn-rec-h1__apagado { color: #7FD3A1; }
+.tn-home-segc { position: relative; width: 100%; max-width: 1180px; margin: 0; }
+.tn-home-segc__quadro { position: relative; }
+.tn-home-segc__img { display: block; width: 100%; height: auto; -webkit-mask-image: linear-gradient(90deg, transparent, #000 var(--margem-x), #000 calc(100% - var(--margem-x)), transparent), linear-gradient(180deg, transparent, #000 var(--margem-y), #000 calc(100% - var(--margem-y)), transparent); -webkit-mask-composite: source-in; mask-image: linear-gradient(90deg, transparent, #000 var(--margem-x), #000 calc(100% - var(--margem-x)), transparent), linear-gradient(180deg, transparent, #000 var(--margem-y), #000 calc(100% - var(--margem-y)), transparent); mask-composite: intersect; }
+.tn-home-segc__anim { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.tn-home-segc__fio { fill: none; stroke: #FF6629; stroke-width: 6; stroke-linecap: round; stroke-dasharray: 20 16; animation: tn-segc-fio 1.2s linear infinite; }
+@keyframes tn-segc-fio { to { stroke-dashoffset: -36; } }
+.tn-home-segc__pulso { fill: none; stroke: #FFB38F; stroke-width: 8; stroke-linecap: round; stroke-dasharray: 70 930; stroke-dashoffset: 1070; animation: tn-segc-pulso 2.6s cubic-bezier(.45, 0, .55, 1) infinite; }
+.tn-home-segc__pulso--volta { animation-delay: -1.3s; }
+@keyframes tn-segc-pulso { 0% { stroke-dashoffset: 1070; opacity: 0; } 12%, 85% { opacity: 1; } 100% { stroke-dashoffset: 70; opacity: 0; } }
+.tn-home-segc__ponta { fill: #FF6629; animation: tn-segc-ponta 0.9s ease-in-out infinite; }
+@keyframes tn-segc-ponta { 50% { transform: translateX(12px); opacity: 0.5; } }
+.tn-home-segc__rotulo { position: absolute; left: 50%; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 9px; padding: 6px 13px; border-radius: 100px; border: 1px solid rgba(255, 102, 41, 0.4); background: rgba(9, 18, 17, 0.85); font-weight: 500; font-size: 13px; color: var(--rec-muted); white-space: nowrap; }
+.tn-home-segc__rotulo strong { font-family: var(--font-mono); font-weight: 400; font-size: 11px; letter-spacing: 0.08em; color: var(--tn-accent); }
+.tn-home-segc__rotulo--ida { top: 2%; }
+.tn-home-segc__rotulo--volta { bottom: 0; }
+.tn-home-segc__no { position: absolute; display: flex; flex-direction: column; align-items: center; font-weight: 600; font-size: 15px; color: var(--rec-text); }
+.tn-home-segc__no small { font-weight: 500; font-size: 12px; color: var(--rec-faint); }
+.tn-home-segc__no--escritorio { left: 12%; bottom: 3%; transform: translateX(-50%); }
+.tn-home-segc__no--campo { left: 82%; bottom: 3%; transform: translateX(-50%); }
+.tn-home-seg__pilares { width: 100%; max-width: var(--container-max); display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.tn-home-seg__pilar { display: flex; flex-direction: column; gap: 10px; padding: clamp(22px, 3vw, 28px); border-radius: 18px; border: 1px solid var(--rec-line); background: var(--rec-card); }
+.tn-home-seg__pilar .tn-home-tela__titulo { font-size: 18px; }
+.tn-home-seg__pilar-icone { width: 40px; height: 40px; margin-bottom: 6px; display: flex; align-items: center; justify-content: center; border-radius: 11px; background: rgba(255, 102, 41, 0.12); color: var(--tn-accent); }
+
 /* Field video */
 .tn-home-video { position: relative; box-sizing: border-box; width: 100%; max-width: 1180px; min-height: clamp(460px, 56vw, 640px); display: flex; flex-direction: column; justify-content: flex-end; gap: 22px; padding: clamp(24px, 5vw, 56px); border-radius: 24px; overflow: hidden; box-shadow: 0 0 0 1px var(--rec-line); }
 .tn-home-video__media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
@@ -1579,6 +1613,7 @@ a.tn-home-caso:hover { color: var(--rec-text); border-color: var(--rec-line-2); 
   .tn-home-prod__card--largo, .tn-home-prod__card--estreito { grid-column: span 12; }
   .tn-home-casos { grid-template-columns: 1fr 1fr; }
   .tn-home-faq { grid-template-columns: 1fr; }
+  .tn-home-seg__pilares { grid-template-columns: 1fr; max-width: 560px; }
 }
 @media (max-width: 560px) {
   .tn-home-palco { padding-right: 16px; padding-bottom: 0; }
@@ -1598,10 +1633,17 @@ a.tn-home-caso:hover { color: var(--rec-text); border-color: var(--rec-line-2); 
   .tn-home-prod__pos-minima { right: 4%; top: 196px; }
   .tn-home-video__meta { left: 18px; right: auto; }
   .tn-home-provas li + li::before { display: none; }
+  .tn-home-segc { padding: 38px 0; }
+  .tn-home-segc__rotulo { font-size: 11px; padding: 4px 10px; }
+  .tn-home-segc__rotulo--ida { top: 0; }
+  .tn-home-segc__rotulo--volta { bottom: 0; }
+  .tn-home-segc__no { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .tn-home-gps span { animation: none; }
   .tn-home-caso__foto img, .tn-home-pergunta__icone { transition: none; }
+  .tn-home-segc__fio, .tn-home-segc__ponta { animation: none; }
+  .tn-home-segc__pulso { display: none; }
 }
 
 /* Integração ArcGIS (components/home/ArcGIS.astro): copy and points beside a sketch of
