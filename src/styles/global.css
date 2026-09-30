@@ -1529,6 +1529,11 @@ a:hover { color: var(--tn-accent); }
 .tn-home-seg__pilar-icone { width: 40px; height: 40px; margin-bottom: 6px; display: flex; align-items: center; justify-content: center; border-radius: 11px; background: rgba(255, 102, 41, 0.12); color: var(--tn-accent); }
 
 /* Field video */
+/* The video card straddles the security section above it: this section has no top padding
+   and carries on that section's dark down to the card's middle (half of what is left after
+   the bottom padding, the same clamp as .tn-rec-secao), so the card bridges the dark and
+   light bands. The 1px overlap hides a sub-pixel seam between the two dark bands. */
+.tn-home-app-secao.tn-tema-claro { --app-pb: clamp(80px, 12vw, 144px); margin-top: -1px; padding-top: 0; padding-bottom: var(--app-pb); background: linear-gradient(180deg, #07100F calc((100% - var(--app-pb)) / 2), var(--rec-bg) calc((100% - var(--app-pb)) / 2)); }
 .tn-home-video { position: relative; box-sizing: border-box; width: 100%; max-width: 1180px; min-height: clamp(460px, 56vw, 640px); display: flex; flex-direction: column; justify-content: flex-end; gap: 22px; padding: clamp(24px, 5vw, 56px); border-radius: 24px; overflow: hidden; box-shadow: 0 0 0 1px var(--rec-line); }
 .tn-home-video__media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .tn-home-video__scrim { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(12, 19, 18, 0.1) 30%, rgba(12, 19, 18, 0.88)); }

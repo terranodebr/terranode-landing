@@ -278,8 +278,34 @@ const abre = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke
     <!-- O produto: painel web e app de campo, em abas -->
     <Produto />
 
+    <!-- Segurança: tudo o que circula entre o escritório e o campo vai criptografado, nos dois sentidos -->
+    <section id="seguranca" class="tn-rec-secao tn-tema-escuro tn-home-seg-secao">
+      <div class="tn-rec-head" data-anim-bloco>
+        <span class="tn-rec-pilula" data-anim="up">SEGURANÇA</span>
+        <h2 class="tn-rec-h2" data-anim="words">Seus dados protegidos em todo o caminho. <span class="tn-rec-h1__apagado">Na ida e na volta.</span></h2>
+        <p class="tn-rec-lead" data-anim="blur">Cadastro de imóveis, licenciamento e inspeção de redes carregam informação sensível. Por isso, tudo o que circula entre o escritório e o campo viaja criptografado nos dois sentidos, do formulário que sai ao último ponto que volta.</p>
+      </div>
+      <SegArcos
+        uid="seguranca"
+        img={segRealista}
+        alt="Miniaturas de um escritório e de uma lavoura com um topógrafo, com pacotes criptografados indo e voltando entre eles"
+        ida="M660 400 C1100 270 1560 262 1985 372"
+        volta="M1800 704 C1450 818 1060 828 742 692"
+        nos={[14, 82]}
+      />
+      <div class="tn-home-seg__pilares" data-anim-group="up">
+        {seguranca.map((s) => (
+          <div class="tn-home-seg__pilar">
+            <span class="tn-home-seg__pilar-icone" set:html={s.icone} />
+            <h3 class="tn-home-tela__titulo">{s.titulo}</h3>
+            <p class="tn-home-tela__desc">{s.texto}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
     <!-- O app: vídeo real de coleta -->
-    <section id="o-app" class="tn-rec-secao tn-tema-claro">
+    <section id="o-app" class="tn-rec-secao tn-tema-claro tn-home-app-secao">
       <div class="tn-home-video tn-tema-escuro" data-anim="rise" data-anim-bloco>
         <video class="tn-home-video__media" muted loop playsinline preload="metadata" data-home-video>
           <source src={asset("/TNVideoBG_2.mp4")} type="video/mp4">
@@ -336,32 +362,6 @@ const abre = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke
         Seu levantamento não está na lista? É só montar o formulário do seu jeito.
         <a href={WAITLIST} target="_blank" rel="noopener" data-mp-cta="use_cases_footer">Entrar na lista de espera <span set:html={seta} /></a>
       </p>
-    </section>
-
-    <!-- Segurança: tudo o que circula entre o escritório e o campo vai criptografado, nos dois sentidos -->
-    <section id="seguranca" class="tn-rec-secao tn-tema-escuro tn-home-seg-secao">
-      <div class="tn-rec-head" data-anim-bloco>
-        <span class="tn-rec-pilula" data-anim="up">SEGURANÇA</span>
-        <h2 class="tn-rec-h2" data-anim="words">Seus dados protegidos em todo o caminho. <span class="tn-rec-h1__apagado">Na ida e na volta.</span></h2>
-        <p class="tn-rec-lead" data-anim="blur">Cadastro de imóveis, licenciamento e inspeção de redes carregam informação sensível. Por isso, tudo o que circula entre o escritório e o campo viaja criptografado nos dois sentidos, do formulário que sai ao último ponto que volta.</p>
-      </div>
-      <SegArcos
-        uid="seguranca"
-        img={segRealista}
-        alt="Miniaturas de um escritório e de uma lavoura com um topógrafo, com pacotes criptografados indo e voltando entre eles"
-        ida="M660 400 C1100 270 1560 262 1985 372"
-        volta="M1800 704 C1450 818 1060 828 742 692"
-        nos={[14, 82]}
-      />
-      <div class="tn-home-seg__pilares" data-anim-group="up">
-        {seguranca.map((s) => (
-          <div class="tn-home-seg__pilar">
-            <span class="tn-home-seg__pilar-icone" set:html={s.icone} />
-            <h3 class="tn-home-tela__titulo">{s.titulo}</h3>
-            <p class="tn-home-tela__desc">{s.texto}</p>
-          </div>
-        ))}
-      </div>
     </section>
 
     <!-- Dados no Brasil, sobre o mapa pontilhado -->
