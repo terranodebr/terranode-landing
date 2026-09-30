@@ -1,0 +1,28 @@
+---
+// The card laid over the camera screen in the "Por que TerraNode" section: the photo
+// just taken, with the position and time recorded with it. Values are illustrative. Sized
+// off its stage (cqw), so it must sit in a `.tn-home-pq__cena`. Extra attributes (e.g.
+// data-pq-extra) pass through to the card.
+import { Image } from "astro:assets";
+import fotoTorre from "../../assets/foto-torre-campo.webp";
+
+interface Props {
+  [attr: string]: unknown;
+}
+
+const resto = Astro.props;
+const pino = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>';
+---
+<div class="tn-home-pq__geo" aria-hidden="true" {...resto}>
+  <div class="tn-home-pq__geo-topo">
+    <Image src={fotoTorre} alt="" class="tn-home-pq__geo-foto" widths={[96, 192]} sizes="48px" loading="lazy" />
+    <span><strong>Foto 1 de 3</strong>Localização anexada</span>
+    <span class="tn-home-pq__geo-pino" set:html={pino} />
+  </div>
+  <dl class="tn-home-pq__geo-dados">
+    <div><dt>Lat</dt><dd>-27.59541°</dd></div>
+    <div><dt>Long</dt><dd>-48.54820°</dd></div>
+    <div><dt>Precisão</dt><dd class="tn-home-pq__geo-ok">±3 cm</dd></div>
+    <div><dt>Horário</dt><dd>21:19:42</dd></div>
+  </dl>
+</div>

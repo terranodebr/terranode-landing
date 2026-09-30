@@ -1301,32 +1301,8 @@ a:hover { color: var(--tn-accent); }
 
 /* Sketch bits */
 .tn-home-sinal { display: flex; color: var(--tn-accent); }
-.tn-home-geo__mapa { display: block; width: 100%; height: auto; border-radius: 10px; background: #0F1817; }
-.tn-home-geo__rio { fill: none; stroke: rgba(120, 170, 200, 0.35); stroke-width: 5; stroke-linecap: round; }
-.tn-home-geo__poligono { fill: rgba(255, 102, 41, 0.14); stroke: var(--tn-accent); stroke-width: 1.5; }
 .tn-home-geo__linha { fill: none; stroke: var(--tn-accent); stroke-width: 2; stroke-dasharray: 5 4; }
 .tn-home-geo__vertice { fill: var(--tn-accent); stroke: #fff; stroke-width: 1.4; }
-.tn-home-geo__ponto { fill: #7FD3A1; stroke: #fff; stroke-width: 1.4; }
-.tn-home-geo__halo { fill: rgba(127, 211, 161, 0.14); stroke: rgba(127, 211, 161, 0.5); stroke-dasharray: 2 3; }
-.tn-home-chip--acento { color: var(--tn-accent) !important; border-color: rgba(255, 102, 41, 0.45) !important; }
-
-.tn-home-foto { position: relative; height: 112px; border-radius: 10px; overflow: hidden; background: linear-gradient(160deg, #5E7A58 0%, #8E9A66 45%, #B7A57C 70%, #6B7F8E 100%); }
-.tn-home-foto::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 55%, rgba(0, 0, 0, 0.45)); }
-.tn-home-foto__mira { position: absolute; left: 50%; top: 46%; width: 34px; height: 34px; margin: -17px 0 0 -17px; border: 1.5px solid rgba(255, 255, 255, 0.85); border-radius: 8px; }
-.tn-home-foto__tag { position: absolute; z-index: 1; left: 10px; bottom: 8px; font-family: var(--font-mono); font-size: 10px; color: #fff; }
-.tn-home-dados { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-.tn-home-dados li { display: flex; flex-direction: column; gap: 3px; padding: 7px 9px; border-radius: 8px; background: rgba(255, 255, 255, 0.03); font-size: 10.5px; color: var(--rec-faint); }
-.tn-home-dados code { font-family: var(--font-mono); font-size: 11.5px; color: var(--rec-text); }
-.tn-home-dados__ok { color: #7FD3A1 !important; }
-
-.tn-home-rastro { display: block; width: 100%; height: auto; }
-.tn-home-rastro path { fill: none; stroke: var(--tn-accent); stroke-width: 2; stroke-linecap: round; stroke-dasharray: 1 5; }
-.tn-home-rastro circle { fill: var(--rec-card-2); stroke: var(--tn-accent); stroke-width: 1.6; }
-.tn-home-bateria { display: flex; align-items: center; gap: 9px; padding-top: 10px; border-top: 1px solid var(--rec-line); }
-.tn-home-bateria__corpo { position: relative; width: 26px; height: 13px; padding: 2px; box-sizing: border-box; border: 1.5px solid var(--rec-muted); border-radius: 4px; }
-.tn-home-bateria__corpo::after { content: ""; position: absolute; right: -4px; top: 3px; width: 2px; height: 4px; border-radius: 0 2px 2px 0; background: var(--rec-muted); }
-.tn-home-bateria__carga { display: block; height: 100%; width: 62%; border-radius: 1.5px; background: #7FD3A1; }
-.tn-home-bateria__texto { font-weight: 600; font-size: 12px; }
 
 .tn-home-largo { max-width: 400px; }
 .tn-home-campo { font-size: 12px; }
@@ -1789,4 +1765,91 @@ a.tn-home-caso:hover { color: var(--rec-text); border-color: var(--rec-line-2); 
 @media (max-width: 760px) {
   /* Narrow screens crop the sides so the symbol and the farmer stay a useful size. */
   .tn-home-marca__foto { aspect-ratio: 4 / 5; margin-top: -40px; }
+}
+
+/* ---------- Por que TerraNode (components/home/PorQueTerraNode.astro) ---------- */
+/* The intro and TerraNode's three parts, then the field app rising from a map stage with
+   two points on each side, each tied to the stage by a line ending in a node. */
+.tn-home-pq { --pq-vao: clamp(28px, 4vw, 56px); }
+.tn-home-pq__head { max-width: 780px; }
+.tn-home-pq__head .tn-rec-lead { max-width: 680px; }
+.tn-home-pq__partes { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.tn-home-pq__partes li { display: inline-flex; align-items: center; gap: 12px; padding: 8px 16px 8px 8px; border-radius: 14px; border: 1px solid var(--rec-line); background: var(--rec-card); text-align: left; }
+.tn-home-pq__partes li > span:last-child { display: flex; flex-direction: column; font-weight: 500; font-size: 12.5px; line-height: 1.35; color: var(--rec-faint); }
+.tn-home-pq__partes strong { font-weight: 600; font-size: 14px; color: var(--rec-text); }
+.tn-home-pq__parte-icone { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 10px; background: var(--tn-accent-wash); color: #C4460F; }
+
+.tn-home-pq__palco { width: 100%; max-width: 1180px; display: grid; grid-template-columns: 1fr minmax(300px, 380px) 1fr; align-items: center; gap: var(--pq-vao); }
+.tn-home-pq__lado { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 20px; }
+.tn-home-pq__ponto { position: relative; width: 100%; display: flex; flex-direction: column; gap: 10px; padding: 22px 24px 24px; border-radius: 18px; border: 1px solid var(--rec-line); background: var(--rec-card); box-shadow: 0 24px 48px -36px rgba(22, 32, 31, 0.35); text-align: left; font: inherit; color: inherit; cursor: pointer; transition: border-color 0.3s, box-shadow 0.3s, opacity 0.3s; }
+.tn-home-pq__ponto:hover { border-color: rgba(255, 102, 41, 0.3); }
+.tn-home-pq__ponto:focus-visible { outline: 2px solid var(--tn-accent); outline-offset: 3px; }
+/* The active point: accent border, and its connector and node light up. The others rest. */
+.tn-home-pq__ponto.is-ativo { border-color: rgba(255, 102, 41, 0.55); box-shadow: 0 30px 60px -36px rgba(196, 70, 15, 0.45); }
+.tn-home-pq__ponto:not(.is-ativo)::after { opacity: 0.35; }
+.tn-home-pq__ponto:not(.is-ativo)::before { background: #F3C6B1; box-shadow: 0 0 0 3px #fff; }
+.tn-home-pq__ponto::after, .tn-home-pq__ponto::before { transition: opacity 0.3s, background 0.3s, box-shadow 0.3s; }
+/* A track under the text that fills while the active point waits its turn. It keeps its
+   space on every card (hidden) so cards don't jump, and shows only while the turn runs. */
+.tn-home-pq__progresso { display: block; height: 3px; margin-top: 4px; overflow: hidden; border-radius: 3px; background: var(--tn-accent-wash); opacity: 0; transition: opacity 0.3s; }
+.tn-home-pq__progresso span { display: block; height: 100%; width: 0; border-radius: inherit; background: var(--tn-accent); }
+.tn-home-pq__palco.is-rodando .tn-home-pq__ponto.is-ativo .tn-home-pq__progresso { opacity: 1; }
+.tn-home-pq__palco.is-rodando .tn-home-pq__ponto.is-ativo .tn-home-pq__progresso span { animation: tn-pq-progresso 5s linear forwards; }
+.tn-home-pq__palco.is-rodando.is-pausado .tn-home-pq__ponto.is-ativo .tn-home-pq__progresso span { animation-play-state: paused; }
+.tn-home-pq__ponto-topo { display: flex; align-items: center; gap: 12px; }
+.tn-home-pq__num { display: inline-flex; align-items: center; justify-content: center; min-width: 30px; height: 26px; padding: 0 8px; border-radius: 8px; background: var(--tn-accent-wash); font-family: var(--font-mono); font-size: 11.5px; color: #C4460F; font-variant-numeric: tabular-nums; }
+.tn-home-pq__ponto strong { font-weight: 600; font-size: 18px; letter-spacing: -0.02em; color: var(--rec-text); }
+.tn-home-pq__ponto p { margin: 0; font-weight: 500; font-size: 14.5px; line-height: 1.6; color: var(--rec-muted); text-wrap: pretty; }
+/* The connector: a line fading in from the card, level with its title, ending in a node
+   on the stage's edge. */
+.tn-home-pq__ponto::after, .tn-home-pq__ponto::before { content: ""; position: absolute; pointer-events: none; }
+.tn-home-pq__ponto::after { top: 35px; width: var(--pq-vao); height: 1.5px; }
+.tn-home-pq__ponto::before { z-index: 1; top: 30px; width: 11px; height: 11px; border-radius: 50%; background: var(--tn-accent); box-shadow: 0 0 0 3px #fff, 0 0 0 7px rgba(255, 102, 41, 0.16); }
+.tn-home-pq__lado--esq .tn-home-pq__ponto::after { right: calc(-1 * var(--pq-vao)); background: linear-gradient(90deg, rgba(255, 102, 41, 0.1), rgba(255, 102, 41, 0.75)); }
+.tn-home-pq__lado--esq .tn-home-pq__ponto::before { right: calc(-1 * var(--pq-vao) - 5.5px); }
+.tn-home-pq__lado--dir .tn-home-pq__ponto::after { left: calc(-1 * var(--pq-vao)); background: linear-gradient(270deg, rgba(255, 102, 41, 0.1), rgba(255, 102, 41, 0.75)); }
+.tn-home-pq__lado--dir .tn-home-pq__ponto::before { left: calc(-1 * var(--pq-vao) - 5.5px); }
+/* The stage is proportioned so the phone always runs past its bottom edge: the screenshots
+   are cropped at the bottom, and the stage's edge is what makes that crop read as intended. */
+.tn-home-pq__cena { position: relative; isolation: isolate; aspect-ratio: 17 / 24; border-radius: 28px; overflow: hidden; border: 1px solid var(--rec-line-2); background: #EBF3E6; box-shadow: 0 40px 80px -48px rgba(22, 32, 31, 0.45); }
+.tn-home-pq__mapa { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 45% 50%; }
+.tn-home-pq__cena::after { content: ""; position: absolute; z-index: 1; inset: 0; background: radial-gradient(70% 45% at 50% 70%, rgba(255, 102, 41, 0.16), transparent 70%), linear-gradient(180deg, rgba(250, 250, 249, 0) 35%, rgba(250, 250, 249, 0.4)); }
+.tn-home-pq__status { position: absolute; z-index: 3; top: 16px; left: 50%; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 8px; height: 28px; padding: 0 12px; border-radius: 9px; background: rgba(12, 19, 18, 0.78); backdrop-filter: blur(8px); font-family: var(--font-mono); font-size: 10.5px; color: rgba(255, 255, 255, 0.9); white-space: nowrap; }
+/* The phone is drawn here (bezel and rounded screen, sized off the stage width) so every
+   screenshot, bare and without a device frame, sits in the same device. It runs past the
+   stage's bottom edge; the screens cross-fade inside it, pinned to the top. */
+.tn-home-pq__cena { container-type: inline-size; }
+.tn-home-pq__celular { position: absolute; z-index: 2; top: 12%; left: 50%; width: 76cqw; padding: 2.2cqw; border-radius: 12.5cqw; background: #16201F; transform: translateX(-50%); box-shadow: inset 0 0 0 0.5cqw #2B3533, 0 30px 60px -20px rgba(22, 32, 31, 0.5); }
+.tn-home-pq__tela { position: relative; aspect-ratio: 921 / 2000; border-radius: 10.3cqw; overflow: hidden; background: #F4F2EE; }
+.tn-home-pq__tela-img { position: absolute; top: 0; left: 0; width: 100%; height: auto; opacity: 0; transform: scale(1.02); transform-origin: 50% 0; transition: opacity 0.5s, transform 0.7s cubic-bezier(.22, .61, .36, 1); }
+.tn-home-pq__tela-img.is-ativo { opacity: 1; transform: none; }
+/* Over the camera screen: the photo's card, with the position and time recorded with it.
+   Sized off the stage width, like the phone. */
+.tn-home-pq__geo { position: absolute; z-index: 3; right: 4cqw; top: 63.5%; width: 60cqw; display: flex; flex-direction: column; gap: 1.6cqw; padding: 2.4cqw; border-radius: 4cqw; background: rgba(255, 255, 255, 0.96); box-shadow: 0 24px 50px -16px rgba(22, 32, 31, 0.45); backdrop-filter: blur(10px); opacity: 0; transform: translateY(14px) scale(0.96); transform-origin: 80% 100%; transition: opacity 0.4s, transform 0.6s cubic-bezier(.22, .61, .36, 1); pointer-events: none; }
+.tn-home-pq__geo.is-ativo { opacity: 1; transform: none; transition-delay: 0.35s; }
+.tn-home-pq__geo-topo { display: flex; align-items: center; gap: 2.2cqw; }
+.tn-home-pq__geo-foto { width: 9cqw; height: 9cqw; border-radius: 2cqw; object-fit: cover; object-position: 40% 30%; }
+.tn-home-pq__geo-topo > span:nth-child(2) { flex: 1; display: flex; flex-direction: column; font-weight: 500; font-size: 3cqw; line-height: 1.3; color: var(--rec-faint); }
+.tn-home-pq__geo-topo strong { font-weight: 600; font-size: 3.5cqw; color: var(--rec-text); }
+.tn-home-pq__geo-pino { width: 7.5cqw; height: 7.5cqw; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--tn-accent-wash); color: #C4460F; }
+.tn-home-pq__geo-pino svg { width: 4.4cqw; height: 4.4cqw; }
+.tn-home-pq__geo-dados { margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 1.2cqw; }
+.tn-home-pq__geo-dados div { padding: 1.1cqw 2cqw; border-radius: 2cqw; background: #F4F2EE; }
+.tn-home-pq__geo-dados dt { font-size: 2.6cqw; color: var(--rec-faint); }
+.tn-home-pq__geo-dados dd { margin: 0.3cqw 0 0; font-family: var(--font-mono); font-size: 3cqw; color: var(--rec-text); }
+.tn-home-pq__geo-dados .tn-home-pq__geo-ok { color: #1F7A45; }
+.tn-home-pq__legenda { position: absolute; z-index: 3; left: 50%; bottom: 18px; display: inline-flex; align-items: center; gap: 8px; height: 32px; padding: 0 14px; border-radius: 100px; background: #fff; box-shadow: 0 12px 30px -10px rgba(22, 32, 31, 0.35); font-weight: 600; font-size: 12.5px; color: var(--rec-text); white-space: nowrap; opacity: 0; transform: translate(-50%, 8px); transition: opacity 0.4s, transform 0.5s cubic-bezier(.22, .61, .36, 1); }
+.tn-home-pq__legenda::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--tn-accent); }
+.tn-home-pq__legenda.is-ativo { opacity: 1; transform: translate(-50%, 0); transition-delay: 0.15s; }
+
+@keyframes tn-pq-progresso { to { width: 100%; } }
+
+@media (max-width: 900px) {
+  .tn-home-pq__palco { grid-template-columns: 1fr; max-width: 560px; gap: 14px; }
+  .tn-home-pq__cena { order: -1; width: min(100%, 360px); justify-self: center; margin-bottom: 14px; }
+  .tn-home-pq__lado { gap: 14px; }
+  .tn-home-pq__ponto::after, .tn-home-pq__ponto::before { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tn-home-pq__tela-img, .tn-home-pq__legenda, .tn-home-pq__geo { transition: none; }
 }

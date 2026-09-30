@@ -1,7 +1,7 @@
 ---
 // Home, in the feature pages' language (layouts/Recurso.astro, after
-// voxt.actnow.dev): centred section heads, a stage in the hero, a bento grid, a pinned
-// scroll story and card CTAs, over alternating colour themes.
+// voxt.actnow.dev): centred section heads, a stage in the hero, the app on a map stage with
+// its strengths around it, a pinned scroll story and card CTAs, over alternating colour themes.
 import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import Header from "../components/Header.astro";
@@ -11,6 +11,7 @@ import MapaPontilhado from "../components/recursos/MapaPontilhado.astro";
 import Esboco from "../components/home/Esboco.astro";
 import Produto from "../components/home/Produto.astro";
 import SegArcos from "../components/home/SegArcos.astro";
+import PorQueTerraNode from "../components/home/PorQueTerraNode.astro";
 import ArcGIS from "../components/home/ArcGIS.astro";
 import { asset } from "../lib/asset";
 import { getSolucoes } from "../lib/solucoes";
@@ -32,31 +33,6 @@ const description =
 const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
 
 // Bento: why TerraNode, one sketch per capability.
-const bento = [
-  {
-    rotulo: "Offline de verdade",
-    texto: "Colete o dia inteiro sem rede. Os arquivos ficam criptografados no aparelho e, quando o sinal volta, fotos, áudios e geometrias sobem sozinhos, com fila visível e sem duplicar nada.",
-    visual: "offline",
-  },
-  {
-    rotulo: "Pontos, linhas e polígonos",
-    texto: "Capture qualquer geometria por GPS ou desenho no mapa, com precisão mínima configurável por campo.",
-    visual: "geometria",
-  },
-  {
-    rotulo: "Câmera, GPS e sensores nativos",
-    texto: "Foto tirada dentro do formulário, com posição, precisão e horário gravados no mesmo registro. Sem galeria, sem arquivo perdido.",
-    visual: "foto",
-  },
-  {
-    rotulo: "Leve na bateria",
-    texto: "Rastro de GPS otimizado e telas escuras. Uma jornada inteira de coleta sem depender de power bank.",
-    visual: "bateria",
-  },
-] as const;
-
-const integra = ["ArcGIS Online", "ArcGIS Enterprise", "GeoJSON", "Shapefile", "CSV", "GNSS externo", "iOS", "Android"];
-
 // Scroll story: the four steps. `marca` is circled when the chapter is active.
 const passos = [
   {
@@ -282,37 +258,8 @@ const abre = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke
       </div>
     </section>
 
-    <!-- Por que TerraNode: bento 2×2 + faixa de integrações -->
-    <section id="produto" class="tn-rec-secao tn-tema-claro">
-      <div class="tn-rec-head" data-anim-bloco>
-        <span class="tn-rec-pilula" data-anim="up">POR QUE TERRANODE</span>
-        <h2 class="tn-rec-h2" data-anim="words">Feito para quem coleta dados onde o sinal não chega</h2>
-        <p class="tn-rec-lead" data-anim="blur">Do formulário à validação, um fluxo único. A equipe de campo coleta pelo aplicativo e quem revisa acompanha tudo no navegador.</p>
-      </div>
-
-      <div class="tn-rec-bento">
-        {bento.map((b) => (
-          <div class="tn-rec-bento__celula" data-anim="up" data-anim-bloco>
-            <div class="tn-rec-bento__visual"><Esboco tipo={b.visual} /></div>
-            <span class="tn-rec-bento__rotulo" data-anim="up">{b.rotulo}</span>
-            <p class="tn-rec-bento__texto" data-anim="blur">{b.texto}</p>
-          </div>
-        ))}
-      </div>
-
-      <div class="tn-rec-formatos" data-anim="blur">
-        <span class="tn-rec-faixa__legenda">Integra com o que você já usa</span>
-        <div class="tn-rec-faixa" aria-label={`Integrações e formatos: ${integra.join(", ")}`}>
-          <div class="tn-rec-faixa__trilho">
-            {[0, 1].map((copia) => (
-              <div class="tn-rec-faixa__grupo" aria-hidden={copia === 1 ? "true" : undefined}>
-                {integra.map((f) => <span class="tn-rec-faixa__item">{f}</span>)}
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- Por que TerraNode: apresentação, o app sobre um mapa e os quatro pontos em volta -->
+    <PorQueTerraNode />
 
     <!-- Integração ArcGIS: o portal da organização no catálogo e no campo -->
     <ArcGIS />
