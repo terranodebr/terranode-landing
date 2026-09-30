@@ -1,0 +1,90 @@
+---
+// The security section's figure: an illustration of the office (left) and the field
+// (right), with two arcs drawn over it in the image's own pixel space and sealed
+// packages riding each arc in its own direction. Each image passes its own arc paths.
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+
+interface Props {
+  /** Prefix for the SVG ids, which must be unique on the page. */
+  uid: string;
+  img: ImageMetadata;
+  alt: string;
+  /** Office → field and field → office, in the image's pixel coordinates. */
+  ida: string;
+  volta: string;
+  /** Horizontal centre of the office and field captions, as % of the width. */
+  nos?: [number, number];
+}
+
+const { uid, img, alt, ida, volta, nos = [12, 82] } = Astro.props;
+
+// Where each path ends and which way it points there (from its last control point), for
+// the arrowhead, which is drawn separately so it can move.
+const ponta = (d: string) => {
+  const n = (d.match(/-?\d+(\.\d+)?/g) ?? []).map(Number);
+  const [cx, cy, x, y] = n.slice(-4);
+  return { x, y, angulo: (Math.atan2(y - cy, x - cx) * 180) / Math.PI };
+};
+const pontas = { ida: ponta(ida), volta: ponta(volta) };
+
+// The image files carry a margin of matching background (MARGEM px per side) so their
+// edges can fade into the section instead of showing as a seam. The frame is widened by
+// that margin, so the artwork itself lines up with the figure (and its captions), and the
+// paths, given in the artwork's own pixels, are shifted by it.
+const MARGEM = { x: 320, y: 160 };
+const largura = img.width - 2 * MARGEM.x;
+const quadro = [
+  `width: ${(img.width / largura) * 100}%`,
+  `margin: ${(-MARGEM.y / largura) * 100}% ${(-MARGEM.x / largura) * 100}%`,
+  `--margem-x: ${(MARGEM.x / img.width) * 100}%`,
+  `--margem-y: ${(MARGEM.y / img.height) * 100}%`,
+].join("; ");
+---
+<figure class="tn-home-segc" data-anim="rise" data-anim-bloco>
+  <div class="tn-home-segc__quadro" style={quadro}>
+    <Image src={img} alt={alt} class="tn-home-segc__img" widths={[1000, 1700, 2400, 3328]} sizes="(max-width: 1180px) 124vw, 1464px" loading="lazy" />
+    <!-- The two arcs over the illustration (drawn in its pixel space), with sealed
+         packages riding each one in its own direction. -->
+    <svg class="tn-home-segc__anim" viewBox={`0 0 ${img.width} ${img.height}`} aria-hidden="true" data-segc-anim>
+      <defs>
+        <filter id={`${uid}-brilho`} x="-40%" y="-80%" width="180%" height="260%"><feGaussianBlur stdDeviation="14" result="b" /><feMerge><feMergeNode in="b" /><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge></filter>
+        <g id={`${uid}-pacote`}>
+          <rect x="-42" y="-27" width="84" height="54" rx="27" fill="#FF6629" />
+          <path d="M-8 -3v-6a8 8 0 0 1 16 0v6" fill="none" stroke="#2A0E03" stroke-width="4.5" />
+          <rect x="-13" y="-4" width="26" height="20" rx="4" fill="#2A0E03" />
+          <circle cx="0" cy="5" r="3" fill="#FF6629" />
+        </g>
+      </defs>
+      <g transform={`translate(${MARGEM.x} ${MARGEM.y})`}>
+        <path id={`${uid}-ida`} class="tn-home-segc__fio" d={ida} />
+        <path id={`${uid}-volta`} class="tn-home-segc__fio" d={volta} />
+        <!-- A bright pulse running each path toward its destination. -->
+        {(["ida", "volta"] as const).map((via) => (
+          <path class:list={["tn-home-segc__pulso", via === "volta" && "tn-home-segc__pulso--volta"]} d={via === "ida" ? ida : volta} pathLength="1000" filter={`url(#${uid}-brilho)`} />
+        ))}
+        <!-- Arrowheads, nudging forward at the receiving end. -->
+        {(["ida", "volta"] as const).map((via) => (
+          <g transform={`translate(${pontas[via].x} ${pontas[via].y}) rotate(${pontas[via].angulo})`}>
+            <path class="tn-home-segc__ponta" d="M-32 -24 L10 0 L-32 24 Z" filter={`url(#${uid}-brilho)`} />
+          </g>
+        ))}
+        <g filter={`url(#${uid}-brilho)`}>
+          {["ida", "volta"].map((via) => [0, 1, 2, 3].map((i) => (
+            <g opacity="0">
+              <use href={`#${uid}-pacote`} />
+              <animateMotion dur="9s" begin={`${-i * 2.25 - (via === "volta" ? 1.1 : 0)}s`} repeatCount="indefinite" calcMode="linear">
+                <mpath href={`#${uid}-${via}`} />
+              </animateMotion>
+              <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;0.08;0.9;1" dur="9s" begin={`${-i * 2.25 - (via === "volta" ? 1.1 : 0)}s`} repeatCount="indefinite" />
+            </g>
+          )))}
+        </g>
+      </g>
+    </svg>
+  </div>
+  <span class="tn-home-segc__rotulo tn-home-segc__rotulo--ida"><strong>IDA</strong>Formulários e dados de referência</span>
+  <span class="tn-home-segc__rotulo tn-home-segc__rotulo--volta"><strong>VOLTA</strong>Pontos, fotos, áudios e geometrias</span>
+  <span class="tn-home-segc__no tn-home-segc__no--escritorio" style={`left: ${nos[0]}%`}>Escritório<small>Painel web</small></span>
+  <span class="tn-home-segc__no tn-home-segc__no--campo" style={`left: ${nos[1]}%`}>Campo<small>App de campo</small></span>
+</figure>

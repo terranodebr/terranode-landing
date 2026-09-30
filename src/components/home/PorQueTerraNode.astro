@@ -1,0 +1,191 @@
+---
+// "Por que TerraNode": introduces TerraNode (what it is, then its three parts), then the
+// field app on a map stage with its four strengths called out around it. The points take
+// turns, and the phone shows the screen for the active one.
+import { Image } from "astro:assets";
+import CartaoGeoFoto from "./CartaoGeoFoto.astro";
+import mapaClaro from "../../assets/mapa-claro-rio.webp";
+import telaSincronizacao from "../../assets/tela-sincronizacao.webp";
+import telaMapa from "../../assets/tela-mapa.webp";
+import telaCamera from "../../assets/tela-camera.webp";
+import telaMapaEscuro from "../../assets/tela-mapa-escuro.webp";
+
+const titulo = "Feito para quem coleta dados onde o sinal não chega";
+const intro = "O TerraNode é uma plataforma de coleta de dados geoespaciais para equipes de campo. Um aplicativo que funciona sem internet, um painel web para revisar e validar, e os dados chegando prontos para o ArcGIS. Do formulário à validação, um fluxo único.";
+const icone = (d: string) => `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+// The screen and caption shown in the phone while each point is active, in the points' order.
+// Screens are bare app screenshots (no device frame); the frame is drawn in CSS so every
+// screen sits in the same phone.
+const telas = [
+  { img: telaSincronizacao, alt: "App de campo offline: fila de sincronização com 3 pontos pendentes", legenda: "3 pendentes · sobem quando o sinal volta" },
+  { img: telaMapa, alt: "App de campo sem conexão: mapa com pontos, linhas e polígonos do projeto", legenda: "Pontos, linhas e polígonos no mesmo mapa" },
+  { img: telaCamera, alt: "App de campo: câmera fotografando a placa de uma torre de transmissão em campo", legenda: "Posição e horário gravados na foto" },
+  { img: telaMapaEscuro, alt: "App de campo em tema escuro: mapa do projeto", legenda: "Tema escuro para o dia inteiro em campo" },
+];
+const partes = [
+  { icone: icone('<rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10.5 18.5h3"/>'), titulo: "App de campo", texto: "iOS e Android, offline" },
+  { icone: icone('<rect x="2.5" y="4" width="19" height="13" rx="2"/><path d="M8 21h8M12 17v4"/>'), titulo: "Painel web", texto: "revisão e validação" },
+  { icone: icone('<path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/>'), titulo: "ArcGIS", texto: "Online e Enterprise" },
+];
+
+const pontos = [
+  {
+    rotulo: "Offline de verdade",
+    texto: "Colete o dia inteiro sem rede. Os arquivos ficam criptografados no aparelho e, quando o sinal volta, fotos, áudios e geometrias sobem sozinhos, com fila visível e sem duplicar nada.",
+  },
+  {
+    rotulo: "Pontos, linhas e polígonos",
+    texto: "Capture qualquer geometria por GPS ou desenho no mapa, com precisão mínima configurável por campo.",
+  },
+  {
+    rotulo: "Câmera, GPS e sensores nativos",
+    texto: "Foto tirada dentro do formulário, com posição, precisão e horário gravados no mesmo registro. Sem galeria, sem arquivo perdido.",
+  },
+  {
+    rotulo: "Leve na bateria",
+    texto: "Rastro de GPS otimizado e telas escuras. Uma jornada inteira de coleta sem depender de power bank.",
+  },
+] as const;
+
+const integra = ["ArcGIS Online", "ArcGIS Enterprise", "GeoJSON", "Shapefile", "CSV", "GNSS externo", "iOS", "Android"];
+
+const num = (i: number) => String(i + 1).padStart(2, "0");
+---
+<section id="produto" class="tn-rec-secao tn-tema-claro tn-home-pq">
+  <div class="tn-rec-head tn-home-pq__head" data-anim-bloco>
+    <span class="tn-rec-pilula" data-anim="up">POR QUE TERRANODE</span>
+    <h2 class="tn-rec-h2" data-anim="words">{titulo}</h2>
+    <p class="tn-rec-lead" data-anim="blur">{intro}</p>
+    <ul class="tn-home-pq__partes" data-anim-group="up">
+      {partes.map((p) => (
+        <li><span class="tn-home-pq__parte-icone" set:html={p.icone} /><span><strong>{p.titulo}</strong>{p.texto}</span></li>
+      ))}
+    </ul>
+  </div>
+  <div class="tn-home-pq__palco" data-anim-bloco data-pq-ciclo>
+    <ul class="tn-home-pq__lado tn-home-pq__lado--esq" data-anim-group="right">
+      {pontos.slice(0, 2).map((b, i) => (
+        <li>
+          <button type="button" class:list={["tn-home-pq__ponto", i === 0 && "is-ativo"]} data-pq-ponto={i} aria-pressed={i === 0 ? "true" : "false"}>
+            <span class="tn-home-pq__ponto-topo"><span class="tn-home-pq__num">{num(i)}</span><strong>{b.rotulo}</strong></span>
+            <p>{b.texto}</p>
+            <span class="tn-home-pq__progresso" aria-hidden="true"><span></span></span>
+          </button>
+        </li>
+      ))}
+    </ul>
+    <!-- The phone rises from the bottom edge of a map stage, which crops it cleanly. -->
+    <div class="tn-home-pq__cena" data-anim="rise">
+      <Image src={mapaClaro} alt="" class="tn-home-pq__mapa" widths={[480, 960]} sizes="380px" loading="lazy" />
+      <span class="tn-home-pq__status"><span class="tn-rec-palco__dot"></span>Sem sinal · salvo no aparelho</span>
+      <div class="tn-home-pq__celular">
+        <div class="tn-home-pq__tela">
+          {telas.map((t, i) => (
+            <Image src={t.img} alt={t.alt} class:list={["tn-home-pq__tela-img", i === 0 && "is-ativo"]} data-pq-tela={i} aria-hidden={i === 0 ? undefined : "true"} widths={[300, 600]} sizes="(max-width: 900px) 270px, 290px" loading="lazy" />
+          ))}
+        </div>
+      </div>
+      <!-- While the camera shows (point 03): the photo just taken, with the position and time
+           recorded with it. Values are illustrative. -->
+      <CartaoGeoFoto data-pq-extra="2" />
+      {telas.map((t, i) => (
+        <span class:list={["tn-home-pq__legenda", i === 0 && "is-ativo"]} data-pq-legenda={i} aria-hidden="true">{t.legenda}</span>
+      ))}
+    </div>
+    <ul class="tn-home-pq__lado tn-home-pq__lado--dir" data-anim-group="left">
+      {pontos.slice(2).map((b, i) => (
+        <li>
+          <button type="button" class="tn-home-pq__ponto" data-pq-ponto={i + 2} aria-pressed="false">
+            <span class="tn-home-pq__ponto-topo"><span class="tn-home-pq__num">{num(i + 2)}</span><strong>{b.rotulo}</strong></span>
+            <p>{b.texto}</p>
+            <span class="tn-home-pq__progresso" aria-hidden="true"><span></span></span>
+          </button>
+        </li>
+      ))}
+    </ul>
+  </div>
+  <div class="tn-rec-formatos" data-anim="blur">
+    <span class="tn-rec-faixa__legenda">Integra com o que você já usa</span>
+    <div class="tn-rec-faixa" aria-label={`Integrações e formatos: ${integra.join(", ")}`}>
+      <div class="tn-rec-faixa__trilho">
+        {[0, 1].map((copia) => (
+          <div class="tn-rec-faixa__grupo" aria-hidden={copia === 1 ? "true" : undefined}>
+            {integra.map((f) => <span class="tn-rec-faixa__item">{f}</span>)}
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // The points take turns (the bar under the active one fills meanwhile), and
+  // the phone on the stage shows the screen for the active point. Pointing at the points
+  // pauses the turn; clicking one jumps to it and the turn goes on from there.
+  const TEMPO = 5000;
+  document.querySelectorAll<HTMLElement>("[data-pq-ciclo]").forEach((raiz) => {
+    const pontos = [...raiz.querySelectorAll<HTMLElement>("[data-pq-ponto]")];
+    const telas = [...raiz.querySelectorAll<HTMLElement>("[data-pq-tela]")];
+    const legendas = [...raiz.querySelectorAll<HTMLElement>("[data-pq-legenda]")];
+    const extras = [...raiz.querySelectorAll<HTMLElement>("[data-pq-extra]")];
+    const reduzir = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let atual = 0;
+    let timer: number | undefined;
+    let parado = reduzir;
+    const mostrar = (i: number) => {
+      atual = i;
+      pontos.forEach((p, j) => {
+        p.classList.toggle("is-ativo", i === j);
+        p.setAttribute("aria-pressed", String(i === j));
+      });
+      telas.forEach((t, j) => {
+        t.classList.toggle("is-ativo", i === j);
+        if (i === j) t.removeAttribute("aria-hidden");
+        else t.setAttribute("aria-hidden", "true");
+      });
+      legendas.forEach((l, j) => l.classList.toggle("is-ativo", i === j));
+      extras.forEach((x) => x.classList.toggle("is-ativo", Number(x.dataset.pqExtra) === i));
+    };
+    // The active point's bar only fills while the turn runs (`is-rodando`), and restarts
+    // from empty with the timer, so it never runs ahead of it (e.g. before the section is
+    // on screen). A hover keeps the class and just pauses the bar.
+    const parar = (pausa = false) => {
+      window.clearInterval(timer);
+      timer = undefined;
+      if (!pausa) raiz.classList.remove("is-rodando");
+    };
+    const seguir = () => {
+      parar();
+      if (parado) return;
+      void raiz.offsetWidth; // restart the bar's animation
+      raiz.classList.add("is-rodando");
+      timer = window.setInterval(() => mostrar((atual + 1) % pontos.length), TEMPO);
+    };
+    // Clicking a point jumps to it; the turn carries on from there, its bar from empty.
+    pontos.forEach((p, i) =>
+      p.addEventListener("click", () => {
+        mostrar(i);
+        if (parado) return;
+        raiz.classList.remove("is-pausado");
+        seguir();
+      }),
+    );
+    // Hovering pauses; the bar restarts from empty when the turn resumes.
+    raiz.addEventListener("pointerenter", (e) => {
+      if (e.pointerType !== "mouse" || parado || timer === undefined) return;
+      parar(true);
+      raiz.classList.add("is-pausado");
+    });
+    raiz.addEventListener("pointerleave", () => {
+      if (parado || !raiz.classList.contains("is-pausado")) return;
+      raiz.classList.remove("is-pausado");
+      seguir();
+    });
+    if (reduzir) raiz.classList.add("is-parado");
+    new IntersectionObserver(([e]) => {
+      if (parado) return;
+      if (e.isIntersecting) seguir();
+      else parar();
+    }, { threshold: 0.35 }).observe(raiz);
+  });
+</script>
