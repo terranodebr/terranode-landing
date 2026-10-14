@@ -99,14 +99,26 @@ h1: "..."             # título principal da página
 subtitulo: "..."      # parágrafo abaixo do H1
 ordem: 1              # posição na listagem /solucoes/
 draft: true           # true = não vai para produção
-dores: [...]          # 3 problemas do setor
-passos: [...]         # 4 etapas do fluxo
+doresTitulo: "..."    # H2 da seção "O problema hoje"
+dores: [...]          # exatamente 3 problemas do setor
+passosLead: "..."     # parágrafo abaixo do H2 de "Como funciona"
+passos: [...]         # exatamente 4 etapas, cada uma com titulo, texto e lista
+camposTitulo: "..."   # H2 da seção "Formulário"
 campos: [...]         # campos típicos do formulário
-faq: [...]            # perguntas e respostas
+faqTitulo: "..."      # H2 das perguntas frequentes
+faq: [...]            # perguntas e respostas (linha em branco = novo parágrafo)
 ---
 
 Aqui vai a prosa, em markdown.
 ```
+
+Os textos que são iguais em todo setor (o H2 de "Como funciona", os convites para
+participar, a citação e o fechamento) ficam em `src/layouts/Solucao.astro`.
+
+Na prosa, escreva os links internos a partir da raiz (`/recursos/catalogos/`): o
+layout acrescenta o caminho do preview sozinho. Links para outros sites abrem em
+nova aba. Um bloco de citação (`>`) vira uma nota em destaque, usada para o aviso
+sobre normas.
 
 Se faltar um campo obrigatório, o build falha com uma mensagem dizendo qual é —
 não dá para publicar uma página quebrada sem perceber.

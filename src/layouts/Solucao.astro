@@ -1,10 +1,32 @@
 ---
+// Sector page (/solucoes/<setor>/), in the comparison pages' visual language
+// (layouts/Comparativo.astro): near-black and monochrome, centred section heads,
+// entrance animations from Animacoes.astro, the photo stage and the card CTA. Copy that
+// changes by sector comes from the entry; the lines every sector shares live here.
+import { Image, getImage } from "astro:assets";
+import type { ImageMetadata } from "astro";
 import Base from "./Base.astro";
 import Header from "../components/Header.astro";
-import Steps from "../components/Steps.astro";
 import Faq from "../components/Faq.astro";
-import Cta from "../components/Cta.astro";
+import Animacoes from "../components/recursos/Animacoes.astro";
+import webProjeto from "../assets/web-projeto.webp";
+import webCatalogo from "../assets/web-catalogo.webp";
+import appLogin from "../assets/app-login.webp";
+import appProjetos from "../assets/app-projetos.webp";
+import appSincronizacao from "../assets/app-sincronizacao.webp";
+import appAssinatura from "../assets/app-assinatura.webp";
+import appPonto from "../assets/app-ponto.webp";
+import appMapaEscuro from "../assets/app-mapa-escuro.webp";
+import appMapaClaro from "../assets/app-mapa-claro.webp";
+import setorEnergia from "../assets/setor-energia.webp";
+import setorTopografia from "../assets/setor-topografia.webp";
+import setorMeioAmbiente from "../assets/setor-meio-ambiente.webp";
+import setorMunicipios from "../assets/setor-municipios.webp";
+import setorAgro from "../assets/setor-agro.webp";
+import setorSaneamento from "../assets/setor-saneamento.webp";
 import { asset } from "../lib/asset";
+import { icone, type Icone } from "../lib/fluxo";
+import { numeros } from "../lib/numeros";
 import type { Solucao } from "../lib/solucoes";
 
 interface Props {
@@ -15,75 +37,245 @@ const { entry } = Astro.props;
 const d = entry.data;
 
 const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
+
+// Real screens of the product. The web ones are cropped to the app, without the browser.
+interface Tela { src: ImageMetadata; alt: string }
+const telas = {
+  webProjeto: { src: webProjeto, alt: "Painel web do TerraNode: visão geral do projeto Vistoria Rede Sul, com os pontos coletados ao longo da rede elétrica e o andamento da revisão" },
+  webCatalogo: { src: webCatalogo, alt: "Catálogo do TerraNode: camada de polígonos com sistema de coordenadas, extensão e fonte dos dados" },
+  login: { src: appLogin, alt: "App de campo do TerraNode: tela de entrada, com o aviso de que o trabalho continua offline depois do primeiro acesso" },
+  projetos: { src: appProjetos, alt: "App de campo do TerraNode: lista de projetos, com o estado de sincronização de cada um" },
+  sincronizacao: { src: appSincronizacao, alt: "App de campo do TerraNode: fila de sincronização, com os pontos pendentes e os já enviados" },
+  assinatura: { src: appAssinatura, alt: "App de campo do TerraNode: campo de assinatura, traçada com o dedo" },
+  ponto: { src: appPonto, alt: "App de campo do TerraNode: registro de um ponto, com localização, observações, atributos e fotos" },
+  mapaEscuro: { src: appMapaEscuro, alt: "App de campo do TerraNode: mapa do projeto sem conexão, com a área de interesse e os pontos coletados" },
+  mapaClaro: { src: appMapaClaro, alt: "App de campo do TerraNode: mapa do projeto sem conexão, com a área de interesse e os pontos coletados sobre os bairros" },
+} satisfies Record<string, Tela>;
+
+// Each sector's hero stage: its own photo behind the screens (generated in Higgsfield,
+// different from the home page's use-case photos), then either the web panel with one
+// phone in front, or two phones. A sector missing from the list gets the fallback, over
+// the default aerial image.
+interface Palco { foto?: ImageMetadata; web?: Tela; celulares: Tela[] }
+const palcos: Record<string, Palco> = {
+  "energia-e-telecom": { foto: setorEnergia, web: telas.webProjeto, celulares: [telas.projetos] },
+  "topografia-e-cadastro": { foto: setorTopografia, web: telas.webCatalogo, celulares: [telas.mapaEscuro] },
+  "meio-ambiente": { foto: setorMeioAmbiente, celulares: [telas.ponto, telas.sincronizacao] },
+  municipios: { foto: setorMunicipios, celulares: [telas.mapaClaro, telas.login] },
+  agro: { foto: setorAgro, celulares: [telas.mapaEscuro, telas.ponto] },
+  "saneamento-e-obras": { foto: setorSaneamento, celulares: [telas.assinatura, telas.sincronizacao] },
+};
+const palco = palcos[entry.id] ?? { web: telas.webProjeto, celulares: [telas.ponto] };
+const fundo = palco.foto ? await getImage({ src: palco.foto, width: 1600, format: "webp" }) : undefined;
+
+const sem = ["Sem planilhas incompletas", "Sem redigitação", "Sem perda de dados", "Sem depender de sinal"];
+
+// One icon per step, by position: configure, team, collect, review.
+const iconesPassos: Icone[] = ["config", "equipe", "app", "revisao"];
+
+// The markdown body writes its links root-relative ("/recursos/catalogos/"). They get the
+// base path here, as asset() does in markup, so they also work in PR previews. Links to
+// other sites open in a new tab.
+const prosa = (await Astro.slots.render("default"))
+  .replace(/href="\/(?!\/)/g, `href="${asset("/")}`)
+  .replace(/<a href="(https?:\/\/[^"]+)"/g, '<a href="$1" target="_blank" rel="noopener"');
+
+const pad = (n: number) => String(n).padStart(2, "0");
+const seta = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+const check = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>';
+const aspas = '<svg width="34" height="26" viewBox="0 0 34 26" fill="none" aria-hidden="true"><path d="M0 26V16.4C0 11.9333 1.06667 8.26667 3.2 5.4C5.33333 2.53333 8.53333 0.733334 12.8 0V5.6C10.9333 6.13333 9.46667 7.13333 8.4 8.6C7.33333 10.0667 6.8 11.8 6.8 13.8H13.2V26H0ZM20.8 26V16.4C20.8 11.9333 21.8667 8.26667 24 5.4C26.1333 2.53333 29.3333 0.733334 33.6 0V5.6C31.7333 6.13333 30.2667 7.13333 29.2 8.6C28.1333 10.0667 27.6 11.8 27.6 13.8H34V26H20.8Z" fill="currentColor"></path></svg>';
 ---
-<Base title={d.title} description={d.description} image={d.image} noindex={d.draft} rodapeTopo="var(--tn-surface)">
+<Base title={d.title} description={d.description} image={d.image} noindex={d.draft} rodapeTopo="#0C1312">
+  <Animacoes />
+  <div class="tn-rec">
 
-  <div class="tn-hero tn-hero--short">
-    <Header />
-    <div class="tn-hero__main">
-      <div class="tn-pill">
-        <span class="tn-pill__dot"></span>
-        <span class="tn-pill__text">{d.setor.toUpperCase()}</span>
-      </div>
-      <h1 class="tn-hero__title">{d.h1}</h1>
-      <p class="tn-hero__subtitle">{d.subtitulo}</p>
-      <div class="tn-hero__actions">
-        <a href={WAITLIST} target="_blank" rel="noopener" data-mp-cta="solucao_hero_primary" class="tn-btn tn-btn--primary">Entrar na lista de espera
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M16.175 13H4V11H16.175L10.575 5.4L12 4L20 12L12 20L10.575 18.6L16.175 13Z" fill="#fff"></path></svg>
+    <div class="tn-rec-topo" data-rolagem-offset><Header /></div>
+
+    <!-- Hero -->
+    <section class="tn-rec-hero">
+      <div class="tn-rec-hero__texto" data-anim-bloco>
+        <a href="#como-funciona" class="tn-rec-selo" data-anim="up">
+          <span class="tn-rec-selo__tag">{d.setor.toUpperCase()}</span>
+          Como funciona
+          <span class="tn-rec-selo__seta" set:html={seta} />
         </a>
-        <a href={asset("/solucoes/")} class="tn-btn tn-btn--outline" data-mp-cta="solucao_hero_index">Ver todos os setores</a>
+        <h1 class="tn-rec-h1" data-anim="words">{d.h1}</h1>
+        <p class="tn-rec-lead tn-rec-hero__lead" data-anim="blur">{d.subtitulo}</p>
+        <div class="tn-sol-convite" data-anim="up">
+          <p>Participe da fase inicial e ajude a definir o que entra primeiro no TerraNode:</p>
+          <div class="tn-rec-acoes">
+            <a href={WAITLIST} target="_blank" rel="noopener" class="tn-rec-btn tn-rec-btn--claro" data-mp-cta="solucao_hero_primary">Participar</a>
+            <a href={asset("/solucoes/")} class="tn-rec-btn" data-mp-cta="solucao_hero_index">Ver todos os setores</a>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <!-- Dores do setor -->
-  <div class="tn-section tn-section--surface tn-section--border-top">
-    <div class="tn-section__inner tn-dores">
-      <div class="tn-dores__head">
-        <span class="tn-eyebrow">O PROBLEMA HOJE</span>
-        <h2 class="tn-h2">O que trava uma campanha de {d.setor.toLowerCase()}</h2>
+      <!-- TerraNode's own screens on the sector photo (see `palcos` above). -->
+      <div class="tn-rec-palco-entrada" data-anim="rise" data-anim-bloco data-anim-delay="0.45">
+        <div
+          class:list={["tn-rec-palco tn-sol-palco", palco.web ? "tn-cmp-palco" : "tn-sol-palco--celulares"]}
+          data-rec-palco
+          style={fundo ? `--sol-foto: url(${fundo.src})` : undefined}
+        >
+          <div class="tn-rec-palco__barra">
+            <img src={asset("/favicon-96x96.png")} alt="" width="30" height="30" class="tn-rec-palco__marca" />
+            <span class="tn-rec-palco__status"><span class="tn-rec-palco__dot"></span>{palco.web ? "Painel web e app de campo do TerraNode" : "App de campo do TerraNode"}</span>
+          </div>
+          {palco.web ? (
+            <>
+              <div class="tn-cmp-janela">
+                <Image src={palco.web.src} alt={palco.web.alt} widths={[720, 1180, 1852]} sizes="(max-width: 1180px) 90vw, 940px" loading="eager" />
+              </div>
+              <div class="tn-cmp-palco__celular tn-sol-celular">
+                <Image src={palco.celulares[0].src} alt={palco.celulares[0].alt} widths={[240, 480]} sizes="(max-width: 700px) 30vw, 240px" loading="eager" />
+              </div>
+            </>
+          ) : (
+            <div class="tn-sol-celulares">
+              {palco.celulares.map((c) => (
+                <div class="tn-sol-celular">
+                  <Image src={c.src} alt={c.alt} widths={[300, 600]} sizes="(max-width: 700px) 136px, 300px" loading="eager" />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
-      <div class="tn-dores__grid">
-        {d.dores.map((dor) => (
-          <div class="tn-feature-card">
-            <h3 class="tn-feature-card__title">{dor.titulo}</h3>
-            <p class="tn-feature-card__desc">{dor.texto}</p>
+    </section>
+
+    <!-- O problema hoje -->
+    <section id="problema" class="tn-rec-secao">
+      <div class="tn-rec-head" data-anim-bloco>
+        <span class="tn-rec-pilula" data-anim="up">O PROBLEMA HOJE</span>
+        <h2 class="tn-rec-h2" data-anim="words">{d.doresTitulo}</h2>
+      </div>
+      <div class="tn-rec-tipos tn-cmp-diferencas">
+        {d.dores.map((dor, i) => (
+          <div class="tn-rec-tipo" data-anim="up" data-anim-bloco>
+            <span class="tn-rec-tipo__num">{pad(i + 1)}</span>
+            <h3 class="tn-rec-tipo__nome">{dor.titulo}</h3>
+            <p class="tn-cmp-diferencas__texto" data-anim="blur">{dor.texto}</p>
           </div>
         ))}
       </div>
-    </div>
-  </div>
-
-  <Steps
-    id="como-funciona"
-    title={`Como uma equipe de ${d.setor.toLowerCase()} usa o TerraNode`}
-    lead="Do desenho do formulário à exportação, tudo acontece em um único fluxo. Sem planilhas paralelas, sem redigitação, sem dado perdido no caminho."
-    items={d.passos.map((p) => ({ label: p.label, titulo: p.titulo, texto: p.texto }))}
-  />
-
-  <!-- Campos típicos do formulário do setor -->
-  <div class="tn-section tn-section--white tn-section--border-top">
-    <div class="tn-section__inner tn-campos">
-      <span class="tn-eyebrow">FORMULÁRIO</span>
-      <h2 class="tn-h2">Campos típicos de {d.setor.toLowerCase()}</h2>
-      <p class="tn-lead">Um ponto de partida. Cada equipe monta o formulário que precisa, com os campos, regras e obrigatoriedades do seu próprio levantamento.</p>
-      <div class="tn-uc__chips tn-campos__chips">
-        {d.campos.map((campo) => <span class="tn-uc__chip">{campo}</span>)}
+      <div class="tn-sol-chamada" data-anim="up">
+        <span>Participe da fase inicial do aplicativo:</span>
+        <a href={WAITLIST} target="_blank" rel="noopener" class="tn-rec-btn tn-rec-btn--claro" data-mp-cta="solucao_problema_participar">Participar</a>
       </div>
-    </div>
+    </section>
+
+    <!-- Como funciona -->
+    <section id="como-funciona" class="tn-rec-secao tn-rec-secao--linha">
+      <div class="tn-rec-head" data-anim-bloco>
+        <span class="tn-rec-pilula" data-anim="up">COMO FUNCIONA</span>
+        <h2 class="tn-rec-h2" data-anim="words">TerraNode: completo, seguro, flexível e econômico</h2>
+        <p class="tn-rec-lead" data-anim="blur">{d.passosLead}</p>
+        <ul class="tn-sol-sem" data-anim-group="pop">
+          {sem.map((s) => <li><span set:html={check} />{s}</li>)}
+        </ul>
+      </div>
+      <ol class="tn-sol-passos">
+        {d.passos.map((p, i) => (
+          <li class="tn-sol-passo" data-anim="up" data-anim-bloco>
+            <div class="tn-sol-passo__topo">
+              <span class="tn-sol-passo__icone" set:html={icone(iconesPassos[i])} />
+              <span class="tn-sol-passo__num">PASSO {pad(i + 1)}</span>
+            </div>
+            <h3 class="tn-sol-passo__titulo">{p.titulo}</h3>
+            <p class="tn-sol-passo__texto">{p.texto}</p>
+            <ul class="tn-sol-passo__lista">
+              {p.lista.map((item) => <li>{item}</li>)}
+            </ul>
+          </li>
+        ))}
+      </ol>
+      <div class="tn-sol-chamada" data-anim="up">
+        <span>Participe da fase inicial do aplicativo:</span>
+        <a href={WAITLIST} target="_blank" rel="noopener" class="tn-rec-btn tn-rec-btn--claro" data-mp-cta="solucao_passos_participar">Participar</a>
+      </div>
+    </section>
+
+    <!-- Campos típicos do formulário do setor -->
+    <section id="formulario" class="tn-rec-secao tn-rec-secao--linha">
+      <div class="tn-rec-head" data-anim-bloco>
+        <span class="tn-rec-pilula" data-anim="up">FORMULÁRIO</span>
+        <h2 class="tn-rec-h2" data-anim="words">{d.camposTitulo}</h2>
+        <p class="tn-rec-lead" data-anim="blur">Cada operação tem suas particularidades. No TerraNode, sua equipe configura os formulários de acordo com os dados que ela precisa registrar.</p>
+        <div class="tn-rec-publicos__pilulas" data-anim-group="pop">
+          {d.campos.map((campo) => <span>{campo}</span>)}
+        </div>
+      </div>
+    </section>
+
+    <!-- Prosa: o único trecho vindo do corpo do markdown -->
+    <section id="sobre" class="tn-rec-secao tn-rec-secao--linha">
+      <article class="tn-sol-prosa" set:html={prosa} />
+      <div class="tn-sol-organize" data-anim="up" data-anim-bloco>
+        <h3 class="tn-rec-h3" data-anim="words">Organize sua próxima campanha</h3>
+        <p class="tn-rec-lead" data-anim="blur">Configure formulários, acompanhe os registros e prepare os dados para exportação em um único fluxo de trabalho.</p>
+        <div class="tn-sol-chamada">
+          <span>Participe da fase inicial do aplicativo:</span>
+          <a href={WAITLIST} target="_blank" rel="noopener" class="tn-rec-btn tn-rec-btn--claro" data-mp-cta="solucao_prosa_participar">Participar</a>
+        </div>
+      </div>
+    </section>
+
+    <Faq eyebrow="FAQ" title={d.faqTitulo} items={d.faq} tema="escuro" />
+
+    <!-- Por que estamos construindo isso -->
+    <section class="tn-rec-secao tn-rec-secao--linha">
+      <figure class="tn-home-citacao" data-anim-bloco>
+        <span data-anim="pop" set:html={aspas} />
+        <blockquote class="tn-home-citacao__texto" data-anim="words">Toda campanha de campo termina igual: planilha incompleta, foto solta no WhatsApp e uma semana de redigitação antes de fechar o relatório. <span class="tn-rec-h1__apagado">O TerraNode existe para apagar essa etapa.</span></blockquote>
+        <figcaption class="tn-home-citacao__autor" data-anim="up">
+          <span class="tn-home-citacao__avatar">TN</span>
+          <span><strong>Equipe TerraNode</strong>Por que estamos construindo isso</span>
+        </figcaption>
+      </figure>
+      <div class="tn-home-numeros" data-anim-group="up">
+        {numeros.map((n) => (
+          <div class="tn-home-numero">
+            <span class="tn-home-numero__valor">{n.valor}</span>
+            <span class="tn-home-numero__texto">{n.texto}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Fechamento -->
+    <section class="tn-rec-secao tn-rec-secao--curta">
+      <div class="tn-rec-cta" data-anim="up" data-anim-bloco>
+        <div class="tn-rec-cta__texto">
+          <span class="tn-rec-cap__rotulo">LANÇAMENTO EM BREVE</span>
+          <h2 class="tn-rec-h2 tn-rec-h2--pequeno" data-anim="words">Leve sua próxima campanha de campo para o TerraNode</h2>
+          <p class="tn-rec-lead" data-anim="blur">Ajude a definir o que entra primeiro em nosso aplicativo. Participe da fase inicial.</p>
+          <div class="tn-rec-acoes tn-rec-acoes--esquerda">
+            <a href={WAITLIST} target="_blank" rel="noopener" class="tn-rec-btn tn-rec-btn--claro" data-mp-cta="solucao_fechamento_primary">Participar</a>
+          </div>
+        </div>
+        <ol class="tn-rec-passos" data-anim-group="left">
+          {d.passos.map((p, i) => (
+            <li><span class="tn-rec-passos__num">{i + 1}</span>{p.titulo}</li>
+          ))}
+        </ol>
+      </div>
+    </section>
   </div>
-
-  <!-- Prosa: o único trecho vindo do corpo do markdown -->
-  <div class="tn-section tn-section--surface tn-section--border-top">
-    <div class="tn-section__inner tn-prosa">
-      <slot />
-    </div>
-  </div>
-
-  <Faq
-    title={`Perguntas sobre ${d.setor.toLowerCase()}`}
-    items={d.faq}
-  />
-
-  <Cta />
 </Base>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // The stage grows into place as the hero scrolls away, as on the comparison pages.
+  const palco = document.querySelector("[data-rec-palco]");
+  if (palco && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    gsap.fromTo(palco, { scale: 0.94 }, {
+      scale: 1,
+      ease: "none",
+      scrollTrigger: { trigger: palco, start: "top bottom", end: "center center", scrub: true },
+    });
+  }
+</script>

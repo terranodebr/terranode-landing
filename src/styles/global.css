@@ -679,22 +679,72 @@ a:hover { color: var(--tn-accent); }
 .tn-solucao-card:hover { border-color: var(--tn-accent); transform: translateY(-2px); }
 .tn-solucao-card__link { font-family: var(--font-mono); font-size: 11.5px; color: var(--tn-accent); margin-top: auto; padding-top: 8px; }
 
-.tn-campos { gap: 16px; }
-.tn-campos__chips { margin-top: 12px; }
-
-/* O corpo do markdown é o único trecho da página que não vem do frontmatter. */
-.tn-prosa { max-width: 720px; gap: 0; }
-.tn-prosa :where(h2) { font-family: var(--font-sans); font-weight: 700; font-size: clamp(22px, 4vw, 28px); line-height: 1.2; color: var(--tn-ink); margin: 40px 0 12px; }
-.tn-prosa :where(h3) { font-family: var(--font-sans); font-weight: 700; font-size: 18px; color: var(--tn-ink); margin: 28px 0 8px; }
-.tn-prosa :where(p, li) { font-family: var(--font-sans); font-weight: 500; font-size: 15.5px; line-height: 1.65; color: var(--tn-ink-muted); }
-.tn-prosa :where(p) { margin: 0 0 16px; }
-.tn-prosa :where(ul, ol) { margin: 0 0 16px; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; }
-.tn-prosa :where(a) { color: var(--tn-accent); text-decoration: underline; text-underline-offset: 2px; }
-.tn-prosa > :first-child { margin-top: 0; }
-.tn-prosa > :last-child { margin-bottom: 0; }
-
 @media (max-width: 900px) {
   .tn-dores__grid { grid-template-columns: 1fr; }
+}
+
+/* Sector pages, in the comparison pages' language (layouts/Solucao.astro). */
+
+/* Hero stage over the sector's photo, under the same orange-to-dark wash as the default. */
+.tn-rec-palco.tn-sol-palco { background-image: linear-gradient(160deg, rgba(255, 102, 41, 0.28), rgba(12, 19, 18, 0.1) 45%, rgba(12, 19, 18, 0.55)), var(--sol-foto, url('https://d8j0ntlcm91z4.cloudfront.net/user_3GxdsKlGUaogeow5akSseF6dWZJ/hf_20260728_185636_809e1f10-5f7f-4f4a-957d-53482097ae4e.png')); }
+
+/* The app screens are bare simulator captures: the phone body is drawn here. */
+.tn-sol-celular { box-sizing: border-box; aspect-ratio: 921 / 2000; overflow: hidden; border: clamp(4px, 0.8vw, 9px) solid #0B0F0F; border-radius: clamp(20px, 4vw, 44px); background: #0B0F0F; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.14), 0 30px 60px rgba(0, 0, 0, 0.5); }
+.tn-sol-celular img { display: block; width: 100%; height: 100%; object-fit: cover; }
+/* Phones only: two of them side by side, the second a step lower, both running off the bottom. */
+.tn-sol-palco--celulares { padding-left: 16px; padding-right: 16px; }
+.tn-sol-celulares { display: flex; justify-content: center; align-items: flex-start; gap: clamp(16px, 5vw, 64px); margin-bottom: max(-12%, -150px); }
+.tn-sol-celulares .tn-sol-celular { width: clamp(136px, 28%, 300px); }
+.tn-sol-celulares .tn-sol-celular:nth-child(2) { margin-top: clamp(28px, 6vw, 72px); }
+
+/* "Participe da fase inicial": the invitation line and its button, sitting together. */
+.tn-sol-convite { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+.tn-sol-convite p { margin: 0; max-width: 420px; font-weight: 500; font-size: 14px; line-height: 1.5; color: var(--rec-faint); text-wrap: balance; }
+.tn-sol-chamada { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 12px 18px; font-weight: 500; font-size: 15px; color: var(--rec-muted); text-align: center; }
+
+/* "Sem planilhas incompletas…": outlined pills, the check in the accent. */
+.tn-sol-sem { list-style: none; margin: 6px 0 0; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.tn-sol-sem li { display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 16px 0 13px; border-radius: 100px; border: 1px solid var(--rec-line-2); background: var(--rec-card); font-weight: 600; font-size: 13.5px; color: var(--rec-text); }
+.tn-sol-sem li > span { display: flex; color: var(--tn-accent); }
+
+/* The four steps, one card each. */
+.tn-sol-passos { list-style: none; margin: 0; padding: 0; width: 100%; max-width: var(--container-max); display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.tn-sol-passo { display: flex; flex-direction: column; gap: 12px; padding: 24px 22px 26px; border-radius: 22px; border: 1px solid var(--rec-line); background: var(--rec-card); }
+.tn-sol-passo__topo { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+.tn-sol-passo__icone { width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 11px; background: rgba(255, 102, 41, 0.14); color: var(--tn-accent); }
+.tn-sol-passo__num { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.06em; color: var(--rec-faint); }
+.tn-sol-passo__titulo { margin: 0; font-weight: 600; font-size: 18px; line-height: 1.25; letter-spacing: -0.015em; color: var(--rec-text); }
+.tn-sol-passo__texto { margin: 0; font-weight: 500; font-size: 14px; line-height: 1.6; color: var(--rec-muted); text-wrap: pretty; }
+.tn-sol-passo__lista { list-style: none; margin: auto 0 0; padding: 14px 0 0; border-top: 1px solid var(--rec-line); display: flex; flex-direction: column; gap: 8px; }
+.tn-sol-passo__lista li { position: relative; padding-left: 16px; font-weight: 500; font-size: 13px; line-height: 1.5; color: var(--rec-text); }
+.tn-sol-passo__lista li::before { content: ""; position: absolute; left: 1px; top: 0.58em; width: 5px; height: 5px; border-radius: 50%; background: var(--tn-accent); }
+
+/* The markdown body: the only part of the page that doesn't come from frontmatter. */
+.tn-sol-prosa { width: 100%; max-width: 720px; }
+.tn-sol-prosa :where(h2) { margin: 0 0 24px; font-weight: 600; font-size: clamp(30px, 4.6vw, 44px); line-height: 1.08; letter-spacing: -0.035em; color: var(--rec-text); text-wrap: balance; }
+.tn-sol-prosa :where(h3) { margin: 44px 0 14px; font-weight: 600; font-size: clamp(21px, 2.4vw, 24px); line-height: 1.25; letter-spacing: -0.02em; color: var(--rec-text); text-wrap: balance; }
+.tn-sol-prosa :where(p, li) { font-weight: 500; font-size: 16px; line-height: 1.7; color: var(--rec-muted); text-wrap: pretty; }
+.tn-sol-prosa :where(p) { margin: 0 0 18px; }
+.tn-sol-prosa :where(ul, ol) { margin: 0 0 18px; padding-left: 20px; }
+.tn-sol-prosa :where(strong) { font-weight: 600; color: var(--rec-text); }
+.tn-sol-prosa :where(a) { color: var(--rec-text); text-decoration: underline; text-decoration-color: rgba(255, 102, 41, 0.6); text-underline-offset: 3px; transition: text-decoration-color 0.2s; }
+.tn-sol-prosa :where(a):hover { text-decoration-color: var(--tn-accent); }
+/* A blockquote in the prose is a note: the standards disclaimer. */
+.tn-sol-prosa :where(blockquote) { margin: 32px 0 0; padding: 20px 22px; border-radius: 16px; border: 1px solid var(--rec-line-2); background: var(--rec-card); }
+.tn-sol-prosa :where(blockquote p) { font-size: 14.5px; line-height: 1.65; }
+.tn-sol-prosa :where(blockquote) > :last-child { margin-bottom: 0; }
+.tn-sol-prosa > :first-child { margin-top: 0; }
+.tn-sol-prosa > :last-child { margin-bottom: 0; }
+
+/* "Organize sua próxima campanha": the prose's closing card. */
+.tn-sol-organize { box-sizing: border-box; width: 100%; max-width: 720px; display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; padding: clamp(28px, 4vw, 44px); border-radius: 22px; border: 1px solid rgba(255, 102, 41, 0.45); background: radial-gradient(120% 80% at 50% 0%, rgba(255, 102, 41, 0.1), transparent 70%), var(--rec-card); }
+.tn-sol-organize .tn-sol-chamada { margin-top: 6px; }
+
+@media (max-width: 1080px) {
+  .tn-sol-passos { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  .tn-sol-passos { grid-template-columns: 1fr; }
 }
 
 /* ---------- Páginas de recurso (/recursos/) ---------- */
