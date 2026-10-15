@@ -9,15 +9,18 @@ import Base from "./Base.astro";
 import Header from "../components/Header.astro";
 import Faq from "../components/Faq.astro";
 import Animacoes from "../components/recursos/Animacoes.astro";
-import webProjeto from "../assets/web-projeto.webp";
-import webCatalogo from "../assets/web-catalogo.webp";
-import appLogin from "../assets/app-login.webp";
-import appProjetos from "../assets/app-projetos.webp";
-import appSincronizacao from "../assets/app-sincronizacao.webp";
-import appAssinatura from "../assets/app-assinatura.webp";
-import appPonto from "../assets/app-ponto.webp";
-import appMapaEscuro from "../assets/app-mapa-escuro.webp";
-import appMapaClaro from "../assets/app-mapa-claro.webp";
+import webEnergia from "../assets/tela-web-energia-e-telecom.webp";
+import webTopografia from "../assets/tela-web-topografia-e-cadastro.webp";
+import webMeioAmbiente from "../assets/tela-web-meio-ambiente.webp";
+import webMunicipios from "../assets/tela-web-municipios.webp";
+import webAgro from "../assets/tela-web-agro.webp";
+import webSaneamento from "../assets/tela-web-saneamento-e-obras.webp";
+import appEnergia from "../assets/tela-app-energia-e-telecom.webp";
+import appTopografia from "../assets/tela-app-topografia-e-cadastro.webp";
+import appMeioAmbiente from "../assets/tela-app-meio-ambiente.webp";
+import appMunicipios from "../assets/tela-app-municipios.webp";
+import appAgro from "../assets/tela-app-agro.webp";
+import appSaneamento from "../assets/tela-app-saneamento-e-obras.webp";
 import setorEnergia from "../assets/setor-energia.webp";
 import setorTopografia from "../assets/setor-topografia.webp";
 import setorMeioAmbiente from "../assets/setor-meio-ambiente.webp";
@@ -38,34 +41,54 @@ const d = entry.data;
 
 const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
 
-// Real screens of the product. The web ones are cropped to the app, without the browser.
-interface Tela { src: ImageMetadata; alt: string }
-const telas = {
-  webProjeto: { src: webProjeto, alt: "Painel web do TerraNode: visão geral do projeto Vistoria Rede Sul, com os pontos coletados ao longo da rede elétrica e o andamento da revisão" },
-  webCatalogo: { src: webCatalogo, alt: "Catálogo do TerraNode: camada de polígonos com sistema de coordenadas, extensão e fonte dos dados" },
-  login: { src: appLogin, alt: "App de campo do TerraNode: tela de entrada, com o aviso de que o trabalho continua offline depois do primeiro acesso" },
-  projetos: { src: appProjetos, alt: "App de campo do TerraNode: lista de projetos, com o estado de sincronização de cada um" },
-  sincronizacao: { src: appSincronizacao, alt: "App de campo do TerraNode: fila de sincronização, com os pontos pendentes e os já enviados" },
-  assinatura: { src: appAssinatura, alt: "App de campo do TerraNode: campo de assinatura, traçada com o dedo" },
-  ponto: { src: appPonto, alt: "App de campo do TerraNode: registro de um ponto, com localização, observações, atributos e fotos" },
-  mapaEscuro: { src: appMapaEscuro, alt: "App de campo do TerraNode: mapa do projeto sem conexão, com a área de interesse e os pontos coletados" },
-  mapaClaro: { src: appMapaClaro, alt: "App de campo do TerraNode: mapa do projeto sem conexão, com a área de interesse e os pontos coletados sobre os bairros" },
-} satisfies Record<string, Tela>;
-
 // Each sector's hero stage: its own photo behind the screens (generated in Higgsfield,
-// different from the home page's use-case photos), then either the web panel with one
-// phone in front, or two phones. A sector missing from the list gets the fallback, over
-// the default aerial image.
-interface Palco { foto?: ImageMetadata; web?: Tela; celulares: Tela[] }
+// different from the home page's use-case photos), the web panel's overview of one of
+// the sector's projects, and the field app's form for a point of that project in front.
+// The same projects run through both, so the two screens tell one story. A sector
+// missing from the list gets energy's screens over the default aerial image.
+interface Tela { src: ImageMetadata; alt: string }
+interface Palco { foto?: ImageMetadata; web: Tela; celular: Tela }
+const web = (src: ImageMetadata, projeto: string): Tela => ({
+  src,
+  alt: `Painel web do TerraNode: visão geral do projeto ${projeto}, com pontos recebidos, revisão, equipe em campo e formulários`,
+});
+const app = (src: ImageMetadata, campos: string): Tela => ({
+  src,
+  alt: `App de campo do TerraNode, sem conexão: formulário do ponto com localização, ${campos}`,
+});
 const palcos: Record<string, Palco> = {
-  "energia-e-telecom": { foto: setorEnergia, web: telas.webProjeto, celulares: [telas.projetos] },
-  "topografia-e-cadastro": { foto: setorTopografia, web: telas.webCatalogo, celulares: [telas.mapaEscuro] },
-  "meio-ambiente": { foto: setorMeioAmbiente, celulares: [telas.ponto, telas.sincronizacao] },
-  municipios: { foto: setorMunicipios, celulares: [telas.mapaClaro, telas.login] },
-  agro: { foto: setorAgro, celulares: [telas.mapaEscuro, telas.ponto] },
-  "saneamento-e-obras": { foto: setorSaneamento, celulares: [telas.assinatura, telas.sincronizacao] },
+  "energia-e-telecom": {
+    foto: setorEnergia,
+    web: web(webEnergia, "LT 138 kV Santa Cruz"),
+    celular: app(appEnergia, "número da estrutura, fotos, componente e severidade"),
+  },
+  "topografia-e-cadastro": {
+    foto: setorTopografia,
+    web: web(webTopografia, "Fazenda Santa Clara"),
+    celular: app(appTopografia, "vértice, foto do marco, tipo de marco e confrontante"),
+  },
+  "meio-ambiente": {
+    foto: setorMeioAmbiente,
+    web: web(webMeioAmbiente, "Inventário APP Rio Pardo"),
+    celular: app(appMeioAmbiente, "espécie, fotos do indivíduo, CAP e altura"),
+  },
+  municipios: {
+    foto: setorMunicipios,
+    web: web(webMunicipios, "Bairro Santa Mônica"),
+    celular: app(appMunicipios, "inscrição imobiliária, fotos da fachada, uso do imóvel e área construída"),
+  },
+  agro: {
+    foto: setorAgro,
+    web: web(webAgro, "Pragas - Safra 26/27"),
+    celular: app(appAgro, "talhão, fotos do dano, cultura e praga"),
+  },
+  "saneamento-e-obras": {
+    foto: setorSaneamento,
+    web: web(webSaneamento, "Rede coletora - Bacia B3"),
+    celular: app(appSaneamento, "serviço executado, fotos do serviço e assinatura do responsável"),
+  },
 };
-const palco = palcos[entry.id] ?? { web: telas.webProjeto, celulares: [telas.ponto] };
+const palco = palcos[entry.id] ?? { web: palcos["energia-e-telecom"].web, celular: palcos["energia-e-telecom"].celular };
 const fundo = palco.foto ? await getImage({ src: palco.foto, width: 1600, format: "webp" }) : undefined;
 
 const sem = ["Sem planilhas incompletas", "Sem redigitação", "Sem perda de dados", "Sem depender de sinal"];
@@ -112,33 +135,17 @@ const aspas = '<svg width="34" height="26" viewBox="0 0 34 26" fill="none" aria-
 
       <!-- TerraNode's own screens on the sector photo (see `palcos` above). -->
       <div class="tn-rec-palco-entrada" data-anim="rise" data-anim-bloco data-anim-delay="0.45">
-        <div
-          class:list={["tn-rec-palco tn-sol-palco", palco.web ? "tn-cmp-palco" : "tn-sol-palco--celulares"]}
-          data-rec-palco
-          style={fundo ? `--sol-foto: url(${fundo.src})` : undefined}
-        >
+        <div class="tn-rec-palco tn-cmp-palco tn-sol-palco" data-rec-palco style={fundo ? `--sol-foto: url(${fundo.src})` : undefined}>
           <div class="tn-rec-palco__barra">
             <img src={asset("/favicon-96x96.png")} alt="" width="30" height="30" class="tn-rec-palco__marca" />
-            <span class="tn-rec-palco__status"><span class="tn-rec-palco__dot"></span>{palco.web ? "Painel web e app de campo do TerraNode" : "App de campo do TerraNode"}</span>
+            <span class="tn-rec-palco__status"><span class="tn-rec-palco__dot"></span>Painel web e app de campo do TerraNode</span>
           </div>
-          {palco.web ? (
-            <>
-              <div class="tn-cmp-janela">
-                <Image src={palco.web.src} alt={palco.web.alt} widths={[720, 1180, 1852]} sizes="(max-width: 1180px) 90vw, 940px" loading="eager" />
-              </div>
-              <div class="tn-cmp-palco__celular tn-sol-celular">
-                <Image src={palco.celulares[0].src} alt={palco.celulares[0].alt} widths={[240, 480]} sizes="(max-width: 700px) 30vw, 240px" loading="eager" />
-              </div>
-            </>
-          ) : (
-            <div class="tn-sol-celulares">
-              {palco.celulares.map((c) => (
-                <div class="tn-sol-celular">
-                  <Image src={c.src} alt={c.alt} widths={[300, 600]} sizes="(max-width: 700px) 136px, 300px" loading="eager" />
-                </div>
-              ))}
-            </div>
-          )}
+          <div class="tn-cmp-janela">
+            <Image src={palco.web.src} alt={palco.web.alt} widths={[720, 1180, 2000]} sizes="(max-width: 1180px) 90vw, 940px" loading="eager" />
+          </div>
+          <div class="tn-cmp-palco__celular tn-sol-celular">
+            <Image src={palco.celular.src} alt={palco.celular.alt} widths={[240, 480, 720]} sizes="(max-width: 700px) 30vw, 240px" loading="eager" />
+          </div>
         </div>
       </div>
     </section>
