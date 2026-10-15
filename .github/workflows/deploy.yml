@@ -19,13 +19,21 @@ on:
 permissions:
   contents: write
 
-# Shared with preview.yml: both workflows push to gh-pages.
+# Two locks, so a preview can never cancel a deploy (it did on the merge of #18):
+# - Run level, deploys only: a newer push to main replaces a deploy still pending.
+#   That cancel is harmless — the newer run builds a main that contains the older push.
+# - Job level, shared with preview.yml: one writer on gh-pages at a time. `queue: max`
+#   lets runs wait in line instead of replacing each other (the default keeps a single
+#   pending slot, and whoever arrives last cancels whoever was waiting).
 concurrency:
-  group: gh-pages-write
+  group: gh-pages-deploy
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    concurrency:
+      group: gh-pages-write
+      queue: max
     steps:
       - uses: actions/checkout@v4
         with:

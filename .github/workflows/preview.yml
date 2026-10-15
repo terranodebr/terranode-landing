@@ -12,13 +12,19 @@ permissions:
   contents: write
   pull-requests: write
 
-# Shared with deploy.yml: both workflows push to gh-pages.
+# Two locks (see deploy.yml):
+# - Run level, per PR: a newer event of the same PR replaces one still pending, so only
+#   the latest push gets built and the cleanup on close never overtakes a build.
+# - Job level, shared with deploy.yml: one writer on gh-pages at a time, waiting in line.
 concurrency:
-  group: gh-pages-write
+  group: gh-pages-preview-${{ github.event.number }}
 
 jobs:
   preview:
     runs-on: ubuntu-latest
+    concurrency:
+      group: gh-pages-write
+      queue: max
     steps:
       - uses: actions/checkout@v4
 
