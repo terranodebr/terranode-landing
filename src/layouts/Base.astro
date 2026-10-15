@@ -2,6 +2,7 @@
 import "../styles/global.css";
 import { asset } from "../lib/asset";
 import { EMPRESA } from "../lib/empresa";
+import { FUNDADORES } from "../lib/time";
 import Footer from "../components/Footer.astro";
 
 interface Props {
@@ -53,7 +54,9 @@ const organization = {
     addressRegion: EMPRESA.endereco.uf,
     addressCountry: EMPRESA.endereco.pais,
   },
+  email: EMPRESA.email,
   sameAs: [EMPRESA.instagram, EMPRESA.linkedin],
+  founder: FUNDADORES.map((f) => ({ "@type": "Person", name: f.nome, jobTitle: f.cargo.replace(/^Sócio fundador · /, "") })),
 };
 
 const software = {

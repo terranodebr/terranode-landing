@@ -130,6 +130,8 @@ a:hover { color: var(--tn-accent); }
 /* Icon + wordmark lockup: height drives the size, width follows the artwork. */
 .tn-header__logo { display: block; height: 30px; width: auto; }
 .tn-nav-links { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 32px; }
+/* Seven items: tighter between 761 and 1100px, so the header stays on one line. */
+@media (max-width: 1100px) { .tn-nav-links { column-gap: 20px; } }
 .tn-nav-links a { font-family: var(--font-sans); font-weight: 500; font-size: 13.5px; color: var(--tn-on-dark-75); }
 
 /* Funcionalidades dropdown, after canopyseo.com's Tools menu: a translucent, blurred
@@ -554,6 +556,43 @@ a:hover { color: var(--tn-accent); }
 }
 @media (max-width: 640px) {
   .tn-sol-indice { grid-template-columns: 1fr; }
+}
+
+/* ---------- Sobre (/sobre/) ---------- */
+
+.tn-rec-secao.tn-sobre-secao { padding-top: 0; }
+/* On the light page, cards lift off the background. The closing band is dark, so the
+   page runs into the dark footer; its card keeps the orange glow. */
+.tn-tema-claro .tn-sobre-pessoa, .tn-tema-claro .tn-sobre-contato, .tn-tema-claro .tn-sobre-valores .tn-rec-tipo { box-shadow: 0 12px 30px -24px rgba(22, 32, 31, 0.35); }
+.tn-sobre-valores .tn-rec-tipo { padding: 24px; }
+.tn-sobre-valores .tn-rec-tipo__nome { margin: 0; font-size: 18px; line-height: 1.25; }
+.tn-sobre-valores__texto { margin: 4px 0 0; font-weight: 500; font-size: 14.5px; line-height: 1.6; color: var(--rec-muted); text-wrap: pretty; }
+.tn-sobre-fechamento .tn-rec-cta { background: radial-gradient(120% 80% at 0% 0%, rgba(255, 102, 41, 0.18), transparent 60%), linear-gradient(180deg, var(--rec-card-2), var(--rec-card)); }
+.tn-sobre-time { width: 100%; max-width: var(--container-max); display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.tn-sobre-pessoa { display: flex; flex-direction: column; gap: 20px; padding: clamp(22px, 3vw, 30px); border-radius: 22px; border: 1px solid var(--rec-line); background: var(--rec-card); }
+.tn-sobre-pessoa__topo { display: flex; align-items: center; gap: 14px; }
+.tn-sobre-pessoa__avatar { flex-shrink: 0; width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(255, 102, 41, 0.14); color: var(--tn-accent); font-family: var(--font-mono); font-size: 16px; letter-spacing: 0.04em; }
+.tn-sobre-pessoa__nome-cargo { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.tn-sobre-pessoa__nome { margin: 0; font-weight: 600; font-size: 21px; line-height: 1.2; letter-spacing: -0.02em; color: var(--rec-text); }
+.tn-sobre-pessoa__destaques { list-style: none; margin: 0; padding: 14px 0; border-top: 1px solid var(--rec-line); border-bottom: 1px solid var(--rec-line); display: flex; flex-direction: column; gap: 8px; }
+.tn-sobre-pessoa__destaques li { position: relative; padding-left: 16px; font-weight: 600; font-size: 13.5px; line-height: 1.45; color: var(--rec-text); }
+.tn-sobre-pessoa__destaques li::before { content: ""; position: absolute; left: 1px; top: 0.55em; width: 5px; height: 5px; border-radius: 50%; background: var(--tn-accent); }
+.tn-sobre-pessoa__bio { display: flex; flex-direction: column; gap: 12px; }
+.tn-sobre-pessoa__bio p { margin: 0; font-weight: 500; font-size: 14.5px; line-height: 1.65; color: var(--rec-muted); text-wrap: pretty; }
+
+.tn-sobre-contatos { list-style: none; margin: 0; padding: 0; width: 100%; max-width: 860px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.tn-sobre-contatos > li { display: flex; }
+.tn-sobre-contato { flex: 1; display: flex; align-items: center; gap: 14px; padding: 20px; border-radius: 18px; border: 1px solid var(--rec-line); background: var(--rec-card); font-style: normal; color: var(--rec-text); transition: border-color 0.2s; }
+a.tn-sobre-contato:hover { color: var(--rec-text); border-color: rgba(255, 102, 41, 0.5); }
+.tn-sobre-contato__icone { flex-shrink: 0; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 11px; background: rgba(255, 102, 41, 0.14); color: var(--tn-accent); }
+.tn-sobre-contato__texto { display: flex; flex-direction: column; gap: 3px; min-width: 0; font-weight: 600; font-size: 14.5px; line-height: 1.4; overflow-wrap: break-word; }
+.tn-sobre-contato__rotulo { font-family: var(--font-mono); font-weight: 400; font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--rec-faint); }
+
+@media (max-width: 1080px) {
+  .tn-sobre-time { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 640px) {
+  .tn-sobre-time, .tn-sobre-contatos { grid-template-columns: 1fr; }
 }
 
 /* Sector pages, in the comparison pages' language (layouts/Solucao.astro). */
