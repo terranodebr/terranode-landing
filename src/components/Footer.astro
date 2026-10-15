@@ -18,8 +18,8 @@ const home = asset("/");
 // There is no /comparativos/ index: the footer is the only place that lists them.
 // Uses the same draft filter as the pages, so production never links to a draft.
 const comparativos = await getComparativos();
-// Same for sector pages: no link to /solucoes/ while it would be an empty list.
-const temSolucoes = (await getSolucoes()).length > 0;
+// Same for sector pages, which get their own Casos de uso column.
+const solucoes = await getSolucoes();
 // Same draft filter for feature pages, which get their own Funcionalidades column.
 const recursos = await getRecursos();
 const emBreve = getRecursosEmBreve(recursos);
@@ -45,7 +45,6 @@ const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
           <span class="tn-footer__col-title">Produto</span>
           <a href={`${home}#como-funciona`} class="tn-footer__link">Como funciona</a>
           <a href={`${home}#o-app`} class="tn-footer__link">O app</a>
-          {temSolucoes && <a href={asset("/solucoes/")} class="tn-footer__link">Soluções por setor</a>}
           <a href={WAITLIST} target="_blank" rel="noopener" data-mp-cta="footer_waitlist" class="tn-footer__link">Lista de espera</a>
         </div>
         {recursos.length > 0 && (
@@ -57,6 +56,15 @@ const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
             {emBreve.map((r) => (
               <span class="tn-footer__link tn-footer__link--breve">{r.nome}<span class="tn-footer__breve">em breve</span></span>
             ))}
+          </div>
+        )}
+        {solucoes.length > 0 && (
+          <div class="tn-footer__col">
+            <span class="tn-footer__col-title">Casos de uso</span>
+            {solucoes.map((s) => (
+              <a href={asset(`/solucoes/${s.id}/`)} class="tn-footer__link">{s.data.setor}</a>
+            ))}
+            <a href={asset("/solucoes/")} class="tn-footer__link">Todos os setores</a>
           </div>
         )}
         {comparativos.length > 0 && (

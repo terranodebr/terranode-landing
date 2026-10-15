@@ -158,6 +158,10 @@ a:hover { color: var(--tn-accent); }
 .tn-nav-links .tn-nav-menu__item--breve:hover .tn-nav-menu__icone { color: var(--tn-on-dark-60); }
 .tn-nav-menu__item--breve .tn-nav-menu__nome { color: var(--tn-on-dark-75); }
 .tn-nav-menu__breve { font-family: var(--font-mono); font-weight: 400; font-size: 9.5px; line-height: 1; letter-spacing: 0.04em; text-transform: uppercase; color: var(--tn-on-dark-55); border: 1px solid var(--menu-borda); border-radius: 100px; padding: 3px 7px; }
+/* Last row of the Casos de uso menu: the link to the full list. */
+.tn-nav-links .tn-nav-menu__todos { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 4px; padding: 11px 12px 9px; border-top: 1px solid var(--menu-borda); font-family: var(--font-sans); font-weight: 500; font-size: 13px; color: var(--tn-on-dark-75); }
+.tn-nav-links .tn-nav-menu__todos:hover { color: #fff; }
+.tn-nav-menu__todos > span { display: flex; transform: rotate(-90deg); }
 .tn-nav-menu__chamada { margin-top: 2px; font-family: var(--font-sans); font-weight: 500; font-size: 12px; line-height: 16px; color: var(--tn-on-dark-55); text-wrap: pretty; }
 @media (prefers-reduced-motion: reduce) { .tn-nav-menu__lista, .tn-nav-menu.is-aberto .tn-nav-menu__lista { transition: none; transform: none; } .tn-nav-menu__painel { transition: none; } }
 .tn-header__actions { display: flex; align-items: center; gap: 12px; }
@@ -182,6 +186,7 @@ a:hover { color: var(--tn-accent); }
   .tn-menu-movel__link { display: block; padding: 13px 12px; border-radius: 8px; font-family: var(--font-sans); font-weight: 500; font-size: 16px; color: #fff; }
   .tn-menu-movel__link:hover, .tn-menu-movel__link:active { background: var(--menu-hover); color: #fff; }
   .tn-menu-movel__grupo { display: flex; flex-direction: column; margin: 4px 0; padding: 8px 0; border-top: 1px solid var(--menu-borda); border-bottom: 1px solid var(--menu-borda); }
+  .tn-menu-movel__grupo + .tn-menu-movel__grupo { margin-top: -4px; border-top: 0; }
   .tn-menu-movel__rotulo { padding: 4px 12px 8px; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--tn-on-dark-55); }
   .tn-menu-movel__recurso { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 8px; color: #fff; }
   a.tn-menu-movel__recurso:hover, a.tn-menu-movel__recurso:active { background: var(--menu-hover); color: #fff; }
