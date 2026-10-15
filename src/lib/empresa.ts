@@ -3,6 +3,7 @@
 export const EMPRESA = {
   instagram: "https://www.instagram.com/terranodebr/",
   linkedin: "https://www.linkedin.com/company/terranode-brasil/",
+  email: "contato@terranode.com.br",
   endereco: {
     rua: "Rua Baraúna, 171",
     cidade: "Florianópolis",

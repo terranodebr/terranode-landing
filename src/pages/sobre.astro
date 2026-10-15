@@ -1,0 +1,227 @@
+---
+// /sobre/: what TerraNode is for and who builds it, light like the home page (centred
+// heads, entrance animations from Animacoes.astro, the home's colour themes). The
+// founders come from src/lib/time.ts and the contact details from src/lib/empresa.ts,
+// the same data the footer and the Organization JSON-LD read.
+import Base from "../layouts/Base.astro";
+import Header from "../components/Header.astro";
+import Animacoes from "../components/recursos/Animacoes.astro";
+import { EMPRESA, enderecoEmLinha } from "../lib/empresa";
+import { FUNDADORES } from "../lib/time";
+
+const title = "Sobre a TerraNode · Coleta de campo feita no Brasil";
+const description =
+  "A TerraNode quer facilitar e abrasileirar a coleta de dados em campo: em português, com preço em reais e dados no Brasil. Conheça quem constrói a plataforma.";
+
+// What the company stands for: the first is "facilitar", the other three "abrasileirar".
+// Prices in reais and data in Brazil are the deck's and the site's own claims.
+const valores = [
+  {
+    titulo: "Simples para quem está em campo",
+    texto: "Formulários que a própria equipe monta, um app que funciona sem sinal e uma revisão antes de qualquer dado sair do projeto. Sem redigitação no fim do dia.",
+  },
+  {
+    titulo: "Em português, do início ao fim",
+    texto: "Produto e atendimento em português, com o vocabulário e as rotinas de quem trabalha com inspeção, licenciamento, cadastro e obras no Brasil.",
+  },
+  {
+    titulo: "Preço em reais",
+    texto: "Uma solução brasileira, sem custo dolarizado nem surpresa com o câmbio no fim do mês.",
+  },
+  {
+    titulo: "Dados no Brasil",
+    texto: "As informações coletadas ficam armazenadas no Brasil, com LGPD por arquitetura e exportação aberta a qualquer momento.",
+  },
+];
+
+// How to take part, as on the home page's "Lançamento em breve" card.
+const participar = [
+  "Deixe seu e-mail na lista",
+  "Escolha: só o aviso do lançamento, ou o grupo de early testers",
+  "Early testers usam antes e ajudam a definir o que entra primeiro",
+];
+
+const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
+
+// From the pitch deck's "Onde estamos" slide, plus the six sectors the site covers.
+const numeros = [
+  { valor: "11 semanas", texto: "do primeiro commit ao ambiente de produção" },
+  { valor: "23", texto: "capacidades especificadas e entregues" },
+  { valor: "6", texto: "setores atendidos pelo mesmo fluxo de trabalho" },
+];
+
+const icone = (paths: string) =>
+  `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
+const contatos = [
+  {
+    rotulo: "Endereço",
+    texto: enderecoEmLinha,
+    icone: icone('<path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>'),
+  },
+  {
+    rotulo: "E-mail",
+    texto: EMPRESA.email,
+    href: `mailto:${EMPRESA.email}`,
+    cta: "sobre_email",
+    icone: icone('<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/>'),
+  },
+  {
+    rotulo: "Instagram",
+    texto: "@terranodebr",
+    href: EMPRESA.instagram,
+    cta: "sobre_instagram",
+    icone: icone('<rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/>'),
+  },
+  {
+    rotulo: "LinkedIn",
+    texto: "TerraNode Brasil",
+    href: EMPRESA.linkedin,
+    cta: "sobre_linkedin",
+    icone: '<svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 3.5a2.25 2.25 0 1 1 0 4.5 2.25 2.25 0 0 1 0-4.5zM3.1 9.5h3.8v11H3.1zM9.4 9.5h3.6v1.6h.05c.5-.95 1.75-1.95 3.6-1.95 3.85 0 4.55 2.5 4.55 5.8v5.55h-3.8v-4.9c0-1.2-.02-2.7-1.65-2.7-1.65 0-1.9 1.3-1.9 2.6v5h-3.8z"/></svg>',
+  },
+];
+
+const aspas = '<svg width="34" height="26" viewBox="0 0 34 26" fill="none" aria-hidden="true"><path d="M0 26V16.4C0 11.9333 1.06667 8.26667 3.2 5.4C5.33333 2.53333 8.53333 0.733334 12.8 0V5.6C10.9333 6.13333 9.46667 7.13333 8.4 8.6C7.33333 10.0667 6.8 11.8 6.8 13.8H13.2V26H0ZM20.8 26V16.4C20.8 11.9333 21.8667 8.26667 24 5.4C26.1333 2.53333 29.3333 0.733334 33.6 0V5.6C31.7333 6.13333 30.2667 7.13333 29.2 8.6C28.1333 10.0667 27.6 11.8 27.6 13.8H34V26H20.8Z" fill="currentColor"></path></svg>';
+---
+<Base title={title} description={description} rodapeTopo="#0C1312">
+  <Animacoes />
+  <!-- Light, like the home page: tn-home gives the floating dark header and the light
+       page, and each section picks one of the home's colour themes. -->
+  <div class="tn-rec tn-home">
+
+    <div class="tn-rec-topo" data-rolagem-offset><Header /></div>
+
+    <!-- Hero -->
+    <section class="tn-rec-hero tn-home-hero tn-tema-claro">
+      <div class="tn-rec-hero__texto" data-anim-bloco>
+        <span class="tn-rec-pilula" data-anim="up">SOBRE A TERRANODE</span>
+        <h1 class="tn-rec-h1" data-anim="words">Coleta de dados em campo, <span class="tn-rec-h1__apagado">feita no Brasil.</span></h1>
+        <p class="tn-rec-lead tn-rec-hero__lead" data-anim="blur">A TerraNode existe para facilitar o trabalho de quem coleta dados em campo e para trazer essa etapa para a realidade brasileira: em português, com preço em reais e com os dados guardados no Brasil.</p>
+      </div>
+    </section>
+
+    <!-- O que nos move -->
+    <section id="missao" class="tn-rec-secao tn-sobre-secao tn-tema-claro">
+      <div class="tn-rec-head" data-anim-bloco>
+        <span class="tn-rec-pilula" data-anim="up">O QUE NOS MOVE</span>
+        <h2 class="tn-rec-h2" data-anim="words">Facilitar e abrasileirar a coleta de campo</h2>
+        <p class="tn-rec-lead" data-anim="blur">Equipes de campo no Brasil ainda dependem de papel, planilhas e ferramentas estrangeiras, pensadas para outra realidade e cobradas em dólar. Queremos que coletar, revisar e entregar um levantamento seja simples, e que a ferramenta fale a língua de quem está em campo.</p>
+      </div>
+      <div class="tn-rec-tipos tn-sobre-valores">
+        {valores.map((v, i) => (
+          <div class="tn-rec-tipo" data-anim="up" data-anim-bloco>
+            <span class="tn-rec-tipo__num">{String(i + 1).padStart(2, "0")}</span>
+            <h3 class="tn-rec-tipo__nome">{v.titulo}</h3>
+            <p class="tn-sobre-valores__texto" data-anim="blur">{v.texto}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Sócios fundadores -->
+    <section id="fundadores" class="tn-rec-secao tn-rec-secao--linha tn-tema-claro">
+      <div class="tn-rec-head" data-anim-bloco>
+        <span class="tn-rec-pilula" data-anim="up">SÓCIOS FUNDADORES</span>
+        <h2 class="tn-rec-h2" data-anim="words">Quem constrói o TerraNode</h2>
+        <p class="tn-rec-lead" data-anim="blur">Três sócios com mais de 15 anos cada em produto, software e dados geoespaciais, construindo a TerraNode em Florianópolis.</p>
+      </div>
+      <div class="tn-sobre-time">
+        {FUNDADORES.map((f) => (
+          <article class="tn-sobre-pessoa" data-anim="up" data-anim-bloco>
+            <div class="tn-sobre-pessoa__topo">
+              <span class="tn-sobre-pessoa__avatar" aria-hidden="true">{f.iniciais}</span>
+              <div class="tn-sobre-pessoa__nome-cargo">
+                <h2 class="tn-sobre-pessoa__nome">{f.nome}</h2>
+                <span class="tn-rec-cap__rotulo">{f.cargo.toUpperCase()}</span>
+              </div>
+            </div>
+            <ul class="tn-sobre-pessoa__destaques">
+              {f.destaques.map((d) => <li>{d}</li>)}
+            </ul>
+            <div class="tn-sobre-pessoa__bio">
+              {f.bio.map((p) => <p>{p}</p>)}
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <!-- Por que existimos -->
+    <section class="tn-rec-secao tn-tema-pessego">
+      <figure class="tn-home-citacao" data-anim-bloco>
+        <span data-anim="pop" set:html={aspas} />
+        <blockquote class="tn-home-citacao__texto" data-anim="words">Toda campanha de campo termina igual: planilha incompleta, foto solta no WhatsApp e uma semana de redigitação antes de fechar o relatório. <span class="tn-rec-h1__apagado">A TerraNode existe para apagar essa etapa.</span></blockquote>
+        <figcaption class="tn-home-citacao__autor" data-anim="up">
+          <span class="tn-home-citacao__avatar">TN</span>
+          <span><strong>Sócios fundadores</strong>Por que existimos</span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <!-- Onde estamos -->
+    <section class="tn-rec-secao tn-tema-verde">
+      <div class="tn-rec-head" data-anim-bloco>
+        <span class="tn-rec-pilula" data-anim="up">ONDE ESTAMOS</span>
+        <h2 class="tn-rec-h2" data-anim="words">Produto construído, lançamento em breve</h2>
+        <p class="tn-rec-lead" data-anim="blur">O TerraNode está em pré-lançamento, com lista de espera aberta e empresas interessadas em participar dos primeiros pilotos em campo.</p>
+      </div>
+      <div class="tn-home-numeros" data-anim-group="up">
+        {numeros.map((n) => (
+          <div class="tn-home-numero">
+            <span class="tn-home-numero__valor">{n.valor}</span>
+            <span class="tn-home-numero__texto">{n.texto}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Contato -->
+    <section id="contato" class="tn-rec-secao tn-tema-claro">
+      <div class="tn-rec-head" data-anim-bloco>
+        <span class="tn-rec-pilula" data-anim="up">FALE COM A GENTE</span>
+        <h2 class="tn-rec-h2" data-anim="words">Onde encontrar a TerraNode</h2>
+      </div>
+      <ul class="tn-sobre-contatos" data-anim-group="up">
+        {contatos.map((c) => (
+          <li>
+            {c.href ? (
+              <a
+                href={c.href}
+                class="tn-sobre-contato"
+                data-mp-cta={c.cta}
+                {...(c.href.startsWith("http") ? { target: "_blank", rel: "noopener me" } : {})}
+              >
+                <span class="tn-sobre-contato__icone" set:html={c.icone} />
+                <span class="tn-sobre-contato__texto"><span class="tn-sobre-contato__rotulo">{c.rotulo}</span>{c.texto}</span>
+              </a>
+            ) : (
+              <address class="tn-sobre-contato">
+                <span class="tn-sobre-contato__icone" set:html={c.icone} />
+                <span class="tn-sobre-contato__texto"><span class="tn-sobre-contato__rotulo">{c.rotulo}</span>{c.texto}</span>
+              </address>
+            )}
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- Fechamento -->
+    <!-- Dark, so the page runs into the dark footer without a seam. -->
+    <section class="tn-rec-secao tn-rec-secao--curta tn-tema-escuro tn-sobre-fechamento">
+      <div class="tn-rec-cta" data-anim="up" data-anim-bloco>
+        <div class="tn-rec-cta__texto">
+          <span class="tn-rec-cap__rotulo">LANÇAMENTO EM BREVE</span>
+          <h2 class="tn-rec-h2 tn-rec-h2--pequeno" data-anim="words">Leve sua próxima campanha de campo para o TerraNode</h2>
+          <p class="tn-rec-lead" data-anim="blur">Ajude a definir o que entra primeiro em nosso aplicativo. Participe da fase inicial.</p>
+          <div class="tn-rec-acoes tn-rec-acoes--esquerda">
+            <a href={WAITLIST} target="_blank" rel="noopener" class="tn-rec-btn tn-rec-btn--claro" data-mp-cta="sobre_fechamento">Participar</a>
+            <a href={`mailto:${EMPRESA.email}`} class="tn-rec-btn" data-mp-cta="sobre_fechamento_email">Escrever para a equipe</a>
+          </div>
+        </div>
+        <ol class="tn-rec-passos" data-anim-group="left">
+          {participar.map((p, i) => <li><span class="tn-rec-passos__num">{i + 1}</span>{p}</li>)}
+        </ol>
+      </div>
+    </section>
+  </div>
+</Base>
