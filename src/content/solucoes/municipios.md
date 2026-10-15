@@ -5,7 +5,7 @@ setor: "Municípios"
 h1: "Cadastro imobiliário e recadastramento municipal"
 subtitulo: "O TerraNode é uma plataforma de coleta de dados geoespaciais em campo para municípios, com formulários configuráveis por imóvel, registro offline de fotos da fachada, uso do imóvel e geometria do lote, e recursos para revisão e exportação de dados."
 ordem: 4
-draft: true
+draft: false
 
 doresTitulo: "O que dificulta o recadastramento imobiliário nos municípios"
 dores:

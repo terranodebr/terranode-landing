@@ -5,7 +5,7 @@ setor: "Saneamento e obras"
 h1: "Fiscalização de obras e redes de saneamento"
 subtitulo: "O TerraNode é uma plataforma de coleta de dados geoespaciais em campo para saneamento e obras, com formulários configuráveis por serviço, registro offline de medições, não conformidades, fotos e assinaturas, e recursos para revisão e exportação de dados."
 ordem: 6
-draft: true
+draft: false
 
 doresTitulo: "O que dificulta a fiscalização de obras e redes de saneamento"
 dores:

@@ -5,7 +5,7 @@ setor: "Agro"
 h1: "Mapeamento e monitoramento de lavouras"
 subtitulo: "O TerraNode é uma plataforma de coleta de dados geoespaciais em campo para o agro, com formulários configuráveis por talhão, registro offline de pragas, danos, amostras e fotos, e recursos para revisão e exportação de dados."
 ordem: 5
-draft: true
+draft: false
 
 doresTitulo: "O que dificulta o monitoramento das lavouras"
 dores:

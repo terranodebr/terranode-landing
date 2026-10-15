@@ -5,7 +5,7 @@ setor: "Meio ambiente"
 h1: "Levantamentos para licenciamento e monitoramento ambiental"
 subtitulo: "O TerraNode é uma plataforma de coleta de dados geoespaciais em campo para meio ambiente, com formulários configuráveis por campanha, registro offline de pontos de coleta, espécies, fotos e áreas mapeadas, e recursos para revisão e exportação de dados."
 ordem: 3
-draft: true
+draft: false
 
 doresTitulo: "O que dificulta as campanhas de campo ambientais"
 dores:

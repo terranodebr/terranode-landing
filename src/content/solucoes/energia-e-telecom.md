@@ -5,7 +5,7 @@ setor: "Energia e telecom"
 h1: "Inspeção de redes elétricas e torres de telecom"
 subtitulo: "O TerraNode é uma plataforma de coleta de dados geoespaciais em campo para os setores de energia e telecomunicações, com formulários configuráveis por estrutura, registro offline de fotos, ocorrências e histórico, e recursos para revisão e exportação de dados."
 ordem: 1
-draft: true
+draft: false
 
 doresTitulo: "O que dificulta a inspeção de estruturas de energia e telecom"
 dores:

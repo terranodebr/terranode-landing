@@ -5,7 +5,7 @@ setor: "Topografia e cadastro"
 h1: "Levantamentos topográficos e cadastro técnico"
 subtitulo: "O TerraNode é uma plataforma de coleta de dados geoespaciais em campo para topografia e cadastro, com formulários configuráveis por levantamento, registro offline de pontos, fotos e confrontações, precisão centimétrica com GNSS externo e recursos para revisão e exportação de dados."
 ordem: 2
-draft: true
+draft: false
 
 doresTitulo: "O que dificulta os levantamentos topográficos e o cadastro técnico"
 dores:
