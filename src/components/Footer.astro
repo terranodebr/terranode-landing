@@ -3,6 +3,7 @@ import { asset } from "../lib/asset";
 import { getComparativos } from "../lib/comparativos";
 import { getRecursos, getRecursosEmBreve } from "../lib/recursos";
 import { getSolucoes } from "../lib/solucoes";
+import { EMPRESA, enderecoEmLinha } from "../lib/empresa";
 
 interface Props {
   /** Colour of the section above; see `rodapeTopo` in Base.astro. Defaults to the footer's dark. */
@@ -25,6 +26,10 @@ const recursos = await getRecursos();
 const emBreve = getRecursosEmBreve(recursos);
 
 const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
+
+const pino = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>';
+const instagram = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/></svg>';
+const linkedin = '<svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M5 3.5a2.25 2.25 0 1 1 0 4.5 2.25 2.25 0 0 1 0-4.5zM3.1 9.5h3.8v11H3.1zM9.4 9.5h3.6v1.6h.05c.5-.95 1.75-1.95 3.6-1.95 3.85 0 4.55 2.5 4.55 5.8v5.55h-3.8v-4.9c0-1.2-.02-2.7-1.65-2.7-1.65 0-1.9 1.3-1.9 2.6v5h-3.8z"/></svg>';
 ---
 <footer class="tn-section tn-section--dark tn-footer" style={topo ? `--rodape-topo: ${topo}` : undefined}>
   <div class="tn-section__inner tn-footer__inner">
@@ -38,6 +43,11 @@ const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
           <span class="tn-footer__status-dot" aria-hidden="true"></span>
           Lançamento em breve · lista de espera aberta
         </a>
+        <address class="tn-footer__endereco"><span set:html={pino} />{enderecoEmLinha}</address>
+        <div class="tn-footer__redes">
+          <a href={EMPRESA.instagram} target="_blank" rel="noopener me" class="tn-footer__rede" aria-label="TerraNode no Instagram" data-mp-cta="footer_instagram"><span set:html={instagram} /></a>
+          <a href={EMPRESA.linkedin} target="_blank" rel="noopener me" class="tn-footer__rede" aria-label="TerraNode no LinkedIn" data-mp-cta="footer_linkedin"><span set:html={linkedin} /></a>
+        </div>
       </div>
 
       <nav class="tn-footer__cols" aria-label="Rodapé">
