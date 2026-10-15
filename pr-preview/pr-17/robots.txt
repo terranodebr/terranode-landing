@@ -1,7 +1,0 @@
-User-agent: *
-Allow: /
-
-# PR previews are published under the production domain; keep them out of the index.
-Disallow: /pr-preview/
-
-Sitemap: https://terranode.com.br/sitemap-index.xml
