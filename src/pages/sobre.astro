@@ -1,6 +1,7 @@
 ---
 // /sobre/: what TerraNode is for and who builds it, light like the home page (centred
-// heads, entrance animations from Animacoes.astro, the home's colour themes). The
+// heads, entrance animations from Animacoes.astro, the home's colour themes). The mission
+// right under the hero is a left-aligned split on peach, so it doesn't read as a second hero. The
 // founders come from src/lib/time.ts and the contact details from src/lib/empresa.ts,
 // the same data the footer and the Organization JSON-LD read.
 import Base from "../layouts/Base.astro";
@@ -96,25 +97,27 @@ const aspas = '<svg width="34" height="26" viewBox="0 0 34 26" fill="none" aria-
       <div class="tn-rec-hero__texto" data-anim-bloco>
         <span class="tn-rec-pilula" data-anim="up">SOBRE A TERRANODE</span>
         <h1 class="tn-rec-h1" data-anim="words">Coleta de dados em campo, <span class="tn-rec-h1__apagado">feita no Brasil.</span></h1>
-        <p class="tn-rec-lead tn-rec-hero__lead" data-anim="blur">A TerraNode existe para facilitar o trabalho de quem coleta dados em campo e para trazer essa etapa para a realidade brasileira: em português, com preço em reais e com os dados guardados no Brasil.</p>
+        <p class="tn-rec-lead tn-rec-hero__lead" data-anim="blur">Somos uma empresa de Florianópolis. Construímos uma plataforma para coletar, revisar e entregar dados de campo, pensada desde o início para as equipes e a realidade do Brasil.</p>
       </div>
     </section>
 
     <!-- O que nos move -->
-    <section id="missao" class="tn-rec-secao tn-sobre-secao tn-tema-claro">
-      <div class="tn-rec-head" data-anim-bloco>
-        <span class="tn-rec-pilula" data-anim="up">O QUE NOS MOVE</span>
-        <h2 class="tn-rec-h2" data-anim="words">Facilitar e abrasileirar a coleta de campo</h2>
-        <p class="tn-rec-lead" data-anim="blur">Equipes de campo no Brasil ainda dependem de papel, planilhas e ferramentas estrangeiras, pensadas para outra realidade e cobradas em dólar. Queremos que coletar, revisar e entregar um levantamento seja simples, e que a ferramenta fale a língua de quem está em campo.</p>
-      </div>
-      <div class="tn-rec-tipos tn-sobre-valores">
-        {valores.map((v, i) => (
-          <div class="tn-rec-tipo" data-anim="up" data-anim-bloco>
-            <span class="tn-rec-tipo__num">{String(i + 1).padStart(2, "0")}</span>
-            <h3 class="tn-rec-tipo__nome">{v.titulo}</h3>
-            <p class="tn-sobre-valores__texto" data-anim="blur">{v.texto}</p>
-          </div>
-        ))}
+    <section id="missao" class="tn-rec-secao tn-tema-pessego">
+      <div class="tn-sobre-missao">
+        <div class="tn-sobre-missao__texto" data-anim-bloco>
+          <span class="tn-rec-cap__rotulo" data-anim="up">O QUE NOS MOVE</span>
+          <h2 class="tn-rec-h2" data-anim="words">Facilitar e abrasileirar a coleta de campo</h2>
+          <p class="tn-rec-lead" data-anim="blur">Equipes de campo no Brasil ainda dependem de papel, planilhas e ferramentas estrangeiras, pensadas para outra realidade e cobradas em dólar. Queremos que coletar, revisar e entregar um levantamento seja simples, e que a ferramenta fale a língua de quem está em campo.</p>
+        </div>
+        <ol class="tn-sobre-valores" data-anim-group="up">
+          {valores.map((v, i) => (
+            <li class="tn-sobre-valor">
+              <span class="tn-sobre-valor__num">{String(i + 1).padStart(2, "0")}</span>
+              <h3 class="tn-sobre-valor__nome">{v.titulo}</h3>
+              <p class="tn-sobre-valor__texto">{v.texto}</p>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
 
@@ -147,7 +150,7 @@ const aspas = '<svg width="34" height="26" viewBox="0 0 34 26" fill="none" aria-
     </section>
 
     <!-- Por que existimos -->
-    <section class="tn-rec-secao tn-tema-pessego">
+    <section class="tn-rec-secao tn-rec-secao--linha tn-tema-claro">
       <figure class="tn-home-citacao" data-anim-bloco>
         <span data-anim="pop" set:html={aspas} />
         <blockquote class="tn-home-citacao__texto" data-anim="words">Toda campanha de campo termina igual: planilha incompleta, foto solta no WhatsApp e uma semana de redigitação antes de fechar o relatório. <span class="tn-rec-h1__apagado">A TerraNode existe para apagar essa etapa.</span></blockquote>

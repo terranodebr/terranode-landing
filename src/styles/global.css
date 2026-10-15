@@ -560,14 +560,20 @@ a:hover { color: var(--tn-accent); }
 
 /* ---------- Sobre (/sobre/) ---------- */
 
-.tn-rec-secao.tn-sobre-secao { padding-top: 0; }
 /* On the light page, cards lift off the background. The closing band is dark, so the
    page runs into the dark footer; its card keeps the orange glow. */
-.tn-tema-claro .tn-sobre-pessoa, .tn-tema-claro .tn-sobre-contato, .tn-tema-claro .tn-sobre-valores .tn-rec-tipo { box-shadow: 0 12px 30px -24px rgba(22, 32, 31, 0.35); }
-.tn-sobre-valores .tn-rec-tipo { padding: 24px; }
-.tn-sobre-valores .tn-rec-tipo__nome { margin: 0; font-size: 18px; line-height: 1.25; }
-.tn-sobre-valores__texto { margin: 4px 0 0; font-weight: 500; font-size: 14.5px; line-height: 1.6; color: var(--rec-muted); text-wrap: pretty; }
+.tn-tema-claro .tn-sobre-pessoa, .tn-tema-claro .tn-sobre-contato { box-shadow: 0 12px 30px -24px rgba(22, 32, 31, 0.35); }
 .tn-sobre-fechamento .tn-rec-cta { background: radial-gradient(120% 80% at 0% 0%, rgba(255, 102, 41, 0.18), transparent 60%), linear-gradient(180deg, var(--rec-card-2), var(--rec-card)); }
+/* The mission: text on the left, the four values as ruled rows on the right, so it
+   doesn't repeat the hero's centred stack right under it. */
+.tn-sobre-missao { width: 100%; max-width: var(--container-max); display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(40px, 6vw, 96px); align-items: start; }
+.tn-sobre-missao__texto { display: flex; flex-direction: column; align-items: flex-start; gap: 18px; }
+.tn-sobre-valores { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.tn-sobre-valor { display: grid; grid-template-columns: 44px minmax(0, 1fr); column-gap: 12px; row-gap: 6px; padding: 24px 0; border-top: 1px solid var(--rec-line-2); }
+.tn-sobre-valor:last-child { border-bottom: 1px solid var(--rec-line-2); }
+.tn-sobre-valor__num { grid-row: span 2; padding-top: 6px; font-family: var(--font-mono); font-size: 12px; color: var(--rec-acento); }
+.tn-sobre-valor__nome { margin: 0; font-weight: 600; font-size: 20px; line-height: 1.25; letter-spacing: -0.02em; color: var(--rec-text); }
+.tn-sobre-valor__texto { margin: 0; font-weight: 500; font-size: 15px; line-height: 1.6; color: var(--rec-muted); text-wrap: pretty; }
 .tn-sobre-time { width: 100%; max-width: var(--container-max); display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
 .tn-sobre-pessoa { display: flex; flex-direction: column; gap: 20px; padding: clamp(22px, 3vw, 30px); border-radius: 22px; border: 1px solid var(--rec-line); background: var(--rec-card); }
 .tn-sobre-pessoa__topo { display: flex; align-items: center; gap: 14px; }
@@ -590,6 +596,10 @@ a.tn-sobre-contato:hover { color: var(--rec-text); border-color: rgba(255, 102, 
 
 @media (max-width: 1080px) {
   .tn-sobre-time { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 900px) {
+  .tn-sobre-missao { grid-template-columns: 1fr; }
+  .tn-sobre-valor { grid-template-columns: 32px minmax(0, 1fr); }
 }
 @media (max-width: 640px) {
   .tn-sobre-time, .tn-sobre-contatos { grid-template-columns: 1fr; }
