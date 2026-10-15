@@ -1,49 +1,94 @@
 ---
+// /solucoes/: the sector pages, in the same language as the pages themselves
+// (layouts/Solucao.astro): near-black, centred heads, entrance animations from
+// Animacoes.astro, one card per sector with its photo, title and typical form fields,
+// and the card CTA.
+import { Image } from "astro:assets";
 import Base from "../../layouts/Base.astro";
 import Header from "../../components/Header.astro";
-import Cta from "../../components/Cta.astro";
+import Animacoes from "../../components/recursos/Animacoes.astro";
 import { asset } from "../../lib/asset";
-import { getSolucoes } from "../../lib/solucoes";
+import { fotosSetor, getSolucoes } from "../../lib/solucoes";
 
 const solucoes = await getSolucoes();
 
 const title = "Soluções por setor · TerraNode";
 const description =
   "Como equipes de topografia, energia, meio ambiente, municípios, agro e saneamento usam o TerraNode para coletar dados em campo sem depender de sinal.";
+
+const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
+
+// The four steps every sector page walks through, recapped in the closing card.
+const passos = ["Configure o formulário", "Organize a equipe", "Colete dados em campo", "Revise, valide e exporte"];
+
+const seta = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 ---
 <!-- Enquanto todas as páginas de setor forem rascunho, esta listagem não tem conteúdo
      nenhum para mostrar. Indexá-la vazia só cria um beco sem saída no índice do Google. -->
-<Base title={title} description={description} noindex={solucoes.length === 0} rodapeTopo="var(--tn-surface)">
+<Base title={title} description={description} noindex={solucoes.length === 0} rodapeTopo="#0C1312">
+  <Animacoes />
+  <div class="tn-rec">
 
-  <div class="tn-hero tn-hero--short">
-    <Header />
-    <div class="tn-hero__main">
-      <div class="tn-pill">
-        <span class="tn-pill__dot"></span>
-        <span class="tn-pill__text">SOLUÇÕES POR SETOR</span>
-      </div>
-      <h1 class="tn-hero__title">Um fluxo,<br>seis tipos de levantamento.</h1>
-      <p class="tn-hero__subtitle">O TerraNode não muda de setor para setor — o formulário muda. Veja como cada equipe monta o dela.</p>
-    </div>
-  </div>
+    <div class="tn-rec-topo" data-rolagem-offset><Header /></div>
 
-  <div class="tn-section tn-section--surface tn-section--border-top">
-    <div class="tn-section__inner tn-dores">
-      <div class="tn-dores__grid">
-        {solucoes.map((s) => (
-          <a href={asset(`/solucoes/${s.id}/`)} class="tn-feature-card tn-solucao-card" data-mp-cta="solucoes_index_card">
-            <span class="tn-eyebrow">{s.data.setor.toUpperCase()}</span>
-            <h2 class="tn-feature-card__title">{s.data.h1}</h2>
-            <p class="tn-feature-card__desc">{s.data.subtitulo}</p>
-            <span class="tn-solucao-card__link">Ver solução →</span>
-          </a>
-        ))}
+    <!-- Hero -->
+    <section class="tn-rec-hero">
+      <div class="tn-rec-hero__texto" data-anim-bloco>
+        <span class="tn-rec-pilula" data-anim="up">CASOS DE USO</span>
+        <h1 class="tn-rec-h1" data-anim="words">Um fluxo, <span class="tn-rec-h1__apagado">seis tipos de levantamento.</span></h1>
+        <p class="tn-rec-lead tn-rec-hero__lead" data-anim="blur">O TerraNode não muda de setor para setor — o formulário muda. Veja como cada equipe monta o dela.</p>
       </div>
-      {solucoes.length === 0 && (
-        <p class="tn-lead">Nenhuma página de setor publicada ainda.</p>
+    </section>
+
+    <!-- Um card por setor -->
+    <section class="tn-rec-secao tn-sol-indice-secao">
+      {solucoes.length > 0 ? (
+        <div class="tn-sol-indice">
+          {solucoes.map((s) => {
+            const foto = fotosSetor[s.id];
+            return (
+              <a href={asset(`/solucoes/${s.id}/`)} class="tn-sol-card" data-mp-cta="solucoes_index_card" data-anim="up" data-anim-bloco>
+                {foto && (
+                  <div class="tn-sol-card__foto">
+                    <Image src={foto} alt="" widths={[400, 800]} sizes="(max-width: 640px) 92vw, (max-width: 1080px) 46vw, 370px" loading="lazy" />
+                  </div>
+                )}
+                <div class="tn-sol-card__corpo">
+                  <span class="tn-rec-cap__rotulo">{s.data.setor.toUpperCase()}</span>
+                  <h2 class="tn-sol-card__titulo">{s.data.h1}</h2>
+                  <ul class="tn-sol-card__campos" aria-label="Campos típicos do formulário">
+                    {s.data.campos.map((campo) => <li>{campo}</li>)}
+                  </ul>
+                  <span class="tn-sol-card__link">Ver solução<span set:html={seta} /></span>
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      ) : (
+        <p class="tn-rec-lead">Nenhuma página de setor publicada ainda.</p>
       )}
-    </div>
-  </div>
+      <p class="tn-sol-indice__rodape" data-anim="up">
+        Seu levantamento não está na lista? É só montar o formulário do seu jeito.
+        <a href={WAITLIST} target="_blank" rel="noopener" data-mp-cta="solucoes_index_participar">Participar<span set:html={seta} /></a>
+      </p>
+    </section>
 
-  <Cta />
+    <!-- Fechamento -->
+    <section class="tn-rec-secao tn-rec-secao--curta">
+      <div class="tn-rec-cta" data-anim="up" data-anim-bloco>
+        <div class="tn-rec-cta__texto">
+          <span class="tn-rec-cap__rotulo">LANÇAMENTO EM BREVE</span>
+          <h2 class="tn-rec-h2 tn-rec-h2--pequeno" data-anim="words">Leve sua próxima campanha de campo para o TerraNode</h2>
+          <p class="tn-rec-lead" data-anim="blur">Ajude a definir o que entra primeiro em nosso aplicativo. Participe da fase inicial.</p>
+          <div class="tn-rec-acoes tn-rec-acoes--esquerda">
+            <a href={WAITLIST} target="_blank" rel="noopener" class="tn-rec-btn tn-rec-btn--claro" data-mp-cta="solucoes_index_fechamento">Participar</a>
+          </div>
+        </div>
+        <ol class="tn-rec-passos" data-anim-group="left">
+          {passos.map((p, i) => <li><span class="tn-rec-passos__num">{i + 1}</span>{p}</li>)}
+        </ol>
+      </div>
+    </section>
+  </div>
 </Base>

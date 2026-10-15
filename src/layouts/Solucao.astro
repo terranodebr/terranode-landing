@@ -21,16 +21,10 @@ import appMeioAmbiente from "../assets/tela-app-meio-ambiente.webp";
 import appMunicipios from "../assets/tela-app-municipios.webp";
 import appAgro from "../assets/tela-app-agro.webp";
 import appSaneamento from "../assets/tela-app-saneamento-e-obras.webp";
-import setorEnergia from "../assets/setor-energia.webp";
-import setorTopografia from "../assets/setor-topografia.webp";
-import setorMeioAmbiente from "../assets/setor-meio-ambiente.webp";
-import setorMunicipios from "../assets/setor-municipios.webp";
-import setorAgro from "../assets/setor-agro.webp";
-import setorSaneamento from "../assets/setor-saneamento.webp";
 import { asset } from "../lib/asset";
 import { icone, type Icone } from "../lib/fluxo";
 import { numeros } from "../lib/numeros";
-import type { Solucao } from "../lib/solucoes";
+import { fotosSetor, type Solucao } from "../lib/solucoes";
 
 interface Props {
   entry: Solucao;
@@ -41,13 +35,13 @@ const d = entry.data;
 
 const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
 
-// Each sector's hero stage: its own photo behind the screens (generated in Higgsfield,
-// different from the home page's use-case photos), the web panel's overview of one of
-// the sector's projects, and the field app's form for a point of that project in front.
-// The same projects run through both, so the two screens tell one story. A sector
-// missing from the list gets energy's screens over the default aerial image.
+// Each sector's hero stage: its photo behind the screens (`fotosSetor`), the web
+// panel's overview of one of the sector's projects, and the field app's form for a
+// point of that project in front. The same projects run through both, so the two
+// screens tell one story. A sector missing from the list gets energy's screens; one
+// without a photo keeps the stage's default aerial image.
 interface Tela { src: ImageMetadata; alt: string }
-interface Palco { foto?: ImageMetadata; web: Tela; celular: Tela }
+interface Palco { web: Tela; celular: Tela }
 const web = (src: ImageMetadata, projeto: string): Tela => ({
   src,
   alt: `Painel web do TerraNode: visão geral do projeto ${projeto}, com pontos recebidos, revisão, equipe em campo e formulários`,
@@ -58,38 +52,33 @@ const app = (src: ImageMetadata, campos: string): Tela => ({
 });
 const palcos: Record<string, Palco> = {
   "energia-e-telecom": {
-    foto: setorEnergia,
     web: web(webEnergia, "LT 138 kV Santa Cruz"),
     celular: app(appEnergia, "número da estrutura, fotos, componente e severidade"),
   },
   "topografia-e-cadastro": {
-    foto: setorTopografia,
     web: web(webTopografia, "Fazenda Santa Clara"),
     celular: app(appTopografia, "vértice, foto do marco, tipo de marco e confrontante"),
   },
   "meio-ambiente": {
-    foto: setorMeioAmbiente,
     web: web(webMeioAmbiente, "Inventário APP Rio Pardo"),
     celular: app(appMeioAmbiente, "espécie, fotos do indivíduo, CAP e altura"),
   },
   municipios: {
-    foto: setorMunicipios,
     web: web(webMunicipios, "Bairro Santa Mônica"),
     celular: app(appMunicipios, "inscrição imobiliária, fotos da fachada, uso do imóvel e área construída"),
   },
   agro: {
-    foto: setorAgro,
     web: web(webAgro, "Pragas - Safra 26/27"),
     celular: app(appAgro, "talhão, fotos do dano, cultura e praga"),
   },
   "saneamento-e-obras": {
-    foto: setorSaneamento,
     web: web(webSaneamento, "Rede coletora - Bacia B3"),
     celular: app(appSaneamento, "serviço executado, fotos do serviço e assinatura do responsável"),
   },
 };
-const palco = palcos[entry.id] ?? { web: palcos["energia-e-telecom"].web, celular: palcos["energia-e-telecom"].celular };
-const fundo = palco.foto ? await getImage({ src: palco.foto, width: 1600, format: "webp" }) : undefined;
+const palco = palcos[entry.id] ?? palcos["energia-e-telecom"];
+const foto = fotosSetor[entry.id];
+const fundo = foto ? await getImage({ src: foto, width: 1600, format: "webp" }) : undefined;
 
 const sem = ["Sem planilhas incompletas", "Sem redigitação", "Sem perda de dados", "Sem depender de sinal"];
 
