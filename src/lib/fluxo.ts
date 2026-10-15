@@ -3,7 +3,7 @@
 
 export type Icone =
   | "navegador" | "desktop" | "app" | "nuvem" | "planilha"
-  | "painel" | "exportar" | "config" | "servidor" | "revisao";
+  | "painel" | "exportar" | "config" | "servidor" | "revisao" | "equipe";
 
 export interface Passo { icone: Icone; titulo: string; detalhe: string }
 
@@ -26,6 +26,7 @@ const paths: Record<Icone, string> = {
   config: '<path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/>',
   servidor: '<ellipse cx="12" cy="5.5" rx="8" ry="2.5"/><path d="M4 5.5v13c0 1.4 3.6 2.5 8 2.5s8-1.1 8-2.5v-13M4 12c0 1.4 3.6 2.5 8 2.5s8-1.1 8-2.5"/>',
   revisao: '<circle cx="12" cy="12" r="9"/><path d="m8 12.5 2.8 2.8L16.5 9.5"/>',
+  equipe: '<circle cx="9" cy="8" r="3"/><path d="M3.5 19.5a5.5 5.5 0 0 1 11 0"/><circle cx="17" cy="9.5" r="2.5"/><path d="M16 14.2a4.5 4.5 0 0 1 5 4.8"/>',
 };
 
 export const icone = (name: Icone) =>

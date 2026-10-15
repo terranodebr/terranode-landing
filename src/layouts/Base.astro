@@ -167,16 +167,6 @@ document.addEventListener('click', function (e) {
         sector: (row.querySelector('.tn-uc__tag') || {}).textContent,
         position: rows.indexOf(row) + 1
       });
-      return;
-    }
-
-    var step = e.target.closest('.tn-steps__stop');
-    if (step) {
-      var stops = Array.prototype.slice.call(document.querySelectorAll('.tn-steps__stop'));
-      track('Step Opened', {
-        step: (step.querySelector('.tn-steps__stop-label') || {}).textContent,
-        position: stops.indexOf(step) + 1
-      });
     }
   });
 })();

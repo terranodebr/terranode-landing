@@ -15,6 +15,7 @@ import PorQueTerraNode from "../components/home/PorQueTerraNode.astro";
 import ArcGIS from "../components/home/ArcGIS.astro";
 import { asset } from "../lib/asset";
 import { getSolucoes } from "../lib/solucoes";
+import { numeros } from "../lib/numeros";
 import campoMarca from "../assets/campo-marca.webp";
 import segRealista from "../assets/seguranca-realista.webp";
 import webOverview from "../assets/web-overview.png";
@@ -108,7 +109,7 @@ const capitulos: Capitulo[] = passos.map((p) => ({
 const solucoes = new Set((await getSolucoes()).map((s) => s.id));
 const casos = [
   {
-    slug: "topografia", tag: "Topografia e cadastro", titulo: "Levantamentos e cadastro técnico", img: ucTopografia,
+    slug: "topografia-e-cadastro", tag: "Topografia e cadastro", titulo: "Levantamentos e cadastro técnico", img: ucTopografia,
     alt: "Topógrafo levantando divisa de propriedade rural com celular na mão",
     texto: "Vértices, testadas e benfeitorias marcados com precisão, com croqui e foto anexados a cada ponto. O memorial descritivo sai do dado já validado, sem passar por planilha.",
     campos: ["Vértice", "Confrontante", "Foto do marco", "Área (m²)"],
@@ -143,12 +144,6 @@ const casos = [
     texto: "Diário de obra georreferenciado: cada medição, ligação e não conformidade fica amarrada ao ponto exato, com histórico de quem registrou.",
     campos: ["Serviço", "Medição", "Não conformidade", "Assinatura"],
   },
-];
-
-const numeros = [
-  { valor: "100%", texto: "da coleta funciona sem sinal" },
-  { valor: "±3 cm", texto: "de precisão com GNSS externo" },
-  { valor: "3", texto: "formatos de exportação: CSV, GeoJSON e SHP" },
 ];
 
 const faq = [

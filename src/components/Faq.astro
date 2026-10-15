@@ -51,6 +51,9 @@ const jsonLd = {
   })),
 };
 
+// A blank line in an answer starts a new paragraph.
+const paragrafos = (a: string) => a.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
+
 const itemClass = (i: number) =>
   [
     "tn-faq__item",
@@ -70,7 +73,7 @@ const itemClass = (i: number) =>
           <div class={itemClass(i)}>
             {item.badge && <span class="tn-badge-soft">{item.badge}</span>}
             <span class="tn-faq__question">{item.q}</span>
-            <span class="tn-faq__answer">{item.a}</span>
+            {paragrafos(item.a).map((p) => <span class="tn-faq__answer">{p}</span>)}
           </div>
         ))}
       </div>
@@ -88,7 +91,7 @@ const itemClass = (i: number) =>
           <div class={itemClass(i)}>
             {item.badge && <span class="tn-badge-soft">{item.badge}</span>}
             <span class="tn-faq__question">{item.q}</span>
-            <span class="tn-faq__answer">{item.a}</span>
+            {paragrafos(item.a).map((p) => <span class="tn-faq__answer">{p}</span>)}
           </div>
         ))}
       </div>

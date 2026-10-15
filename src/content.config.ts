@@ -31,6 +31,9 @@ const solucoes = defineCollection({
     /** Path under public/, or an absolute URL. Falls back to the site default. */
     image: z.string().optional(),
 
+    /** H2 of the "O problema hoje" section. */
+    doresTitulo: z.string(),
+    /** Exactly 3: they sit side by side in one row of cards. */
     dores: z
       .array(
         z.object({
@@ -38,29 +41,36 @@ const solucoes = defineCollection({
           texto: z.string(),
         }),
       )
-      .min(1),
+      .length(3),
 
+    /** Lead under the "Como funciona" H2, which is the same on every sector page. */
+    passosLead: z.string(),
     /**
-     * No máximo 4: Steps.astro casa cada passo com um dos quatro mockups em
-     * src/components/steps/, e um quinto passo renderizaria um slide sem visual.
-     * O limite aqui faz o build falhar com mensagem clara, em vez de publicar a
-     * página torta.
+     * Exactly 4: the layout gives each step its own icon, by position (configure,
+     * team, collect, review), and the closing card lists the four titles.
      */
     passos: z
       .array(
         z.object({
-          label: z.string(),
           titulo: z.string(),
           texto: z.string(),
+          /** Short lines under the text, one per item. */
+          lista: z.array(z.string()).min(1).max(4),
         }),
       )
-      .min(1)
-      .max(4),
+      .length(4),
 
+    /** H2 of the "Formulário" section. */
+    camposTitulo: z.string(),
     /** Typical form fields for the sector, rendered as chips. */
     campos: z.array(z.string()).min(1),
 
-    /** Shape mirrors FaqItem in src/components/Faq.astro so it passes straight through. */
+    /** H2 of the FAQ. */
+    faqTitulo: z.string(),
+    /**
+     * Shape mirrors FaqItem in src/components/Faq.astro so it passes straight through.
+     * A blank line in an answer starts a new paragraph.
+     */
     faq: z
       .array(
         z.object({
