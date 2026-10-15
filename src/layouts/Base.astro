@@ -1,6 +1,7 @@
 ---
 import "../styles/global.css";
 import { asset } from "../lib/asset";
+import { EMPRESA } from "../lib/empresa";
 import Footer from "../components/Footer.astro";
 
 interface Props {
@@ -34,14 +35,25 @@ const ogImage = new URL(/^https?:/.test(image) ? image : asset(image), Astro.sit
 const isPreview = import.meta.env.BASE_URL.startsWith("/pr-preview");
 const blockIndexing = noindex || isPreview;
 
+// One id for the company, so the app's publisher below points at this same entity.
+const organizationId = "https://terranode.com.br/#organizacao";
 const organization = {
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": organizationId,
   name: "TerraNode",
   url: "https://terranode.com.br/",
   logo: new URL("/terranode-logo.svg", Astro.site).href,
   description:
     "Plataforma brasileira de coleta de dados geoespaciais em campo, offline-first.",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: EMPRESA.endereco.rua,
+    addressLocality: EMPRESA.endereco.cidade,
+    addressRegion: EMPRESA.endereco.uf,
+    addressCountry: EMPRESA.endereco.pais,
+  },
+  sameAs: [EMPRESA.instagram, EMPRESA.linkedin],
 };
 
 const software = {
@@ -53,7 +65,7 @@ const software = {
   inLanguage: "pt-BR",
   description:
     "Coleta de dados geoespaciais em campo, 100% offline e integrada ao ArcGIS Online e Enterprise. Arquivos criptografados no aparelho e no servidor, dados no Brasil e LGPD por arquitetura.",
-  publisher: { "@type": "Organization", name: "TerraNode" },
+  publisher: { "@type": "Organization", "@id": organizationId, name: "TerraNode" },
 };
 ---
 <!DOCTYPE html>
