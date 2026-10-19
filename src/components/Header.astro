@@ -3,9 +3,7 @@ import { asset } from "../lib/asset";
 import { getRecursos, getRecursosEmBreve } from "../lib/recursos";
 import { getSolucoes } from "../lib/solucoes";
 
-// Section links have to be root-relative rather than bare fragments: this header is
-// mounted on /solucoes/ pages too, where "#produto" would resolve against the sector
-// page and go nowhere. asset() keeps them working under the PR-preview base path.
+// asset() keeps the home link working under the PR-preview base path.
 const home = asset("/");
 
 // Feature pages for the Funcionalidades menu. Same draft filter as the pages, so
@@ -39,10 +37,7 @@ const iconesSetor: Record<string, string> = {
 const iconeSetor = (id: string) =>
   `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${iconesSetor[id] ?? '<path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>'}</svg>`;
 const links = [
-  { href: `${home}#produto`, rotulo: "Produto" },
-  { href: `${home}#como-funciona`, rotulo: "Como funciona" },
-  { href: `${home}#o-app`, rotulo: "O app" },
-  { href: `${home}#faq`, rotulo: "Perguntas" },
+  { href: home, rotulo: "Página inicial" },
   { href: asset("/sobre/"), rotulo: "Sobre" },
 ];
 const seta = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
@@ -52,7 +47,7 @@ const seta = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke
       <a href={home}><img src={asset("/terranode-logo.svg")} alt="TerraNode" class="tn-header__logo"></a>
     </div>
     <nav class="tn-nav-links" aria-label="Principal">
-      <a href={`${home}#produto`}>Produto</a>
+      <a href={links[0].href}>{links[0].rotulo}</a>
       {recursos.length > 0 && (
         <div class="tn-nav-menu" data-nav-menu>
           <button type="button" class="tn-nav-menu__botao" aria-expanded="false" aria-controls="tn-menu-funcionalidades" data-nav-menu-botao>
@@ -103,10 +98,7 @@ const seta = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke
           </div>
         </div>
       )}
-      <a href={`${home}#como-funciona`}>Como funciona</a>
-      <a href={`${home}#o-app`}>O app</a>
-      <a href={`${home}#faq`}>Perguntas</a>
-      <a href={asset("/sobre/")}>Sobre</a>
+      {links.slice(1).map((l) => <a href={l.href}>{l.rotulo}</a>)}
     </nav>
     <div class="tn-header__actions">
       <a href="https://form.typeform.com/to/ZVQYTFV5" target="_blank" rel="noopener" data-mp-cta="header_cta" class="tn-header__cta">Entrar na lista</a>
