@@ -33,9 +33,6 @@
 
 <script>
   import { gsap } from "gsap";
-  import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-  gsap.registerPlugin(ScrollTrigger);
 
   const root = document.documentElement;
 
@@ -147,25 +144,47 @@
     }
 
     // A bloco already on screen at load (the hero, or anything above a restored scroll
-    // position) plays right away. The rest play once on enter through toggleActions,
-    // not `once: true`: a `once` trigger that turns out active during another trigger's
-    // refresh kills itself mid-loop, leaves a hole in ScrollTrigger's list and throws
-    // "reading 'end'", which stops every trigger on the page.
+    // position) plays right away. The rest are built only when they scroll into view.
+    //
+    // Building a timeline is not cheap: each fromTo reads computed styles and writes inline
+    // ones, and "words" splits a heading into spans. Building all of them at load, one after
+    // another, forced a style and layout pass per element and blocked the main thread for
+    // 1 to 1.5 s on a mid-range phone. Until its bloco is built, an element stays hidden by
+    // the pre-paint rule (html.tn-anim), so that class now stays on for the whole visit.
+    //
+    // An IntersectionObserver instead of ScrollTrigger also avoids a ScrollTrigger bug:
+    // a `once` trigger that turns out active during another trigger's refresh kills itself
+    // mid-loop and throws "reading 'end'", which stops every trigger on the page.
     const dobra = window.innerHeight * 0.82;
-    blocos.forEach((alvos, bloco) => {
+    // Every position is read before anything is built, so the reads cost one layout.
+    const naTela = new Map<Element, boolean>();
+    blocos.forEach((_, bloco) => naTela.set(bloco, bloco.getBoundingClientRect().top < dobra));
+
+    const montar = (bloco: Element, atrasoExtra: number) => {
       const atraso = Number(bloco.getAttribute("data-anim-delay")) || 0;
-      if (bloco.getBoundingClientRect().top < dobra) {
-        linhaDoTempo(alvos, { delay: 0.1 + atraso });
-      } else {
-        linhaDoTempo(alvos, {
-          delay: atraso,
-          scrollTrigger: { trigger: bloco, start: "top 82%", toggleActions: "play none none none" },
-        });
-      }
+      linhaDoTempo(blocos.get(bloco) ?? [], { delay: atrasoExtra + atraso });
+    };
+
+    // Same line as the old ScrollTrigger start, "top 82%": the bottom 18% of the viewport
+    // does not count.
+    const observador = new IntersectionObserver(
+      (entradas) => {
+        for (const entrada of entradas) {
+          if (!entrada.isIntersecting) continue;
+          observador.unobserve(entrada.target);
+          montar(entrada.target, 0);
+        }
+      },
+      { rootMargin: "0px 0px -18% 0px" },
+    );
+
+    blocos.forEach((_, bloco) => {
+      if (naTela.get(bloco)) montar(bloco, 0.1);
+      else observador.observe(bloco);
     });
 
-    // Every element now holds its hidden state inline, so the pre-paint rule can go.
+    // Tells the fallback in the inline script above that the animations are running, so it
+    // must not lift the pre-paint rule after 3 s.
     root.classList.add("tn-anim-on");
-    root.classList.remove("tn-anim");
   }
 </script>

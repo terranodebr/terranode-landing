@@ -54,7 +54,7 @@
   --tn-on-dark-6: rgba(255, 255, 255, 0.06);
   --tn-on-dark-5: rgba(255, 255, 255, 0.05);
 
-  --font-sans: 'Archivo', sans-serif;
+  --font-sans: 'Archivo Variable', 'Archivo', sans-serif;
   --font-mono: 'Roboto Mono', monospace;
 
   --section-pad-y: clamp(56px, 10vw, 96px);
@@ -669,6 +669,10 @@ a.tn-sobre-contato:hover { color: var(--rec-text); border-color: rgba(255, 102, 
 /* Entrada com GSAP (components/recursos/Animacoes.astro): esconde antes da primeira
    pintura só quando o script vai rodar; depois o GSAP assume com estilos inline. */
 .tn-anim [data-anim], .tn-anim [data-anim-group] > * { opacity: 0; }
+/* Animacoes builds each bloco only when it scrolls into view, so html.tn-anim stays on for
+   the whole visit. Regions another script animates (data-anim-skip) are not waiting on it:
+   once it is running, they go back to that script's own inline styles. */
+.tn-anim-on [data-anim-skip] :is([data-anim], [data-anim-group] > *) { opacity: 1; }
 /* Words split out of a heading by the "words" effect: inline-block so they can move. */
 .tn-palavra { display: inline-block; }
 
