@@ -8,7 +8,7 @@ import Base from "../../layouts/Base.astro";
 import Header from "../../components/Header.astro";
 import Animacoes from "../../components/recursos/Animacoes.astro";
 import { asset } from "../../lib/asset";
-import { fotosSetor, getSolucoes } from "../../lib/solucoes";
+import { fotosSetor, altSetor, getSolucoes } from "../../lib/solucoes";
 
 const solucoes = await getSolucoes();
 
@@ -50,7 +50,7 @@ const seta = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke
               <a href={asset(`/solucoes/${s.id}/`)} class="tn-sol-card" data-mp-cta="solucoes_index_card" data-anim="up" data-anim-bloco>
                 {foto && (
                   <div class="tn-sol-card__foto">
-                    <Image src={foto} alt="" widths={[400, 800]} sizes="(max-width: 640px) 92vw, (max-width: 1080px) 46vw, 370px" loading="lazy" />
+                    <Image src={foto} alt={altSetor[s.id] ?? ""} widths={[400, 800]} sizes="(max-width: 640px) 92vw, (max-width: 1080px) 46vw, 370px" loading="lazy" />
                   </div>
                 )}
                 <div class="tn-sol-card__corpo">

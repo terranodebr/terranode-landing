@@ -42,3 +42,13 @@ export const fotosSetor: Record<string, ImageMetadata> = {
   agro: setorAgro,
   "saneamento-e-obras": setorSaneamento,
 };
+
+/** Alt text for each photo in fotosSetor. Describes what the photo shows, not the sector. */
+export const altSetor: Record<string, string> = {
+  "energia-e-telecom": "Torre de telecomunicações no alto de um morro, com técnico e caminhonete ao lado",
+  "topografia-e-cadastro": "Topógrafo com colete refletivo e bastão GNSS ao lado de um marco de divisa em área rural",
+  "meio-ambiente": "Técnica ambiental coletando amostra de água em um rio de mata",
+  municipios: "Agente municipal com tablet em frente às casas de uma rua residencial",
+  agro: "Agrônomo registrando dados no celular em meio a uma lavoura de café",
+  "saneamento-e-obras": "Fiscal de obra com tablet ao lado de vala com tubo de concreto e escavadeira",
+};
