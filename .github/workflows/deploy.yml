@@ -10,6 +10,11 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+    inputs:
+      indexnow_todas:
+        description: "IndexNow: enviar todas as URLs, não só as que mudaram"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -37,6 +42,14 @@ jobs:
 
       - run: npm run build
 
+      # Saves the sitemap that is live now, so the step after publishing can tell which
+      # pages this deploy changed. See scripts/indexnow.mjs.
+      - name: IndexNow — sitemap anterior
+        # Runs before publishing, so it must never block or fail the deploy.
+        continue-on-error: true
+        timeout-minutes: 2
+        run: node scripts/indexnow.mjs snapshot
+
       - name: Publish to gh-pages
         uses: peaceiris/actions-gh-pages@v4
         with:
@@ -47,3 +60,9 @@ jobs:
           keep_files: true
           user_name: github-actions[bot]
           user_email: github-actions[bot]@users.noreply.github.com
+
+      - name: IndexNow — avisar buscadores
+        # Never fails the deploy: the site is already published at this point.
+        continue-on-error: true
+        timeout-minutes: 8
+        run: node scripts/indexnow.mjs submit ${{ inputs.indexnow_todas && '--todas' || '' }}
