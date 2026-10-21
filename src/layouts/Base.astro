@@ -1,4 +1,10 @@
 ---
+// Fonts are self-hosted so the first paint does not wait on a stylesheet from another
+// origin (fonts.googleapis.com was render-blocking). Each file declares unicode-range per
+// subset, so the browser downloads only the latin files the pages actually use.
+import "@fontsource-variable/archivo/wght.css";
+import "@fontsource/roboto-mono/400.css";
+import "@fontsource/roboto-mono/500.css";
 import "../styles/global.css";
 import { asset } from "../lib/asset";
 import { EMPRESA } from "../lib/empresa";
@@ -103,9 +109,6 @@ const software = {
 <meta name="twitter:description" content={description}>
 <meta name="twitter:image" content={ogImage.href}>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <script type="application/ld+json" set:html={JSON.stringify(organization)} />
 <script type="application/ld+json" set:html={JSON.stringify(software)} />
