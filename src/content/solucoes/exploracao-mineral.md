@@ -5,7 +5,7 @@ setor: "Exploração mineral"
 h1: "Coleta de campo para exploração mineral e pesquisa geológica"
 subtitulo: "O TerraNode é uma plataforma de coleta de dados geoespaciais em campo para exploração mineral, com templates de coleta geoquímica, quarteamento e mapeamento geológico, registro offline e criptografado de amostras e afloramentos, e camadas de direitos minerários e cartas geológicas no mapa de quem está em campo."
 ordem: 7
-draft: true
+draft: false
 
 doresTitulo: "O que dificulta as campanhas de exploração mineral"
 dores:
