@@ -5,7 +5,7 @@ setor: "Mineração"
 h1: "Controle de amostragem e coleta de campo para mineração"
 subtitulo: "O TerraNode é uma plataforma de coleta de dados geoespaciais em campo para mineração, com templates de amostragem e quarteamento, registro offline e criptografado de cada amostra, camadas da operação no mapa e recursos para revisão e exportação de dados."
 ordem: 8
-draft: true
+draft: false
 
 doresTitulo: "O que dificulta o controle de amostragem na mina"
 dores:
