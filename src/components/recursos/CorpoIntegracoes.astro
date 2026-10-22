@@ -128,7 +128,7 @@ const desce = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" strok
   <div class="tn-rec-head" data-anim-bloco>
     <span class="tn-rec-pilula" data-anim="up">{arcgis.eyebrow}</span>
     <h2 class="tn-rec-h2 tn-int-arcgis__h2" data-anim="words">{arcgis.titulo}</h2>
-    <p class="tn-rec-lead" data-anim="blur">{arcgis.itens[0].titulo} {arcgis.itens[0].texto}</p>
+    <p class="tn-rec-lead" data-anim="blur">{[arcgis.itens[0].titulo, arcgis.itens[0].texto].filter(Boolean).join(" ")}</p>
   </div>
 
   <Historia capitulos={capitulos} />

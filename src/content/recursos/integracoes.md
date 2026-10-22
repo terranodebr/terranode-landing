@@ -14,8 +14,8 @@ secoes:
     itens:
       - titulo: "Conecte sua conta Google e escolha as planilhas."
         texto: "O TerraNode só enxerga as planilhas que você escolhe no seletor do Google, inclusive as de drives compartilhados."
-      - titulo: "Latitude e longitude achadas pelo nome."
-        texto: "Colunas como lat, latitude, lon e lng são reconhecidas e podem ser trocadas. As coordenadas vêm em graus decimais, com ponto ou vírgula."
+      - titulo: "Coordenadas detectadas automaticamente."
+        texto: "As colunas de latitude e longitude são detectadas automaticamente, mas você também pode defini-las manualmente."
       - titulo: "Prévia antes de adicionar."
         texto: "O tipo de cada coluna, o total de linhas e cada linha que não pode ser importada aparecem antes de a aba virar camada."
       - titulo: "O mapa não quebra com a planilha."
@@ -28,7 +28,7 @@ secoes:
     titulo: "Traga o formulário que você já usa"
     itens:
       - titulo: "Envie o .xlsx do Survey123."
-        texto: "O arquivo XLSForm do formulário, de até 5 MB, vira um formulário do TerraNode com as perguntas, as opções e as regras que dá para levar."
+        texto: "O arquivo XLSForm do formulário vira um formulário do TerraNode, com as perguntas, as opções e as regras compatíveis."
       - titulo: "Perguntas"
         texto: "Texto · E-mail · Inteiro · Decimal · Intervalo · Escolha única · Múltipla escolha · Data · Data e hora · Hora · Ponto, linha e polígono · Foto · Assinatura · Áudio · Código de barras"
       - titulo: "Regras"
@@ -43,7 +43,7 @@ secoes:
     eyebrow: "ARCGIS ONLINE E ENTERPRISE"
     titulo: "Seu portal ArcGIS, pronto para o campo"
     itens:
-      - titulo: "Conecte uma vez, para a organização inteira."
+      - titulo: ""
         texto: "As camadas que vocês já mantêm no ArcGIS chegam ao TerraNode com a simbologia e viram mapa de campo, camada de projeto e ponto de partida de formulário."
       - titulo: "OAuth 2.0, sem senha."
         texto: "Registre um app OAuth no seu portal e informe o Client ID. O TerraNode usa o fluxo com PKCE e nunca pede a senha do portal."
@@ -70,7 +70,7 @@ secoes:
       - titulo: "Campos com alias e tipo."
         texto: "Nome, alias, tipo, tamanho e domínio de cada campo ficam registrados. Ao gerar o formulário, OBJECTID, GlobalID e Shape_Area ficam de fora."
       - titulo: "Agende a sincronização."
-        texto: "De hora em hora, diária, semanal ou com uma expressão cron sua, a cada 15 minutos no mínimo."
+        texto: "De hora em hora, diária, semanal ou com uma expressão cron sua."
       - titulo: "Sem edição, sem download."
         texto: "Antes de cada sincronização agendada, o TerraNode compara a data da última edição da camada. Se nada mudou, a execução é pulada."
       - titulo: "Atualizada no lugar."
