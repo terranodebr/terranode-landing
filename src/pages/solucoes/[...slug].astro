@@ -4,7 +4,7 @@ import Solucao from "../../layouts/Solucao.astro";
 import { getSolucoes } from "../../lib/solucoes";
 
 // Astro 7 has no `entry.slug`; the glob loader derives `id` from the filename, which
-// is exactly the URL segment we want (energia-e-telecom.md -> /solucoes/energia-e-telecom/).
+// is exactly the URL segment we want (energia.md -> /solucoes/energia/).
 export async function getStaticPaths() {
   const entries = await getSolucoes();
   return entries.map((entry) => ({

@@ -4,7 +4,7 @@ description: "Faça inventários e monitoramento ambiental com formulários pers
 setor: "Meio ambiente"
 h1: "Levantamentos para licenciamento e monitoramento ambiental"
 subtitulo: "O TerraNode é uma plataforma de coleta de dados geoespaciais em campo para meio ambiente, com formulários configuráveis por campanha, registro offline de pontos de coleta, espécies, fotos e áreas mapeadas, e recursos para revisão e exportação de dados."
-ordem: 3
+ordem: 4
 draft: false
 
 doresTitulo: "O que dificulta as campanhas de campo ambientais"
@@ -113,7 +113,7 @@ Os formulários podem ser configurados com os campos, as regras e os preenchimen
 
 Nossa plataforma também se integra ao **ArcGIS Online** e ao **ArcGIS Enterprise**, conectando a **coleta de dados em campo** ao **sistema de informação geográfica (SIG)** da organização.
 
-**Conheça as soluções do TerraNode para outras operações:** [energia e telecom](/solucoes/energia-e-telecom/), [topografia e cadastro](/solucoes/topografia-e-cadastro/), [municípios](/solucoes/municipios/), [agro](/solucoes/agro/) e [saneamento e obras](/solucoes/saneamento-e-obras/).
+**Conheça as soluções do TerraNode para outras operações:** [energia](/solucoes/energia/), [telecom](/solucoes/telecom/), [topografia e cadastro](/solucoes/topografia-e-cadastro/), [municípios](/solucoes/municipios/), [agro](/solucoes/agro/) e [saneamento e obras](/solucoes/saneamento-e-obras/).
 
 **Para conhecer outros recursos de configuração, acesse:** [formulários](/recursos/formularios/) e [catálogos](/recursos/catalogos/).
 

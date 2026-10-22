@@ -51,7 +51,7 @@ const app = (src: ImageMetadata, campos: string): Tela => ({
   alt: `App de campo do TerraNode, sem conexão: formulário do ponto com localização, ${campos}`,
 });
 const palcos: Record<string, Palco> = {
-  "energia-e-telecom": {
+  energia: {
     web: web(webEnergia, "LT 138 kV Santa Cruz"),
     celular: app(appEnergia, "número da estrutura, fotos, componente e severidade"),
   },
@@ -76,7 +76,7 @@ const palcos: Record<string, Palco> = {
     celular: app(appSaneamento, "serviço executado, fotos do serviço e assinatura do responsável"),
   },
 };
-const palco = palcos[entry.id] ?? palcos["energia-e-telecom"];
+const palco = palcos[entry.id] ?? palcos.energia;
 const foto = fotosSetor[entry.id];
 const fundo = foto ? await getImage({ src: foto, width: 1600, format: "webp" }) : undefined;
 

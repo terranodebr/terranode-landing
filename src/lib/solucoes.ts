@@ -35,7 +35,7 @@ export async function getSolucoes(): Promise<Solucao[]> {
  * sector's card in the /solucoes/ index. A sector missing here gets neither.
  */
 export const fotosSetor: Record<string, ImageMetadata> = {
-  "energia-e-telecom": setorEnergia,
+  telecom: setorEnergia,
   "topografia-e-cadastro": setorTopografia,
   "meio-ambiente": setorMeioAmbiente,
   municipios: setorMunicipios,
@@ -45,7 +45,7 @@ export const fotosSetor: Record<string, ImageMetadata> = {
 
 /** Alt text for each photo in fotosSetor. Describes what the photo shows, not the sector. */
 export const altSetor: Record<string, string> = {
-  "energia-e-telecom": "Torre de telecomunicações no alto de um morro, com técnico e caminhonete ao lado",
+  telecom: "Torre de telecomunicações no alto de um morro, com técnico e caminhonete ao lado",
   "topografia-e-cadastro": "Topógrafo com colete refletivo e bastão GNSS ao lado de um marco de divisa em área rural",
   "meio-ambiente": "Técnica ambiental coletando amostra de água em um rio de mata",
   municipios: "Agente municipal com tablet em frente às casas de uma rua residencial",

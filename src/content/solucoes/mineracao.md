@@ -4,7 +4,7 @@ description: "Organize o controle de amostragem da mina com templates de coleta 
 setor: "Mineração"
 h1: "Controle de amostragem e coleta de campo para mineração"
 subtitulo: "O TerraNode é uma plataforma de coleta de dados geoespaciais em campo para mineração, com templates de amostragem e quarteamento, registro offline e criptografado de cada amostra, camadas da operação no mapa e recursos para revisão e exportação de dados."
-ordem: 8
+ordem: 9
 draft: false
 
 doresTitulo: "O que dificulta o controle de amostragem na mina"
@@ -118,7 +118,7 @@ O mapa do aplicativo mostra as camadas que a equipe configurar, como **direitos 
 
 Nossa plataforma também se integra ao **ArcGIS Online** e ao **ArcGIS Enterprise**, conectando a **coleta de dados em campo** ao **sistema de informação geográfica (SIG)** da organização.
 
-**Conheça as soluções do TerraNode para outras operações:** [exploração mineral](/solucoes/exploracao-mineral/), [meio ambiente](/solucoes/meio-ambiente/), [topografia e cadastro](/solucoes/topografia-e-cadastro/), [energia e telecom](/solucoes/energia-e-telecom/) e [saneamento e obras](/solucoes/saneamento-e-obras/).
+**Conheça as soluções do TerraNode para outras operações:** [exploração mineral](/solucoes/exploracao-mineral/), [meio ambiente](/solucoes/meio-ambiente/), [topografia e cadastro](/solucoes/topografia-e-cadastro/), [energia](/solucoes/energia/), [telecom](/solucoes/telecom/) e [saneamento e obras](/solucoes/saneamento-e-obras/).
 
 **Para conhecer outros recursos de configuração, acesse:** [formulários](/recursos/formularios/) e [catálogos](/recursos/catalogos/).
 

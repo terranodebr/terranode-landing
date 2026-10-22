@@ -4,7 +4,7 @@ description: "Faça levantamentos topográficos e cadastro técnico com formulá
 setor: "Topografia e cadastro"
 h1: "Levantamentos topográficos e cadastro técnico"
 subtitulo: "O TerraNode é uma plataforma de coleta de dados geoespaciais em campo para topografia e cadastro, com formulários configuráveis por levantamento, registro offline de pontos, fotos e confrontações, precisão centimétrica com GNSS externo e recursos para revisão e exportação de dados."
-ordem: 2
+ordem: 3
 draft: false
 
 doresTitulo: "O que dificulta os levantamentos topográficos e o cadastro técnico"
@@ -113,7 +113,7 @@ Os formulários podem ser configurados com os campos, as regras e os preenchimen
 
 Nossa plataforma também se integra ao **ArcGIS Online** e ao **ArcGIS Enterprise**, conectando a **coleta de dados em campo** ao **sistema de informação geográfica (SIG)** da organização. Os dados validados podem ser exportados em CSV, GeoJSON e Shapefile para seguir para o processamento.
 
-**Conheça as soluções do TerraNode para outras operações:** [energia e telecom](/solucoes/energia-e-telecom/), [meio ambiente](/solucoes/meio-ambiente/), [municípios](/solucoes/municipios/), [agro](/solucoes/agro/) e [saneamento e obras](/solucoes/saneamento-e-obras/).
+**Conheça as soluções do TerraNode para outras operações:** [energia](/solucoes/energia/), [telecom](/solucoes/telecom/), [meio ambiente](/solucoes/meio-ambiente/), [municípios](/solucoes/municipios/), [agro](/solucoes/agro/) e [saneamento e obras](/solucoes/saneamento-e-obras/).
 
 **Para conhecer outros recursos de configuração, acesse:** [formulários](/recursos/formularios/) e [catálogos](/recursos/catalogos/).
 

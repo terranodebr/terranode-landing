@@ -4,7 +4,7 @@ description: "Faça o monitoramento de lavouras com formulários personalizados,
 setor: "Agro"
 h1: "Mapeamento e monitoramento de lavouras"
 subtitulo: "O TerraNode é uma plataforma de coleta de dados geoespaciais em campo para o agro, com formulários configuráveis por talhão, registro offline de pragas, danos, amostras e fotos, e recursos para revisão e exportação de dados."
-ordem: 5
+ordem: 6
 draft: false
 
 doresTitulo: "O que dificulta o monitoramento das lavouras"
@@ -113,7 +113,7 @@ Os formulários podem ser configurados com os campos, as regras e os preenchimen
 
 Nossa plataforma também se integra ao **ArcGIS Online** e ao **ArcGIS Enterprise**, conectando a **coleta de dados em campo** ao **sistema de informação geográfica (SIG)** da organização.
 
-**Conheça as soluções do TerraNode para outras operações:** [energia e telecom](/solucoes/energia-e-telecom/), [topografia e cadastro](/solucoes/topografia-e-cadastro/), [meio ambiente](/solucoes/meio-ambiente/), [municípios](/solucoes/municipios/) e [saneamento e obras](/solucoes/saneamento-e-obras/).
+**Conheça as soluções do TerraNode para outras operações:** [energia](/solucoes/energia/), [telecom](/solucoes/telecom/), [topografia e cadastro](/solucoes/topografia-e-cadastro/), [meio ambiente](/solucoes/meio-ambiente/), [municípios](/solucoes/municipios/) e [saneamento e obras](/solucoes/saneamento-e-obras/).
 
 **Para conhecer outros recursos de configuração, acesse:** [formulários](/recursos/formularios/) e [catálogos](/recursos/catalogos/).
 
