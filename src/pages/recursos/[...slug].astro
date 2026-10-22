@@ -2,6 +2,7 @@
 import Recurso from "../../layouts/Recurso.astro";
 import CorpoCatalogos from "../../components/recursos/CorpoCatalogos.astro";
 import CorpoFormularios from "../../components/recursos/CorpoFormularios.astro";
+import CorpoIntegracoes from "../../components/recursos/CorpoIntegracoes.astro";
 import { getRecursos } from "../../lib/recursos";
 
 // Each feature page arranges its sections differently, so every entry needs a body here.
@@ -9,6 +10,7 @@ import { getRecursos } from "../../lib/recursos";
 const corpos = {
   catalogos: CorpoCatalogos,
   formularios: CorpoFormularios,
+  integracoes: CorpoIntegracoes,
 } as const;
 
 // The glob loader derives `id` from the filename: catalogos.md -> /recursos/catalogos/.

@@ -1165,6 +1165,104 @@ a.tn-sobre-contato:hover { color: var(--rec-text); border-color: rgba(255, 102, 
   .tn-form-campo { grid-template-columns: 1fr; }
 }
 
+/* ---------- Página de Integrações (/recursos/integracoes/) ---------- */
+
+/* Status colours for the sketches: light on the dark sections, darker on the orange one,
+   where the sketches sit on white cards. */
+.tn-int-mini { --int-ok: #7FD3A1; --int-erro: #F08B79; --int-aviso: #F2B872; --int-pulada: var(--rec-faint); }
+.tn-tema-laranja .tn-int-mini { --int-ok: #1F7A45; --int-erro: #B3261E; --int-aviso: #8A5300; }
+.tn-int-mini__head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--rec-line); }
+.tn-int-mini__titulo { font-weight: 600; font-size: 12.5px; }
+.tn-int-mini__tipo { margin-left: auto; font-family: var(--font-mono); font-size: 10px; color: var(--rec-faint); }
+.tn-int-mini__texto { font-size: 11.5px; color: var(--rec-muted); }
+.tn-int-ext { background: #2E9E5B; color: #fff; }
+
+/* Spreadsheet tab with the coordinate columns picked out. */
+.tn-int-grade { display: flex; flex-direction: column; border: 1px solid var(--rec-line); border-radius: 8px; overflow: hidden; }
+.tn-int-grade__linha { display: grid; grid-template-columns: 1fr 1.2fr 1.2fr 1fr; font-family: var(--font-mono); font-size: 10.5px; }
+.tn-int-grade__linha + .tn-int-grade__linha { border-top: 1px solid var(--rec-line); }
+.tn-int-grade__linha span { padding: 6px 7px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tn-int-grade__linha--head span { color: var(--rec-faint); background: rgba(255, 255, 255, 0.03); }
+.tn-int-grade__linha .is-coord { background: var(--tn-accent-wash-strong); color: var(--rec-text); }
+
+/* Rows that won't be imported, and a source change that blocks the sync. */
+.tn-int-erros { display: flex; flex-direction: column; gap: 4px; padding: 9px 10px; border-radius: 8px; background: rgba(224, 92, 72, 0.1); }
+.tn-int-erros__titulo { display: flex; align-items: center; gap: 6px; font-weight: 600; font-size: 11.5px; color: var(--int-erro); }
+.tn-int-erros__titulo span { display: flex; }
+.tn-int-erros__linha { font-family: var(--font-mono); font-size: 10.5px; color: var(--rec-muted); }
+.tn-int-erros__linha b { font-weight: 500; color: var(--rec-text); margin-right: 6px; }
+.tn-int-aviso { display: flex; align-items: flex-start; gap: 8px; padding: 9px 10px; border-radius: 8px; background: rgba(224, 92, 72, 0.1); font-size: 11.5px; line-height: 1.45; color: var(--rec-muted); }
+.tn-int-aviso > span:first-child { display: flex; margin-top: 2px; color: var(--int-erro); }
+.tn-int-aviso b { color: var(--rec-text); font-weight: 600; }
+.tn-int-aviso--leve { background: rgba(242, 184, 114, 0.14); }
+.tn-int-aviso--leve > span:first-child { color: var(--int-aviso); }
+.tn-int-corte { position: relative; display: flex; justify-content: center; height: 26px; }
+.tn-int-corte::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; border-left: 1px dashed var(--rec-line-2); }
+.tn-int-corte span { position: relative; align-self: center; padding: 2px 8px; border-radius: 100px; background: var(--rec-card-2); border: 1px solid var(--rec-line-2); font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--int-erro); }
+
+/* Schedule presets and run states. */
+.tn-int-opcoes { display: flex; flex-wrap: wrap; gap: 6px; }
+.tn-int-opcoes span { font-size: 11px; color: var(--rec-muted); border: 1px solid var(--rec-line-2); border-radius: 100px; padding: 4px 10px; }
+.tn-int-opcoes span.is-ativa { color: var(--rec-text); border-color: rgba(255, 102, 41, 0.6); background: rgba(255, 102, 41, 0.14); }
+.tn-int-ponto { width: 8px; height: 8px; flex-shrink: 0; border-radius: 50%; background: var(--int-pulada); }
+.tn-int-ponto--ok { background: var(--int-ok); }
+.tn-int-ponto--erro { background: var(--int-erro); }
+.tn-int-agora { display: flex; flex-direction: column; gap: 6px; }
+.tn-int-execucao { align-items: flex-start; }
+.tn-int-execucao .tn-int-ponto { margin-top: 4px; }
+.tn-int-execucao__texto { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.tn-int-execucao__estado { font-weight: 600; font-size: 12px; }
+.tn-int-execucao__detalhe { font-family: var(--font-mono); font-size: 10px; color: var(--rec-faint); }
+
+/* Portal connection form. */
+.tn-int-form { gap: 12px; }
+.tn-int-status { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 10px; color: var(--int-ok); white-space: nowrap; }
+.tn-int-status span { width: 7px; height: 7px; border-radius: 50%; background: #2E9E5B; box-shadow: 0 0 0 3px rgba(46, 158, 91, 0.2); }
+.tn-int-segmento { display: grid; grid-template-columns: 1fr 1fr; padding: 3px; border-radius: 9px; border: 1px solid var(--rec-line-2); }
+.tn-int-segmento span { padding: 6px 8px; border-radius: 7px; text-align: center; font-size: 11.5px; color: var(--rec-muted); }
+.tn-int-segmento span.is-ativa { background: var(--rec-text); color: var(--rec-inverso, #0C1312); font-weight: 600; }
+.tn-int-campo { display: flex; flex-direction: column; gap: 4px; }
+.tn-int-campo__rotulo { font-size: 10.5px; font-weight: 600; color: var(--rec-muted); }
+.tn-int-campo__valor { padding: 7px 9px; border-radius: 8px; border: 1px solid var(--rec-line-2); font-family: var(--font-mono); font-size: 11px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tn-int-campo__ajuda { font-size: 10px; color: var(--rec-faint); }
+.tn-int-botao { align-self: flex-end; padding: 7px 14px; border-radius: 100px; background: var(--tn-accent); color: #fff; font-weight: 600; font-size: 11.5px; }
+
+/* Renderer on the left, the style it becomes on the right. */
+.tn-int-simb { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 10px; }
+.tn-int-simb__lado { display: flex; flex-direction: column; gap: 8px; padding: 10px; border-radius: 10px; border: 1px solid var(--rec-line-2); }
+.tn-int-simb__seta { display: flex; color: var(--rec-faint); }
+.tn-int-simb__classes, .tn-int-simb__lista { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; font-size: 11.5px; }
+.tn-int-simb__classes li, .tn-int-simb__lista li { display: flex; align-items: center; gap: 7px; }
+.tn-int-simb__sw { width: 12px; height: 12px; border-radius: 50%; flex-shrink: 0; }
+.tn-int-check { width: 14px; height: 14px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border-radius: 4px; background: var(--tn-accent); color: #fff; }
+
+/* Survey123: the import report and the pointer to the ArcGIS section. */
+.tn-int-s123 { width: 100%; max-width: var(--container-max); display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: stretch; }
+.tn-int-s123__texto { margin: 0; padding: 22px; border-radius: 18px; border: 1px solid var(--rec-line); font-weight: 500; font-size: 15px; line-height: 1.6; color: var(--rec-muted); text-wrap: pretty; }
+.tn-int-s123__texto strong { display: block; margin-bottom: 4px; font-weight: 600; color: var(--rec-text); }
+.tn-int-s123__nota { display: flex; flex-direction: column; justify-content: space-between; gap: 14px; padding: 22px; border-radius: 18px; border: 1px solid rgba(255, 102, 41, 0.45); background: rgba(255, 102, 41, 0.08); font-weight: 500; font-size: 15px; line-height: 1.6; color: var(--rec-text); text-decoration: none; transition: background-color 0.2s; }
+.tn-int-s123__nota:hover { color: var(--rec-text); background: rgba(255, 102, 41, 0.14); }
+.tn-int-s123__ir { display: inline-flex; align-items: center; gap: 6px; font-weight: 600; font-size: 14px; color: var(--tn-accent); }
+.tn-int-s123__ir span { display: flex; }
+
+/* ArcGIS: a bigger heading, and the two portals compared under the story. */
+.tn-int-arcgis__h2 { font-size: clamp(34px, 5.4vw, 60px); }
+.tn-int-portais { width: 100%; max-width: var(--container-max); display: flex; flex-direction: column; align-items: center; gap: 28px; }
+.tn-int-portais__grade { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.tn-int-portal { display: flex; flex-direction: column; gap: 14px; padding: 24px; border-radius: 18px; border: 1px solid var(--rec-line); background: var(--rec-card); }
+.tn-int-portal__nome { font-weight: 600; font-size: 18px; letter-spacing: -0.01em; }
+.tn-int-portal__lista { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.tn-int-portal__lista li { position: relative; padding-left: 18px; font-weight: 500; font-size: 14.5px; line-height: 1.5; color: var(--rec-muted); }
+.tn-int-portal__lista li::before { content: ""; position: absolute; left: 0; top: 0.6em; width: 7px; height: 7px; border-radius: 50%; background: var(--rec-text); }
+
+@media (max-width: 900px) {
+  .tn-int-s123, .tn-int-portais__grade { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .tn-int-simb { grid-template-columns: 1fr; }
+  .tn-int-simb__seta { justify-content: center; transform: rotate(90deg); }
+}
+
 /* ---------- Comparativos (/comparativos/): a linguagem das páginas de recurso ---------- */
 
 /* Hero stage: the web panel as the window, the field app's phone in front of it. */

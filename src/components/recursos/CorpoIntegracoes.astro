@@ -1,0 +1,167 @@
+---
+// Body of /recursos/integracoes/, between the shared hero and closing CTA
+// (src/layouts/Recurso.astro): the Google Sheets bento, the Survey123 XLSForm import,
+// then the ArcGIS Online and Enterprise integration as the orange centrepiece, with its
+// scroll story and the two portals side by side. Claims follow
+// docs/dev/content/integrations.md, docs/product/content/google-sheets.md and
+// docs/product/content/survey123-import.md in terranode-backend.
+import ArcgisSeletor from "./ArcgisSeletor.astro";
+import FormColunas from "./FormColunas.astro";
+import Historia, { type Capitulo } from "./Historia.astro";
+import IntegracaoVisual from "./IntegracaoVisual.astro";
+import { asset } from "../../lib/asset";
+import type { Recurso } from "../../lib/recursos";
+
+interface Props {
+  entry: Recurso;
+}
+
+const d = Astro.props.entry.data;
+
+const secao = (id: string) => {
+  const s = d.secoes.find((x) => x.id === id);
+  if (!s) throw new Error(`src/content/recursos/integracoes.md has no secao "${id}"`);
+  return s;
+};
+const planilhas = secao("planilhas");
+const survey123 = secao("survey123");
+const arcgis = secao("arcgis");
+const portais = secao("portais");
+const semPonto = (s: string) => s.replace(/\.$/, "");
+const chips = (texto: string) => texto.split(" · ");
+
+// Bento: the spreadsheet behaviours after the lead item, each with its sketch.
+const bento = planilhas.itens.slice(1, 5).map((item, i) => ({
+  ...item,
+  visual: (["colunas", "previa", "bloqueio", "agenda"] as const)[i],
+}));
+
+// Survey123: the lead item, the three chip cards, then the import report.
+const [s123Lead, ...s123Resto] = survey123.itens;
+const s123Grupos = s123Resto.filter((i) => !i.titulo.endsWith("."));
+const s123Relatorio = s123Resto.find((i) => i.titulo.endsWith("."));
+
+// Scroll story: each chapter opens on one ArcGIS item and takes the items up to the
+// next chapter's opening item.
+const aberturas = [
+  { prefixo: "OAuth", rotulo: "CONECTAR", marca: "sem senha", visual: IntegracaoVisual, visualProps: { tipo: "conexao" } },
+  { prefixo: "Navegue", rotulo: "ESCOLHER", marca: "conteúdo da organização", visual: ArcgisSeletor },
+  { prefixo: "A simbologia", rotulo: "SIMBOLOGIA E CAMPOS", marca: "vem junto", visual: IntegracaoVisual, visualProps: { tipo: "simbologia" } },
+  { prefixo: "Agende", rotulo: "SINCRONIZAR", marca: "Agende", visual: IntegracaoVisual, visualProps: { tipo: "historico" } },
+];
+const inicios = aberturas.map((a) => {
+  const i = arcgis.itens.findIndex((item) => item.titulo.startsWith(a.prefixo));
+  if (i < 0) throw new Error(`secao "arcgis" has no item starting with "${a.prefixo}"`);
+  return i;
+});
+const capitulos: Capitulo[] = aberturas.map((a, n) => {
+  const abertura = arcgis.itens[inicios[n]];
+  const ultimo = n === aberturas.length - 1;
+  return {
+    rotulo: a.rotulo,
+    titulo: semPonto(abertura.titulo),
+    marca: a.marca,
+    texto: abertura.texto,
+    itens: arcgis.itens.slice(inicios[n] + 1, inicios[n + 1] ?? arcgis.itens.length),
+    nota: ultimo ? arcgis.nota : undefined,
+    visual: a.visual,
+    visualProps: a.visualProps,
+  };
+});
+
+const desce = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>';
+---
+<!-- Google Sheets: bento 2×2 -->
+<section id={planilhas.id} class="tn-rec-secao">
+  <div class="tn-rec-head" data-anim-bloco>
+    <span class="tn-rec-pilula" data-anim="up">{planilhas.eyebrow}</span>
+    <h2 class="tn-rec-h2" data-anim="words">{planilhas.titulo}</h2>
+    <p class="tn-rec-lead" data-anim="blur">{planilhas.itens[0].titulo} {planilhas.itens[0].texto}</p>
+  </div>
+
+  <div class="tn-rec-bento">
+    {bento.map((b) => (
+      <div class="tn-rec-bento__celula" data-anim="up" data-anim-bloco>
+        <div class="tn-rec-bento__visual"><IntegracaoVisual tipo={b.visual} /></div>
+        <span class="tn-rec-bento__rotulo" data-anim="up">{semPonto(b.titulo)}</span>
+        <p class="tn-rec-bento__texto" data-anim="blur">{b.texto}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<!-- Survey123: what the XLSForm brings, as chip cards, and where the answers come from -->
+<section id={survey123.id} class="tn-rec-secao tn-rec-secao--linha">
+  <div class="tn-rec-head" data-anim-bloco>
+    <span class="tn-rec-pilula" data-anim="up">{survey123.eyebrow}</span>
+    <h2 class="tn-rec-h2" data-anim="words">{survey123.titulo}</h2>
+    <p class="tn-rec-lead" data-anim="blur">{s123Lead.titulo} {s123Lead.texto}</p>
+  </div>
+
+  <div class="tn-rec-tipos tn-rec-tipos--grupos">
+    {s123Grupos.map((g, i) => (
+      <div class="tn-rec-tipo" data-anim="up" data-anim-bloco>
+        <span class="tn-rec-tipo__num">{String(i + 1).padStart(2, "0")}</span>
+        <span class="tn-rec-tipo__nome">{g.titulo}</span>
+        <div class="tn-rec-legenda tn-form-grupo" data-anim-group="pop">
+          {chips(g.texto).map((t) => <span>{t}</span>)}
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="tn-int-s123" data-anim-bloco>
+    {s123Relatorio && (
+      <p class="tn-int-s123__texto" data-anim="blur"><strong>{s123Relatorio.titulo}</strong> {s123Relatorio.texto}</p>
+    )}
+    {survey123.nota && (
+      <a href={`#${arcgis.id}`} class="tn-int-s123__nota" data-anim="up" data-mp-cta="integracoes_survey123_arcgis">
+        <span>{survey123.nota}</span>
+        <span class="tn-int-s123__ir">Ver a integração ArcGIS<span set:html={desce} /></span>
+      </a>
+    )}
+  </div>
+</section>
+
+<!-- ArcGIS Online e Enterprise: the centrepiece, on orange -->
+<section id={arcgis.id} class="tn-rec-secao tn-tema-laranja tn-int-arcgis">
+  <div class="tn-rec-head" data-anim-bloco>
+    <span class="tn-rec-pilula" data-anim="up">{arcgis.eyebrow}</span>
+    <h2 class="tn-rec-h2 tn-int-arcgis__h2" data-anim="words">{arcgis.titulo}</h2>
+    <p class="tn-rec-lead" data-anim="blur">{arcgis.itens[0].titulo} {arcgis.itens[0].texto}</p>
+  </div>
+
+  <Historia capitulos={capitulos} />
+
+  <div id={portais.id} class="tn-int-portais" data-anim-bloco>
+    <div class="tn-rec-head tn-rec-head--pequeno">
+      <span class="tn-rec-faixa__legenda" data-anim="up">{portais.eyebrow}</span>
+      <h3 class="tn-rec-h3" data-anim="words">{portais.titulo}</h3>
+    </div>
+    <div class="tn-int-portais__grade">
+      {portais.itens.map((p) => (
+        <div class="tn-int-portal" data-anim="up">
+          <span class="tn-int-portal__nome">{p.titulo}</span>
+          <ul class="tn-int-portal__lista">
+            {chips(p.texto).map((t) => <li>{t}</li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- Depois da sincronização: the synced layer as a starting point for a form -->
+{d.complemento && (
+  <section class="tn-rec-secao">
+    <div class="tn-form-origem">
+      <div class="tn-rec-head tn-form-origem__head" data-anim-bloco>
+        <span class="tn-rec-pilula" data-anim="up">{d.complemento.eyebrow}</span>
+        <h2 class="tn-rec-h2" data-anim="words">{d.complemento.titulo}</h2>
+        <p class="tn-rec-lead" data-anim="blur">{d.complemento.texto}</p>
+        <a href={asset("/recursos/formularios/")} class="tn-rec-btn" data-anim="up" data-mp-cta="integracoes_formularios">Ver Formulários</a>
+      </div>
+      <div data-anim="scale" data-anim-bloco><FormColunas /></div>
+    </div>
+  </section>
+)}

@@ -15,11 +15,12 @@ const chamada = (h1: string) => h1.split(/(?<=\.) /)[0];
 
 const icones: Record<string, string> = {
   formulario: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="3" width="15" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>',
+  integracao: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h14l-3.5-3.5M20 16H6l3.5 3.5"/></svg>',
   relatorio: '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>',
 };
-// Published pages: the forms page keeps the icon it had while "Em breve"; the rest use
-// the layers icon.
-const iconePorPagina: Record<string, string> = { formularios: "formulario" };
+// Published pages: the forms page keeps the icon it had while "Em breve", integrations
+// gets the two-way arrows; the rest use the layers icon.
+const iconePorPagina: Record<string, string> = { formularios: "formulario", integracoes: "integracao" };
 const icone = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 8.5 4.5L12 12 3.5 7.5z"/><path d="m3.5 12 8.5 4.5 8.5-4.5M3.5 16.5 12 21l8.5-4.5"/></svg>';
 const menu = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path class="tn-header__menu-linha tn-header__menu-linha--1" d="M4 8h16"/><path class="tn-header__menu-linha tn-header__menu-linha--2" d="M4 16h16"/></svg>';
 // Sector pages for the Casos de uso menu, with the same draft filter: the menu only
