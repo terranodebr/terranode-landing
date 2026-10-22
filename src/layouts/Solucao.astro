@@ -38,8 +38,8 @@ const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
 // Each sector's hero stage: its photo behind the screens (`fotosSetor`), the web
 // panel's overview of one of the sector's projects, and the field app's form for a
 // point of that project in front. The same projects run through both, so the two
-// screens tell one story. A sector missing from the list gets energy's screens; one
-// without a photo keeps the stage's default aerial image.
+// screens tell one story. A sector missing from the list shows its photo alone, never
+// another sector's screens; one without a photo keeps the stage's default aerial image.
 interface Tela { src: ImageMetadata; alt: string }
 interface Palco { web: Tela; celular: Tela }
 const web = (src: ImageMetadata, projeto: string): Tela => ({
@@ -76,7 +76,7 @@ const palcos: Record<string, Palco> = {
     celular: app(appSaneamento, "serviço executado, fotos do serviço e assinatura do responsável"),
   },
 };
-const palco = palcos[entry.id] ?? palcos.energia;
+const palco: Palco | undefined = palcos[entry.id];
 const foto = fotosSetor[entry.id];
 const fundo = foto ? await getImage({ src: foto, width: 1600, format: "webp" }) : undefined;
 
@@ -124,17 +124,21 @@ const aspas = '<svg width="34" height="26" viewBox="0 0 34 26" fill="none" aria-
 
       <!-- TerraNode's own screens on the sector photo (see `palcos` above). -->
       <div class="tn-rec-palco-entrada" data-anim="rise" data-anim-bloco data-anim-delay="0.45">
-        <div class="tn-rec-palco tn-cmp-palco tn-sol-palco" data-rec-palco style={fundo ? `--sol-foto: url(${fundo.src})` : undefined}>
+        <div class={`tn-rec-palco tn-cmp-palco tn-sol-palco${palco ? "" : " tn-sol-palco--foto"}`} data-rec-palco style={fundo ? `--sol-foto: url(${fundo.src})` : undefined}>
           <div class="tn-rec-palco__barra">
             <img src={asset("/favicon-96x96.png")} alt="Símbolo do TerraNode" aria-hidden="true" width="30" height="30" class="tn-rec-palco__marca" />
-            <span class="tn-rec-palco__status"><span class="tn-rec-palco__dot"></span>Painel web e app de campo do TerraNode</span>
+            <span class="tn-rec-palco__status"><span class="tn-rec-palco__dot"></span>{palco ? "Painel web e app de campo do TerraNode" : `Coleta de campo · ${d.setor}`}</span>
           </div>
+          {palco && (
+          <>
           <div class="tn-cmp-janela">
             <Image src={palco.web.src} alt={palco.web.alt} widths={[720, 1180, 2000]} sizes="(max-width: 1180px) 90vw, 940px" loading="eager" />
           </div>
           <div class="tn-cmp-palco__celular tn-sol-celular">
             <Image src={palco.celular.src} alt={palco.celular.alt} widths={[240, 480, 720]} sizes="(max-width: 700px) 30vw, 240px" loading="eager" />
           </div>
+          </>
+          )}
         </div>
       </div>
     </section>
