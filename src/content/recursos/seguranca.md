@@ -47,7 +47,7 @@ secoes:
     titulo: "Cada organização vê só os seus dados"
     itens:
       - titulo: "A separação está no próprio banco de dados."
-        texto: "Toda tabela com dados de uma organização tem uma regra de acesso no banco que só devolve as linhas daquela organização, e a aplicação se conecta com um usuário que não consegue ignorar essa regra."
+        texto: "Toda tabela com dados de uma organização tem uma regra de acesso no banco que só devolve as linhas daquela organização."
       - titulo: "Papéis por organização."
         texto: "Cada pessoa entra como dono, editor ou equipe de campo, e vê e faz só o que o seu papel permite."
       - titulo: "Arquivos sem link público."
