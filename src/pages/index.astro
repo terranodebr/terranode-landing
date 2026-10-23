@@ -28,7 +28,9 @@ import ucMunicipios from "../assets/uc-municipios.png";
 import ucSaneamento from "../assets/uc-saneamento.png";
 import ucTopografia from "../assets/uc-topografia.png";
 // The sector page photo of a telecom tower doubles as the telecom card until it gets its own.
-import ucTelecom from "../assets/setor-energia.webp";
+import ucTelecom from "../assets/setor-telecom.webp";
+import ucExploracao from "../assets/uc-exploracao-mineral.webp";
+import ucMineracao from "../assets/uc-mineracao.webp";
 
 const title = "TerraNode · Coleta GIS offline integrada ao ArcGIS";
 const description =
@@ -156,16 +158,15 @@ const casos = [
     texto: "Diário de obra georreferenciado: cada medição, ligação e não conformidade fica amarrada ao ponto exato, com histórico de quem registrou.",
     campos: ["Serviço", "Medição", "Não conformidade", "Assinatura"],
   },
-  // No photo yet: these cards show the plain panel below until uc-*.webp lands.
   {
-    slug: "exploracao-mineral", tag: "Exploração mineral", titulo: "Geoquímica e mapeamento geológico", img: undefined,
-    alt: "",
+    slug: "exploracao-mineral", tag: "Exploração mineral", titulo: "Geoquímica e mapeamento geológico", img: ucExploracao,
+    alt: "Geóloga agachada junto a um afloramento rochoso, registrando no celular, com martelo e sacos de amostra etiquetados no solo vermelho",
     texto: "Amostras, afloramentos e quarteamento registrados com templates prontos, criptografados no aparelho e com direitos minerários e cartas geológicas no mapa.",
     campos: ["Código da amostra", "Litologia", "Direção / mergulho", "Processo minerário"],
   },
   {
-    slug: "mineracao", tag: "Mineração", titulo: "Controle de amostragem na mina", img: undefined,
-    alt: "",
+    slug: "mineracao", tag: "Mineração", titulo: "Controle de amostragem na mina", img: ucMineracao,
+    alt: "Técnica de capacete e colete laranja consultando o celular ao lado de uma pilha de minério com sacos de amostra numerados, em mina a céu aberto",
     texto: "Cada amostra com código, coordenada, fotos e responsável, no mesmo padrão para todas as frentes e turnos, e revisada antes de seguir para análise.",
     campos: ["Código da amostra", "Tipo de material", "Massa inicial / final", "Responsável"],
   },
