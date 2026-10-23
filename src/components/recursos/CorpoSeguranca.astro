@@ -1,0 +1,119 @@
+---
+// Body of /recursos/seguranca/, between the shared hero and closing CTA
+// (src/layouts/Recurso.astro): encryption on the device, in transit and on the server,
+// data hosted in São Paulo over the dotted map, isolation between organizations, and the
+// app page for the offline side. Claims follow terranode-android (storage/DatabaseEngine.kt,
+// storage/user/UserMediaStore.kt, storage/keys/KeystoreStorageKeySealer.kt,
+// session/KeystoreTokenCipher.kt, res/xml/backup_rules.xml) and terranode-backend
+// (terraform/app/lb_dns_cert.tf, cloudsql.tf, storage.tf, terraform/production/,
+// settings/prod.py, core/crypto.py, core/rls.py, organizations/models.py, projects/events.py).
+// Only the database and files are said to be in São Paulo: the backup location is not
+// pinned in terraform, and supporting services run elsewhere.
+import MapaPontilhado from "./MapaPontilhado.astro";
+import { asset } from "../../lib/asset";
+import type { Recurso } from "../../lib/recursos";
+
+interface Props {
+  entry: Recurso;
+}
+
+const d = Astro.props.entry.data;
+
+const secao = (id: string) => {
+  const s = d.secoes.find((x) => x.id === id);
+  if (!s) throw new Error(`src/content/recursos/seguranca.md has no secao "${id}"`);
+  return s;
+};
+const criptografia = secao("criptografia");
+const residencia = secao("residencia");
+const lgpd = secao("lgpd");
+const semPonto = (s: string) => s.replace(/\.$/, "");
+
+// Encryption: the lead item, the three layers (titles without a final period), then the
+// rules (full sentences).
+const [criptoLead, ...criptoResto] = criptografia.itens;
+const camadas = criptoResto.filter((i) => !i.titulo.endsWith("."));
+const criptoRegras = criptoResto.filter((i) => i.titulo.endsWith("."));
+
+const [residenciaLead, ...residenciaItens] = residencia.itens;
+const [lgpdLead, ...lgpdItens] = lgpd.itens;
+
+const cadeado = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7.5a4 4 0 0 1 8 0V11"/></svg>';
+const escudo = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5 4.5 5.5v6c0 4.6 3.2 8.4 7.5 10 4.3-1.6 7.5-5.4 7.5-10v-6z"/><path d="m8.8 12 2.3 2.3 4.2-4.6"/></svg>';
+---
+<!-- Criptografia: the three layers, then passwords, tokens and integration credentials -->
+<section id={criptografia.id} class="tn-rec-secao">
+  <div class="tn-rec-head" data-anim-bloco>
+    <span class="tn-rec-pilula" data-anim="up">{criptografia.eyebrow}</span>
+    <h2 class="tn-rec-h2" data-anim="words">{criptografia.titulo}</h2>
+    <p class="tn-rec-lead" data-anim="blur">{criptoLead.titulo} {criptoLead.texto}</p>
+  </div>
+
+  <div class="tn-rec-tipos tn-rec-tipos--grupos">
+    {camadas.map((c) => (
+      <div class="tn-rec-tipo" data-anim="up" data-anim-bloco>
+        <span class="tn-app-garantia__icone" set:html={cadeado} />
+        <span class="tn-rec-tipo__nome">{c.titulo}</span>
+        <p class="tn-app-garantia__texto">{c.texto}</p>
+      </div>
+    ))}
+  </div>
+
+  <div class="tn-app-regras" data-anim-bloco>
+    {criptoRegras.map((r) => (
+      <p class="tn-app-regras__item" data-anim="blur"><strong>{r.titulo}</strong> {r.texto}</p>
+    ))}
+  </div>
+</section>
+
+<!-- Residência: São Paulo over the dotted map of Brazil -->
+<section id={residencia.id} class="tn-rec-secao tn-rec-publicos tn-tema-verde">
+  <div class="tn-rec-publicos__mapa" data-anim-bloco><MapaPontilhado /></div>
+  <div class="tn-rec-head tn-rec-publicos__head" data-anim-bloco>
+    <span class="tn-rec-pilula" data-anim="up">{residencia.eyebrow}</span>
+    <h2 class="tn-rec-h2" data-anim="words">{residencia.titulo}</h2>
+    <p class="tn-rec-lead" data-anim="blur">{residenciaLead.titulo} {residenciaLead.texto}</p>
+  </div>
+  <div class="tn-app-regras tn-seg-regras" data-anim-bloco>
+    {residenciaItens.map((r) => (
+      <p class="tn-app-regras__item" data-anim="blur"><strong>{r.titulo}</strong> {r.texto}</p>
+    ))}
+  </div>
+</section>
+
+<!-- LGPD: isolation between organizations, roles, private files and the project history -->
+<section id={lgpd.id} class="tn-rec-secao">
+  <div class="tn-rec-head" data-anim-bloco>
+    <span class="tn-rec-pilula" data-anim="up">{lgpd.eyebrow}</span>
+    <h2 class="tn-rec-h2" data-anim="words">{lgpd.titulo}</h2>
+    <p class="tn-rec-lead" data-anim="blur">{lgpdLead.titulo} {lgpdLead.texto}</p>
+  </div>
+
+  <div class="tn-rec-tipos">
+    {lgpdItens.map((s) => (
+      <div class="tn-rec-tipo" data-anim="up" data-anim-bloco>
+        <span class="tn-app-garantia__icone" set:html={escudo} />
+        <span class="tn-rec-tipo__nome">{semPonto(s.titulo)}</span>
+        <p class="tn-app-garantia__texto">{s.texto}</p>
+      </div>
+    ))}
+  </div>
+
+  {lgpd.nota && (
+    <div class="tn-app-regras tn-seg-nota" data-anim-bloco>
+      <p class="tn-app-regras__item tn-app-regras__item--nota" data-anim="blur">{lgpd.nota}</p>
+    </div>
+  )}
+</section>
+
+<!-- No campo: the offline side lives on the app page -->
+{d.complemento && (
+  <section class="tn-rec-secao tn-rec-secao--linha">
+    <div class="tn-rec-head" data-anim-bloco>
+      <span class="tn-rec-pilula" data-anim="up">{d.complemento.eyebrow}</span>
+      <h2 class="tn-rec-h2" data-anim="words">{d.complemento.titulo}</h2>
+      <p class="tn-rec-lead" data-anim="blur">{d.complemento.texto}</p>
+      <a href={asset("/recursos/aplicativo/")} class="tn-rec-btn" data-anim="up" data-mp-cta="seguranca_aplicativo">Ver o aplicativo</a>
+    </div>
+  </section>
+)}

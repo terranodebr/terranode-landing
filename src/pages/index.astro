@@ -106,8 +106,10 @@ const capitulos: Capitulo[] = passos.map((p) => ({
   visualProps: { tipo: p.visual },
 }));
 
-// The app section links to its feature page only once that page is published.
-const aplicativo = (await getRecursos()).some((r) => r.id === "aplicativo");
+// The app and security sections link to their feature pages only once those are published.
+const recursos = await getRecursos();
+const aplicativo = recursos.some((r) => r.id === "aplicativo");
+const paginaSeguranca = recursos.some((r) => r.id === "seguranca");
 
 // Use cases. A case links to its sector page when this build publishes one.
 const solucoes = new Set((await getSolucoes()).map((s) => s.id));
@@ -301,6 +303,9 @@ const abre = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke
           </div>
         ))}
       </div>
+      {paginaSeguranca && (
+        <a href={asset("/recursos/seguranca/")} class="tn-rec-btn tn-rec-btn--claro" data-anim="up" data-mp-cta="home_seguranca">Ver segurança e LGPD</a>
+      )}
     </section>
 
     <!-- O app: vídeo real de coleta -->

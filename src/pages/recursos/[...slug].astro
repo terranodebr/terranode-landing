@@ -4,6 +4,7 @@ import CorpoAplicativo from "../../components/recursos/CorpoAplicativo.astro";
 import CorpoCatalogos from "../../components/recursos/CorpoCatalogos.astro";
 import CorpoFormularios from "../../components/recursos/CorpoFormularios.astro";
 import CorpoIntegracoes from "../../components/recursos/CorpoIntegracoes.astro";
+import CorpoSeguranca from "../../components/recursos/CorpoSeguranca.astro";
 import { getRecursos } from "../../lib/recursos";
 
 // Each feature page arranges its sections differently, so every entry needs a body here.
@@ -13,6 +14,7 @@ const corpos = {
   catalogos: CorpoCatalogos,
   formularios: CorpoFormularios,
   integracoes: CorpoIntegracoes,
+  seguranca: CorpoSeguranca,
 } as const;
 
 // The glob loader derives `id` from the filename: catalogos.md -> /recursos/catalogos/.
