@@ -26,6 +26,8 @@ secoes:
         texto: "A chave de acesso do aplicativo fica cifrada no aparelho, e o servidor guarda só o hash dela. Ao sair da conta, o app pede ao servidor que a revogue."
       - titulo: "Credenciais de integração cifradas."
         texto: "Credenciais do ArcGIS e do Google ficam cifradas no banco, com chaves que podem ser trocadas, e nunca voltam para a tela."
+      - titulo: "Em breve: apagar os dados à distância."
+        texto: "Em caso de perda ou roubo do celular, será possível solicitar que os dados do TerraNode sejam apagados do aparelho remotamente."
 
   - id: residencia
     eyebrow: "DADOS NO BRASIL"

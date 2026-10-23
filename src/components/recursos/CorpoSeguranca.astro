@@ -60,7 +60,7 @@ const escudo = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stro
     ))}
   </div>
 
-  <div class="tn-app-regras" data-anim-bloco>
+  <div class="tn-app-regras tn-seg-grade" data-anim-bloco>
     {criptoRegras.map((r) => (
       <p class="tn-app-regras__item" data-anim="blur"><strong>{r.titulo}</strong> {r.texto}</p>
     ))}
@@ -75,7 +75,7 @@ const escudo = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stro
     <h2 class="tn-rec-h2" data-anim="words">{residencia.titulo}</h2>
     <p class="tn-rec-lead" data-anim="blur">{residenciaLead.titulo} {residenciaLead.texto}</p>
   </div>
-  <div class="tn-app-regras tn-seg-regras" data-anim-bloco>
+  <div class="tn-app-regras tn-seg-grade tn-seg-regras" data-anim-bloco>
     {residenciaItens.map((r) => (
       <p class="tn-app-regras__item" data-anim="blur"><strong>{r.titulo}</strong> {r.texto}</p>
     ))}
