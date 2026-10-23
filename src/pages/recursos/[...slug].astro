@@ -1,6 +1,7 @@
 ---
 import Recurso from "../../layouts/Recurso.astro";
 import CorpoAplicativo from "../../components/recursos/CorpoAplicativo.astro";
+import CorpoCliIa from "../../components/recursos/CorpoCliIa.astro";
 import CorpoCatalogos from "../../components/recursos/CorpoCatalogos.astro";
 import CorpoFormularios from "../../components/recursos/CorpoFormularios.astro";
 import CorpoIntegracoes from "../../components/recursos/CorpoIntegracoes.astro";
@@ -12,6 +13,7 @@ import { getRecursos } from "../../lib/recursos";
 const corpos = {
   aplicativo: CorpoAplicativo,
   catalogos: CorpoCatalogos,
+  "cli-ia": CorpoCliIa,
   formularios: CorpoFormularios,
   integracoes: CorpoIntegracoes,
   seguranca: CorpoSeguranca,

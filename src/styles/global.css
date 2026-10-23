@@ -1381,6 +1381,23 @@ a.tn-sobre-contato:hover { color: var(--rec-text); border-color: rgba(255, 102, 
   .tn-seg-grade { grid-template-columns: 1fr; }
 }
 
+/* ---------- CLI e IA (/recursos/cli-ia/) ---------- */
+/* Each example: the prompt bubble, the terminal session it turns into, then the summary. */
+.tn-cli-exemplos { width: 100%; max-width: var(--container-max); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.tn-cli-exemplo { min-width: 0; display: flex; flex-direction: column; gap: 14px; padding: 22px; border-radius: 18px; border: 1px solid var(--rec-line); background: var(--rec-card); }
+.tn-cli-exemplo__rotulo { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--rec-faint); }
+.tn-cli-exemplo__pedido { margin: 0; align-items: flex-start; line-height: 1.5; text-wrap: pretty; }
+.tn-cli-exemplo__pedido .tn-rec-ia__brilho { margin-top: 2px; }
+.tn-cli-terminal { margin: 0; padding: 14px 16px; border-radius: 12px; border: 1px solid var(--rec-line-2); background: #070B0A; white-space: pre-wrap; overflow-wrap: anywhere; font-family: var(--font-mono); font-size: 12px; line-height: 1.7; }
+.tn-cli-terminal__linha { color: var(--rec-faint); }
+.tn-cli-terminal__linha.is-comando, .tn-cli-terminal__linha.is-continua { color: var(--rec-text); }
+.tn-cli-terminal__linha.is-comando::first-letter { color: var(--tn-accent); }
+.tn-cli-nota { grid-template-columns: 1fr; max-width: 880px; }
+@media (max-width: 900px) {
+  .tn-cli-exemplos { grid-template-columns: minmax(0, 1fr); }
+  .tn-cli-terminal { font-size: 11px; }
+}
+
 /* ---------- Comparativos (/comparativos/): a linguagem das páginas de recurso ---------- */
 
 /* Hero stage: the web panel as the window, the field app's phone in front of it. */
