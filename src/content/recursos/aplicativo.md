@@ -21,7 +21,7 @@ secoes:
       - titulo: "Consulta de área sem internet."
         texto: "O campo de consulta mostra, no próprio aparelho, a área do projeto onde está o ponto coletado, como o talhão, o bairro ou o lote."
       - titulo: "Sempre sabe se está online."
-        texto: "Um indicador Online ou Offline fica no topo de todas as telas, e os projetos já baixados continuam na lista sem conexão."
+        texto: "Um indicador Online ou Offline fica no topo de todas as telas e os projetos já baixados continuam na lista sem conexão."
 
   - id: coleta
     eyebrow: "COLETA SIMPLES"
