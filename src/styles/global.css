@@ -1263,6 +1263,111 @@ a.tn-sobre-contato:hover { color: var(--rec-text); border-color: rgba(255, 102, 
   .tn-int-simb__seta { justify-content: center; transform: rotate(90deg); }
 }
 
+/* ---------- Página do Aplicativo (/recursos/aplicativo/) ---------- */
+
+/* Status colours for the sketches: light on the dark sections, darker on the orange one,
+   where the sketches sit on white cards. */
+.tn-app-mini { --app-ok: #7FD3A1; --app-erro: #F08B79; --app-aviso: #F2B872; --app-pendente: var(--rec-faint); }
+.tn-tema-laranja .tn-app-mini { --app-ok: #1F7A45; --app-erro: #B3261E; --app-aviso: #8A5300; }
+.tn-app-mini__head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--rec-line); }
+.tn-app-mini__head--fim { padding: 10px 0 0; border-bottom: 0; border-top: 1px solid var(--rec-line); }
+.tn-app-mini__titulo { font-weight: 600; font-size: 12.5px; }
+.tn-app-mini__texto { font-size: 11.5px; color: var(--rec-muted); }
+.tn-app-mini__nome { display: flex; flex-direction: column; gap: 1px; min-width: 0; font-size: 12px; font-weight: 500; }
+.tn-app-mini__sub { font-family: var(--font-mono); font-size: 10px; font-weight: 400; color: var(--rec-faint); }
+.tn-app-mini__base { width: 12px; height: 12px; flex-shrink: 0; border-radius: 3px; background: linear-gradient(135deg, #52704A, #9A9660 60%, #C5AE83); }
+.tn-app-mini__mapa { width: 28px; height: 28px; flex-shrink: 0; border-radius: 6px; background: linear-gradient(135deg, #52704A, #9A9660 60%, #C5AE83); }
+.tn-app-mini__conta { margin-left: auto; font-family: var(--font-mono); font-size: 12px; font-weight: 600; }
+
+/* Online / Offline pill, as in the app header. */
+.tn-app-pilula { display: inline-flex; align-items: center; gap: 6px; padding: 3px 9px; border-radius: 100px; font-family: var(--font-mono); font-size: 10px; white-space: nowrap; border: 1px solid var(--rec-line-2); color: var(--rec-muted); }
+.tn-app-pilula span { width: 7px; height: 7px; border-radius: 50%; background: var(--rec-faint); }
+.tn-app-pilula--on { color: var(--app-ok); }
+.tn-app-pilula--on span { background: #2E9E5B; box-shadow: 0 0 0 3px rgba(46, 158, 91, 0.2); }
+
+.tn-app-switch { position: relative; margin-left: auto; width: 26px; height: 15px; flex-shrink: 0; border-radius: 100px; background: var(--rec-line-2); }
+.tn-app-switch::after { content: ""; position: absolute; top: 2px; left: 2px; width: 11px; height: 11px; border-radius: 50%; background: var(--rec-text); opacity: 0.7; transition: left 0.2s; }
+.tn-app-switch.is-on { background: var(--tn-accent); }
+.tn-app-switch.is-on::after { left: 13px; background: #fff; opacity: 1; }
+.tn-app-check { margin-left: auto; width: 16px; height: 16px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(46, 158, 91, 0.2); color: var(--app-ok); }
+
+/* Location lookup: two plots, the point inside the active one, and the field it fills. */
+.tn-app-consulta { width: 100%; height: auto; border-radius: 8px; background: rgba(255, 255, 255, 0.03); }
+.tn-app-consulta__area { fill: rgba(255, 255, 255, 0.04); stroke: var(--rec-line-2); stroke-width: 1.2; }
+.tn-app-consulta__area.is-ativa { fill: var(--tn-accent-wash-strong); stroke: var(--tn-accent); }
+.tn-app-consulta text { font-family: var(--font-mono); font-size: 11px; fill: var(--rec-faint); }
+.tn-app-consulta__ponto { fill: var(--tn-accent); stroke: #fff; stroke-width: 2; }
+.tn-app-consulta__halo { fill: rgba(255, 102, 41, 0.2); }
+.tn-app-campo { display: flex; flex-direction: column; gap: 4px; }
+.tn-app-campo__rotulo { font-size: 10.5px; font-weight: 600; color: var(--rec-muted); }
+.tn-app-campo__valor { padding: 7px 9px; border-radius: 8px; border: 1px solid var(--rec-line-2); font-weight: 600; font-size: 12px; }
+.tn-app-campo__ajuda { font-size: 10px; color: var(--rec-faint); }
+
+/* Session map: the walked track, the records along it and the current position. */
+.tn-app-mapa { max-width: 380px; padding: 0; overflow: hidden; gap: 0; }
+.tn-app-mapa__aviso { display: flex; align-items: center; gap: 8px; padding: 10px 14px; font-weight: 600; font-size: 11.5px; border-bottom: 1px solid var(--rec-line); }
+.tn-app-mapa__rec { width: 8px; height: 8px; border-radius: 50%; background: var(--tn-accent); animation: tn-pulse 2s ease-in-out infinite; }
+.tn-app-mapa__svg { display: block; width: 100%; height: auto; background: linear-gradient(160deg, rgba(82, 112, 74, 0.35), rgba(154, 150, 96, 0.22) 60%, rgba(197, 174, 131, 0.18)); }
+.tn-app-mapa__area { fill: rgba(255, 255, 255, 0.06); stroke: rgba(255, 255, 255, 0.28); stroke-width: 1; }
+.tn-app-mapa__trilha { fill: none; stroke: var(--tn-accent); stroke-width: 2; stroke-dasharray: 0.012 0.012; stroke-linecap: round; }
+.tn-app-mapa__marcador { fill: #2E9E5B; stroke: #fff; stroke-width: 2; }
+.tn-app-mapa__eu { fill: #3B82F6; stroke: #fff; stroke-width: 2; }
+.tn-app-mapa__halo { fill: rgba(59, 130, 246, 0.22); }
+.tn-app-mapa__rodape { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 14px; border-top: 1px solid var(--rec-line); }
+.tn-app-mapa__chip { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 10.5px; color: var(--rec-muted); }
+.tn-app-mapa__chip span { display: flex; }
+.tn-app-mapa__botao, .tn-app-botao { padding: 7px 14px; border-radius: 100px; background: var(--tn-accent); color: #fff; font-weight: 600; font-size: 11.5px; }
+.tn-app-botao { align-self: stretch; text-align: center; }
+.tn-app-botao.is-espera { background: transparent; border: 1px dashed var(--rec-line-2); color: var(--rec-muted); }
+
+/* Records and their sync state. */
+.tn-app-agora { display: flex; flex-direction: column; gap: 6px; }
+.tn-app-ponto { width: 8px; height: 8px; flex-shrink: 0; border-radius: 50%; background: var(--app-pendente); }
+.tn-app-ponto--ok { background: var(--app-ok); }
+.tn-app-ponto--aviso { background: var(--app-aviso); }
+.tn-app-ponto--erro { background: var(--app-erro); }
+.tn-app-registro { align-items: flex-start; }
+.tn-app-registro .tn-app-ponto { margin-top: 4px; }
+.tn-app-registro__texto { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.tn-app-registro__id { font-weight: 600; font-size: 12px; }
+.tn-app-registro__detalhe { font-family: var(--font-mono); font-size: 10px; color: var(--rec-faint); }
+.tn-app-registro--recusa { background: rgba(224, 92, 72, 0.1); }
+.tn-app-dados { margin: 0; display: flex; flex-direction: column; gap: 6px; }
+.tn-app-dados div { display: flex; justify-content: space-between; gap: 10px; padding: 7px 9px; border-radius: 8px; background: rgba(255, 255, 255, 0.03); border: 1px solid var(--rec-line); }
+.tn-app-dados dt { font-size: 11px; color: var(--rec-muted); }
+.tn-app-dados dd { margin: 0; display: inline-flex; align-items: center; gap: 6px; font-weight: 600; font-size: 11.5px; }
+.tn-app-dados dd.is-ok { color: var(--app-ok); }
+
+/* Send notification. */
+.tn-app-notificacao { display: flex; align-items: center; gap: 10px; padding: 10px; border-radius: 10px; border: 1px solid var(--rec-line-2); }
+.tn-app-notificacao__icone { width: 28px; height: 28px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border-radius: 8px; background: var(--tn-accent); color: #fff; }
+.tn-app-notificacao__texto { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.tn-app-avatar { width: 24px; height: 24px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: var(--tn-accent-wash-strong); color: var(--tn-accent); font-weight: 600; font-size: 11px; }
+
+/* Field types: validation and conditional questions under the chip cards. */
+.tn-app-regras { width: 100%; max-width: var(--container-max); display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.tn-app-regras__item { margin: 0; padding: 22px; border-radius: 18px; border: 1px solid var(--rec-line); font-weight: 500; font-size: 15px; line-height: 1.6; color: var(--rec-muted); text-wrap: pretty; }
+.tn-app-regras__item strong { display: block; margin-bottom: 4px; font-weight: 600; color: var(--rec-text); }
+.tn-app-regras__item--nota { border-color: rgba(255, 102, 41, 0.45); background: rgba(255, 102, 41, 0.08); color: var(--rec-text); }
+
+/* Session and the panel: the list under the lead, the sketch beside it. */
+.tn-app-itens { text-align: left; }
+.tn-app-sessao__visual { display: flex; justify-content: center; }
+.tn-app-sessao__visual > * { max-width: 380px; }
+
+.tn-app-sync__h2 { font-size: clamp(34px, 5.4vw, 60px); }
+
+/* Security cards. */
+.tn-app-garantia__icone { display: flex; color: var(--tn-accent); }
+.tn-app-garantia__texto { margin: 0; font-weight: 500; font-size: 14.5px; line-height: 1.55; color: var(--rec-muted); text-wrap: pretty; }
+
+@media (max-width: 900px) {
+  .tn-app-regras { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .tn-app-mapa__rec { animation: none; }
+}
+
 /* ---------- Comparativos (/comparativos/): a linguagem das páginas de recurso ---------- */
 
 /* Hero stage: the web panel as the window, the field app's phone in front of it. */

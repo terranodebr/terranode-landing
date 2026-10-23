@@ -1,5 +1,6 @@
 ---
 import Recurso from "../../layouts/Recurso.astro";
+import CorpoAplicativo from "../../components/recursos/CorpoAplicativo.astro";
 import CorpoCatalogos from "../../components/recursos/CorpoCatalogos.astro";
 import CorpoFormularios from "../../components/recursos/CorpoFormularios.astro";
 import CorpoIntegracoes from "../../components/recursos/CorpoIntegracoes.astro";
@@ -8,6 +9,7 @@ import { getRecursos } from "../../lib/recursos";
 // Each feature page arranges its sections differently, so every entry needs a body here.
 // A new .md without one fails the build instead of shipping a hero with nothing under it.
 const corpos = {
+  aplicativo: CorpoAplicativo,
   catalogos: CorpoCatalogos,
   formularios: CorpoFormularios,
   integracoes: CorpoIntegracoes,

@@ -14,6 +14,7 @@ import SegArcos from "../components/home/SegArcos.astro";
 import PorQueTerraNode from "../components/home/PorQueTerraNode.astro";
 import ArcGIS from "../components/home/ArcGIS.astro";
 import { asset } from "../lib/asset";
+import { getRecursos } from "../lib/recursos";
 import { getSolucoes } from "../lib/solucoes";
 import { numeros } from "../lib/numeros";
 import campoMarca from "../assets/campo-marca.webp";
@@ -104,6 +105,9 @@ const capitulos: Capitulo[] = passos.map((p) => ({
   visual: Esboco,
   visualProps: { tipo: p.visual },
 }));
+
+// The app section links to its feature page only once that page is published.
+const aplicativo = (await getRecursos()).some((r) => r.id === "aplicativo");
 
 // Use cases. A case links to its sector page when this build publishes one.
 const solucoes = new Set((await getSolucoes()).map((s) => s.id));
@@ -312,6 +316,9 @@ const abre = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke
           <span class="tn-rec-pilula">APLICATIVO NATIVO</span>
           <h2 class="tn-rec-h2">Feito para durar o dia inteiro no campo</h2>
           <p class="tn-rec-lead">O TerraNode é um app nativo para iOS e Android, não um site dentro de um navegador. Veja a coleta acontecendo em condição real, com sol na tela e sem sinal.</p>
+          {aplicativo && (
+            <a href={asset("/recursos/aplicativo/")} class="tn-rec-btn tn-rec-btn--claro" data-mp-cta="home_app_aplicativo">Ver o aplicativo</a>
+          )}
         </div>
         <div class="tn-home-video__meta">
           <span class="tn-rec-palco__status"><span class="tn-rec-palco__dot"></span>Coleta real · sem cortes</span>

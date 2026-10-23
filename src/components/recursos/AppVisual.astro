@@ -1,0 +1,236 @@
+---
+// Small UI sketches for /recursos/aplicativo/: four for the offline bento, the session
+// map, three for the sync scroll story and the team overview on the web panel. Labels
+// are the ones app/src/main in terranode-android shows; project, layer and people
+// names, record numbers, counts and times are illustrative.
+
+interface Props {
+  tipo: "camadas" | "pacote" | "consulta" | "conexao" | "trilha" | "fila" | "recibo" | "envio" | "equipe";
+}
+
+const { tipo } = Astro.props;
+
+const ok = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>';
+const nuvem = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18.5h10a4 4 0 0 0 .6-8 6 6 0 0 0-11.4 1.6A3.3 3.3 0 0 0 7 18.5z"/><path d="M12 15.5v-5M9.5 13 12 10.5l2.5 2.5"/></svg>';
+const alvo = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><circle cx="12" cy="12" r="3"/></svg>';
+
+const camadas = [
+  { nome: "Mapa base", geo: null, ligada: true },
+  { nome: "Talhões", geo: "poly", ligada: true },
+  { nome: "Estradas", geo: "linha", ligada: false },
+  { nome: "Poços", geo: "ponto", ligada: true },
+];
+const pacote = [
+  { nome: "Formulários", meta: "2", estado: "ok" },
+  { nome: "Camadas", meta: "3", estado: "ok" },
+  { nome: "Mapa base", meta: "62%", estado: "andamento" },
+  { nome: "Consulta de áreas", meta: "", estado: "espera" },
+];
+const projetos = [
+  { nome: "Fazenda Boa Vista", meta: "184 ha" },
+  { nome: "Rede de poços · Lote 3", meta: "2,4 km²" },
+];
+const fila = [
+  { id: "vistoria-41", hora: "11:42", estado: "Não enviada", tipo: "pendente" },
+  { id: "vistoria-40", hora: "11:18", estado: "Enviada · mídia pendente", tipo: "aviso" },
+  { id: "vistoria-39", hora: "10:55", estado: "Enviada", tipo: "ok" },
+  { id: "vistoria-38", hora: "10:31", estado: "Enviada", tipo: "ok" },
+];
+const arquivos = [
+  { nome: "foto · vistoria-40", tamanho: "4,1 MB", estado: "ok" },
+  { nome: "vídeo · vistoria-40", tamanho: "38 MB", estado: "andamento" },
+  { nome: "áudio · vistoria-41", tamanho: "1,2 MB", estado: "espera" },
+];
+const equipe = [
+  { nome: "Ana", registros: 34, envio: "hoje, 11:42" },
+  { nome: "Bruno", registros: 27, envio: "hoje, 10:05" },
+  { nome: "Carla", registros: 19, envio: "ontem, 17:30" },
+];
+// The session map: two plots, the walked track and the records collected along it.
+const trilha = "M 22 150 L 58 132 L 92 138 L 120 108 L 150 98 L 176 70 L 214 62 L 250 40";
+const marcadores = [[58, 132], [120, 108], [176, 70], [250, 40]];
+---
+{tipo === "camadas" && (
+  <div class="tn-rec-mini tn-app-mini" aria-hidden="true">
+    <div class="tn-app-mini__head" data-anim="up">
+      <span class="tn-app-mini__titulo">Camadas</span>
+      <span class="tn-app-pilula tn-app-pilula--off"><span></span>Offline</span>
+    </div>
+    <ul class="tn-rec-mini__lista" data-anim-group="up">
+      {camadas.map((c) => (
+        <li class="tn-rec-mini__linha">
+          {c.geo ? <span class:list={["tn-rec-mini__geo", `tn-rec-mini__geo--${c.geo}`]}></span> : <span class="tn-app-mini__base"></span>}
+          <span class="tn-app-mini__nome">{c.nome}</span>
+          <span class:list={["tn-app-switch", c.ligada && "is-on"]}></span>
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
+
+{tipo === "pacote" && (
+  <div class="tn-rec-mini tn-app-mini" aria-hidden="true">
+    <div class="tn-rec-mini__arquivo" data-anim="up">
+      <span class="tn-rec-mini__ext">PROJETO</span>
+      Fazenda Boa Vista
+      <span class="tn-rec-mini__meta">Baixando</span>
+    </div>
+    <div class="tn-rec-mini__barra" data-anim="up"><span></span></div>
+    <ul class="tn-rec-mini__etapas" data-anim-group="up">
+      {pacote.map((p) => (
+        <li class:list={["tn-rec-mini__etapa", `tn-rec-mini__etapa--${p.estado}`]}>
+          <span class="tn-rec-mini__marco">{p.estado === "ok" && <span set:html={ok} />}</span>
+          <span class="tn-rec-mini__nome">{p.nome}</span>
+          <span class="tn-rec-mini__meta">{p.meta}</span>
+        </li>
+      ))}
+    </ul>
+    <span class="tn-app-mini__texto" data-anim="up">Só os arquivos que mudaram desde a última versão.</span>
+  </div>
+)}
+
+{tipo === "consulta" && (
+  <div class="tn-rec-mini tn-app-mini" aria-hidden="true">
+    <svg class="tn-app-consulta" viewBox="0 0 280 120" data-anim="up">
+      <path class="tn-app-consulta__area" d="M 12 18 L 120 10 L 132 104 L 18 110 Z" />
+      <path class="tn-app-consulta__area is-ativa" d="M 120 10 L 262 22 L 252 98 L 132 104 Z" />
+      <text x="62" y="64">T-06</text>
+      <text x="184" y="44">T-07</text>
+      <circle class="tn-app-consulta__halo" cx="196" cy="70" r="12" />
+      <circle class="tn-app-consulta__ponto" cx="196" cy="70" r="5" />
+    </svg>
+    <div class="tn-app-campo" data-anim="up">
+      <span class="tn-app-campo__rotulo">Talhão</span>
+      <span class="tn-app-campo__valor">T-07 · Soja</span>
+      <span class="tn-app-campo__ajuda">Encontrado no aparelho, sem internet.</span>
+    </div>
+  </div>
+)}
+
+{tipo === "conexao" && (
+  <div class="tn-rec-mini tn-app-mini" aria-hidden="true">
+    <div class="tn-app-mini__head" data-anim="up">
+      <span class="tn-app-mini__titulo">Projetos</span>
+      <span class="tn-app-pilula tn-app-pilula--off"><span></span>Offline</span>
+    </div>
+    <ul class="tn-rec-mini__lista" data-anim-group="up">
+      {projetos.map((p) => (
+        <li class="tn-rec-mini__linha">
+          <span class="tn-app-mini__mapa"></span>
+          <span class="tn-app-mini__nome">{p.nome}<span class="tn-app-mini__sub">{p.meta}</span></span>
+          <span class="tn-app-check" set:html={ok} />
+        </li>
+      ))}
+    </ul>
+    <div class="tn-app-mini__head tn-app-mini__head--fim" data-anim="up">
+      <span class="tn-app-mini__texto">De volta ao sinal</span>
+      <span class="tn-app-pilula tn-app-pilula--on"><span></span>Online</span>
+    </div>
+  </div>
+)}
+
+{tipo === "trilha" && (
+  <div class="tn-rec-mini tn-app-mini tn-app-mapa" aria-hidden="true">
+    <div class="tn-app-mapa__aviso" data-anim="up"><span class="tn-app-mapa__rec"></span>Sessão de campo em andamento</div>
+    <svg class="tn-app-mapa__svg" viewBox="0 0 280 180" data-anim="up">
+      <path class="tn-app-mapa__area" d="M 10 120 L 100 96 L 112 170 L 14 176 Z" />
+      <path class="tn-app-mapa__area" d="M 130 20 L 270 12 L 274 110 L 150 120 Z" />
+      <path class="tn-app-mapa__trilha" d={trilha} pathLength="1" />
+      {marcadores.map(([x, y]) => <circle class="tn-app-mapa__marcador" cx={x} cy={y} r="6" />)}
+      <circle class="tn-app-mapa__halo" cx="250" cy="40" r="16" />
+      <circle class="tn-app-mapa__eu" cx="250" cy="40" r="5" />
+    </svg>
+    <div class="tn-app-mapa__rodape" data-anim="up">
+      <span class="tn-app-mapa__chip"><span set:html={alvo} />Precisão 4 m</span>
+      <span class="tn-app-mapa__botao">Coletar</span>
+    </div>
+  </div>
+)}
+
+{tipo === "fila" && (
+  <div class="tn-rec-mini tn-app-mini" aria-hidden="true">
+    <div class="tn-app-mini__head" data-anim="up">
+      <span class="tn-app-mini__titulo">Coletas</span>
+      <span class="tn-app-pilula tn-app-pilula--on"><span></span>Online</span>
+    </div>
+    <div class="tn-app-agora" data-anim="up">
+      <span class="tn-app-mini__texto">Sincronizando…</span>
+      <div class="tn-rec-mini__barra"><span></span></div>
+    </div>
+    <ul class="tn-rec-mini__lista" data-anim-group="up">
+      {fila.map((r) => (
+        <li class="tn-rec-mini__linha tn-app-registro">
+          <span class:list={["tn-app-ponto", `tn-app-ponto--${r.tipo}`]}></span>
+          <span class="tn-app-registro__texto">
+            <span class="tn-app-registro__id">{r.id}</span>
+            <span class="tn-app-registro__detalhe">hoje, {r.hora} · {r.estado}</span>
+          </span>
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
+
+{tipo === "recibo" && (
+  <div class="tn-rec-mini tn-app-mini" aria-hidden="true">
+    <div class="tn-app-mini__head" data-anim="up">
+      <span class="tn-app-mini__titulo">vistoria-39</span>
+      <span class="tn-rec-mini__meta">hoje, 10:55</span>
+    </div>
+    <span class="tn-rec-mini__no-tag" data-anim="up">Sincronização</span>
+    <dl class="tn-app-dados" data-anim-group="up">
+      <div><dt>Sessão de campo</dt><dd>hoje, 07:40</dd></div>
+      <div><dt>Estado</dt><dd class="is-ok"><span class="tn-app-ponto tn-app-ponto--ok"></span>Enviada</dd></div>
+    </dl>
+    <div class="tn-rec-mini__linha tn-app-registro tn-app-registro--recusa" data-anim="up">
+      <span class="tn-app-ponto tn-app-ponto--erro"></span>
+      <span class="tn-app-registro__texto">
+        <span class="tn-app-registro__id">vistoria-22</span>
+        <span class="tn-app-registro__detalhe">Recusada · Já excluída</span>
+      </span>
+    </div>
+  </div>
+)}
+
+{tipo === "envio" && (
+  <div class="tn-rec-mini tn-app-mini" aria-hidden="true">
+    <div class="tn-app-notificacao" data-anim="up">
+      <span class="tn-app-notificacao__icone" set:html={nuvem} />
+      <span class="tn-app-notificacao__texto">
+        <span class="tn-app-mini__titulo">Enviando dados</span>
+        <span class="tn-app-mini__texto">Fazenda Boa Vista · 1 de 3 arquivos enviado</span>
+      </span>
+    </div>
+    <ul class="tn-rec-mini__etapas" data-anim-group="up">
+      {arquivos.map((a) => (
+        <li class:list={["tn-rec-mini__etapa", `tn-rec-mini__etapa--${a.estado}`]}>
+          <span class="tn-rec-mini__marco">{a.estado === "ok" && <span set:html={ok} />}</span>
+          <span class="tn-rec-mini__nome">{a.nome}</span>
+          <span class="tn-rec-mini__meta">{a.tamanho}</span>
+        </li>
+      ))}
+    </ul>
+    <span class="tn-app-botao is-espera" data-anim="up">Aguardando conexão</span>
+  </div>
+)}
+
+{tipo === "equipe" && (
+  <div class="tn-rec-mini tn-app-mini" aria-hidden="true">
+    <div class="tn-app-mini__head" data-anim="up">
+      <span class="tn-app-mini__titulo">Equipe · Fazenda Boa Vista</span>
+      <span class="tn-rec-mini__meta">Painel web</span>
+    </div>
+    <ul class="tn-rec-mini__lista" data-anim-group="up">
+      {equipe.map((p) => (
+        <li class="tn-rec-mini__linha">
+          <span class="tn-app-avatar">{p.nome[0]}</span>
+          <span class="tn-app-registro__texto">
+            <span class="tn-app-registro__id">{p.nome}</span>
+            <span class="tn-app-registro__detalhe">Último envio {p.envio}</span>
+          </span>
+          <span class="tn-app-mini__conta">{p.registros}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
