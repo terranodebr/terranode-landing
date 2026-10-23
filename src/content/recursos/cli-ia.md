@@ -5,7 +5,7 @@ recurso: "CLI e IA"
 h1: "Peça em português. O agente de IA faz pelo terminal."
 subtitulo: "O tn, a linha de comando do TerraNode, dá a qualquer agente de IA que roda comandos no terminal, como Claude Code, Codex ou Gemini CLI, o mesmo acesso que você tem para criar catálogos, enviar arquivos, convidar a equipe e gerar chaves de API."
 ordem: 6
-draft: true
+draft: false
 
 secoes:
   - id: como-funciona
