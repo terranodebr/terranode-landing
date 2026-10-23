@@ -1,0 +1,200 @@
+---
+// Small UI sketches for /recursos/integracoes/: four for the Google Sheets bento and
+// three for the ArcGIS scroll story (the layer picker is ArcgisSeletor.astro). Labels
+// are the ones frontend/app/src/integrations shows in terranode-backend; spreadsheet,
+// portal and layer names, counts and dates are illustrative.
+
+interface Props {
+  tipo: "colunas" | "previa" | "bloqueio" | "agenda" | "conexao" | "simbologia" | "historico";
+}
+
+const { tipo } = Astro.props;
+
+const ok = '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>';
+const alerta = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4 2.5 20h19z"/><path d="M12 10v4M12 17.5v.01"/></svg>';
+const seta = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+
+const linhas = [
+  { id: "P-014", lat: "-23,5489", lon: "-46,6388", status: "ok" },
+  { id: "P-015", lat: "-23,5502", lon: "-46,6341", status: "pendente" },
+  { id: "P-016", lat: "-23,5517", lon: "-46,6402", status: "ok" },
+];
+const tiposColuna = [
+  { nome: "ponto", tipo: "texto" },
+  { nome: "vistoria", tipo: "data" },
+  { nome: "altura_m", tipo: "número" },
+  { nome: "acessivel", tipo: "booleano" },
+];
+const agendas = ["Sem agendamento", "A cada hora", "Todo dia · 06:00", "Toda semana"];
+const renderizador = [
+  { cor: "#FF6629", nome: "Concreto" },
+  { cor: "#7C8A9C", nome: "Madeira" },
+  { cor: "#2E9E5B", nome: "Metálico" },
+];
+const convertidos = ["Valores únicos", "Rótulos", "Transparência", "Faixa de escala"];
+const execucoes = [
+  { origem: "Agendada", estado: "Concluída", detalhe: "18.204 feições · hoje, 06:00", tipo: "ok" },
+  { origem: "Agendada", estado: "Sem alterações na origem", detalhe: "ontem, 06:00", tipo: "pulada" },
+  { origem: "Manual", estado: "Concluída", detalhe: "18.190 feições · 14/10, 15:42", tipo: "ok" },
+  { origem: "Agendada", estado: "Falhou", detalhe: "A integração precisa ser reconectada", tipo: "erro" },
+];
+---
+{tipo === "colunas" && (
+  <div class="tn-rec-mini tn-int-mini" aria-hidden="true">
+    <div class="tn-rec-mini__arquivo" data-anim="up">
+      <span class="tn-rec-mini__ext tn-int-ext">SHEETS</span>
+      Vistorias 2025
+      <span class="tn-rec-mini__meta">aba Pontos</span>
+    </div>
+    <div class="tn-int-grade" data-anim-group="up">
+      <div class="tn-int-grade__linha tn-int-grade__linha--head">
+        <span>ponto</span><span class="is-coord">lat</span><span class="is-coord">lon</span><span>status</span>
+      </div>
+      {linhas.map((l) => (
+        <div class="tn-int-grade__linha">
+          <span>{l.id}</span><span class="is-coord">{l.lat}</span><span class="is-coord">{l.lon}</span><span>{l.status}</span>
+        </div>
+      ))}
+    </div>
+    <div class="tn-rec-mini__chips" data-anim-group="pop">
+      <span>Coluna de latitude · lat</span>
+      <span>Coluna de longitude · lon</span>
+    </div>
+  </div>
+)}
+
+{tipo === "previa" && (
+  <div class="tn-rec-mini tn-int-mini" aria-hidden="true">
+    <div class="tn-int-mini__head" data-anim="up">
+      <span class="tn-int-mini__titulo">Verificação da aba</span>
+      <span class="tn-rec-mini__meta">Linhas a importar: 410</span>
+    </div>
+    <ul class="tn-rec-mini__lista" data-anim-group="up">
+      {tiposColuna.map((c) => (
+        <li class="tn-rec-mini__linha">
+          <span class="tn-rec-mini__nome">{c.nome}</span>
+          <span class="tn-int-mini__tipo">{c.tipo}</span>
+        </li>
+      ))}
+    </ul>
+    <div class="tn-int-erros" data-anim="up">
+      <span class="tn-int-erros__titulo"><span set:html={alerta} />2 linhas não entram</span>
+      <span class="tn-int-erros__linha"><b>Linha 37</b> lat “S 23°32′”</span>
+      <span class="tn-int-erros__linha"><b>Linha 118</b> lon vazia</span>
+    </div>
+  </div>
+)}
+
+{tipo === "bloqueio" && (
+  <div class="tn-rec-mini tn-rec-mini--sync tn-int-mini" aria-hidden="true">
+    <div class="tn-rec-mini__no" data-anim="up">
+      <span class="tn-rec-mini__no-tag">Planilha</span>
+      Vistorias 2025 · Pontos
+    </div>
+    <div class="tn-int-aviso" data-anim="up">
+      <span set:html={alerta} />
+      <span><b>As colunas da origem mudaram.</b> A coluna “status” não existe mais.</span>
+    </div>
+    <div class="tn-int-corte" data-anim="up"><span>sincronização bloqueada</span></div>
+    <div class="tn-rec-mini__no tn-rec-mini__no--tn" data-anim="up">
+      <span class="tn-rec-mini__no-tag">Mapa do TerraNode</span>
+      Mantém os dados de hoje, 06:00
+    </div>
+  </div>
+)}
+
+{tipo === "agenda" && (
+  <div class="tn-rec-mini tn-int-mini" aria-hidden="true">
+    <div class="tn-int-mini__head" data-anim="up">
+      <span class="tn-int-mini__titulo">Agendar sincronização</span>
+      <span class="tn-rec-mini__meta">UTC</span>
+    </div>
+    <div class="tn-int-opcoes" data-anim-group="pop">
+      {agendas.map((a) => <span class:list={[a.startsWith("Todo dia") && "is-ativa"]}>{a}</span>)}
+    </div>
+    <div class="tn-rec-mini__linha" data-anim="up">
+      <span class="tn-int-ponto tn-int-ponto--pulada"></span>
+      <span class="tn-int-mini__texto">Verificação agendada: sem alterações na origem.</span>
+    </div>
+    <div class="tn-rec-mini__linha" data-anim="up">
+      <span class="tn-int-ponto tn-int-ponto--ok"></span>
+      <span class="tn-int-mini__texto">Aba renomeada para “Pontos 2025”, ligação mantida.</span>
+    </div>
+  </div>
+)}
+
+{tipo === "conexao" && (
+  <div class="tn-rec-mini tn-int-mini tn-int-form" aria-hidden="true">
+    <div class="tn-int-mini__head" data-anim="up">
+      <span class="tn-int-mini__titulo">Conectar portal ArcGIS</span>
+      <span class="tn-int-status"><span></span>Conectado</span>
+    </div>
+    <div class="tn-int-segmento" data-anim="up">
+      <span>ArcGIS Online</span><span class="is-ativa">ArcGIS Enterprise</span>
+    </div>
+    <div class="tn-int-campo" data-anim="up">
+      <span class="tn-int-campo__rotulo">URL do portal</span>
+      <span class="tn-int-campo__valor">https://gis.prefeitura.gov.br/portal</span>
+    </div>
+    <div class="tn-int-segmento" data-anim="up">
+      <span class="is-ativa">Login OAuth</span><span>Chave de API</span>
+    </div>
+    <div class="tn-int-campo" data-anim="up">
+      <span class="tn-int-campo__rotulo">Client ID</span>
+      <span class="tn-int-campo__valor">aB3xQ7…9Qk</span>
+      <span class="tn-int-campo__ajuda">Do aplicativo OAuth registrado no seu portal.</span>
+    </div>
+    <span class="tn-int-botao" data-anim="up">Autorizar no ArcGIS</span>
+  </div>
+)}
+
+{tipo === "simbologia" && (
+  <div class="tn-rec-mini tn-int-mini" aria-hidden="true">
+    <div class="tn-int-simb">
+      <div class="tn-int-simb__lado" data-anim="up">
+        <span class="tn-rec-mini__no-tag">ArcGIS · Postes</span>
+        <span class="tn-int-mini__texto">Valores únicos · material</span>
+        <ul class="tn-int-simb__classes" data-anim-group="up">
+          {renderizador.map((r) => (
+            <li><span class="tn-int-simb__sw" style={`background: ${r.cor}`}></span>{r.nome}</li>
+          ))}
+        </ul>
+      </div>
+      <span class="tn-int-simb__seta" data-anim="up" set:html={seta} />
+      <div class="tn-int-simb__lado" data-anim="up">
+        <span class="tn-rec-mini__no-tag">TerraNode · esri-postes</span>
+        <ul class="tn-int-simb__lista" data-anim-group="left">
+          {convertidos.map((c) => <li><span class="tn-int-check" set:html={ok} />{c}</li>)}
+        </ul>
+      </div>
+    </div>
+    <div class="tn-int-aviso tn-int-aviso--leve" data-anim="up">
+      <span set:html={alerta} />
+      <span>1 aviso de conversão, listado no estilo.</span>
+    </div>
+  </div>
+)}
+
+{tipo === "historico" && (
+  <div class="tn-rec-mini tn-int-mini" aria-hidden="true">
+    <div class="tn-int-mini__head" data-anim="up">
+      <span class="tn-int-mini__titulo">Histórico · Postes</span>
+      <span class="tn-rec-mini__meta">Todo dia · 06:00</span>
+    </div>
+    <div class="tn-int-agora" data-anim="up">
+      <span class="tn-int-mini__texto">Sincronizando…</span>
+      <div class="tn-rec-mini__barra"><span></span></div>
+    </div>
+    <ul class="tn-rec-mini__lista" data-anim-group="up">
+      {execucoes.map((e) => (
+        <li class="tn-rec-mini__linha tn-int-execucao">
+          <span class:list={["tn-int-ponto", `tn-int-ponto--${e.tipo}`]}></span>
+          <span class="tn-int-execucao__texto">
+            <span class="tn-int-execucao__estado">{e.estado}</span>
+            <span class="tn-int-execucao__detalhe">{e.origem} · {e.detalhe}</span>
+          </span>
+        </li>
+      ))}
+    </ul>
+  </div>
+)}
