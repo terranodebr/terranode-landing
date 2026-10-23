@@ -5,7 +5,7 @@ recurso: "Segurança e LGPD"
 h1: "Seus dados protegidos do campo ao painel. Criptografados e hospedados no Brasil."
 subtitulo: "Levantamentos de campo guardam informação sobre pessoas, imóveis e território. O TerraNode protege esses dados no celular, no caminho até o servidor e no servidor, que fica no Brasil."
 ordem: 5
-draft: true
+draft: false
 
 secoes:
   - id: criptografia
