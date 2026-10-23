@@ -5,7 +5,7 @@ recurso: "Aplicativo"
 h1: "Colete no campo, mesmo sem sinal. O TerraNode sincroniza quando a conexão volta."
 subtitulo: "Um aplicativo nativo para Android, feito para a equipe de campo: baixe o projeto, colete o dia inteiro offline e envie os dados quando houver internet. iOS em breve."
 ordem: 4
-draft: true
+draft: false
 
 secoes:
   - id: offline
