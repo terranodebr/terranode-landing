@@ -1371,6 +1371,16 @@ a.tn-sobre-contato:hover { color: var(--rec-text); border-color: rgba(255, 102, 
   .tn-app-mapa__rec { animation: none; }
 }
 
+/* ---------- Segurança (/recursos/seguranca/) ---------- */
+/* Rules in a 2×2 grid; over the dotted map they sit on a solid card so the dots stay behind. */
+.tn-seg-grade { grid-template-columns: repeat(2, 1fr); max-width: 880px; }
+.tn-seg-regras { position: relative; }
+.tn-seg-regras .tn-app-regras__item { background: color-mix(in srgb, var(--rec-bg) 88%, transparent); }
+.tn-seg-nota { grid-template-columns: 1fr; }
+@media (max-width: 900px) {
+  .tn-seg-grade { grid-template-columns: 1fr; }
+}
+
 /* ---------- Comparativos (/comparativos/): a linguagem das páginas de recurso ---------- */
 
 /* Hero stage: the web panel as the window, the field app's phone in front of it. */
