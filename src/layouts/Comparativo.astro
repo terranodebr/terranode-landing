@@ -7,11 +7,10 @@ import Base from "./Base.astro";
 import Header from "../components/Header.astro";
 import Faq from "../components/Faq.astro";
 import Animacoes from "../components/recursos/Animacoes.astro";
-import webReview from "../assets/web-review.png";
-import mobileMap from "../assets/mobile-map.png";
 import { asset } from "../lib/asset";
 import { icone, passosTerranode } from "../lib/fluxo";
 import type { Comparativo } from "../lib/comparativos";
+import { palcosSetor } from "../lib/solucoes";
 
 interface Props {
   entry: Comparativo;
@@ -19,6 +18,7 @@ interface Props {
 
 const { entry } = Astro.props;
 const d = entry.data;
+const palco = palcosSetor[d.setor];
 
 const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
 
@@ -29,9 +29,15 @@ const h1 = corte > 0 ? [d.h1.slice(0, corte), d.h1.slice(corte + 1)] : [d.h1, ""
 // "Com o Fulcrum" -> "o Fulcrum": the competitor with the article its page uses.
 const comArtigo = d.fluxo.titulo.replace(/^Com /, "");
 
+// Each column opens with a product shot only when the competitor has one, so the two
+// columns stay alike. TerraNode's is the web panel of the sector the hero already uses.
+const telaConcorrente = d.fluxo.tela;
 const colunas = [
-  { nome: "Com o TerraNode", passos: passosTerranode, tn: true },
-  { nome: d.fluxo.titulo, passos: d.fluxo.passos, tn: false },
+  {
+    nome: "Com o TerraNode", passos: passosTerranode, tn: true,
+    tela: telaConcorrente && { src: palco.web.src, alt: palco.web.alt },
+  },
+  { nome: d.fluxo.titulo, passos: d.fluxo.passos, tn: false, tela: telaConcorrente },
 ];
 
 const seta = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
@@ -59,8 +65,8 @@ const volta = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" strok
         </div>
       </div>
 
-      <!-- TerraNode's own screens on the aerial photo: the review queue in the web
-           panel, and the field app's map in front of it. No competitor screenshots. -->
+      <!-- TerraNode's own screens on the aerial photo: the web panel and the field app of
+           the sector the entry picks (`setor`). No competitor screenshots. -->
       <div class="tn-rec-palco-entrada" data-anim="rise" data-anim-bloco data-anim-delay="0.45">
         <div class="tn-rec-palco tn-cmp-palco" data-rec-palco>
           <div class="tn-rec-palco__barra">
@@ -68,9 +74,11 @@ const volta = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" strok
             <span class="tn-rec-palco__status"><span class="tn-rec-palco__dot"></span>Painel web e app de campo do TerraNode</span>
           </div>
           <div class="tn-cmp-janela">
-            <Image src={webReview} alt="Painel web do TerraNode: fila de revisão de pontos, com as respostas ao lado do mapa" widths={[720, 1180, 1442]} sizes="(max-width: 1180px) 90vw, 940px" loading="eager" />
+            <Image src={palco.web.src} alt={palco.web.alt} widths={[720, 1180, 2000]} sizes="(max-width: 1180px) 90vw, 940px" loading="eager" />
           </div>
-          <Image src={mobileMap} class="tn-cmp-palco__celular" alt="App de campo do TerraNode: mapa de coleta com um polígono e pontos, sem conexão" widths={[240, 480]} sizes="(max-width: 700px) 30vw, 240px" loading="eager" />
+          <div class="tn-cmp-palco__celular tn-sol-celular">
+            <Image src={palco.celular.src} alt={palco.celular.alt} widths={[240, 480, 720]} sizes="(max-width: 700px) 30vw, 240px" loading="eager" />
+          </div>
         </div>
       </div>
     </section>
@@ -111,6 +119,22 @@ const volta = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" strok
               <span>{col.nome}</span>
               <span class="tn-cmp-fluxo__conta">{col.passos.length} passos</span>
             </div>
+            {col.tela && (
+              <figure class="tn-cmp-fluxo__tela">
+                <div class="tn-cmp-fluxo__moldura">
+                  <Image src={col.tela.src} alt={col.tela.alt} widths={[480, 960]} sizes="(max-width: 900px) 90vw, 560px" />
+                </div>
+                {/* Both columns get a caption, so their steps start at the same height. */}
+                {"credito" in col.tela && col.tela.credito ? (
+                  <figcaption>
+                    Imagem: <a href={col.tela.credito.url} target="_blank" rel="noopener nofollow">{col.tela.credito.texto}</a>
+                    {col.tela.licenca && <>, <a href={col.tela.licenca.url} target="_blank" rel="noopener">{col.tela.licenca.nome}</a></>}
+                  </figcaption>
+                ) : (
+                  <figcaption>Painel web do TerraNode</figcaption>
+                )}
+              </figure>
+            )}
             <ol class="tn-cmp-fluxo__passos" data-anim-group="left">
               {col.passos.map((p, i) => (
                 <li class="tn-cmp-fluxo__passo">
@@ -202,8 +226,7 @@ const volta = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" strok
           <h2 class="tn-rec-h2 tn-rec-h2--pequeno" data-anim="words">{d.fechamento.titulo}</h2>
           <p class="tn-rec-lead" data-anim="blur">{d.fechamento.texto}</p>
           <div class="tn-rec-acoes tn-rec-acoes--esquerda">
-            <a href={WAITLIST} target="_blank" rel="noopener" class="tn-rec-btn tn-rec-btn--claro" data-mp-cta="comparativo_fechamento_primary">Quero ser early tester</a>
-            <a href={WAITLIST} target="_blank" rel="noopener" class="tn-rec-btn" data-mp-cta="comparativo_fechamento_outline">Entrar na lista de espera</a>
+            <a href={WAITLIST} target="_blank" rel="noopener" class="tn-rec-btn tn-rec-btn--claro" data-mp-cta="comparativo_fechamento_primary">Entrar na lista de espera</a>
           </div>
         </div>
         <ol class="tn-rec-passos" data-anim-group="left">

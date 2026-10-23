@@ -4,27 +4,14 @@
 // entrance animations from Animacoes.astro, the photo stage and the card CTA. Copy that
 // changes by sector comes from the entry; the lines every sector shares live here.
 import { Image, getImage } from "astro:assets";
-import type { ImageMetadata } from "astro";
 import Base from "./Base.astro";
 import Header from "../components/Header.astro";
 import Faq from "../components/Faq.astro";
 import Animacoes from "../components/recursos/Animacoes.astro";
-import webEnergia from "../assets/tela-web-energia-e-telecom.webp";
-import webTopografia from "../assets/tela-web-topografia-e-cadastro.webp";
-import webMeioAmbiente from "../assets/tela-web-meio-ambiente.webp";
-import webMunicipios from "../assets/tela-web-municipios.webp";
-import webAgro from "../assets/tela-web-agro.webp";
-import webSaneamento from "../assets/tela-web-saneamento-e-obras.webp";
-import appEnergia from "../assets/tela-app-energia-e-telecom.webp";
-import appTopografia from "../assets/tela-app-topografia-e-cadastro.webp";
-import appMeioAmbiente from "../assets/tela-app-meio-ambiente.webp";
-import appMunicipios from "../assets/tela-app-municipios.webp";
-import appAgro from "../assets/tela-app-agro.webp";
-import appSaneamento from "../assets/tela-app-saneamento-e-obras.webp";
 import { asset } from "../lib/asset";
 import { icone, type Icone } from "../lib/fluxo";
 import { numeros } from "../lib/numeros";
-import { fotosSetor, type Solucao } from "../lib/solucoes";
+import { fotosSetor, palcosSetor, type Palco, type Solucao } from "../lib/solucoes";
 
 interface Props {
   entry: Solucao;
@@ -35,48 +22,10 @@ const d = entry.data;
 
 const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
 
-// Each sector's hero stage: its photo behind the screens (`fotosSetor`), the web
-// panel's overview of one of the sector's projects, and the field app's form for a
-// point of that project in front. The same projects run through both, so the two
-// screens tell one story. A sector missing from the list shows its photo alone, never
-// another sector's screens; one without a photo keeps the stage's default aerial image.
-interface Tela { src: ImageMetadata; alt: string }
-interface Palco { web: Tela; celular: Tela }
-const web = (src: ImageMetadata, projeto: string): Tela => ({
-  src,
-  alt: `Painel web do TerraNode: visão geral do projeto ${projeto}, com pontos recebidos, revisão, equipe em campo e formulários`,
-});
-const app = (src: ImageMetadata, campos: string): Tela => ({
-  src,
-  alt: `App de campo do TerraNode, sem conexão: formulário do ponto com localização, ${campos}`,
-});
-const palcos: Record<string, Palco> = {
-  energia: {
-    web: web(webEnergia, "LT 138 kV Santa Cruz"),
-    celular: app(appEnergia, "número da estrutura, fotos, componente e severidade"),
-  },
-  "topografia-e-cadastro": {
-    web: web(webTopografia, "Fazenda Santa Clara"),
-    celular: app(appTopografia, "vértice, foto do marco, tipo de marco e confrontante"),
-  },
-  "meio-ambiente": {
-    web: web(webMeioAmbiente, "Inventário APP Rio Pardo"),
-    celular: app(appMeioAmbiente, "espécie, fotos do indivíduo, CAP e altura"),
-  },
-  municipios: {
-    web: web(webMunicipios, "Bairro Santa Mônica"),
-    celular: app(appMunicipios, "inscrição imobiliária, fotos da fachada, uso do imóvel e área construída"),
-  },
-  agro: {
-    web: web(webAgro, "Pragas - Safra 26/27"),
-    celular: app(appAgro, "talhão, fotos do dano, cultura e praga"),
-  },
-  "saneamento-e-obras": {
-    web: web(webSaneamento, "Rede coletora - Bacia B3"),
-    celular: app(appSaneamento, "serviço executado, fotos do serviço e assinatura do responsável"),
-  },
-};
-const palco: Palco | undefined = palcos[entry.id];
+// The hero stage: the sector's photo (`fotosSetor`) behind its pair of screens
+// (`palcosSetor`). A sector without screens shows its photo alone, never another sector's
+// screens; one without a photo keeps the stage's default aerial image.
+const palco: Palco | undefined = palcosSetor[entry.id];
 const foto = fotosSetor[entry.id];
 const fundo = foto ? await getImage({ src: foto, width: 1600, format: "webp" }) : undefined;
 
@@ -122,7 +71,7 @@ const aspas = '<svg width="34" height="26" viewBox="0 0 34 26" fill="none" aria-
         </div>
       </div>
 
-      <!-- TerraNode's own screens on the sector photo (see `palcos` above). -->
+      <!-- TerraNode's own screens on the sector photo (see `palcosSetor` in lib/solucoes). -->
       <div class="tn-rec-palco-entrada" data-anim="rise" data-anim-bloco data-anim-delay="0.45">
         <div class={`tn-rec-palco tn-cmp-palco tn-sol-palco${palco ? "" : " tn-sol-palco--foto"}`} data-rec-palco style={fundo ? `--sol-foto: url(${fundo.src})` : undefined}>
           <div class="tn-rec-palco__barra">

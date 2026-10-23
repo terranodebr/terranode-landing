@@ -85,7 +85,7 @@ const solucoes = defineCollection({
 
 const comparativos = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/comparativos" }),
-  schema: z.object({
+  schema: ({ image }) => z.object({
     /** <title> and og:title. Written for search ("alternativa a X"), not for the H1. */
     title: z.string(),
     /** <meta name="description">. */
@@ -102,6 +102,15 @@ const comparativos = defineCollection({
     draft: z.boolean().default(true),
     /** Path under public/, or an absolute URL. Falls back to the site default. */
     image: z.string().optional(),
+    /**
+     * Whose screens go on the hero stage: one sector page's web panel and field app
+     * (`palcosSetor` in src/lib/solucoes.ts), so only sectors that have screens are listed.
+     * Pick the sector closest to the page's argument.
+     */
+    setor: z.enum([
+      "energia", "topografia-e-cadastro", "meio-ambiente",
+      "municipios", "agro", "saneamento-e-obras",
+    ]),
 
     /** The three summary cards. Each text is a full sentence, starting with "Se". */
     resumo: z.object({
@@ -144,6 +153,29 @@ const comparativos = defineCollection({
         )
         .min(3)
         .max(5),
+      /**
+       * The competitor's own product shot, at the top of its column; the TerraNode column
+       * then shows the web panel of the page's `setor`. Without it, both columns are steps only.
+       * Use the competitor's own material and credit it: `credito` links to the page the
+       * image came from, and `licenca` is required when the image is under an open license.
+       */
+      tela: z
+        .object({
+          /** Relative to the .md file: "../../assets/concorrentes/<slug>.webp". */
+          src: image(),
+          alt: z.string(),
+          credito: z.object({
+            texto: z.string(),
+            url: z.string().url(),
+          }),
+          licenca: z
+            .object({
+              nome: z.string(),
+              url: z.string().url(),
+            })
+            .optional(),
+        })
+        .optional(),
     }),
 
     diferencas: z

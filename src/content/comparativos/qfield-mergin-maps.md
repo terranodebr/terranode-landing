@@ -1,11 +1,12 @@
 ---
-title: "TerraNode vs QField e Mergin Maps"
+title: "Alternativa ao QField e ao Mergin Maps · TerraNode"
 description: "Monte o formulário no navegador, sem QGIS, e valide cada ponto antes de exportar."
 concorrente: "QField / Mergin Maps"
 h1: "TerraNode vs QField e Mergin Maps"
-subtitulo: "Com QField e Mergin Maps, o projeto nasce no QGIS. Com o TerraNode, nasce no navegador, e quem monta o formulário é quem conhece o levantamento."
+subtitulo: "Quem conhece o levantamento monta o formulário no navegador, sem abrir o QGIS, e cada ponto passa por um revisor antes de chegar lá."
 ordem: 3
 draft: true
+setor: "meio-ambiente"
 
 resumo:
   concorrente: "Se sua equipe domina QGIS, quer código aberto ou precisa editar camadas complexas e PostGIS em campo."
@@ -20,10 +21,10 @@ tabela:
     terranode: "Não"
     concorrente: "Sim, com versão auto-hospedada gratuita"
   - criterio: "Coleta offline"
-    terranode: "Sim, 100%"
+    terranode: "Sim"
     concorrente: "Sim"
   - criterio: "GNSS externo"
-    terranode: "Sim, ±3 cm"
+    terranode: "Sim"
     concorrente: "Sim"
   - criterio: "Revisão com validar, rejeitar e retorno ao coletor"
     terranode: "Nativa, em fila"
@@ -31,12 +32,9 @@ tabela:
   - criterio: "Integração com QGIS e PostGIS"
     terranode: "Via exportação (Shapefile, GeoJSON)"
     concorrente: "Nativa"
-  - criterio: "Preço da nuvem"
-    terranode: "Ainda não divulgado"
-    concorrente: "QFieldCloud a partir de €14 por usuário/mês. Mergin Maps a partir de €15,8 por colaborador/mês. Ambos têm plano gratuito limitado"
-  - criterio: "Idioma e suporte"
-    terranode: "Português, direto com o time do produto"
-    concorrente: "Comunidade e suporte pago em inglês"
+  - criterio: "Suporte"
+    terranode: "Em português, direto com o time do produto"
+    concorrente: "Comunidade no plano gratuito. Tickets ou SLA nos planos pagos"
 
 fluxo:
   titulo: "Com QField ou Mergin Maps"
@@ -53,10 +51,19 @@ fluxo:
     - icone: "desktop"
       titulo: "Revise no QGIS"
       detalhe: "A conferência dos pontos volta para o desktop."
+  tela:
+    src: "../../assets/concorrentes/qfield-mergin-maps.webp"
+    alt: "QGIS: propriedades da camada, com o formulário de atributos e as restrições de um campo"
+    credito:
+      texto: "Documentação do Mergin Maps"
+      url: "https://merginmaps.com/docs/layer/constraints/"
+    licenca:
+      nome: "CC BY 4.0"
+      url: "https://creativecommons.org/licenses/by/4.0/"
 
 diferencas:
   - titulo: "O formulário não depende do analista GIS"
-    texto: "O engenheiro, o agrônomo ou o fiscal monta o formulário arrastando campos, com regras de obrigatoriedade e precisão mínima. Nada de widgets de edição nas propriedades da camada."
+    texto: "O formulário se monta arrastando campos, com regras de obrigatoriedade e precisão mínima. No QField e no Mergin Maps, essas regras ficam nos widgets de edição das propriedades da camada, no QGIS."
   - titulo: "Revisão antes do QGIS"
     texto: "Cada ponto passa por um revisor no navegador. Só o dado validado sai na exportação, e o QGIS recebe uma base limpa."
   - titulo: "Equipe e produção à vista"
@@ -73,16 +80,16 @@ faq:
   - q: "Qual a diferença entre QField e TerraNode?"
     a: "O QField leva para o campo um projeto feito no QGIS. O TerraNode monta o formulário no navegador e adiciona uma fila de revisão."
   - q: "O TerraNode é gratuito como o QField?"
-    a: "O preço ainda não foi divulgado. Early testers têm acesso antecipado."
+    a: "O preço ainda não foi divulgado. Quem entra na lista de espera usa o TerraNode antes do lançamento."
 
 fechamento:
   titulo: "Deixe o QGIS para a análise. A coleta começa no navegador."
-  texto: "Quem conhece o levantamento monta o formulário, e o QGIS recebe só o dado validado. Entre como early tester e compare no seu próximo campo."
+  texto: "Quem conhece o levantamento monta o formulário, e o QGIS recebe só o dado validado. Entre na lista de espera e compare no seu próximo campo."
 
 fontes:
   - label: "QFieldCloud, preços"
     url: "https://qfield.cloud/pricing"
   - label: "Mergin Maps, preços"
     url: "https://merginmaps.com/pricing"
-consultadoEm: "18/09/2026"
+consultadoEm: "23/10/2026"
 ---
