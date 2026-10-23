@@ -4,7 +4,7 @@ description: "Faça o recadastramento imobiliário com formulários personalizad
 setor: "Municípios"
 h1: "Cadastro imobiliário e recadastramento municipal"
 subtitulo: "O TerraNode é uma plataforma de coleta de dados geoespaciais em campo para municípios, com formulários configuráveis por imóvel, registro offline de fotos da fachada, uso do imóvel e geometria do lote, e recursos para revisão e exportação de dados."
-ordem: 4
+ordem: 5
 draft: false
 
 doresTitulo: "O que dificulta o recadastramento imobiliário nos municípios"
@@ -113,7 +113,7 @@ Os formulários podem ser configurados com os campos, as regras e os preenchimen
 
 Nossa plataforma também se integra ao **ArcGIS Online** e ao **ArcGIS Enterprise**, conectando a **coleta de dados em campo** ao **sistema de informação geográfica (SIG)** do município.
 
-**Conheça as soluções do TerraNode para outras operações:** [energia e telecom](/solucoes/energia-e-telecom/), [topografia e cadastro](/solucoes/topografia-e-cadastro/), [meio ambiente](/solucoes/meio-ambiente/), [agro](/solucoes/agro/) e [saneamento e obras](/solucoes/saneamento-e-obras/).
+**Conheça as soluções do TerraNode para outras operações:** [energia](/solucoes/energia/), [telecom](/solucoes/telecom/), [topografia e cadastro](/solucoes/topografia-e-cadastro/), [meio ambiente](/solucoes/meio-ambiente/), [agro](/solucoes/agro/) e [saneamento e obras](/solucoes/saneamento-e-obras/).
 
 **Para conhecer outros recursos de configuração, acesse:** [formulários](/recursos/formularios/) e [catálogos](/recursos/catalogos/).
 

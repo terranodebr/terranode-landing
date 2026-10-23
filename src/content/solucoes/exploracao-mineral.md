@@ -4,7 +4,7 @@ description: "Faça mapeamento geológico, coleta geoquímica e quarteamento com
 setor: "Exploração mineral"
 h1: "Coleta de campo para exploração mineral e pesquisa geológica"
 subtitulo: "O TerraNode é uma plataforma de coleta de dados geoespaciais em campo para exploração mineral, com templates de coleta geoquímica, quarteamento e mapeamento geológico, registro offline e criptografado de amostras e afloramentos, e camadas de direitos minerários e cartas geológicas no mapa de quem está em campo."
-ordem: 7
+ordem: 8
 draft: false
 
 doresTitulo: "O que dificulta as campanhas de exploração mineral"
@@ -118,7 +118,7 @@ O TerraNode tem templates de **coleta geoquímica**, **quarteamento** e **explor
 
 Nossa plataforma também se integra ao **ArcGIS Online** e ao **ArcGIS Enterprise**, conectando a **coleta de dados em campo** ao **sistema de informação geográfica (SIG)** da organização.
 
-**Conheça as soluções do TerraNode para outras operações:** [mineração](/solucoes/mineracao/), [meio ambiente](/solucoes/meio-ambiente/), [topografia e cadastro](/solucoes/topografia-e-cadastro/), [energia e telecom](/solucoes/energia-e-telecom/) e [agro](/solucoes/agro/).
+**Conheça as soluções do TerraNode para outras operações:** [mineração](/solucoes/mineracao/), [meio ambiente](/solucoes/meio-ambiente/), [topografia e cadastro](/solucoes/topografia-e-cadastro/), [energia](/solucoes/energia/), [telecom](/solucoes/telecom/) e [agro](/solucoes/agro/).
 
 **Para conhecer outros recursos de configuração, acesse:** [formulários](/recursos/formularios/) e [catálogos](/recursos/catalogos/).
 

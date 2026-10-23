@@ -27,6 +27,10 @@ import ucEnergia from "../assets/uc-energia.png";
 import ucMunicipios from "../assets/uc-municipios.png";
 import ucSaneamento from "../assets/uc-saneamento.png";
 import ucTopografia from "../assets/uc-topografia.png";
+// The sector page photo of a telecom tower doubles as the telecom card until it gets its own.
+import ucTelecom from "../assets/setor-telecom.webp";
+import ucExploracao from "../assets/uc-exploracao-mineral.webp";
+import ucMineracao from "../assets/uc-mineracao.webp";
 
 const title = "TerraNode · Coleta GIS offline integrada ao ArcGIS";
 const description =
@@ -119,10 +123,16 @@ const casos = [
     campos: ["Vértice", "Confrontante", "Foto do marco", "Área (m²)"],
   },
   {
-    slug: "energia-e-telecom", tag: "Energia e telecom", titulo: "Inspeção de redes e torres", img: ucSaneamento,
+    slug: "energia", tag: "Energia", titulo: "Inspeção e cadastro de ativos", img: ucSaneamento,
     alt: "Técnico de campo inspecionando torre de transmissão com celular",
     texto: "Uma ficha por estrutura: número da torre, estado dos componentes, fotos obrigatórias e ocorrências registradas com data, hora e responsável.",
     campos: ["Nº da torre", "Componente", "Severidade", "Fotos (mín. 3)"],
+  },
+  {
+    slug: "telecom", tag: "Telecom", titulo: "Vistoria de sites e redes de fibra", img: ucTelecom,
+    alt: "Torre de telecomunicações no alto de um morro, com técnico e caminhonete ao lado",
+    texto: "Sites, torres, caixas de emenda e postes registrados com fotos obrigatórias e o traçado da fibra no mapa, no mesmo padrão para equipes próprias e empreiteiras.",
+    campos: ["ID do site", "CTO / caixa", "Ocupação do poste", "Fotos (mín. 3)"],
   },
   {
     slug: "meio-ambiente", tag: "Meio ambiente", titulo: "Licenciamento e monitoramento", img: ucEnergia,
@@ -147,6 +157,18 @@ const casos = [
     alt: "Engenheiro fiscalizando vala de saneamento em obra com celular",
     texto: "Diário de obra georreferenciado: cada medição, ligação e não conformidade fica amarrada ao ponto exato, com histórico de quem registrou.",
     campos: ["Serviço", "Medição", "Não conformidade", "Assinatura"],
+  },
+  {
+    slug: "exploracao-mineral", tag: "Exploração mineral", titulo: "Geoquímica e mapeamento geológico", img: ucExploracao,
+    alt: "Geóloga agachada junto a um afloramento rochoso, registrando no celular, com martelo e sacos de amostra etiquetados no solo vermelho",
+    texto: "Amostras, afloramentos e quarteamento registrados com templates prontos, criptografados no aparelho e com direitos minerários e cartas geológicas no mapa.",
+    campos: ["Código da amostra", "Litologia", "Direção / mergulho", "Processo minerário"],
+  },
+  {
+    slug: "mineracao", tag: "Mineração", titulo: "Controle de amostragem na mina", img: ucMineracao,
+    alt: "Técnica de capacete e colete laranja consultando o celular ao lado de uma pilha de minério com sacos de amostra numerados, em mina a céu aberto",
+    texto: "Cada amostra com código, coordenada, fotos e responsável, no mesmo padrão para todas as frentes e turnos, e revisada antes de seguir para análise.",
+    campos: ["Código da amostra", "Tipo de material", "Massa inicial / final", "Responsável"],
   },
 ];
 
@@ -331,7 +353,7 @@ const abre = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke
     <section class="tn-rec-secao tn-tema-claro tn-home-casos-secao">
       <div class="tn-rec-head" data-anim-bloco>
         <span class="tn-rec-pilula" data-anim="up">CASOS DE USO</span>
-        <h2 class="tn-rec-h2" data-anim="words">Seis levantamentos, o mesmo fluxo de trabalho</h2>
+        <h2 class="tn-rec-h2" data-anim="words">Nove levantamentos, o mesmo fluxo de trabalho</h2>
         <p class="tn-rec-lead" data-anim="blur">Cada setor monta o formulário do seu jeito. O caminho do campo ao dado validado é o mesmo.</p>
       </div>
 
@@ -347,7 +369,9 @@ const abre = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke
               data-anim-bloco
             >
               <div class="tn-home-caso__foto">
-                <Image src={c.img} alt={c.alt} widths={[400, 800]} sizes="(max-width: 560px) 92vw, (max-width: 900px) 46vw, 370px" loading="lazy" />
+                {c.img
+                  ? <Image src={c.img} alt={c.alt} widths={[400, 800]} sizes="(max-width: 560px) 92vw, (max-width: 900px) 46vw, 370px" loading="lazy" />
+                  : <span class="tn-home-caso__semfoto" aria-hidden="true" />}
                 <span class="tn-home-caso__num">{String(i + 1).padStart(2, "0")}</span>
               </div>
               <div class="tn-home-caso__corpo">

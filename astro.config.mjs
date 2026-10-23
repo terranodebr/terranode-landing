@@ -23,7 +23,11 @@ export default defineConfig({
     }),
   ],
   // The home redesign was reviewed at /v2/ before it replaced /. Links to it still land.
-  redirects: { '/v2': '/' },
+  redirects: {
+    '/v2': '/',
+    // Energia e telecom became two pages; the old URL was already indexed.
+    '/solucoes/energia-e-telecom': '/solucoes/energia/',
+  },
   vite: {
     // Pre-bundle GSAP and ScrollTrigger together at dev-server start. Discovered one at a
     // time, they can land in separate optimize passes and load two copies of the GSAP

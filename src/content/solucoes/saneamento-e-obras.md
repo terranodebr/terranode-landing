@@ -4,7 +4,7 @@ description: "Faça a fiscalização de obras e redes de saneamento com formulá
 setor: "Saneamento e obras"
 h1: "Fiscalização de obras e redes de saneamento"
 subtitulo: "O TerraNode é uma plataforma de coleta de dados geoespaciais em campo para saneamento e obras, com formulários configuráveis por serviço, registro offline de medições, não conformidades, fotos e assinaturas, e recursos para revisão e exportação de dados."
-ordem: 6
+ordem: 7
 draft: false
 
 doresTitulo: "O que dificulta a fiscalização de obras e redes de saneamento"
@@ -113,7 +113,7 @@ Os formulários podem ser configurados com os campos, as regras e os preenchimen
 
 Nossa plataforma também se integra ao **ArcGIS Online** e ao **ArcGIS Enterprise**, conectando a **coleta de dados em campo** ao **sistema de informação geográfica (SIG)** da organização.
 
-**Conheça as soluções do TerraNode para outras operações:** [energia e telecom](/solucoes/energia-e-telecom/), [topografia e cadastro](/solucoes/topografia-e-cadastro/), [meio ambiente](/solucoes/meio-ambiente/), [municípios](/solucoes/municipios/) e [agro](/solucoes/agro/).
+**Conheça as soluções do TerraNode para outras operações:** [energia](/solucoes/energia/), [telecom](/solucoes/telecom/), [topografia e cadastro](/solucoes/topografia-e-cadastro/), [meio ambiente](/solucoes/meio-ambiente/), [municípios](/solucoes/municipios/) e [agro](/solucoes/agro/).
 
 **Para conhecer outros recursos de configuração, acesse:** [formulários](/recursos/formularios/) e [catálogos](/recursos/catalogos/).
 

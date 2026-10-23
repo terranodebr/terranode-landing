@@ -610,6 +610,9 @@ a.tn-sobre-contato:hover { color: var(--rec-text); border-color: rgba(255, 102, 
 /* Hero stage over the sector's photo, under the same orange-to-dark wash as the default. */
 .tn-rec-palco.tn-sol-palco { background-image: linear-gradient(160deg, rgba(255, 102, 41, 0.28), rgba(12, 19, 18, 0.1) 45%, rgba(12, 19, 18, 0.55)), var(--sol-foto, url('https://d8j0ntlcm91z4.cloudfront.net/user_3GxdsKlGUaogeow5akSseF6dWZJ/hf_20260728_185636_809e1f10-5f7f-4f4a-957d-53482097ae4e.png')); }
 
+/* A sector without its own screens: the photo alone, at the screens' usual height. */
+.tn-rec-palco.tn-sol-palco--foto { aspect-ratio: 16 / 9; padding-right: 0; }
+
 /* The app screens are bare simulator captures: the phone body is drawn here. */
 .tn-sol-celular { box-sizing: border-box; aspect-ratio: 921 / 2000; overflow: hidden; border: clamp(4px, 0.8vw, 9px) solid #0B0F0F; border-radius: clamp(20px, 4vw, 44px); background: #0B0F0F; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.14), 0 30px 60px rgba(0, 0, 0, 0.5); }
 .tn-sol-celular img { display: block; width: 100%; height: 100%; object-fit: cover; }
@@ -1723,6 +1726,8 @@ a.tn-home-caso:hover { color: var(--rec-text); border-color: var(--rec-line-2); 
 .tn-home-caso__foto { position: relative; aspect-ratio: 16 / 10; overflow: hidden; }
 .tn-home-caso__foto img { display: block; width: 100%; height: 100%; object-fit: cover; filter: saturate(0.85); transition: transform 0.6s cubic-bezier(.22, .61, .36, 1); }
 .tn-home-caso:hover .tn-home-caso__foto img { transform: scale(1.04); }
+/* Card still waiting on its photo: the brand green under the same orange wash as the stages. */
+.tn-home-caso__semfoto { display: block; width: 100%; height: 100%; background: linear-gradient(160deg, rgba(255, 102, 41, 0.35), rgba(30, 55, 54, 0) 55%), #1e3736; }
 .tn-home-caso__num { position: absolute; z-index: 1; top: 12px; left: 12px; height: 24px; padding: 0 9px; display: inline-flex; align-items: center; border-radius: 100px; background: rgba(12, 19, 18, 0.6); backdrop-filter: blur(8px); font-family: var(--font-mono); font-size: 10.5px; color: rgba(255, 255, 255, 0.85); }
 .tn-home-caso__corpo { display: flex; flex-direction: column; gap: 10px; padding: 18px 22px 22px; flex: 1; }
 .tn-home-caso__titulo { margin: 0; display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 18px; letter-spacing: -0.02em; }
