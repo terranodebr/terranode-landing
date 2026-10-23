@@ -9,6 +9,18 @@ import setorMeioAmbiente from "../assets/setor-meio-ambiente.webp";
 import setorMunicipios from "../assets/setor-municipios.webp";
 import setorAgro from "../assets/setor-agro.webp";
 import setorSaneamento from "../assets/setor-saneamento.webp";
+import webEnergia from "../assets/tela-web-energia-e-telecom.webp";
+import webTopografia from "../assets/tela-web-topografia-e-cadastro.webp";
+import webMeioAmbiente from "../assets/tela-web-meio-ambiente.webp";
+import webMunicipios from "../assets/tela-web-municipios.webp";
+import webAgro from "../assets/tela-web-agro.webp";
+import webSaneamento from "../assets/tela-web-saneamento-e-obras.webp";
+import appEnergia from "../assets/tela-app-energia-e-telecom.webp";
+import appTopografia from "../assets/tela-app-topografia-e-cadastro.webp";
+import appMeioAmbiente from "../assets/tela-app-meio-ambiente.webp";
+import appMunicipios from "../assets/tela-app-municipios.webp";
+import appAgro from "../assets/tela-app-agro.webp";
+import appSaneamento from "../assets/tela-app-saneamento-e-obras.webp";
 
 export type Solucao = CollectionEntry<"solucoes">;
 
@@ -60,4 +72,48 @@ export const altSetor: Record<string, string> = {
   "saneamento-e-obras": "Fiscal de obra com tablet ao lado de vala com tubo de concreto e escavadeira",
   "exploracao-mineral": "Geólogo ao lado de um afloramento rochoso em terreno de solo vermelho, com caminhonete na estrada de terra e chapadas ao fundo",
   mineracao: "Técnico de colete laranja e capacete na borda de uma mina a céu aberto com bancadas de minério e caminhão fora de estrada",
+};
+
+/**
+ * Each sector's pair of product screens: the web panel's overview of one of the sector's
+ * projects, and the field app's form for a point of that project. The same projects run
+ * through both, so the two screens tell one story. The hero stage of the sector page
+ * shows them, and so does each comparison page, picking the sector in its `setor` field.
+ * Sectors without screens of their own (telecom, mining) are simply not listed here.
+ */
+interface Tela { src: ImageMetadata; alt: string }
+export interface Palco { web: Tela; celular: Tela }
+const web = (src: ImageMetadata, projeto: string): Tela => ({
+  src,
+  alt: `Painel web do TerraNode: visão geral do projeto ${projeto}, com pontos recebidos, revisão, equipe em campo e formulários`,
+});
+const app = (src: ImageMetadata, campos: string): Tela => ({
+  src,
+  alt: `App de campo do TerraNode, sem conexão: formulário do ponto com localização, ${campos}`,
+});
+export const palcosSetor: Record<string, Palco> = {
+  energia: {
+    web: web(webEnergia, "LT 138 kV Santa Cruz"),
+    celular: app(appEnergia, "número da estrutura, fotos, componente e severidade"),
+  },
+  "topografia-e-cadastro": {
+    web: web(webTopografia, "Fazenda Santa Clara"),
+    celular: app(appTopografia, "vértice, foto do marco, tipo de marco e confrontante"),
+  },
+  "meio-ambiente": {
+    web: web(webMeioAmbiente, "Inventário APP Rio Pardo"),
+    celular: app(appMeioAmbiente, "espécie, fotos do indivíduo, CAP e altura"),
+  },
+  municipios: {
+    web: web(webMunicipios, "Bairro Santa Mônica"),
+    celular: app(appMunicipios, "inscrição imobiliária, fotos da fachada, uso do imóvel e área construída"),
+  },
+  agro: {
+    web: web(webAgro, "Pragas - Safra 26/27"),
+    celular: app(appAgro, "talhão, fotos do dano, cultura e praga"),
+  },
+  "saneamento-e-obras": {
+    web: web(webSaneamento, "Rede coletora - Bacia B3"),
+    celular: app(appSaneamento, "serviço executado, fotos do serviço e assinatura do responsável"),
+  },
 };

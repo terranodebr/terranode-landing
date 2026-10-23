@@ -9,7 +9,7 @@ export interface Passo { icone: Icone; titulo: string; detalhe: string }
 
 export const passosTerranode: (Passo & { volta?: string })[] = [
   { icone: "navegador", titulo: "Monte o formulário no navegador", detalhe: "Arraste os campos ou descreva o levantamento para a IA." },
-  { icone: "app", titulo: "Colete offline no app", detalhe: "iOS ou Android, com ±3 cm usando GNSS externo." },
+  { icone: "app", titulo: "Colete offline no app", detalhe: "iOS ou Android, sem sinal. Aceita receptor GNSS externo." },
   { icone: "revisao", titulo: "Revise ponto a ponto", detalhe: "Valide com um clique ou rejeite com um comentário.", volta: "O ponto rejeitado volta ao coletor" },
   { icone: "exportar", titulo: "Exporte só o dado validado", detalhe: "CSV, GeoJSON ou Shapefile." },
 ];
