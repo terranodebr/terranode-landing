@@ -15,7 +15,7 @@ secoes:
       - titulo: "Baixe o projeto antes de sair."
         texto: "Formulários, mapa e camadas são baixados juntos, em um único pacote. Depois disso, o app funciona sem internet, do primeiro registro ao último."
       - titulo: "O mapa do projeto vai junto."
-        texto: "As camadas do projeto e, se a versão incluir, o mapa base ficam no aparelho e abrem sem conexão. Cada camada pode ser ligada ou desligada."
+        texto: "As camadas do projeto e o mapa base ficam no aparelho e abrem sem conexão. A visibilidade de cada camada pode ser alterada no próprio mapa."
       - titulo: "Download que não recomeça do zero."
         texto: "O pacote baixa em segundo plano, pausa quando a conexão cai e continua de onde parou. Numa atualização, só são baixados os arquivos que mudaram."
       - titulo: "Consulta de área sem internet."
