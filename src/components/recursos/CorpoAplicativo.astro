@@ -1,0 +1,185 @@
+---
+// Body of /recursos/aplicativo/, between the shared hero and closing CTA
+// (src/layouts/Recurso.astro): the offline bento, the field types, the field session
+// beside its map, the sync as the orange centrepiece with its scroll story, on-device
+// security and what the web panel shows after the send. Claims follow the
+// bundle-download, form-rendering, field-session, field-sync and field-data-storage
+// specs in terranode-android (openspec/specs/) and docs/dev/content/field-sync.md in
+// terranode-backend.
+import AppVisual from "./AppVisual.astro";
+import Historia, { type Capitulo } from "./Historia.astro";
+import { asset } from "../../lib/asset";
+import type { Recurso } from "../../lib/recursos";
+
+interface Props {
+  entry: Recurso;
+}
+
+const d = Astro.props.entry.data;
+
+const secao = (id: string) => {
+  const s = d.secoes.find((x) => x.id === id);
+  if (!s) throw new Error(`src/content/recursos/aplicativo.md has no secao "${id}"`);
+  return s;
+};
+const offline = secao("offline");
+const coleta = secao("coleta");
+const sessao = secao("sessao");
+const sincronizacao = secao("sincronizacao");
+const seguranca = secao("seguranca");
+const semPonto = (s: string) => s.replace(/\.$/, "");
+const chips = (texto: string) => texto.split(" · ");
+
+// Bento: the offline behaviours after the lead item, each with its sketch.
+const bento = offline.itens.slice(1, 5).map((item, i) => ({
+  ...item,
+  visual: (["camadas", "pacote", "consulta", "conexao"] as const)[i],
+}));
+
+// Field types: the lead item, the chip cards (titles without a final period), then the
+// rules (full sentences).
+const [coletaLead, ...coletaResto] = coleta.itens;
+const coletaGrupos = coletaResto.filter((i) => !i.titulo.endsWith("."));
+const coletaRegras = coletaResto.filter((i) => i.titulo.endsWith("."));
+
+const [sessaoLead, ...sessaoItens] = sessao.itens;
+
+// Scroll story: each chapter opens on one sync item and takes the items up to the next
+// chapter's opening item.
+const aberturas = [
+  { prefixo: "Envio em segundo plano", rotulo: "AUTOMÁTICO", marca: "segundo plano", visualProps: { tipo: "fila" } },
+  { prefixo: "Conferido", rotulo: "CONFIRMADO", marca: "Conferido", visualProps: { tipo: "recibo" } },
+  { prefixo: "Fotos e vídeos", rotulo: "FOTOS, VÍDEOS E ÁUDIOS", marca: "Enviar dados", visualProps: { tipo: "envio" } },
+];
+const inicios = aberturas.map((a) => {
+  const i = sincronizacao.itens.findIndex((item) => item.titulo.startsWith(a.prefixo));
+  if (i < 0) throw new Error(`secao "sincronizacao" has no item starting with "${a.prefixo}"`);
+  return i;
+});
+const capitulos: Capitulo[] = aberturas.map((a, n) => {
+  const abertura = sincronizacao.itens[inicios[n]];
+  return {
+    rotulo: a.rotulo,
+    titulo: semPonto(abertura.titulo),
+    marca: a.marca,
+    texto: abertura.texto,
+    itens: sincronizacao.itens.slice(inicios[n] + 1, inicios[n + 1] ?? sincronizacao.itens.length),
+    nota: n === aberturas.length - 1 ? sincronizacao.nota : undefined,
+    visual: AppVisual,
+    visualProps: a.visualProps,
+  };
+});
+
+const ponto = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/><circle cx="12" cy="12" r="3"/></svg>';
+const cadeado = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7.5a4 4 0 0 1 8 0V11"/></svg>';
+---
+<!-- Offline: bento 2×2 -->
+<section id={offline.id} class="tn-rec-secao">
+  <div class="tn-rec-head" data-anim-bloco>
+    <span class="tn-rec-pilula" data-anim="up">{offline.eyebrow}</span>
+    <h2 class="tn-rec-h2" data-anim="words">{offline.titulo}</h2>
+    <p class="tn-rec-lead" data-anim="blur">{offline.itens[0].titulo} {offline.itens[0].texto}</p>
+  </div>
+
+  <div class="tn-rec-bento">
+    {bento.map((b) => (
+      <div class="tn-rec-bento__celula" data-anim="up" data-anim-bloco>
+        <div class="tn-rec-bento__visual"><AppVisual tipo={b.visual} /></div>
+        <span class="tn-rec-bento__rotulo" data-anim="up">{semPonto(b.titulo)}</span>
+        <p class="tn-rec-bento__texto" data-anim="blur">{b.texto}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<!-- Coleta: the field types as chip cards, then validation and conditional questions -->
+<section id={coleta.id} class="tn-rec-secao tn-rec-secao--linha">
+  <div class="tn-rec-head" data-anim-bloco>
+    <span class="tn-rec-pilula" data-anim="up">{coleta.eyebrow}</span>
+    <h2 class="tn-rec-h2" data-anim="words">{coleta.titulo}</h2>
+    <p class="tn-rec-lead" data-anim="blur">{coletaLead.titulo} {coletaLead.texto}</p>
+  </div>
+
+  <div class="tn-rec-tipos tn-rec-tipos--grupos">
+    {coletaGrupos.map((g, i) => (
+      <div class="tn-rec-tipo" data-anim="up" data-anim-bloco>
+        <span class="tn-rec-tipo__num">{String(i + 1).padStart(2, "0")}</span>
+        <span class="tn-rec-tipo__nome">{g.titulo}</span>
+        <div class="tn-rec-legenda tn-form-grupo" data-anim-group="pop">
+          {chips(g.texto).map((t) => <span>{t}</span>)}
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <div class="tn-app-regras" data-anim-bloco>
+    {coletaRegras.map((r) => (
+      <p class="tn-app-regras__item" data-anim="blur"><strong>{r.titulo}</strong> {r.texto}</p>
+    ))}
+    {coleta.nota && <p class="tn-app-regras__item tn-app-regras__item--nota" data-anim="blur">{coleta.nota}</p>}
+  </div>
+</section>
+
+<!-- Sessão de campo: the day's work beside the session map -->
+<section id={sessao.id} class="tn-rec-secao tn-rec-secao--linha">
+  <div class="tn-form-origem">
+    <div class="tn-rec-head tn-form-origem__head" data-anim-bloco>
+      <span class="tn-rec-pilula" data-anim="up">{sessao.eyebrow}</span>
+      <h2 class="tn-rec-h2" data-anim="words">{sessao.titulo}</h2>
+      <p class="tn-rec-lead" data-anim="blur">{sessaoLead.titulo} {sessaoLead.texto}</p>
+      <ul class="tn-rec-cap__itens tn-app-itens" data-anim-group="up">
+        {sessaoItens.map((item) => (
+          <li>
+            <span class="tn-rec-cap__icone" set:html={ponto} />
+            <span><strong>{item.titulo}</strong> {item.texto}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div class="tn-app-sessao__visual" data-anim="scale" data-anim-bloco><AppVisual tipo="trilha" /></div>
+  </div>
+</section>
+
+<!-- Sincronização: the centrepiece, on orange -->
+<section id={sincronizacao.id} class="tn-rec-secao tn-tema-laranja tn-app-sync">
+  <div class="tn-rec-head" data-anim-bloco>
+    <span class="tn-rec-pilula" data-anim="up">{sincronizacao.eyebrow}</span>
+    <h2 class="tn-rec-h2 tn-app-sync__h2" data-anim="words">{sincronizacao.titulo}</h2>
+    <p class="tn-rec-lead" data-anim="blur">{sincronizacao.itens[0].titulo} {sincronizacao.itens[0].texto}</p>
+  </div>
+
+  <Historia capitulos={capitulos} />
+</section>
+
+<!-- Segurança: what stays encrypted on the device -->
+<section id={seguranca.id} class="tn-rec-secao">
+  <div class="tn-rec-head" data-anim-bloco>
+    <span class="tn-rec-pilula" data-anim="up">{seguranca.eyebrow}</span>
+    <h2 class="tn-rec-h2" data-anim="words">{seguranca.titulo}</h2>
+  </div>
+
+  <div class="tn-rec-tipos">
+    {seguranca.itens.map((s) => (
+      <div class="tn-rec-tipo" data-anim="up" data-anim-bloco>
+        <span class="tn-app-garantia__icone" set:html={cadeado} />
+        <span class="tn-rec-tipo__nome">{semPonto(s.titulo)}</span>
+        <p class="tn-app-garantia__texto">{s.texto}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<!-- Depois do envio: the team overview on the web panel -->
+{d.complemento && (
+  <section class="tn-rec-secao tn-rec-secao--linha">
+    <div class="tn-form-origem">
+      <div class="tn-rec-head tn-form-origem__head" data-anim-bloco>
+        <span class="tn-rec-pilula" data-anim="up">{d.complemento.eyebrow}</span>
+        <h2 class="tn-rec-h2" data-anim="words">{d.complemento.titulo}</h2>
+        <p class="tn-rec-lead" data-anim="blur">{d.complemento.texto}</p>
+        <a href={asset("/recursos/formularios/")} class="tn-rec-btn" data-anim="up" data-mp-cta="aplicativo_formularios">Ver Formulários</a>
+      </div>
+      <div class="tn-app-sessao__visual" data-anim="scale" data-anim-bloco><AppVisual tipo="equipe" /></div>
+    </div>
+  </section>
+)}
