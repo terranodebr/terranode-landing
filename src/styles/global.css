@@ -1240,6 +1240,12 @@ a.tn-sobre-contato:hover { color: var(--rec-text); border-color: rgba(255, 102, 
 .tn-int-check { width: 14px; height: 14px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border-radius: 4px; background: var(--tn-accent); color: #fff; }
 
 /* Survey123: the import report and the pointer to the ArcGIS section. */
+/* Integrations logo marquee, on the formats marquee's track */
+.tn-int-logos-secao { padding-top: 0; }
+.tn-int-logos .tn-rec-faixa__trilho { animation-duration: 60s; }
+.tn-int-logo { display: inline-flex; align-items: center; gap: 12px; height: 60px; padding: 0 24px; border-radius: 16px; border: 1px solid var(--rec-line); background: var(--rec-card); font-weight: 600; font-size: 16px; letter-spacing: -0.01em; color: var(--rec-text); white-space: nowrap; }
+.tn-int-logo svg { flex-shrink: 0; }
+
 .tn-int-s123 { width: 100%; max-width: var(--container-max); display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-items: stretch; }
 .tn-int-s123__texto { margin: 0; padding: 22px; border-radius: 18px; border: 1px solid var(--rec-line); font-weight: 500; font-size: 15px; line-height: 1.6; color: var(--rec-muted); text-wrap: pretty; }
 .tn-int-s123__texto strong { display: block; margin-bottom: 4px; font-weight: 600; color: var(--rec-text); }
