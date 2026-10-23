@@ -29,7 +29,7 @@ secoes:
 
   - id: residencia
     eyebrow: "DADOS NO BRASIL"
-    titulo: "Hospedado em São Paulo"
+    titulo: "Hospedado no Brasil"
     itens:
       - titulo: "Seus dados de campo moram no Brasil."
         texto: "O banco de dados e os arquivos do TerraNode ficam na região de São Paulo do Google Cloud, a mesma onde rodam os servidores da aplicação."
