@@ -13,11 +13,11 @@ secoes:
     titulo: "O projeto inteiro no aparelho"
     itens:
       - titulo: "Baixe o projeto antes de sair."
-        texto: "Formulários, mapa e camadas descem juntos em um pacote. Depois disso, o app funciona sem internet, do primeiro registro ao último."
+        texto: "Formulários, mapa e camadas são baixados juntos, em um único pacote. Depois disso, o app funciona sem internet, do primeiro registro ao último."
       - titulo: "O mapa do projeto vai junto."
         texto: "As camadas do projeto e, se a versão incluir, o mapa base ficam no aparelho e abrem sem conexão. Cada camada pode ser ligada ou desligada."
       - titulo: "Download que não recomeça do zero."
-        texto: "O pacote baixa em segundo plano, pausa quando a conexão cai e continua de onde parou. Numa atualização, só descem os arquivos que mudaram."
+        texto: "O pacote baixa em segundo plano, pausa quando a conexão cai e continua de onde parou. Numa atualização, só são baixados os arquivos que mudaram."
       - titulo: "Consulta de área sem internet."
         texto: "O campo de consulta mostra, no próprio aparelho, a área do projeto onde está o ponto coletado, como o talhão, o bairro ou o lote."
       - titulo: "Sempre sabe se está online."
