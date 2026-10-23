@@ -1,0 +1,151 @@
+---
+// Body of /recursos/cli-ia/, between the shared hero and closing CTA
+// (src/layouts/Recurso.astro): how an AI agent in a terminal drives the tn CLI, four
+// hypothetical prompts with the commands the agent would run, and how API keys limit it.
+// Commands and flags follow terranode-backend (packages/terranode-cli/src/tn/,
+// docs/product/content/desenvolvedores/cli.md, organizacao/chaves-e-dispositivos.md).
+// tn has no commands for projects, forms or integrations, is not on pip, and has no MCP
+// server: the page never claims any of these.
+import { asset } from "../../lib/asset";
+import type { Recurso } from "../../lib/recursos";
+
+interface Props {
+  entry: Recurso;
+}
+
+const d = Astro.props.entry.data;
+
+const secao = (id: string) => {
+  const s = d.secoes.find((x) => x.id === id);
+  if (!s) throw new Error(`src/content/recursos/cli-ia.md has no secao "${id}"`);
+  return s;
+};
+const comoFunciona = secao("como-funciona");
+const exemplos = secao("exemplos");
+const controle = secao("controle");
+
+const [comoLead, ...comoItens] = comoFunciona.itens;
+const [controleLead, ...controleItens] = controle.itens;
+const semPonto = (s: string) => s.replace(/\.$/, "");
+
+// What the agent runs for each example, by position in `exemplos.itens`. `$` lines are
+// commands, indented lines continue them, the rest is the output it reads back. The data
+// and the exact output are made up.
+const terminais: string[][] = [
+  [
+    '$ tn catalogs create --name "Limites de fazendas 2026" --visibility private',
+    "slug        limites-de-fazendas-2026",
+    "$ for f in levantamento/*.geojson; do",
+    '    tn uploads create limites-de-fazendas-2026 "$f" --wait',
+    "  done",
+    "status      ready",
+    "$ tn datasources list limites-de-fazendas-2026",
+  ],
+  [
+    "$ tn orgs invitations create ana@campo.com.br beto@campo.com.br \\",
+    "    carla@campo.com.br --role field",
+    "ana@campo.com.br     invited",
+    "beto@campo.com.br    error: already a member",
+    "carla@campo.com.br   invited",
+  ],
+  [
+    '$ tn orgs api-keys create --name "pipeline-levantamentos" \\',
+    "    --role editor --expires-in-days 90 --mint-only",
+    "••••••••••••••••••••••••",
+    "Store this now — it will not be shown again.",
+  ],
+  [
+    "$ tn --json uploads list estradas-municipais",
+    '[{ "id": "6f1c…", "status": "failed", "error_message": "…" }]',
+    "$ tn uploads delete estradas-municipais 6f1c…",
+    "$ tn uploads create estradas-municipais ./trecho-norte.geojson --wait",
+    "status      ready",
+  ],
+];
+if (terminais.length !== exemplos.itens.length) {
+  throw new Error(`src/components/recursos/CorpoCliIa.astro has ${terminais.length} terminals for ${exemplos.itens.length} exemplos`);
+}
+
+const terminal = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="m7.5 9.5 3 2.5-3 2.5M12.5 15h4"/></svg>';
+const brilho = '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.5 13.9 9 20.5 11l-6.6 2L12 19.5 10.1 13 3.5 11l6.6-2z"/></svg>';
+const chave = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="m11 12 8.5-8.5M16.5 6.5l2.5 2.5M14 9l2 2"/></svg>';
+---
+<!-- Como funciona: the agent runs tn like a person would, reading JSON and exit codes -->
+<section id={comoFunciona.id} class="tn-rec-secao">
+  <div class="tn-rec-head" data-anim-bloco>
+    <span class="tn-rec-pilula" data-anim="up">{comoFunciona.eyebrow}</span>
+    <h2 class="tn-rec-h2" data-anim="words">{comoFunciona.titulo}</h2>
+    <p class="tn-rec-lead" data-anim="blur">{comoLead.titulo} {comoLead.texto}</p>
+  </div>
+
+  <div class="tn-rec-tipos tn-rec-tipos--grupos">
+    {comoItens.map((c) => (
+      <div class="tn-rec-tipo" data-anim="up" data-anim-bloco>
+        <span class="tn-app-garantia__icone" set:html={terminal} />
+        <span class="tn-rec-tipo__nome">{c.titulo}</span>
+        <p class="tn-app-garantia__texto">{c.texto}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<!-- Exemplos: the prompt, then the terminal session it turns into -->
+<section id={exemplos.id} class="tn-rec-secao tn-rec-secao--linha">
+  <div class="tn-rec-head" data-anim-bloco>
+    <span class="tn-rec-pilula" data-anim="up">{exemplos.eyebrow}</span>
+    <h2 class="tn-rec-h2" data-anim="words">{exemplos.titulo}</h2>
+  </div>
+
+  <div class="tn-cli-exemplos">
+    {exemplos.itens.map((e, i) => (
+      <article class="tn-cli-exemplo" data-anim="up" data-anim-bloco>
+        <span class="tn-cli-exemplo__rotulo">Exemplo hipotético</span>
+        <p class="tn-rec-ia__pedido tn-cli-exemplo__pedido">
+          <span class="tn-rec-ia__brilho" set:html={brilho} />
+          “{e.titulo}”
+        </p>
+        <pre class="tn-cli-terminal"><code>{terminais[i].map((l) => (
+          <span class:list={["tn-cli-terminal__linha", l.startsWith("$") ? "is-comando" : l.startsWith(" ") ? "is-continua" : "is-saida"]}>{l}{"\n"}</span>
+        ))}</code></pre>
+        <p class="tn-app-garantia__texto">{e.texto}</p>
+      </article>
+    ))}
+  </div>
+</section>
+
+<!-- Controle: an API key with a role, an expiry and a revoke, passed in TN_TOKEN -->
+<section id={controle.id} class="tn-rec-secao tn-rec-secao--linha">
+  <div class="tn-rec-head" data-anim-bloco>
+    <span class="tn-rec-pilula" data-anim="up">{controle.eyebrow}</span>
+    <h2 class="tn-rec-h2" data-anim="words">{controle.titulo}</h2>
+    <p class="tn-rec-lead" data-anim="blur">{controleLead.titulo} {controleLead.texto}</p>
+  </div>
+
+  <div class="tn-rec-tipos tn-rec-tipos--grupos">
+    {controleItens.map((c) => (
+      <div class="tn-rec-tipo" data-anim="up" data-anim-bloco>
+        <span class="tn-app-garantia__icone" set:html={chave} />
+        <span class="tn-rec-tipo__nome">{semPonto(c.titulo)}</span>
+        <p class="tn-app-garantia__texto">{c.texto}</p>
+      </div>
+    ))}
+  </div>
+
+  {controle.nota && (
+    <div class="tn-app-regras tn-cli-nota" data-anim-bloco>
+      <p class="tn-app-regras__item tn-app-regras__item--nota" data-anim="blur">{controle.nota}</p>
+    </div>
+  )}
+</section>
+
+<!-- Acesso: tn is not on pip yet -->
+{d.complemento && (
+  <section class="tn-rec-secao tn-rec-secao--linha">
+    <div class="tn-rec-head" data-anim-bloco>
+      <span class="tn-rec-pilula" data-anim="up">{d.complemento.eyebrow}</span>
+      <h2 class="tn-rec-h2" data-anim="words">{d.complemento.titulo}</h2>
+      <p class="tn-rec-lead" data-anim="blur">{d.complemento.texto}</p>
+      <a href={asset("/recursos/integracoes/")} class="tn-rec-btn" data-anim="up" data-mp-cta="cli_ia_integracoes">Ver as integrações</a>
+    </div>
+  </section>
+)}
