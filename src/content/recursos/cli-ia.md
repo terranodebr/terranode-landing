@@ -3,7 +3,7 @@ title: "Integre agentes de IA ao TerraNode pela linha de comando · TerraNode"
 description: "Peça em português e deixe um agente de IA no terminal criar catálogos, enviar arquivos, convidar a equipe e gerar chaves de API pelo CLI tn do TerraNode."
 recurso: "CLI e IA"
 h1: "Peça em português. O agente de IA faz pelo terminal."
-subtitulo: "O tn, a linha de comando do TerraNode, dá a qualquer agente de IA que roda comandos no terminal, como Claude Code, Codex ou Gemini CLI, o mesmo acesso que você tem: criar catálogos, enviar arquivos, convidar a equipe e gerar chaves de API."
+subtitulo: "O tn, a linha de comando do TerraNode, dá a qualquer agente de IA que roda comandos no terminal, como Claude Code, Codex ou Gemini CLI, o mesmo acesso que você tem para criar catálogos, enviar arquivos, convidar a equipe e gerar chaves de API."
 ordem: 6
 draft: true
 
