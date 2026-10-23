@@ -1,14 +1,15 @@
 ---
 // Body of /recursos/seguranca/, between the shared hero and closing CTA
 // (src/layouts/Recurso.astro): encryption on the device, in transit and on the server,
-// data hosted in São Paulo over the dotted map, isolation between organizations, and the
+// data hosted in Brazil over the dotted map, isolation between organizations, and the
 // app page for the offline side. Claims follow terranode-android (storage/DatabaseEngine.kt,
 // storage/user/UserMediaStore.kt, storage/keys/KeystoreStorageKeySealer.kt,
 // session/KeystoreTokenCipher.kt, res/xml/backup_rules.xml) and terranode-backend
 // (terraform/app/lb_dns_cert.tf, cloudsql.tf, storage.tf, terraform/production/,
 // settings/prod.py, core/crypto.py, core/rls.py, organizations/models.py, projects/events.py).
-// Only the database and files are said to be in São Paulo: the backup location is not
-// pinned in terraform, and supporting services run elsewhere.
+// The page says only that the database, files and servers are in Brazil, with no region or
+// provider. It never says all data stays in Brazil: the backup location is not pinned in
+// terraform, and supporting services run elsewhere.
 import MapaPontilhado from "./MapaPontilhado.astro";
 import { asset } from "../../lib/asset";
 import type { Recurso } from "../../lib/recursos";
@@ -66,7 +67,7 @@ const escudo = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stro
   </div>
 </section>
 
-<!-- Residência: São Paulo over the dotted map of Brazil -->
+<!-- Residência: Brazil over the dotted map of Brazil -->
 <section id={residencia.id} class="tn-rec-secao tn-rec-publicos tn-tema-verde">
   <div class="tn-rec-publicos__mapa" data-anim-bloco><MapaPontilhado /></div>
   <div class="tn-rec-head tn-rec-publicos__head" data-anim-bloco>

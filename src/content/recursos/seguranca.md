@@ -1,9 +1,9 @@
 ---
 title: "Segurança, criptografia e LGPD na coleta de campo · TerraNode"
-description: "Dados de campo criptografados no aparelho, na transmissão e no servidor, com banco e arquivos hospedados em São Paulo e isolamento por organização no próprio banco de dados."
+description: "Dados de campo criptografados no aparelho, na transmissão e no servidor, com dados e servidores no Brasil e isolamento por organização no próprio banco de dados."
 recurso: "Segurança e LGPD"
 h1: "Seus dados protegidos do campo ao painel. Criptografados e hospedados no Brasil."
-subtitulo: "Levantamentos de campo guardam informação sobre pessoas, imóveis e território. O TerraNode protege esses dados no celular, no caminho até o servidor e no servidor, que fica em São Paulo."
+subtitulo: "Levantamentos de campo guardam informação sobre pessoas, imóveis e território. O TerraNode protege esses dados no celular, no caminho até o servidor e no servidor, que fica no Brasil."
 ordem: 5
 draft: true
 
@@ -19,7 +19,7 @@ secoes:
       - titulo: "Na transmissão"
         texto: "O aplicativo e o painel web só falam com o servidor por HTTPS. Endereços sem criptografia são redirecionados, e o navegador é instruído a nunca usar conexão aberta (HSTS)."
       - titulo: "No servidor"
-        texto: "O banco de dados e os arquivos ficam criptografados em repouso na infraestrutura do Google Cloud. O banco não tem endereço público: só a aplicação, dentro da rede privada, chega até ele."
+        texto: "O banco de dados e os arquivos ficam criptografados em repouso. O banco não tem endereço público: só a aplicação, dentro da rede privada, chega até ele."
       - titulo: "Senhas nunca guardadas."
         texto: "O servidor guarda apenas um resumo criptográfico (hash) de cada senha, nunca a senha em si."
       - titulo: "Acesso do app protegido."
@@ -32,13 +32,13 @@ secoes:
     titulo: "Hospedado no Brasil"
     itens:
       - titulo: "Seus dados de campo moram no Brasil."
-        texto: "O banco de dados e os arquivos do TerraNode ficam na região de São Paulo do Google Cloud, a mesma onde rodam os servidores da aplicação."
-      - titulo: "Banco geoespacial em São Paulo."
-        texto: "Registros, respostas, trajetos e camadas ficam em PostgreSQL com PostGIS, hospedado na região de São Paulo."
-      - titulo: "Arquivos em São Paulo."
-        texto: "Fotos, vídeos, áudios e os pacotes que o aplicativo baixa ficam no armazenamento da mesma região."
+        texto: "O banco de dados, os arquivos e os servidores do TerraNode ficam no Brasil."
+      - titulo: "Banco geoespacial no Brasil."
+        texto: "Registros, respostas, trajetos e camadas ficam em PostgreSQL com PostGIS, hospedado no Brasil."
+      - titulo: "Arquivos no Brasil."
+        texto: "Fotos, vídeos, áudios e os pacotes que o aplicativo baixa ficam armazenados no Brasil."
       - titulo: "Réplica em outra zona."
-        texto: "O banco tem uma cópia em espera em uma segunda zona da região, pronta para assumir se a principal falhar."
+        texto: "O banco tem uma cópia em espera em um segundo data center, pronta para assumir se a principal falhar."
       - titulo: "Recuperação a qualquer momento."
         texto: "Backups contínuos permitem voltar o banco a qualquer ponto dos últimos 7 dias."
 
@@ -68,7 +68,7 @@ fechamento:
   texto: "Lançamento em breve. Entre na lista para ser avisado, ou candidate-se a early tester e ajude a definir o que entra primeiro."
   pontos:
     - "Criptografia no aparelho, na transmissão e no servidor."
-    - "Banco e arquivos hospedados em São Paulo."
+    - "Dados e servidores no Brasil."
     - "Isolamento por organização no próprio banco de dados."
     - "Papéis de acesso e histórico de cada projeto."
 ---
