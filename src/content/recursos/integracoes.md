@@ -2,7 +2,7 @@
 title: "Integração com ArcGIS, Google Sheets e Survey123 · TerraNode"
 description: "Conecte o ArcGIS Online ou o ArcGIS Enterprise, abas do Google Sheets e formulários do Survey123. Os dados chegam ao campo com simbologia e sincronização agendada."
 recurso: "Integrações"
-h1: "Seus dados de onde já estão. O TerraNode busca no seu ArcGIS e nas suas planilhas."
+h1: "Nada de recomeçar do zero. Camadas do ArcGIS, planilhas do Google e formulários do Survey123 entram no TerraNode."
 subtitulo: "Conecte o portal ArcGIS Online ou Enterprise da organização, abas do Google Sheets e os formulários que você já montou no Survey123. Nada é alterado na origem."
 ordem: 3
 draft: true
