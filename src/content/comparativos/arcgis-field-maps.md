@@ -5,7 +5,7 @@ concorrente: "ArcGIS Field Maps / Survey123"
 h1: "TerraNode vs ArcGIS Field Maps e Survey123"
 subtitulo: "Sua equipe GIS continua no ArcGIS. Quem vai a campo usa o TerraNode, com as camadas do seu portal no mapa e sem precisar de uma licença ArcGIS."
 ordem: 2
-draft: true
+draft: false
 setor: "energia"
 
 resumo:

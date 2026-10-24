@@ -5,7 +5,7 @@ concorrente: "Fulcrum"
 h1: "TerraNode vs Fulcrum"
 subtitulo: "O Fulcrum tem mais recursos hoje. O TerraNode tem revisão pronta e suporte em português, direto com quem constrói o produto."
 ordem: 5
-draft: true
+draft: false
 setor: "saneamento-e-obras"
 
 resumo:

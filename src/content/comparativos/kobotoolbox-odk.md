@@ -5,7 +5,7 @@ concorrente: "KoboToolbox / ODK"
 h1: "TerraNode vs KoboToolbox e ODK"
 subtitulo: "Seu levantamento é um questionário ou um mapa? Para questionários, Kobo e ODK são o padrão. O TerraNode é para quando a geometria importa tanto quanto as respostas."
 ordem: 4
-draft: true
+draft: false
 setor: "municipios"
 
 resumo:

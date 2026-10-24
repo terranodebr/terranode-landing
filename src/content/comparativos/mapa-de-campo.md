@@ -5,7 +5,7 @@ concorrente: "Mapa de Campo"
 h1: "TerraNode vs Mapa de Campo"
 subtitulo: "Os dois coletam sem sinal. No TerraNode, cada ponto passa por uma fila de revisão antes de sair do projeto, e a correção volta para quem coletou."
 ordem: 1
-draft: true
+draft: false
 setor: "topografia-e-cadastro"
 
 resumo:
