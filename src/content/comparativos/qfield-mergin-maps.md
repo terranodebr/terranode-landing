@@ -5,7 +5,7 @@ concorrente: "QField / Mergin Maps"
 h1: "TerraNode vs QField e Mergin Maps"
 subtitulo: "Quem conhece o levantamento monta o formulário no navegador, sem abrir o QGIS, e cada ponto passa por um revisor antes de chegar lá."
 ordem: 3
-draft: true
+draft: false
 setor: "meio-ambiente"
 
 resumo:
