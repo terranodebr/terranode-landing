@@ -62,11 +62,7 @@ const organization = {
   },
   email: EMPRESA.email,
   sameAs: [EMPRESA.instagram, EMPRESA.linkedin],
-  founder: FUNDADORES.map((f) =>
-    f.empresa
-      ? { "@type": "Organization", name: f.nome }
-      : { "@type": "Person", name: f.nome, jobTitle: f.cargo.replace(/^Sócio fundador · /, "") },
-  ),
+  founder: FUNDADORES.map((f) => ({ "@type": "Person", name: f.nome, jobTitle: f.cargo.replace(/^Sócio fundador · /, "") })),
 };
 
 const software = {

@@ -1,12 +1,9 @@
 // The founders, as the /sobre/ page shows them and as the Organization JSON-LD lists
 // them (layouts/Base.astro). Facts come from the pitch deck's "Sócios fundadores" slide;
 // the bios expand on them without adding employers, degrees or dates the deck doesn't name,
-// and Bruno's leaves out the companies he worked at, as he asked. Ambientare Geotech is a
-// company, not a person; its text is the one it sent, with typos fixed.
+// and Bruno's leaves out the companies he worked at, as he asked.
 export interface Fundador {
   nome: string;
-  /** Set for a founding partner that is a company (Organization in the JSON-LD). */
-  empresa?: boolean;
   iniciais: string;
   cargo: string;
   /** Short lines under the name, the deck's facts. */
@@ -56,21 +53,6 @@ export const FUNDADORES: Fundador[] = [
     bio: [
       "Engenheiro full stack com mais de 15 anos em infraestrutura e desenvolvimento de software, construídos em empresas da área geoespacial.",
       "Traz para o TerraNode a experiência de manter sistemas geoespaciais em produção: aplicações que precisam funcionar do aparelho em campo ao servidor, com dados sensíveis e sem perder nenhum registro no caminho.",
-    ],
-  },
-  {
-    nome: "Ambientare Geotech",
-    empresa: true,
-    iniciais: "AG",
-    cargo: "Sócia fundadora · Geoprocessamento",
-    destaques: [
-      "Soluções em geoprocessamento, desde 2024",
-      "Setores elétrico, fundiário, ambiental e de infraestrutura",
-      "Inteligência geográfica para decisões operacionais e gerenciais",
-    ],
-    bio: [
-      "Criada em 2024 a partir da paixão pela análise territorial, a Ambientare Geotech é uma empresa de desenvolvimento de soluções em geoprocessamento que une o rigor técnico a uma abordagem criativa e colaborativa. Seu foco é extrair o máximo de valor analítico de cada território, para que a inteligência geográfica fomente decisões mais assertivas no seu negócio, nos níveis operacional e gerencial.",
-      "A Ambientare Geotech traz para o TerraNode seu conhecimento de negócio e sua experiência nos setores elétrico, fundiário, ambiental e de infraestrutura. Conhece os desafios do campo e sabe como otimizar a operação com tecnologia orientada ao negócio de cada cliente.",
     ],
   },
 ];
