@@ -15,12 +15,10 @@ import PorQueTerraNode from "../components/home/PorQueTerraNode.astro";
 import ArcGIS from "../components/home/ArcGIS.astro";
 import { asset } from "../lib/asset";
 import { getRecursos } from "../lib/recursos";
-import { getSolucoes } from "../lib/solucoes";
+import { getSolucoes, palcosSetor } from "../lib/solucoes";
 import { numeros } from "../lib/numeros";
 import campoMarca from "../assets/campo-marca.webp";
 import segRealista from "../assets/seguranca-realista.webp";
-import webOverview from "../assets/web-overview.png";
-import mobileCapture from "../assets/mobile-capture.png";
 import ucAgro from "../assets/uc-agro.png";
 import ucAmbiental from "../assets/uc-ambiental.png";
 import ucEnergia from "../assets/uc-energia.png";
@@ -37,6 +35,8 @@ const description =
   "Coleta de dados geoespaciais em campo, 100% offline e integrada ao ArcGIS Online e Enterprise. Arquivos criptografados no aparelho e no servidor, dados no Brasil e LGPD por arquitetura.";
 
 const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
+
+const palcoHero = palcosSetor.energia;
 
 // Bento: why TerraNode, one sketch per capability.
 // Scroll story: the four steps. `marca` is circled when the chapter is active.
@@ -261,22 +261,20 @@ const abre = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke
         </ul>
       </div>
 
-      <!-- The web panel as a browser window on the aerial wallpaper, the field app
-           beside it: the same project, seen from the office and from the field. -->
+      <!-- The energy sector's screens (`palcosSetor` in lib/solucoes), as on the sector and
+           comparison pages: the same project, seen from the office and from the field. -->
       <div class="tn-rec-palco-entrada" data-anim="rise" data-anim-bloco data-anim-delay="0.45">
-        <div class="tn-rec-palco tn-home-palco" data-rec-palco>
+        <div class="tn-rec-palco tn-cmp-palco" data-rec-palco>
           <div class="tn-rec-palco__barra">
             <img src={asset("/favicon-96x96.png")} alt="Símbolo do TerraNode" aria-hidden="true" width="30" height="30" class="tn-rec-palco__marca" />
             <span class="tn-rec-palco__status"><span class="tn-rec-palco__dot"></span>Sem sinal · coleta salva localmente</span>
           </div>
-          <div class="tn-home-janela">
-            <div class="tn-home-janela__barra" aria-hidden="true">
-              <span></span><span></span><span></span>
-              <span class="tn-home-janela__url">app.terranode.com/projetos/rede-sul</span>
-            </div>
-            <Image src={webOverview} alt="Painel web: visão geral do projeto Vistoria Rede Sul" class="tn-home-janela__img" loading="eager" widths={[720, 1442]} sizes="(max-width: 900px) 92vw, 940px" />
+          <div class="tn-cmp-janela">
+            <Image src={palcoHero.web.src} alt={palcoHero.web.alt} widths={[720, 1180, 2000]} sizes="(max-width: 1180px) 90vw, 940px" loading="eager" />
           </div>
-          <Image src={mobileCapture} alt="App de campo: captura de ponto sem conexão" class="tn-home-palco__celular" widths={[260, 520]} sizes="(max-width: 560px) 34vw, 240px" loading="eager" />
+          <div class="tn-cmp-palco__celular tn-sol-celular">
+            <Image src={palcoHero.celular.src} alt={palcoHero.celular.alt} widths={[240, 480, 720]} sizes="(max-width: 700px) 30vw, 240px" loading="eager" />
+          </div>
         </div>
       </div>
     </section>

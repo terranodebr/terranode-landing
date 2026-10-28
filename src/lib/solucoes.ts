@@ -79,6 +79,7 @@ export const altSetor: Record<string, string> = {
  * projects, and the field app's form for a point of that project. The same projects run
  * through both, so the two screens tell one story. The hero stage of the sector page
  * shows them, and so does each comparison page, picking the sector in its `setor` field.
+ * The home hero shows the energy pair.
  * Sectors without screens of their own (telecom, mining) are simply not listed here.
  */
 interface Tela { src: ImageMetadata; alt: string }
