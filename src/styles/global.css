@@ -585,9 +585,6 @@ a:hover { color: var(--tn-accent); }
 .tn-sobre-pessoa__destaques li::before { content: ""; position: absolute; left: 1px; top: 0.55em; width: 5px; height: 5px; border-radius: 50%; background: var(--tn-accent); }
 .tn-sobre-pessoa__bio { display: flex; flex-direction: column; gap: 12px; }
 .tn-sobre-pessoa__bio p { margin: 0; font-weight: 500; font-size: 14.5px; line-height: 1.65; color: var(--rec-muted); text-wrap: pretty; }
-.tn-sobre-pessoa--empresa { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 20px clamp(28px, 4vw, 56px); align-items: start; background: rgba(255, 102, 41, 0.05); border-color: rgba(255, 102, 41, 0.28); }
-.tn-sobre-pessoa--empresa .tn-sobre-pessoa__lado { display: flex; flex-direction: column; gap: 20px; }
-.tn-sobre-pessoa--empresa .tn-sobre-pessoa__avatar { border-radius: 14px; }
 
 .tn-sobre-contatos { list-style: none; margin: 0; padding: 0; width: 100%; max-width: 860px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .tn-sobre-contatos > li { display: flex; }
@@ -599,7 +596,6 @@ a.tn-sobre-contato:hover { color: var(--rec-text); border-color: rgba(255, 102, 
 
 @media (max-width: 1080px) {
   .tn-sobre-time { grid-template-columns: 1fr 1fr; }
-  .tn-sobre-pessoa--empresa { grid-column: auto; grid-template-columns: 1fr; }
 }
 @media (max-width: 900px) {
   .tn-sobre-missao { grid-template-columns: 1fr; }

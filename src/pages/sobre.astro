@@ -10,11 +10,6 @@ import Animacoes from "../components/recursos/Animacoes.astro";
 import { EMPRESA, enderecoEmLinha } from "../lib/empresa";
 import { FUNDADORES } from "../lib/time";
 
-// The three people side by side, then the founding company on a tinted card: a full-width
-// row on desktop, the fourth cell of the 2×2 grid on tablets.
-const pessoas = FUNDADORES.filter((f) => !f.empresa);
-const empresas = FUNDADORES.filter((f) => f.empresa);
-
 const title = "Sobre a TerraNode · Coleta de campo feita no Brasil";
 const description =
   "A TerraNode quer facilitar e abrasileirar a coleta de dados em campo: em português, com preço em reais e dados no Brasil. Conheça quem constrói a plataforma.";
@@ -131,10 +126,10 @@ const aspas = '<svg width="34" height="26" viewBox="0 0 34 26" fill="none" aria-
       <div class="tn-rec-head" data-anim-bloco>
         <span class="tn-rec-pilula" data-anim="up">SÓCIOS FUNDADORES</span>
         <h2 class="tn-rec-h2" data-anim="words">Quem constrói o TerraNode</h2>
-        <p class="tn-rec-lead" data-anim="blur">Três sócios com mais de 15 anos cada em produto, software e dados geoespaciais, e a Ambientare Geotech, especialista em geoprocessamento para os setores elétrico, fundiário, ambiental e de infraestrutura.</p>
+        <p class="tn-rec-lead" data-anim="blur">Três sócios com mais de 15 anos cada em produto, software e dados geoespaciais, construindo a TerraNode em Florianópolis.</p>
       </div>
       <div class="tn-sobre-time">
-        {pessoas.map((f) => (
+        {FUNDADORES.map((f) => (
           <article class="tn-sobre-pessoa" data-anim="up" data-anim-bloco>
             <div class="tn-sobre-pessoa__topo">
               <span class="tn-sobre-pessoa__avatar" aria-hidden="true">{f.iniciais}</span>
@@ -146,25 +141,6 @@ const aspas = '<svg width="34" height="26" viewBox="0 0 34 26" fill="none" aria-
             <ul class="tn-sobre-pessoa__destaques">
               {f.destaques.map((d) => <li>{d}</li>)}
             </ul>
-            <div class="tn-sobre-pessoa__bio">
-              {f.bio.map((p) => <p>{p}</p>)}
-            </div>
-          </article>
-        ))}
-        {empresas.map((f) => (
-          <article class="tn-sobre-pessoa tn-sobre-pessoa--empresa" data-anim="up" data-anim-bloco>
-            <div class="tn-sobre-pessoa__lado">
-              <div class="tn-sobre-pessoa__topo">
-                <span class="tn-sobre-pessoa__avatar" aria-hidden="true">{f.iniciais}</span>
-                <div class="tn-sobre-pessoa__nome-cargo">
-                  <h2 class="tn-sobre-pessoa__nome">{f.nome}</h2>
-                  <span class="tn-rec-cap__rotulo">{f.cargo.toUpperCase()}</span>
-                </div>
-              </div>
-              <ul class="tn-sobre-pessoa__destaques">
-                {f.destaques.map((d) => <li>{d}</li>)}
-              </ul>
-            </div>
             <div class="tn-sobre-pessoa__bio">
               {f.bio.map((p) => <p>{p}</p>)}
             </div>
