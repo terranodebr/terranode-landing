@@ -1506,15 +1506,6 @@ a.tn-sobre-contato:hover { color: var(--rec-text); border-color: rgba(255, 102, 
 .tn-home-provas li + li::before { content: ""; width: 4px; height: 4px; margin-right: 16px; border-radius: 50%; background: var(--rec-line-2); }
 .tn-home-provas strong { font-weight: 600; color: var(--rec-text); }
 
-/* Stage: browser window with the web panel, the field app standing in front of it. */
-.tn-home-palco { padding-right: clamp(16px, 16vw, 210px); }
-.tn-home-janela { position: relative; overflow: hidden; border-radius: 14px 14px 0 0; background: #fff; box-shadow: 0 -10px 60px rgba(0, 0, 0, 0.45); }
-.tn-home-janela__barra { display: flex; align-items: center; gap: 6px; height: 34px; padding: 0 14px; background: #F4F2EE; border-bottom: 1px solid var(--tn-border); }
-.tn-home-janela__barra > span:not(.tn-home-janela__url) { width: 9px; height: 9px; border-radius: 50%; background: var(--tn-border-dashed); }
-.tn-home-janela__url { margin: 0 auto; padding: 3px 14px; border-radius: 7px; background: #fff; font-family: var(--font-mono); font-size: 10.5px; color: var(--tn-ink-faint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 60%; }
-.tn-home-janela__img { display: block; width: 100%; height: auto; }
-.tn-home-palco__celular { position: absolute; right: clamp(8px, 4vw, 56px); bottom: 0; width: clamp(120px, 22vw, 250px); height: auto; filter: drop-shadow(0 30px 50px rgba(0, 0, 0, 0.55)); }
-
 /* Sketch bits */
 .tn-home-sinal { display: flex; color: var(--tn-accent); }
 .tn-home-geo__linha { fill: none; stroke: var(--tn-accent); stroke-width: 2; stroke-dasharray: 5 4; }
@@ -1815,8 +1806,6 @@ a.tn-home-caso:hover { color: var(--rec-text); border-color: var(--rec-line-2); 
   .tn-home-seg__pilares { grid-template-columns: 1fr; max-width: 560px; }
 }
 @media (max-width: 560px) {
-  .tn-home-palco { padding-right: 16px; padding-bottom: 0; }
-  .tn-home-palco__celular { width: 34%; right: 6px; }
   .tn-home-casos, .tn-home-numeros { grid-template-columns: 1fr; }
   /* Narrow cards: the text runs taller, so the scenes move down and the chips out of its way. */
   .tn-home-prod__pos-janela { left: 10%; top: 200px; width: 125%; }
