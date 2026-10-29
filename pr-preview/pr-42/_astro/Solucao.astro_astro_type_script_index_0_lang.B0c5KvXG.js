@@ -1,0 +1,1 @@
+import{t as e}from"./gsap.CvDoa17S.js";import{t}from"./ScrollTrigger.CDDhF-DF.js";e.registerPlugin(t);var n=document.querySelector(`[data-rec-palco]`);n&&!window.matchMedia(`(prefers-reduced-motion: reduce)`).matches&&e.fromTo(n,{scale:.94},{scale:1,ease:`none`,scrollTrigger:{trigger:n,start:`top bottom`,end:`center center`,scrub:!0}});
