@@ -26,9 +26,9 @@ const bento = importar.itens.slice(1, 5).map((item, i) => ({
   ...item,
   visual: (["camadas", "progresso", "cog", "arcgis"] as const)[i],
 }));
-// The first import item lists the formats (shown as the marquee and the formats section,
-// both from lib/formatos.ts) and then the cloud sources (kept in the lead), one sentence each.
-const [, nuvem] = importar.itens[0].texto.split(/(?<=\.) /);
+// The first import item is the lead; the formats themselves are the marquee and the
+// formats section, both from lib/formatos.ts.
+const lead = importar.itens[0];
 
 // Scroll story: one chapter per styling capability.
 const porTitulo = (itens: typeof estilo.itens, prefixo: string) =>
@@ -83,7 +83,7 @@ const tipos = [
   <div class="tn-rec-head" data-anim-bloco>
     <span class="tn-rec-pilula" data-anim="up">{importar.eyebrow}</span>
     <h2 class="tn-rec-h2" data-anim="words">{importar.titulo}</h2>
-    <p class="tn-rec-lead" data-anim="blur">{importar.itens[0].titulo} {nuvem}</p>
+    <p class="tn-rec-lead" data-anim="blur">{lead.titulo} {lead.texto}</p>
   </div>
 
   <div class="tn-rec-bento">

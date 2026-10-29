@@ -13,7 +13,7 @@ secoes:
     titulo: "Traga o que você já tem"
     itens:
       - titulo: "Arraste e solte arquivos de até 2 GB."
-        texto: "Vetores, rasters e tabelas, de Shapefile e GeoPackage a GeoTIFF e planilhas Excel, compactados ou não. Se os dados estão na nuvem, importe direto de um bucket S3, GCS ou similar."
+        texto: "Vetores, rasters e tabelas, de Shapefile e GeoPackage a GeoTIFF e planilhas Excel, compactados ou não."
       - titulo: "Um arquivo, várias camadas."
         texto: "Um GeoPackage com doze camadas vira doze camadas no catálogo. O TerraNode processa cada uma separadamente, então um erro em uma não trava as outras."
       - titulo: "Progresso ao vivo."
