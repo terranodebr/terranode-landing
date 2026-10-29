@@ -1,6 +1,6 @@
 ---
 title: "Catálogo de mapas para projetos de campo · TerraNode"
-description: "Importe shapefiles, GeoPackages e imagens, ou sincronize do ArcGIS. Estilize vetores e rasters uma vez e todo projeto de campo recebe o mesmo mapa."
+description: "Importe shapefiles, GeoPackages, imagens e planilhas, ou sincronize do ArcGIS. Estilize vetores e rasters uma vez e todo projeto de campo recebe o mesmo mapa."
 recurso: "Catálogos"
 h1: "Seus dados prontos para qualquer projeto."
 subtitulo: "Importe uma vez, use em todos. Estilize à mão ou com IA."
@@ -13,7 +13,7 @@ secoes:
     titulo: "Traga o que você já tem"
     itens:
       - titulo: "Arraste e solte arquivos de até 2 GB."
-        texto: "Shapefile, GeoPackage, GeoJSON, FlatGeobuf, File Geodatabase, MapInfo, CSV com coordenadas, GeoTIFF, IMG e VRT, compactados ou não. Se os dados estão na nuvem, importe direto de um bucket S3, GCS ou similar."
+        texto: "Vetores, rasters e tabelas, de Shapefile e GeoPackage a GeoTIFF e planilhas Excel, compactados ou não. Se os dados estão na nuvem, importe direto de um bucket S3, GCS ou similar."
       - titulo: "Um arquivo, várias camadas."
         texto: "Um GeoPackage com doze camadas vira doze camadas no catálogo. O TerraNode processa cada uma separadamente, então um erro em uma não trava as outras."
       - titulo: "Progresso ao vivo."
