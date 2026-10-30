@@ -1,7 +1,7 @@
 ---
 // Body of /recursos/catalogos/, between the shared hero and closing CTA
-// (src/layouts/Recurso.astro): the import bento, the styling scroll story, the four
-// style types and the public catalogs over the dotted map.
+// (src/layouts/Recurso.astro): the import bento, the accepted formats by kind, the styling
+// scroll story, the four style types and the public catalogs over the dotted map.
 import Estilo from "./Estilo.astro";
 import Raster from "./Raster.astro";
 import Bento from "./Bento.astro";
@@ -9,6 +9,8 @@ import IaCard from "./IaCard.astro";
 import MapaPontilhado from "./MapaPontilhado.astro";
 import Historia, { type Capitulo } from "./Historia.astro";
 import type { Recurso } from "../../lib/recursos";
+import { asset } from "../../lib/asset";
+import { gruposDeFormatos, formatosDaFaixa } from "../../lib/formatos";
 
 interface Props {
   entry: Recurso;
@@ -24,13 +26,9 @@ const bento = importar.itens.slice(1, 5).map((item, i) => ({
   ...item,
   visual: (["camadas", "progresso", "cog", "arcgis"] as const)[i],
 }));
-// The first import item lists the formats (shown as the marquee) and then the cloud
-// sources (kept in the lead), one sentence each.
-const [, nuvem] = importar.itens[0].texto.split(/(?<=\.) /);
-const formatos = [
-  "Shapefile", "GeoPackage", "GeoJSON", "FlatGeobuf", "File Geodatabase", "MapInfo",
-  "CSV com coordenadas", "GeoTIFF", "IMG", "VRT",
-];
+// The first import item is the lead; the formats themselves are the marquee and the
+// formats section, both from lib/formatos.ts.
+const lead = importar.itens[0];
 
 // Scroll story: one chapter per styling capability.
 const porTitulo = (itens: typeof estilo.itens, prefixo: string) =>
@@ -85,7 +83,7 @@ const tipos = [
   <div class="tn-rec-head" data-anim-bloco>
     <span class="tn-rec-pilula" data-anim="up">{importar.eyebrow}</span>
     <h2 class="tn-rec-h2" data-anim="words">{importar.titulo}</h2>
-    <p class="tn-rec-lead" data-anim="blur">{importar.itens[0].titulo} {nuvem}</p>
+    <p class="tn-rec-lead" data-anim="blur">{lead.titulo} {lead.texto}</p>
   </div>
 
   <div class="tn-rec-bento">
@@ -100,15 +98,55 @@ const tipos = [
 
   <div class="tn-rec-formatos" data-anim="blur">
   <span class="tn-rec-faixa__legenda">Formatos aceitos, compactados ou não</span>
-  <div class="tn-rec-faixa" aria-label={`Formatos aceitos: ${formatos.join(", ")}`}>
+  <div class="tn-rec-faixa" aria-label={`Formatos aceitos: ${formatosDaFaixa.join(", ")}`}>
     <div class="tn-rec-faixa__trilho">
       {[0, 1].map((copia) => (
         <div class="tn-rec-faixa__grupo" aria-hidden={copia === 1 ? "true" : undefined}>
-          {formatos.map((f) => <span class="tn-rec-faixa__item">{f}</span>)}
+          {formatosDaFaixa.map((f) => <span class="tn-rec-faixa__item">{f}</span>)}
         </div>
       ))}
     </div>
   </div>
+  <a href="#formatos" class="tn-cat-formatos__ver">Ver todos os formatos</a>
+  </div>
+</section>
+
+<!-- Formatos: vetor, raster e tabela, e o caminho pelas integrações -->
+<section id="formatos" class="tn-rec-secao tn-rec-secao--linha">
+  <div class="tn-rec-head" data-anim-bloco>
+    <span class="tn-rec-pilula" data-anim="up">FORMATOS</span>
+    <h2 class="tn-rec-h2" data-anim="words">Vetores, rasters e tabelas</h2>
+    <p class="tn-rec-lead" data-anim="blur">Os formatos que o seu GIS já exporta, soltos ou em um .zip de até 2 GB. Um .zip pode trazer vários conjuntos de dados de uma vez.</p>
+  </div>
+
+  <div class="tn-rec-tipos tn-rec-tipos--grupos" data-anim-bloco>
+    {gruposDeFormatos.map((g, i) => (
+      <div class="tn-rec-tipo tn-cat-formatos" data-anim="up">
+        <span class="tn-rec-tipo__num">{String(i + 1).padStart(2, "0")}</span>
+        <span class="tn-rec-tipo__nome">{g.nome}</span>
+        <p class="tn-cat-formatos__texto">{g.texto}</p>
+        <ul class="tn-cat-formatos__lista">
+          {g.formatos.map((f) => (
+            <li>
+              <span>{f.nome}</span>
+              <span class="tn-cat-formatos__ext">
+                {f.ext}
+                {f.zip && <span class="tn-cat-formatos__zip" title="Vai dentro de um .zip">zip</span>}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+
+  <p class="tn-cat-formatos__nota" data-anim="blur">
+    <span class="tn-cat-formatos__zip">zip</span> vai dentro de um .zip, com os arquivos que o acompanham. Planilha .xls antiga: salve como .xlsx.
+  </p>
+
+  <div class="tn-cat-formatos__integra" data-anim="up">
+    <p><strong>Os dados estão no ArcGIS ou no Google Sheets?</strong> Conecte o portal ArcGIS Online ou Enterprise e traga camadas e tabelas com a simbologia, ou abas do Google Sheets com coordenadas. A sincronização é agendada, sem exportar arquivo.</p>
+    <a href={asset("/recursos/integracoes/")} class="tn-rec-btn" data-mp-cta="catalogos_integracoes">Ver integrações</a>
   </div>
 </section>
 

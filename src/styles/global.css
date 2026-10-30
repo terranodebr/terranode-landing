@@ -1016,6 +1016,26 @@ a.tn-sobre-contato:hover { color: var(--rec-text); border-color: rgba(255, 102, 
   .tn-rec-cap, .tn-rec-historia__visual, .tn-rec-marca path { transition: none; }
 }
 
+/* ---------- Formatos da página de Catálogos (/recursos/catalogos/#formatos) ---------- */
+
+/* Three format groups on the style-types cards: a short line, then name and extension rows. */
+.tn-cat-formatos__ver { font-size: 13px; color: var(--rec-muted); text-decoration: underline; text-underline-offset: 3px; }
+.tn-cat-formatos__ver:hover { color: var(--rec-text); }
+.tn-cat-formatos { gap: 12px; }
+.tn-cat-formatos__texto { margin: 0; font-size: 14px; line-height: 1.55; color: var(--rec-muted); }
+.tn-cat-formatos__lista { margin: 6px 0 0; padding: 0; list-style: none; display: flex; flex-direction: column; }
+.tn-cat-formatos__lista li { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 9px 0; border-top: 1px solid var(--rec-line); font-size: 14px; }
+.tn-cat-formatos__ext { display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0; font-family: var(--font-mono); font-size: 12px; color: var(--rec-faint); }
+.tn-cat-formatos__zip { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--tn-accent); border: 1px solid rgba(255, 102, 41, 0.45); border-radius: 6px; padding: 1px 5px; }
+.tn-cat-formatos__nota { margin: 0; max-width: var(--container-max); font-size: 13px; color: var(--rec-muted); text-align: center; }
+.tn-cat-formatos__integra { box-sizing: border-box; width: 100%; max-width: var(--container-max); display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 24px 28px; border-radius: 18px; border: 1px solid var(--rec-line); background: linear-gradient(180deg, var(--rec-card-2), var(--rec-card)); }
+.tn-cat-formatos__integra p { margin: 0; max-width: 720px; font-size: 15px; line-height: 1.6; color: var(--rec-muted); }
+.tn-cat-formatos__integra strong { color: var(--rec-text); }
+.tn-cat-formatos__integra .tn-rec-btn { flex-shrink: 0; }
+@media (max-width: 720px) {
+  .tn-cat-formatos__integra { flex-direction: column; align-items: flex-start; }
+}
+
 /* ---------- Página de Formulários (/recursos/formularios/) ---------- */
 
 /* Six field-type groups: three columns of the style-types cards, with the types as chips. */
