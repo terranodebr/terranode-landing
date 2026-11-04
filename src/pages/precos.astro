@@ -3,11 +3,13 @@
 // device is a calculator: pick the billing, the collectors and the extra storage, and every
 // card shows its total. Without JavaScript the calculator stays hidden and the cards show
 // each plan's base price.
+import { Image } from "astro:assets";
 import Base from "../layouts/Base.astro";
 import Header from "../components/Header.astro";
 import Animacoes from "../components/recursos/Animacoes.astro";
 import { COMPARACAO, EXTRAS, MESES_PAGOS_NO_ANUAL, PLANOS, TESTE, brl, mensalNoAnual, rotuloAnual, rotuloColetores, totalMensal } from "../lib/planos";
 import { asset } from "../lib/asset";
+import campoMarca from "../assets/campo-marca.webp";
 
 const title = "Preços e planos · TerraNode";
 const description =
@@ -22,6 +24,7 @@ const GB_EXTRAS = { min: 0, max: 200 };
 const MESES_GRATIS = 12 - MESES_PAGOS_NO_ANUAL;
 
 const planoDoTeste = PLANOS.find((p) => p.id === TESTE.plano)!;
+const limitesDoTeste = new Intl.ListFormat("pt-BR", { type: "conjunction" }).format(TESTE.limites);
 const { valorHora, minimoHoras } = EXTRAS.implementacao;
 const { pacoteGb, preco: precoPacote } = EXTRAS.armazenamento;
 const [essencial, profissional, corporativo] = PLANOS;
@@ -176,16 +179,20 @@ const fora = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke
         ))}
       </div>
 
-      <!-- The trial borrows the Profissional plan, so it sits right under the cards. -->
-      <div id="teste" class="tn-precos-teste tn-tema-pessego" data-anim="up">
-        <div class="tn-precos-teste__texto">
-          <h2 class="tn-rec-h2 tn-rec-h2--pequeno">Teste o {planoDoTeste.nome} por {TESTE.dias} dias</h2>
-          <p class="tn-precos-teste__lead">Sua equipe usa os recursos do plano {planoDoTeste.nome}, com três limites:</p>
-          <ul class="tn-precos-teste__limites">
-            {TESTE.limites.map((l) => <li>{l}</li>)}
-          </ul>
-        </div>
-        <a href={WAITLIST} target="_blank" rel="noopener" class="tn-rec-btn tn-rec-btn--claro" data-mp-cta="precos_teste">Entrar na lista de espera</a>
+    </section>
+
+    <!-- The trial borrows the Profissional plan, so it sits right under the cards. It doesn't
+         say "grátis" because whether the trial is free isn't decided yet. -->
+    <section id="teste" class="tn-rec-secao tn-tema-claro tn-precos-teste">
+      <div class="tn-precos-teste__texto" data-anim-bloco>
+        <span class="tn-rec-pilula" data-anim="up">TESTE DE {TESTE.dias} DIAS</span>
+        <h2 class="tn-precos-teste__titulo" data-anim="words">Leve o TerraNode para o campo por {TESTE.dias} dias.</h2>
+        <p class="tn-precos-teste__lead" data-anim="blur">Monte o formulário, coloque a equipe em campo e veja os pontos chegando no painel, com os recursos do plano {planoDoTeste.nome}.</p>
+        <a href={WAITLIST} target="_blank" rel="noopener" class="tn-rec-btn tn-rec-btn--claro" data-anim="up" data-mp-cta="precos_teste">Entrar na lista de espera</a>
+        <p class="tn-precos-teste__nota" data-anim="up">O TerraNode está em pré-lançamento, e quem está na lista é avisado primeiro. Durante o teste: {limitesDoTeste}.</p>
+      </div>
+      <div class="tn-precos-teste__imagem" data-anim="up">
+        <Image src={campoMarca} alt="Agricultor consultando o celular no meio de uma lavoura, sob o símbolo do TerraNode" widths={[800, 1400, 2000, 2880]} sizes="(max-width: 1180px) 100vw, 1140px" />
       </div>
     </section>
 

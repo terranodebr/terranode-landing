@@ -94,7 +94,7 @@ export const PLANOS: Plano[] = [
 export const TESTE = {
   dias: 21,
   plano: "profissional" as Plano["id"],
-  limites: ["Sem exportação de coletas", "Sem relatórios", "5 GB de armazenamento"],
+  limites: ["sem exportação de coletas", "sem relatórios", "5 GB de armazenamento"],
 };
 
 /** Annual billing: the customer pays this many months and uses twelve, on the whole bill. */

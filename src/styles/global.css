@@ -2150,12 +2150,15 @@ a.tn-home-caso:hover { color: var(--rec-text); border-color: var(--rec-line-2); 
 .tn-precos-lista li { position: relative; padding-left: 16px; font-weight: 500; font-size: 14px; line-height: 1.45; color: var(--rec-text); text-wrap: pretty; }
 .tn-precos-lista li::before { content: ""; position: absolute; left: 1px; top: 0.55em; width: 5px; height: 5px; border-radius: 50%; background: var(--tn-accent); }
 
-/* The trial. */
-.tn-precos-teste { box-sizing: border-box; width: 100%; max-width: var(--container-max); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px 40px; padding: clamp(22px, 3vw, 30px); border-radius: 22px; }
-.tn-precos-teste__texto { display: flex; flex-direction: column; gap: 10px; flex: 1 1 520px; min-width: 0; }
-.tn-precos-teste__lead { margin: 0; font-weight: 500; font-size: 15px; line-height: 1.55; color: var(--rec-muted); }
-.tn-precos-teste__limites { list-style: none; margin: 2px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
-.tn-precos-teste__limites li { padding: 6px 12px; border-radius: 100px; background: var(--rec-card); border: 1px solid var(--rec-line); font-weight: 600; font-size: 13px; line-height: 1.35; color: var(--rec-text); }
+/* The trial: one big invitation, with the field photo fading up into the page behind it. */
+.tn-rec-secao.tn-precos-teste { gap: clamp(8px, 2vw, 20px); padding-top: clamp(64px, 8vw, 104px); padding-bottom: clamp(64px, 8vw, 104px); }
+.tn-precos-teste__texto { display: flex; flex-direction: column; align-items: center; gap: 18px; max-width: 820px; text-align: center; position: relative; z-index: 1; }
+.tn-precos-teste__titulo { margin: 0; font-weight: 600; font-size: clamp(38px, 6vw, 68px); line-height: 1.02; letter-spacing: -0.04em; color: var(--rec-text); text-wrap: balance; }
+.tn-precos-teste__lead { margin: 0; max-width: 620px; font-weight: 500; font-size: clamp(16px, 1.6vw, 19px); line-height: 1.5; color: var(--rec-muted); text-wrap: pretty; }
+.tn-precos-teste .tn-rec-btn { height: 54px; margin-top: 6px; padding: 0 30px; border-radius: 12px; font-size: 16px; }
+.tn-precos-teste__nota { margin: 0; max-width: 560px; font-weight: 500; font-size: 13px; line-height: 1.5; color: var(--rec-muted); text-wrap: pretty; }
+.tn-precos-teste__imagem { width: 100%; max-width: var(--container-max); aspect-ratio: 2.3; border-radius: 0 0 22px 22px; overflow: hidden; -webkit-mask-image: linear-gradient(to bottom, transparent, #000 34%); mask-image: linear-gradient(to bottom, transparent, #000 34%); }
+.tn-precos-teste__imagem img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center bottom; }
 
 /* The comparison table builds on the comparativo pages' table. overflow: clip rather
    than hidden, so the column heads can stick under the floating header. */
@@ -2191,6 +2194,7 @@ a.tn-home-caso:hover { color: var(--rec-text); border-color: var(--rec-line-2); 
   .tn-precos-plano { display: flex; flex-direction: column; }
   .tn-precos-plano .tn-rec-btn { align-self: stretch; }
   .tn-precos-extras { grid-template-columns: 1fr; }
+  .tn-precos-teste__imagem { aspect-ratio: 1.25; }
 }
 /* Phones: three answers per row would run for screens if each got its own labelled line,
    as on the comparativo pages. Here each row is the feature's name over three short columns,
