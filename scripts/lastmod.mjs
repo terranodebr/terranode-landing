@@ -26,6 +26,7 @@ function sourcesFor(pathname) {
   const p = pathname.replace(/\/+$/, "/");
   if (p === "/") return ["src/pages/index.astro", "src/components/home", "src/components/Faq.astro"];
   if (p === "/sobre/") return ["src/pages/sobre.astro", "src/lib/time.ts", "src/lib/empresa.ts"];
+  if (p === "/precos/") return ["src/pages/precos.astro", "src/lib/planos.ts"];
   if (p === "/solucoes/") return ["src/pages/solucoes/index.astro", "src/content/solucoes"];
 
   const m = p.match(/^\/(solucoes|recursos|comparativos)\/([^/]+)\/$/);

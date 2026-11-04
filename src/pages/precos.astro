@@ -1,0 +1,415 @@
+---
+// /precos/: the plans and what each one costs, light like the home page. The page's main
+// device is a calculator: pick the billing, the collectors and the extra storage, and every
+// card shows its total. Without JavaScript the calculator stays hidden and the cards show
+// each plan's base price.
+import { Image } from "astro:assets";
+import Base from "../layouts/Base.astro";
+import Header from "../components/Header.astro";
+import Animacoes from "../components/recursos/Animacoes.astro";
+import { COMPARACAO, EXTRAS, MESES_PAGOS_NO_ANUAL, PLANOS, TESTE, brl, mensalNoAnual, rotuloAnual, rotuloColetores, totalMensal } from "../lib/planos";
+import { asset } from "../lib/asset";
+import campoMarca from "../assets/campo-marca.webp";
+
+const title = "Preços e planos · TerraNode";
+const description =
+  "Planos em reais a partir de R$ 1.500 por mês, com projetos, formulários e coletas ilimitados. Compare Essencial, Profissional e Corporativo e veja como funciona o teste grátis de 21 dias.";
+
+const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
+
+// The calculator's starting point and the sliders' ranges. The number fields go past them.
+const EQUIPE_INICIAL = 5;
+const COLETORES = { min: 5, max: 50 };
+const GB_EXTRAS = { min: 0, max: 200 };
+const MESES_GRATIS = 12 - MESES_PAGOS_NO_ANUAL;
+
+const planoDoTeste = PLANOS.find((p) => p.id === TESTE.plano)!;
+const limitesDoTeste = new Intl.ListFormat("pt-BR", { type: "conjunction" }).format(TESTE.limites);
+const { valorHora, minimoHoras } = EXTRAS.implementacao;
+const { pacoteGb, preco: precoPacote } = EXTRAS.armazenamento;
+const [essencial, profissional, corporativo] = PLANOS;
+
+const faq = [
+  {
+    q: "Já posso contratar?",
+    a: "Ainda não. O TerraNode está em pré-lançamento, e quem está na lista de espera é avisado primeiro quando a contratação abrir.",
+  },
+  {
+    q: "Quem entra na conta do preço?",
+    a: `Só os coletores, as pessoas que registram dados em campo pelo aplicativo. Gestores e editores não entram na conta. Cada plano já inclui um número de coletores no valor mensal. Uma equipe menor paga o mesmo valor. Acima disso, cada coletor extra custa ${brl(essencial.extra)} por mês no ${essencial.nome}, ${brl(profissional.extra)} no ${profissional.nome} e ${brl(corporativo.extra)} no ${corporativo.nome}. Com 8 coletores no ${essencial.nome}, são ${brl(totalMensal(essencial, 8))} por mês.`,
+  },
+  {
+    q: `O que o teste grátis de ${TESTE.dias} dias inclui?`,
+    a: `Os recursos do plano ${planoDoTeste.nome}, com três limites: não exporta coletas, não gera relatórios e tem 5 GB de armazenamento.`,
+  },
+  {
+    q: "Quais planos têm integrações?",
+    a: `O ${essencial.nome} não tem integrações. O ${profissional.nome} conecta ArcGIS Online, Google Sheets e Microsoft 365, e o ${corporativo.nome} acrescenta o ArcGIS Enterprise. Para outros sistemas, a implementação customizada custa ${brl(valorHora)} por hora, com mínimo de ${minimoHoras} horas.`,
+  },
+  {
+    q: "A criptografia só existe no Corporativo?",
+    a: `Não. Em todos os planos, as coletas ficam criptografadas no aparelho, na transmissão e no servidor. O ${corporativo.nome} acrescenta a opção de criptografar também o pacote offline do projeto no aparelho, com mapas e camadas.`,
+  },
+  {
+    q: "Tem desconto no pagamento anual?",
+    a: `Sim. No pagamento anual, você paga ${MESES_PAGOS_NO_ANUAL} meses e usa 12. O desconto vale para a conta inteira: plano, coletores extras e armazenamento extra.`,
+  },
+  {
+    q: "Posso comprar mais armazenamento?",
+    a: `Sim, em pacotes de ${pacoteGb} GB, por ${brl(precoPacote)} por mês cada. A calculadora no início da página soma os pacotes ao valor do plano.`,
+  },
+];
+const faqLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })),
+};
+const ofertasLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "TerraNode",
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "Android, iOS, Web",
+  offers: PLANOS.map((p) => ({
+    "@type": "Offer",
+    name: `Plano ${p.nome}`,
+    description: `${p.minimo} coletores incluídos no plano, por mês`,
+    price: p.preco.toFixed(2),
+    priceCurrency: "BRL",
+  })),
+};
+
+const participar = [
+  "Deixe seu e-mail na lista",
+  "Escolha: só o aviso do lançamento, ou o grupo de early testers",
+  "Early testers usam antes e ajudam a definir o que entra primeiro",
+];
+
+const abre = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>';
+const certo = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>';
+const fora = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M7 12h10"/></svg>';
+---
+<Base title={title} description={description} rodapeTopo="#0C1312">
+  <Animacoes />
+  <div class="tn-rec tn-home">
+
+    <div class="tn-rec-topo" data-rolagem-offset><Header /></div>
+
+    <!-- Hero -->
+    <section class="tn-rec-hero tn-home-hero tn-tema-claro tn-precos-hero">
+      <div class="tn-rec-hero__texto" data-anim-bloco>
+        <span class="tn-rec-pilula" data-anim="up">PREÇOS</span>
+        <h1 class="tn-rec-h1" data-anim="words">Preço em reais, <span class="tn-rec-h1__apagado">sem surpresa com o câmbio.</span></h1>
+        <p class="tn-rec-lead tn-rec-hero__lead" data-anim="blur">Todos os planos têm projetos, formulários e coletas ilimitados. O que muda é o armazenamento, os relatórios, a IA, as integrações e o prazo de suporte.</p>
+      </div>
+    </section>
+
+    <!-- Planos -->
+    <section id="planos" class="tn-rec-secao tn-tema-claro tn-precos-planos">
+      <div class="tn-precos-calc" data-precos-calc data-anim="up" hidden>
+        <div class="tn-precos-calc__topo">
+          <h2 class="tn-precos-calc__titulo">Calcule o valor para a sua equipe</h2>
+          <fieldset class="tn-precos-cobranca">
+            <legend class="tn-precos-sr">Forma de pagamento</legend>
+            <label><input type="radio" name="tn-precos-cobranca" value="mensal" checked data-precos-cobranca><span>Mensal</span></label>
+            <label><input type="radio" name="tn-precos-cobranca" value="anual" data-precos-cobranca><span>Anual <em>{MESES_GRATIS} meses grátis</em></span></label>
+          </fieldset>
+        </div>
+        <div class="tn-precos-calc__campos">
+          <div class="tn-precos-campo">
+            <div class="tn-precos-campo__linha">
+              <label for="tn-precos-equipe">Coletores em campo</label>
+              <input id="tn-precos-equipe" type="number" min="1" max="9999" step="1" inputmode="numeric" value={EQUIPE_INICIAL} data-precos-numero>
+            </div>
+            <input type="range" min={COLETORES.min} max={COLETORES.max} step="1" value={EQUIPE_INICIAL} aria-label="Coletores em campo" data-precos-faixa>
+            <div class="tn-precos-campo__limites" aria-hidden="true"><span>{COLETORES.min}</span><span>{COLETORES.max}</span></div>
+            <p class="tn-precos-campo__ajuda">Gestores e editores não entram na conta.</p>
+          </div>
+          <div class="tn-precos-campo">
+            <div class="tn-precos-campo__linha">
+              <label for="tn-precos-gb">Armazenamento extra</label>
+              <span class="tn-precos-campo__unidade"><input id="tn-precos-gb" type="number" min="0" max="9990" step={pacoteGb} inputmode="numeric" value="0" data-precos-gb-numero> GB</span>
+            </div>
+            <input type="range" min={GB_EXTRAS.min} max={GB_EXTRAS.max} step={pacoteGb} value="0" aria-label="Armazenamento extra, em GB" data-precos-gb-faixa>
+            <div class="tn-precos-campo__limites" aria-hidden="true"><span>{GB_EXTRAS.min} GB</span><span>{GB_EXTRAS.max} GB</span></div>
+            <p class="tn-precos-campo__ajuda">Pacotes de {pacoteGb} GB, a {brl(precoPacote)}/mês cada.</p>
+          </div>
+        </div>
+      </div>
+      <p class="tn-precos-sr" aria-live="polite" data-precos-status></p>
+
+      <div class="tn-precos-grade" data-anim-group="up">
+        {PLANOS.map((p) => (
+          <article
+            class:list={["tn-precos-plano", p.id === TESTE.plano && "tn-precos-plano--destaque tn-tema-escuro"]}
+            data-plano={p.nome}
+            data-preco={p.preco}
+            data-minimo={p.minimo}
+            data-extra={p.extra}
+            data-gb={p.gb}
+          >
+            <div class="tn-precos-plano__topo">
+              <div class="tn-precos-plano__nome-linha">
+                <h2 class="tn-precos-plano__nome">{p.nome}</h2>
+                {p.id === TESTE.plano && <span class="tn-precos-plano__selo">{TESTE.dias} DIAS GRÁTIS</span>}
+              </div>
+              <p class="tn-precos-plano__resumo">{p.resumo}</p>
+            </div>
+            <div class="tn-precos-plano__preco">
+              <span class="tn-rec-cap__rotulo" data-plano-coletores>{rotuloColetores(p.minimo, EQUIPE_INICIAL).toUpperCase()}</span>
+              <p class="tn-precos-plano__valor"><span data-plano-total>{brl(totalMensal(p, EQUIPE_INICIAL))}</span><small>/mês</small></p>
+              <p class="tn-precos-plano__anual" data-plano-anual>{rotuloAnual(totalMensal(p, EQUIPE_INICIAL), false)}</p>
+              <p class="tn-precos-plano__regra">{p.minimo} coletores incluídos no plano. Coletor extra: {brl(p.extra)}/mês.</p>
+              <p class="tn-precos-plano__regra" data-plano-armazenamento>{p.gb} GB de armazenamento.</p>
+            </div>
+            <a
+              href={WAITLIST}
+              target="_blank"
+              rel="noopener"
+              class:list={["tn-rec-btn", p.id === TESTE.plano && "tn-rec-btn--claro"]}
+              data-mp-cta={`precos_plano_${p.id}`}
+            >{p.id === "corporativo" ? "Falar com o time" : "Entrar na lista de espera"}</a>
+            <div class="tn-precos-plano__itens">
+              {p.herda && <p class="tn-precos-plano__herda">{p.herda}</p>}
+              <ul class="tn-precos-lista">
+                {p.inclui.map((item) => <li>{item}</li>)}
+              </ul>
+            </div>
+          </article>
+        ))}
+      </div>
+
+    </section>
+
+    <!-- The trial borrows the Profissional plan, so it sits right under the cards. -->
+    <section id="teste" class="tn-rec-secao tn-tema-claro tn-precos-teste">
+      <div class="tn-precos-teste__texto" data-anim-bloco>
+        <span class="tn-rec-pilula" data-anim="up">TESTE GRÁTIS</span>
+        <h2 class="tn-precos-teste__titulo" data-anim="words">Leve o TerraNode para o campo. <span class="tn-precos-teste__gratis">Grátis por {TESTE.dias} dias.</span></h2>
+        <p class="tn-precos-teste__lead" data-anim="blur">Monte o formulário, coloque a equipe em campo e veja os pontos chegando no painel, com os recursos do plano {planoDoTeste.nome}.</p>
+        <a href={WAITLIST} target="_blank" rel="noopener" class="tn-rec-btn tn-rec-btn--claro" data-anim="up" data-mp-cta="precos_teste">Entrar na lista de espera</a>
+        <p class="tn-precos-teste__nota" data-anim="up">O TerraNode está em pré-lançamento, e quem está na lista é avisado primeiro. Durante o teste: {limitesDoTeste}.</p>
+      </div>
+      <div class="tn-precos-teste__imagem" data-anim="up">
+        <Image src={campoMarca} alt="Agricultor consultando o celular no meio de uma lavoura, sob o símbolo do TerraNode" widths={[800, 1400, 2000, 2880]} sizes="(max-width: 1180px) 100vw, 1140px" />
+      </div>
+    </section>
+
+    <!-- Tabela -->
+    <section id="comparar" class="tn-rec-secao tn-rec-secao--linha tn-tema-claro">
+      <div class="tn-rec-head" data-anim-bloco>
+        <span class="tn-rec-pilula" data-anim="up">PLANO A PLANO</span>
+        <h2 class="tn-rec-h2" data-anim="words">O que cada plano inclui</h2>
+      </div>
+      <div class="tn-cmp-tabela__caixa tn-precos-tabela__caixa" data-anim="up">
+        <table class="tn-cmp-tabela tn-precos-tabela">
+          <thead>
+            <tr>
+              <th scope="col"><span class="tn-precos-sr">Recurso</span></th>
+              {PLANOS.map((p) => <th scope="col" class={p.id === TESTE.plano ? "tn-cmp-tabela__tn" : undefined}>{p.nome}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="tn-precos-tabela__grupo"><th scope="rowgroup" colspan="4">Equipe e preço</th></tr>
+            <tr>
+              <th scope="row">Preço por mês, no pagamento mensal</th>
+              {PLANOS.map((p) => <td data-rotulo={p.nome} class={p.id === TESTE.plano ? "tn-cmp-tabela__tn" : undefined}>{brl(p.preco)}</td>)}
+            </tr>
+            <tr>
+              <th scope="row">Preço por mês, no pagamento anual</th>
+              {PLANOS.map((p) => <td data-rotulo={p.nome} class={p.id === TESTE.plano ? "tn-cmp-tabela__tn" : undefined}>{brl(mensalNoAnual(p.preco))}</td>)}
+            </tr>
+            <tr>
+              <th scope="row">Coletores incluídos no plano</th>
+              {PLANOS.map((p) => <td data-rotulo={p.nome} class={p.id === TESTE.plano ? "tn-cmp-tabela__tn" : undefined}>{p.minimo}</td>)}
+            </tr>
+            <tr>
+              <th scope="row">Coletor extra, por mês</th>
+              {PLANOS.map((p) => <td data-rotulo={p.nome} class={p.id === TESTE.plano ? "tn-cmp-tabela__tn" : undefined}>{brl(p.extra)}</td>)}
+            </tr>
+            <tr>
+              <th scope="row">Pacote de {pacoteGb} GB extra, por mês</th>
+              {PLANOS.map((p) => <td data-rotulo={p.nome} class={p.id === TESTE.plano ? "tn-cmp-tabela__tn" : undefined}>{brl(precoPacote)}</td>)}
+            </tr>
+          </tbody>
+          {COMPARACAO.map((g) => (
+            <tbody>
+              <tr class="tn-precos-tabela__grupo"><th scope="rowgroup" colspan="4">{g.grupo}</th></tr>
+              {g.linhas.map((l) => (
+                <tr>
+                  <th scope="row">
+                    {!l.link ? l.nome : l.link.startsWith("http") ? (
+                      <a href={l.link} target="_blank" rel="noopener" class="tn-precos-tabela__link" data-mp-cta="precos_tabela_docs">{l.nome}<span class="tn-precos-sr"> (documentação, abre em nova aba)</span><span aria-hidden="true"> ↗</span></a>
+                    ) : (
+                      <a href={asset(l.link)} class="tn-precos-tabela__link" data-mp-cta="precos_tabela_recurso">{l.nome}</a>
+                    )}
+                  </th>
+                  {l.valores.map((v, i) => (
+                    <td data-rotulo={PLANOS[i].nome} class={PLANOS[i].id === TESTE.plano ? "tn-cmp-tabela__tn" : undefined}>
+                      {v === true ? (
+                        <span class="tn-precos-tabela__sim"><span set:html={certo} /><span class="tn-precos-sr">Incluído</span></span>
+                      ) : v === false ? (
+                        <span class="tn-precos-tabela__nao"><span set:html={fora} /><span class="tn-precos-sr">Não incluído</span></span>
+                      ) : v}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          ))}
+        </table>
+      </div>
+    </section>
+
+    <!-- Além do plano -->
+    <section id="extras" class="tn-rec-secao tn-tema-pessego">
+      <div class="tn-rec-head" data-anim-bloco>
+        <span class="tn-rec-pilula" data-anim="up">ALÉM DO PLANO</span>
+        <h2 class="tn-rec-h2" data-anim="words">Mais espaço e integrações sob medida</h2>
+      </div>
+      <div class="tn-precos-extras" data-anim-group="up">
+        <article class="tn-precos-extra">
+          <h3 class="tn-precos-extra__nome">Pacote de armazenamento extra</h3>
+          <p class="tn-precos-extra__valor">{brl(precoPacote)}<small>/mês</small></p>
+          <p class="tn-precos-extra__texto">Cada pacote soma {pacoteGb} GB ao que o seu plano inclui.</p>
+          <a href="#planos" class="tn-rec-btn" data-mp-cta="precos_armazenamento">Calcular o valor</a>
+        </article>
+        <article class="tn-precos-extra">
+          <h3 class="tn-precos-extra__nome">Implementação customizada e integrações sob medida</h3>
+          <p class="tn-precos-extra__valor">{brl(valorHora)}<small>/hora</small></p>
+          <p class="tn-precos-extra__texto">Para conectar o TerraNode a um sistema da sua operação. Mínimo de {minimoHoras} horas.</p>
+          <a href={WAITLIST} target="_blank" rel="noopener" class="tn-rec-btn" data-mp-cta="precos_implementacao">Falar com o time</a>
+        </article>
+      </div>
+    </section>
+
+    <!-- Perguntas -->
+    <section id="perguntas" class="tn-rec-secao tn-tema-claro">
+      <div class="tn-rec-head" data-anim-bloco>
+        <span class="tn-rec-pilula" data-anim="up">PERGUNTAS FREQUENTES</span>
+        <h2 class="tn-rec-h2 tn-rec-h2--pequeno" data-anim="words">Antes de escolher um plano</h2>
+      </div>
+      <div class="tn-home-perguntas__lista tn-precos-perguntas" data-anim-group="up">
+        {faq.map((f, i) => (
+          <details class="tn-home-pergunta" open={i === 0}>
+            <summary>{f.q}<span class="tn-home-pergunta__icone" set:html={abre} /></summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <!-- Fechamento -->
+    <!-- Dark, so the page runs into the dark footer without a seam. -->
+    <section class="tn-rec-secao tn-rec-secao--curta tn-tema-escuro tn-sobre-fechamento">
+      <div class="tn-rec-cta" data-anim="up" data-anim-bloco>
+        <div class="tn-rec-cta__texto">
+          <span class="tn-rec-cap__rotulo">LANÇAMENTO EM BREVE</span>
+          <h2 class="tn-rec-h2 tn-rec-h2--pequeno" data-anim="words">Leve sua próxima campanha de campo para o TerraNode</h2>
+          <p class="tn-rec-lead" data-anim="blur">Entre na lista para ser avisado, ou candidate-se a early tester e ajude a definir o que entra primeiro.</p>
+          <div class="tn-rec-acoes tn-rec-acoes--esquerda">
+            <a href={WAITLIST} target="_blank" rel="noopener" class="tn-rec-btn tn-rec-btn--claro" data-mp-cta="precos_fechamento">Entrar na lista de espera</a>
+            <a href={WAITLIST} target="_blank" rel="noopener" class="tn-rec-btn" data-mp-cta="precos_fechamento_falar_com_time">Falar com o time</a>
+          </div>
+        </div>
+        <ol class="tn-rec-passos" data-anim-group="left">
+          {participar.map((p, i) => <li><span class="tn-rec-passos__num">{i + 1}</span>{p}</li>)}
+        </ol>
+      </div>
+    </section>
+  </div>
+  <script type="application/ld+json" set:html={JSON.stringify(faqLd)} />
+  <script type="application/ld+json" set:html={JSON.stringify(ofertasLd)} />
+</Base>
+
+<script>
+  import { EXTRAS, brl, mensalNoAnual, rotuloAnual, rotuloColetores, totalMensal } from "../lib/planos";
+
+  // The calculator. Each slider covers the usual range and its number field takes any value;
+  // each keeps the other in step, and every card recomputes its total.
+  const raiz = document.querySelector<HTMLElement>("[data-precos-calc]");
+  const status = document.querySelector<HTMLElement>("[data-precos-status]");
+
+  if (raiz) {
+    raiz.hidden = false;
+    const q = (seletor: string) => raiz.querySelector<HTMLInputElement>(seletor)!;
+    const coletores = { numero: q("[data-precos-numero]"), faixa: q("[data-precos-faixa]") };
+    const gb = { numero: q("[data-precos-gb-numero]"), faixa: q("[data-precos-gb-faixa]") };
+    const cobranca = [...raiz.querySelectorAll<HTMLInputElement>("[data-precos-cobranca]")];
+    const pacote = EXTRAS.armazenamento.pacoteGb;
+
+    const cartoes = [...document.querySelectorAll<HTMLElement>("[data-plano]")].map((el) => ({
+      nome: el.dataset.plano!,
+      plano: { preco: Number(el.dataset.preco), minimo: Number(el.dataset.minimo), extra: Number(el.dataset.extra) },
+      gb: Number(el.dataset.gb),
+      total: el.querySelector<HTMLElement>("[data-plano-total]")!,
+      rotulo: el.querySelector<HTMLElement>("[data-plano-coletores]")!,
+      anual: el.querySelector<HTMLElement>("[data-plano-anual]")!,
+      armazenamento: el.querySelector<HTMLElement>("[data-plano-armazenamento]")!,
+    }));
+
+    const limite = (v: number, campo: HTMLInputElement) => Math.min(Math.max(v, Number(campo.min)), Number(campo.max));
+    // Storage is sold in packs, so a typed value rounds up to the next pack.
+    const lePacotes = (v: number) => Math.ceil(limite(v, gb.numero) / pacote) * pacote;
+
+    // The sliders paint their own filled part from this variable.
+    const pinta = (faixa: HTMLInputElement) => {
+      const { min, max, value } = faixa;
+      faixa.style.setProperty("--p", String((Number(value) - Number(min)) / (Number(max) - Number(min))));
+    };
+
+    let qtd = limite(Math.round(Number(coletores.numero.value)), coletores.numero);
+    let extras = lePacotes(Number(gb.numero.value));
+
+    const atualiza = () => {
+      const anual = cobranca.find((c) => c.checked)?.value === "anual";
+      coletores.faixa.value = String(qtd);
+      gb.faixa.value = String(extras);
+      pinta(coletores.faixa);
+      pinta(gb.faixa);
+      const resumo: string[] = [];
+      for (const c of cartoes) {
+        const mensal = totalMensal(c.plano, qtd, extras);
+        const exibido = brl(anual ? mensalNoAnual(mensal) : mensal);
+        c.total.textContent = exibido;
+        c.rotulo.textContent = rotuloColetores(c.plano.minimo, qtd).toUpperCase();
+        c.anual.textContent = rotuloAnual(mensal, anual);
+        c.armazenamento.textContent = extras
+          ? `${c.gb + extras} GB de armazenamento, com ${extras} GB extras.`
+          : `${c.gb} GB de armazenamento.`;
+        resumo.push(`${c.nome}: ${exibido} por mês`);
+      }
+      if (status) status.textContent = resumo.join(". ");
+    };
+
+    coletores.faixa.addEventListener("input", () => {
+      qtd = Number(coletores.faixa.value);
+      coletores.numero.value = coletores.faixa.value;
+      atualiza();
+    });
+    gb.faixa.addEventListener("input", () => {
+      extras = Number(gb.faixa.value);
+      gb.numero.value = gb.faixa.value;
+      atualiza();
+    });
+    // Mid-edit the fields can be empty: keep the last total until there's a number.
+    coletores.numero.addEventListener("input", () => {
+      if (coletores.numero.value === "" || Number(coletores.numero.value) < 1) return;
+      qtd = limite(Math.round(Number(coletores.numero.value)), coletores.numero);
+      atualiza();
+    });
+    gb.numero.addEventListener("input", () => {
+      if (gb.numero.value === "") return;
+      extras = lePacotes(Number(gb.numero.value));
+      atualiza();
+    });
+    coletores.numero.addEventListener("blur", () => { coletores.numero.value = String(qtd); });
+    gb.numero.addEventListener("blur", () => { gb.numero.value = String(extras); });
+    for (const c of cobranca) c.addEventListener("change", atualiza);
+
+    // Browsers restore form values on reload, so read the fields rather than assume the defaults.
+    atualiza();
+    coletores.numero.value = String(qtd);
+    gb.numero.value = String(extras);
+  }
+</script>
