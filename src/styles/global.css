@@ -2085,3 +2085,115 @@ a.tn-home-caso:hover { color: var(--rec-text); border-color: var(--rec-line-2); 
 @media (prefers-reduced-motion: reduce) {
   .tn-home-pq__tela-img, .tn-home-pq__legenda, .tn-home-pq__geo { transition: none; }
 }
+
+/* ---------- Preços (/precos/) ---------- */
+
+.tn-precos-sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+.tn-precos-hero { padding-bottom: clamp(36px, 5vw, 56px); }
+.tn-rec-secao.tn-precos-planos { padding-top: 0; gap: 14px; }
+
+/* The team-size calculator, drawn as a map's scale bar: alternating dark and white
+   segments of 5 users each. The bar is its own element, inset by half the thumb, so its
+   ends line up with where the thumb's centre stops and with the printed marks. */
+.tn-precos-escala { --polegar: 28px; box-sizing: border-box; width: 100%; max-width: var(--container-max); display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 8fr); gap: clamp(24px, 4vw, 56px); align-items: center; padding: clamp(20px, 3vw, 28px) clamp(22px, 3vw, 30px); border-radius: 22px; border: 1px solid var(--rec-line); background: var(--rec-card); box-shadow: 0 12px 30px -24px rgba(22, 32, 31, 0.35); }
+.tn-precos-escala[hidden] { display: none; }
+.tn-precos-escala__equipe { display: flex; flex-direction: column; gap: 10px; }
+.tn-precos-escala__rotulo { font-weight: 600; font-size: 15px; line-height: 1.35; color: var(--rec-text); }
+.tn-precos-escala__numero { display: flex; align-items: baseline; gap: 10px; font-weight: 500; font-size: 15px; color: var(--rec-muted); }
+.tn-precos-escala__numero input { box-sizing: border-box; width: 104px; height: 52px; padding: 0 6px 0 12px; border-radius: 10px; border: 1px solid var(--rec-line-2); background: var(--rec-bg); color: var(--rec-text); font: inherit; font-weight: 600; font-size: 28px; letter-spacing: -0.02em; font-variant-numeric: tabular-nums; }
+.tn-precos-escala__numero input:focus-visible { outline: 2px solid var(--tn-accent); outline-offset: 2px; }
+.tn-precos-escala__regua { position: relative; display: flex; flex-direction: column; min-width: 0; }
+.tn-precos-escala__barra { position: absolute; top: calc(var(--polegar) / 2 - 5px); left: calc(var(--polegar) / 2); right: calc(var(--polegar) / 2); height: 10px; box-sizing: border-box; border: 1px solid #16201F; background: repeating-linear-gradient(90deg, #16201F 0 calc(100% / 9), #FFFFFF calc(100% / 9) calc(200% / 9)); }
+.tn-precos-escala__regua input { position: relative; width: 100%; height: var(--polegar); margin: 0; background: transparent; cursor: pointer; -webkit-appearance: none; appearance: none; }
+.tn-precos-escala__regua input::-webkit-slider-runnable-track { height: var(--polegar); background: transparent; }
+.tn-precos-escala__regua input::-moz-range-track { height: var(--polegar); background: transparent; }
+.tn-precos-escala__regua input::-webkit-slider-thumb { -webkit-appearance: none; box-sizing: border-box; width: var(--polegar); height: var(--polegar); border-radius: 50%; border: 3px solid #FFFFFF; background: var(--tn-accent); box-shadow: 0 0 0 1px rgba(22, 32, 31, 0.3), 0 4px 10px rgba(22, 32, 31, 0.3); }
+.tn-precos-escala__regua input::-moz-range-thumb { box-sizing: border-box; width: var(--polegar); height: var(--polegar); border-radius: 50%; border: 3px solid #FFFFFF; background: var(--tn-accent); box-shadow: 0 0 0 1px rgba(22, 32, 31, 0.3), 0 4px 10px rgba(22, 32, 31, 0.3); }
+.tn-precos-escala__regua input:focus-visible { outline: none; }
+.tn-precos-escala__regua input:focus-visible::-webkit-slider-thumb { outline: 2px solid var(--tn-accent); outline-offset: 2px; }
+.tn-precos-escala__regua input:focus-visible::-moz-range-thumb { outline: 2px solid var(--tn-accent); outline-offset: 2px; }
+.tn-precos-escala__marcas { position: relative; height: 26px; margin-top: 2px; }
+.tn-precos-escala__marcas span { position: absolute; left: calc(var(--polegar) / 2 + (100% - var(--polegar)) * var(--p)); top: 6px; transform: translateX(-50%); font-family: var(--font-mono); font-size: 11px; color: var(--rec-muted); }
+.tn-precos-escala__marcas span::before { content: ""; position: absolute; left: 50%; top: -6px; width: 1px; height: 5px; background: var(--rec-line-2); }
+
+/* Subgrid so the prices, buttons and lists start on the same line in all three cards,
+   however long each summary runs. */
+.tn-precos-grade { width: 100%; max-width: var(--container-max); display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 14px; }
+.tn-precos-plano { display: grid; grid-row: span 4; grid-template-rows: subgrid; row-gap: 22px; padding: clamp(22px, 3vw, 30px); border-radius: 22px; border: 1px solid var(--rec-line); background: var(--rec-card); box-shadow: 0 12px 30px -24px rgba(22, 32, 31, 0.35); }
+.tn-precos-plano--destaque { border-color: transparent; box-shadow: 0 30px 60px -36px rgba(12, 19, 18, 0.7); }
+.tn-precos-plano__topo { display: flex; flex-direction: column; gap: 10px; }
+.tn-precos-plano__nome-linha { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px 10px; }
+.tn-precos-plano__nome { margin: 0; font-weight: 600; font-size: 24px; line-height: 1.2; letter-spacing: -0.025em; color: var(--rec-text); }
+.tn-precos-plano__selo { padding: 4px 9px; border-radius: 100px; background: rgba(255, 102, 41, 0.16); color: #FF8A5C; font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.05em; white-space: nowrap; }
+.tn-precos-plano__resumo { margin: 0; font-weight: 500; font-size: 14.5px; line-height: 1.55; color: var(--rec-muted); text-wrap: pretty; }
+.tn-precos-plano__preco { display: flex; flex-direction: column; gap: 6px; padding-top: 18px; border-top: 1px solid var(--rec-line); }
+.tn-precos-plano__valor { margin: 0; font-weight: 600; font-size: clamp(38px, 4.4vw, 52px); line-height: 1.05; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; color: var(--rec-text); white-space: nowrap; }
+.tn-precos-plano__valor small { margin-left: 4px; font-weight: 500; font-size: 15px; letter-spacing: 0; color: var(--rec-muted); }
+.tn-precos-plano__regra { margin: 0; font-weight: 500; font-size: 13px; line-height: 1.5; color: var(--rec-muted); }
+.tn-precos-plano .tn-rec-btn { align-self: start; width: 100%; box-sizing: border-box; }
+.tn-precos-plano__itens { display: flex; flex-direction: column; gap: 12px; }
+.tn-precos-plano__herda { margin: 0; font-weight: 600; font-size: 14px; color: var(--rec-text); }
+.tn-precos-lista { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 9px; }
+.tn-precos-lista li { position: relative; padding-left: 16px; font-weight: 500; font-size: 14px; line-height: 1.45; color: var(--rec-text); text-wrap: pretty; }
+.tn-precos-lista li::before { content: ""; position: absolute; left: 1px; top: 0.55em; width: 5px; height: 5px; border-radius: 50%; background: var(--tn-accent); }
+.tn-precos-lista .tn-precos-lista__fora { color: var(--rec-faint); }
+.tn-precos-lista .tn-precos-lista__fora::before { top: 0.65em; height: 1.5px; width: 7px; left: 0; border-radius: 0; background: var(--rec-faint); }
+
+/* The trial. */
+.tn-precos-teste { box-sizing: border-box; width: 100%; max-width: var(--container-max); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px 40px; padding: clamp(22px, 3vw, 30px); border-radius: 22px; }
+.tn-precos-teste__texto { display: flex; flex-direction: column; gap: 10px; flex: 1 1 520px; min-width: 0; }
+.tn-precos-teste__lead { margin: 0; font-weight: 500; font-size: 15px; line-height: 1.55; color: var(--rec-muted); }
+.tn-precos-teste__limites { list-style: none; margin: 2px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.tn-precos-teste__limites li { padding: 6px 12px; border-radius: 100px; background: var(--rec-card); border: 1px solid var(--rec-line); font-weight: 600; font-size: 13px; line-height: 1.35; color: var(--rec-text); }
+
+/* The comparison table builds on the comparativo pages' table. overflow: clip rather
+   than hidden, so the column heads can stick under the floating header. */
+.tn-precos-tabela__caixa { overflow: clip; box-shadow: 0 12px 30px -24px rgba(22, 32, 31, 0.35); }
+.tn-precos-tabela { table-layout: fixed; }
+.tn-precos-tabela thead th { position: sticky; top: 62px; z-index: 1; background: var(--rec-card); box-shadow: inset 0 -1px 0 var(--rec-line); font-size: 12px; color: var(--rec-text); }
+.tn-precos-tabela thead th:first-child { width: 34%; }
+.tn-precos-tabela thead .tn-cmp-tabela__tn { background: #FFF1EA; color: var(--rec-acento); }
+.tn-precos-tabela .tn-cmp-tabela__tn { width: auto; }
+.tn-precos-tabela tbody th { width: auto; font-weight: 500; }
+.tn-precos-tabela td { font-weight: 500; font-variant-numeric: tabular-nums; color: var(--rec-text); }
+.tn-precos-tabela th, .tn-precos-tabela td { padding: 13px 22px; }
+.tn-precos-tabela tbody .tn-precos-tabela__grupo th { padding-top: 26px; font-family: var(--font-mono); font-weight: 400; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--rec-acento); background: var(--rec-card); }
+.tn-precos-tabela__sim, .tn-precos-tabela__nao { display: inline-flex; vertical-align: middle; }
+.tn-precos-tabela__sim { color: #1F7A44; }
+.tn-precos-tabela__nao { color: var(--rec-faint); }
+
+/* Beyond the plan. */
+.tn-precos-extras { width: 100%; max-width: 980px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.tn-precos-extra { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: clamp(22px, 3vw, 30px); border-radius: 22px; border: 1px solid var(--rec-line); background: var(--rec-card); }
+.tn-precos-extra__nome { margin: 0; font-weight: 600; font-size: 17px; line-height: 1.3; letter-spacing: -0.015em; color: var(--rec-text); text-wrap: balance; }
+.tn-precos-extra__valor { margin: 6px 0 0; font-weight: 600; font-size: 36px; line-height: 1.05; letter-spacing: -0.035em; color: var(--rec-text); }
+.tn-precos-extra__valor small { margin-left: 3px; font-weight: 500; font-size: 15px; letter-spacing: 0; color: var(--rec-muted); }
+.tn-precos-extra__texto { margin: 0; font-weight: 500; font-size: 14.5px; line-height: 1.55; color: var(--rec-muted); text-wrap: pretty; }
+.tn-precos-extra .tn-rec-btn, .tn-precos-extra .tn-rec-pilula { margin-top: 6px; }
+.tn-precos-perguntas { max-width: 760px; }
+
+@media (max-width: 900px) {
+  .tn-precos-escala { grid-template-columns: 1fr; }
+  .tn-precos-grade { grid-template-columns: 1fr; row-gap: 14px; }
+  .tn-precos-plano { display: flex; flex-direction: column; }
+  .tn-precos-plano .tn-rec-btn { align-self: stretch; }
+  .tn-precos-extras { grid-template-columns: 1fr; }
+}
+/* Phones: three answers per row would run for screens if each got its own labelled line,
+   as on the comparativo pages. Here each row is the feature's name over three short columns,
+   under a sticky head with the plan names. */
+@media (max-width: 640px) {
+  .tn-precos-tabela thead { display: block; position: sticky; top: 70px; z-index: 1; background: var(--rec-card); box-shadow: inset 0 -1px 0 var(--rec-line); }
+  .tn-precos-tabela thead th { position: static; box-shadow: none; padding: 12px 8px; font-size: 10px; letter-spacing: 0.04em; }
+  .tn-precos-tabela thead th:first-child { display: none; }
+  .tn-precos-tabela tr, .tn-precos-tabela tbody tr:first-child { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 4px; padding: 12px 10px; }
+  .tn-precos-tabela tbody th { grid-column: 1 / -1; margin: 0 0 6px; padding: 0 8px; font-size: 14px; }
+  .tn-precos-tabela td { display: block; padding: 6px 8px; border-radius: 8px; font-size: 13px; line-height: 1.35; }
+  .tn-precos-tabela td::before { content: none; }
+  .tn-precos-tabela tbody .tn-precos-tabela__grupo th { margin: 0; padding-top: 12px; font-size: 11px; }
+  .tn-precos-tabela tr.tn-precos-tabela__grupo { padding-bottom: 0; border-top: 0; }
+}
+
+/* The footnote under a claim that only holds on some plans. */
+.tn-nota-asterisco { margin: 0; font-weight: 500; font-size: 13px; line-height: 1.5; color: var(--rec-muted); max-width: 600px; }
+.tn-nota-asterisco a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
