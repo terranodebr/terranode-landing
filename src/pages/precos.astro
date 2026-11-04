@@ -1,12 +1,13 @@
 ---
-// /precos/: the plans and what each one costs, light like the home page. The prices are
-// per collector with a minimum, so the page's main device is a calculator drawn as a map's
-// scale bar: pick the number of collectors and every card shows the monthly total for it.
-// Without JavaScript the calculator stays hidden and the cards show each plan's base price.
+// /precos/: the plans and what each one costs, light like the home page. The page's main
+// device is a calculator: pick the billing, the collectors and the extra storage, and every
+// card shows its total. Without JavaScript the calculator stays hidden and the cards show
+// each plan's base price.
 import Base from "../layouts/Base.astro";
 import Header from "../components/Header.astro";
 import Animacoes from "../components/recursos/Animacoes.astro";
-import { COMPARACAO, EXTRAS, PLANOS, TESTE, brl, rotuloColetores, totalMensal } from "../lib/planos";
+import { COMPARACAO, EXTRAS, MESES_PAGOS_NO_ANUAL, PLANOS, TESTE, brl, mensalNoAnual, rotuloAnual, rotuloColetores, totalMensal } from "../lib/planos";
+import { asset } from "../lib/asset";
 
 const title = "Preços e planos · TerraNode";
 const description =
@@ -14,13 +15,15 @@ const description =
 
 const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
 
-// The calculator's starting point, and the scale printed under the slider.
+// The calculator's starting point and the sliders' ranges. The number fields go past them.
 const EQUIPE_INICIAL = 5;
-const ESCALA = { min: 5, max: 50, marcas: [5, 10, 20, 30, 40, 50] };
-const posicao = (v: number) => (v - ESCALA.min) / (ESCALA.max - ESCALA.min);
+const COLETORES = { min: 5, max: 50 };
+const GB_EXTRAS = { min: 0, max: 200 };
+const MESES_GRATIS = 12 - MESES_PAGOS_NO_ANUAL;
 
 const planoDoTeste = PLANOS.find((p) => p.id === TESTE.plano)!;
 const { valorHora, minimoHoras } = EXTRAS.implementacao;
+const { pacoteGb, preco: precoPacote } = EXTRAS.armazenamento;
 const [essencial, profissional, corporativo] = PLANOS;
 
 const faq = [
@@ -45,8 +48,12 @@ const faq = [
     a: `Não. Em todos os planos, as coletas ficam criptografadas no aparelho, na transmissão e no servidor. O ${corporativo.nome} acrescenta a opção de criptografar também o pacote offline do projeto no aparelho, com mapas e camadas.`,
   },
   {
+    q: "Tem desconto no pagamento anual?",
+    a: `Sim. No pagamento anual, você paga ${MESES_PAGOS_NO_ANUAL} meses e usa 12. O desconto vale para a conta inteira: plano, coletores extras e armazenamento extra.`,
+  },
+  {
     q: "Posso comprar mais armazenamento?",
-    a: `Sim, em pacotes extras de ${EXTRAS.armazenamento.pacote}. Vamos publicar o preço do pacote em breve.`,
+    a: `Sim, em pacotes de ${pacoteGb} GB, por ${brl(precoPacote)} por mês cada. A calculadora no início da página soma os pacotes ao valor do plano.`,
   },
 ];
 const faqLd = {
@@ -96,19 +103,33 @@ const fora = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke
 
     <!-- Planos -->
     <section id="planos" class="tn-rec-secao tn-tema-claro tn-precos-planos">
-      <div class="tn-precos-escala" data-precos-escala data-anim="up" hidden>
-        <div class="tn-precos-escala__equipe">
-          <label for="tn-precos-equipe" class="tn-precos-escala__rotulo">Quantos coletores vão trabalhar em campo?</label>
-          <div class="tn-precos-escala__numero">
-            <input id="tn-precos-equipe" type="number" min="1" max="9999" step="1" inputmode="numeric" value={EQUIPE_INICIAL} data-precos-numero>
-            <span>coletores</span>
-          </div>
+      <div class="tn-precos-calc" data-precos-calc data-anim="up" hidden>
+        <div class="tn-precos-calc__topo">
+          <h2 class="tn-precos-calc__titulo">Calcule o valor para a sua equipe</h2>
+          <fieldset class="tn-precos-cobranca">
+            <legend class="tn-precos-sr">Forma de pagamento</legend>
+            <label><input type="radio" name="tn-precos-cobranca" value="mensal" checked data-precos-cobranca><span>Mensal</span></label>
+            <label><input type="radio" name="tn-precos-cobranca" value="anual" data-precos-cobranca><span>Anual <em>{MESES_GRATIS} meses grátis</em></span></label>
+          </fieldset>
         </div>
-        <div class="tn-precos-escala__regua">
-          <div class="tn-precos-escala__barra" aria-hidden="true"></div>
-          <input type="range" min={ESCALA.min} max={ESCALA.max} step="1" value={EQUIPE_INICIAL} aria-label="Número de coletores" data-precos-faixa>
-          <div class="tn-precos-escala__marcas" aria-hidden="true">
-            {ESCALA.marcas.map((m) => <span style={`--p: ${posicao(m)}`}>{m}</span>)}
+        <div class="tn-precos-calc__campos">
+          <div class="tn-precos-campo">
+            <div class="tn-precos-campo__linha">
+              <label for="tn-precos-equipe">Coletores em campo</label>
+              <input id="tn-precos-equipe" type="number" min="1" max="9999" step="1" inputmode="numeric" value={EQUIPE_INICIAL} data-precos-numero>
+            </div>
+            <input type="range" min={COLETORES.min} max={COLETORES.max} step="1" value={EQUIPE_INICIAL} aria-label="Coletores em campo" data-precos-faixa>
+            <div class="tn-precos-campo__limites" aria-hidden="true"><span>{COLETORES.min}</span><span>{COLETORES.max}</span></div>
+            <p class="tn-precos-campo__ajuda">Gestores e editores não entram na conta.</p>
+          </div>
+          <div class="tn-precos-campo">
+            <div class="tn-precos-campo__linha">
+              <label for="tn-precos-gb">Armazenamento extra</label>
+              <span class="tn-precos-campo__unidade"><input id="tn-precos-gb" type="number" min="0" max="9990" step={pacoteGb} inputmode="numeric" value="0" data-precos-gb-numero> GB</span>
+            </div>
+            <input type="range" min={GB_EXTRAS.min} max={GB_EXTRAS.max} step={pacoteGb} value="0" aria-label="Armazenamento extra, em GB" data-precos-gb-faixa>
+            <div class="tn-precos-campo__limites" aria-hidden="true"><span>{GB_EXTRAS.min} GB</span><span>{GB_EXTRAS.max} GB</span></div>
+            <p class="tn-precos-campo__ajuda">Pacotes de {pacoteGb} GB, a {brl(precoPacote)}/mês cada.</p>
           </div>
         </div>
       </div>
@@ -122,6 +143,7 @@ const fora = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke
             data-preco={p.preco}
             data-minimo={p.minimo}
             data-extra={p.extra}
+            data-gb={p.gb}
           >
             <div class="tn-precos-plano__topo">
               <div class="tn-precos-plano__nome-linha">
@@ -133,7 +155,9 @@ const fora = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke
             <div class="tn-precos-plano__preco">
               <span class="tn-rec-cap__rotulo" data-plano-coletores>{rotuloColetores(p.minimo, EQUIPE_INICIAL).toUpperCase()}</span>
               <p class="tn-precos-plano__valor"><span data-plano-total>{brl(totalMensal(p, EQUIPE_INICIAL))}</span><small>/mês</small></p>
+              <p class="tn-precos-plano__anual" data-plano-anual>{rotuloAnual(totalMensal(p, EQUIPE_INICIAL), false)}</p>
               <p class="tn-precos-plano__regra">{p.minimo} coletores incluídos no plano. Coletor extra: {brl(p.extra)}/mês.</p>
+              <p class="tn-precos-plano__regra" data-plano-armazenamento>{p.gb} GB de armazenamento.</p>
             </div>
             <a
               href={WAITLIST}
@@ -146,7 +170,6 @@ const fora = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke
               {p.herda && <p class="tn-precos-plano__herda">{p.herda}</p>}
               <ul class="tn-precos-lista">
                 {p.inclui.map((item) => <li>{item}</li>)}
-                {p.naoInclui?.map((item) => <li class="tn-precos-lista__fora">{item}</li>)}
               </ul>
             </div>
           </article>
@@ -183,8 +206,12 @@ const fora = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke
           <tbody>
             <tr class="tn-precos-tabela__grupo"><th scope="rowgroup" colspan="4">Equipe e preço</th></tr>
             <tr>
-              <th scope="row">Preço por mês</th>
+              <th scope="row">Preço por mês, no pagamento mensal</th>
               {PLANOS.map((p) => <td data-rotulo={p.nome} class={p.id === TESTE.plano ? "tn-cmp-tabela__tn" : undefined}>{brl(p.preco)}</td>)}
+            </tr>
+            <tr>
+              <th scope="row">Preço por mês, no pagamento anual</th>
+              {PLANOS.map((p) => <td data-rotulo={p.nome} class={p.id === TESTE.plano ? "tn-cmp-tabela__tn" : undefined}>{brl(mensalNoAnual(p.preco))}</td>)}
             </tr>
             <tr>
               <th scope="row">Coletores incluídos no plano</th>
@@ -194,13 +221,23 @@ const fora = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke
               <th scope="row">Coletor extra, por mês</th>
               {PLANOS.map((p) => <td data-rotulo={p.nome} class={p.id === TESTE.plano ? "tn-cmp-tabela__tn" : undefined}>{brl(p.extra)}</td>)}
             </tr>
+            <tr>
+              <th scope="row">Pacote de {pacoteGb} GB extra, por mês</th>
+              {PLANOS.map((p) => <td data-rotulo={p.nome} class={p.id === TESTE.plano ? "tn-cmp-tabela__tn" : undefined}>{brl(precoPacote)}</td>)}
+            </tr>
           </tbody>
           {COMPARACAO.map((g) => (
             <tbody>
               <tr class="tn-precos-tabela__grupo"><th scope="rowgroup" colspan="4">{g.grupo}</th></tr>
               {g.linhas.map((l) => (
                 <tr>
-                  <th scope="row">{l.nome}</th>
+                  <th scope="row">
+                    {!l.link ? l.nome : l.link.startsWith("http") ? (
+                      <a href={l.link} target="_blank" rel="noopener" class="tn-precos-tabela__link" data-mp-cta="precos_tabela_docs">{l.nome}<span class="tn-precos-sr"> (documentação, abre em nova aba)</span><span aria-hidden="true"> ↗</span></a>
+                    ) : (
+                      <a href={asset(l.link)} class="tn-precos-tabela__link" data-mp-cta="precos_tabela_recurso">{l.nome}</a>
+                    )}
+                  </th>
                   {l.valores.map((v, i) => (
                     <td data-rotulo={PLANOS[i].nome} class={PLANOS[i].id === TESTE.plano ? "tn-cmp-tabela__tn" : undefined}>
                       {v === true ? (
@@ -227,9 +264,9 @@ const fora = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke
       <div class="tn-precos-extras" data-anim-group="up">
         <article class="tn-precos-extra">
           <h3 class="tn-precos-extra__nome">Pacote de armazenamento extra</h3>
-          <p class="tn-precos-extra__valor">{EXTRAS.armazenamento.pacote}</p>
-          <p class="tn-precos-extra__texto">Para guardar mais do que o seu plano inclui.</p>
-          <span class="tn-rec-pilula">{EXTRAS.armazenamento.preco.toUpperCase()}</span>
+          <p class="tn-precos-extra__valor">{brl(precoPacote)}<small>/mês</small></p>
+          <p class="tn-precos-extra__texto">Cada pacote soma {pacoteGb} GB ao que o seu plano inclui.</p>
+          <a href="#planos" class="tn-rec-btn" data-mp-cta="precos_armazenamento">Calcular o valor</a>
         </article>
         <article class="tn-precos-extra">
           <h3 class="tn-precos-extra__nome">Implementação customizada e integrações sob medida</h3>
@@ -280,48 +317,93 @@ const fora = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke
 </Base>
 
 <script>
-  import { brl, rotuloColetores, totalMensal } from "../lib/planos";
+  import { EXTRAS, brl, mensalNoAnual, rotuloAnual, rotuloColetores, totalMensal } from "../lib/planos";
 
-  // The calculator. The slider covers the usual range and the number field takes any
-  // number of collectors; each keeps the other in step, and every card recomputes its total.
-  const raiz = document.querySelector<HTMLElement>("[data-precos-escala]");
-  const numero = raiz?.querySelector<HTMLInputElement>("[data-precos-numero]");
-  const faixa = raiz?.querySelector<HTMLInputElement>("[data-precos-faixa]");
+  // The calculator. Each slider covers the usual range and its number field takes any value;
+  // each keeps the other in step, and every card recomputes its total.
+  const raiz = document.querySelector<HTMLElement>("[data-precos-calc]");
   const status = document.querySelector<HTMLElement>("[data-precos-status]");
 
-  if (raiz && numero && faixa) {
+  if (raiz) {
     raiz.hidden = false;
+    const q = (seletor: string) => raiz.querySelector<HTMLInputElement>(seletor)!;
+    const coletores = { numero: q("[data-precos-numero]"), faixa: q("[data-precos-faixa]") };
+    const gb = { numero: q("[data-precos-gb-numero]"), faixa: q("[data-precos-gb-faixa]") };
+    const cobranca = [...raiz.querySelectorAll<HTMLInputElement>("[data-precos-cobranca]")];
+    const pacote = EXTRAS.armazenamento.pacoteGb;
+
     const cartoes = [...document.querySelectorAll<HTMLElement>("[data-plano]")].map((el) => ({
       nome: el.dataset.plano!,
       plano: { preco: Number(el.dataset.preco), minimo: Number(el.dataset.minimo), extra: Number(el.dataset.extra) },
+      gb: Number(el.dataset.gb),
       total: el.querySelector<HTMLElement>("[data-plano-total]")!,
-      coletores: el.querySelector<HTMLElement>("[data-plano-coletores]")!,
+      rotulo: el.querySelector<HTMLElement>("[data-plano-coletores]")!,
+      anual: el.querySelector<HTMLElement>("[data-plano-anual]")!,
+      armazenamento: el.querySelector<HTMLElement>("[data-plano-armazenamento]")!,
     }));
-    const limite = (v: number) => Math.min(Math.max(Math.round(v), Number(numero.min)), Number(numero.max));
 
-    let atual = limite(Number(numero.value));
-    const atualiza = (coletores: number) => {
-      atual = coletores;
-      faixa.value = String(coletores);
-      for (const c of cartoes) {
-        c.total.textContent = brl(totalMensal(c.plano, coletores));
-        c.coletores.textContent = rotuloColetores(c.plano.minimo, coletores).toUpperCase();
-      }
-      if (status) status.textContent = cartoes.map((c) => `${c.nome}: ${brl(totalMensal(c.plano, coletores))} por mês`).join(". ");
+    const limite = (v: number, campo: HTMLInputElement) => Math.min(Math.max(v, Number(campo.min)), Number(campo.max));
+    // Storage is sold in packs, so a typed value rounds up to the next pack.
+    const lePacotes = (v: number) => Math.ceil(limite(v, gb.numero) / pacote) * pacote;
+
+    // The sliders paint their own filled part from this variable.
+    const pinta = (faixa: HTMLInputElement) => {
+      const { min, max, value } = faixa;
+      faixa.style.setProperty("--p", String((Number(value) - Number(min)) / (Number(max) - Number(min))));
     };
 
-    faixa.addEventListener("input", () => {
-      numero.value = faixa.value;
-      atualiza(Number(faixa.value));
-    });
-    numero.addEventListener("input", () => {
-      // Mid-edit the field can be empty: keep the last total until there's a number.
-      if (numero.value !== "" && Number(numero.value) >= 1) atualiza(limite(Number(numero.value)));
-    });
-    numero.addEventListener("blur", () => { numero.value = String(atual); });
+    let qtd = limite(Math.round(Number(coletores.numero.value)), coletores.numero);
+    let extras = lePacotes(Number(gb.numero.value));
 
-    // Browsers restore form values on reload, so read the field rather than assume 5.
-    atualiza(atual);
-    numero.value = String(atual);
+    const atualiza = () => {
+      const anual = cobranca.find((c) => c.checked)?.value === "anual";
+      coletores.faixa.value = String(qtd);
+      gb.faixa.value = String(extras);
+      pinta(coletores.faixa);
+      pinta(gb.faixa);
+      const resumo: string[] = [];
+      for (const c of cartoes) {
+        const mensal = totalMensal(c.plano, qtd, extras);
+        const exibido = brl(anual ? mensalNoAnual(mensal) : mensal);
+        c.total.textContent = exibido;
+        c.rotulo.textContent = rotuloColetores(c.plano.minimo, qtd).toUpperCase();
+        c.anual.textContent = rotuloAnual(mensal, anual);
+        c.armazenamento.textContent = extras
+          ? `${c.gb + extras} GB de armazenamento, com ${extras} GB extras.`
+          : `${c.gb} GB de armazenamento.`;
+        resumo.push(`${c.nome}: ${exibido} por mês`);
+      }
+      if (status) status.textContent = resumo.join(". ");
+    };
+
+    coletores.faixa.addEventListener("input", () => {
+      qtd = Number(coletores.faixa.value);
+      coletores.numero.value = coletores.faixa.value;
+      atualiza();
+    });
+    gb.faixa.addEventListener("input", () => {
+      extras = Number(gb.faixa.value);
+      gb.numero.value = gb.faixa.value;
+      atualiza();
+    });
+    // Mid-edit the fields can be empty: keep the last total until there's a number.
+    coletores.numero.addEventListener("input", () => {
+      if (coletores.numero.value === "" || Number(coletores.numero.value) < 1) return;
+      qtd = limite(Math.round(Number(coletores.numero.value)), coletores.numero);
+      atualiza();
+    });
+    gb.numero.addEventListener("input", () => {
+      if (gb.numero.value === "") return;
+      extras = lePacotes(Number(gb.numero.value));
+      atualiza();
+    });
+    coletores.numero.addEventListener("blur", () => { coletores.numero.value = String(qtd); });
+    gb.numero.addEventListener("blur", () => { gb.numero.value = String(extras); });
+    for (const c of cobranca) c.addEventListener("change", atualiza);
+
+    // Browsers restore form values on reload, so read the fields rather than assume the defaults.
+    atualiza();
+    coletores.numero.value = String(qtd);
+    gb.numero.value = String(extras);
   }
 </script>

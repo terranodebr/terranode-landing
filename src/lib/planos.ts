@@ -1,5 +1,11 @@
-// Plans and prices for /precos/. The cards, the comparison table, the team-size calculator
-// and the Offer JSON-LD all read from here, so a price only ever changes in one place.
+// Plans and prices for /precos/. The cards, the comparison table, the calculator and the
+// Offer JSON-LD all read from here, so a price only ever changes in one place.
+
+/** Storage each plan includes, in GB. */
+const GB = { essencial: 5, profissional: 10, corporativo: 50 };
+
+/** The public docs, for comparison rows whose detail has no page on this site. */
+const DOCS = "https://docs.terranode.com.br";
 
 export interface Plano {
   id: "essencial" | "profissional" | "corporativo";
@@ -11,31 +17,32 @@ export interface Plano {
   minimo: number;
   /** Monthly price of each collector above `minimo`. */
   extra: number;
+  /** Storage included, in GB. */
+  gb: number;
   /** Line above the list when the plan inherits another one. */
   herda?: string;
   inclui: string[];
-  naoInclui?: string[];
 }
 
 export const PLANOS: Plano[] = [
   {
     id: "essencial",
     nome: "Essencial",
-    resumo: "Coleta ilimitada, relatórios sob demanda e exportação dos seus dados, sem integrações.",
+    resumo: "Coleta ilimitada, relatórios sob demanda e exportação dos seus dados.",
     preco: 1500,
     minimo: 5,
     extra: 300,
+    gb: GB.essencial,
     inclui: [
       "Projetos, formulários e coletas ilimitados",
       "Importação de formulários do Survey123 (XLSForm)",
-      "5 GB de armazenamento",
+      `${GB.essencial} GB de armazenamento`,
       "Relatórios sob demanda, com 3 modelos",
       "Fontes de dados públicas",
       "Exportação de coletas e mídias",
       "Exportação de dados GIS privados (vetor e raster)",
       "Suporte por e-mail em até 48h",
     ],
-    naoInclui: ["Sem integrações", "Sem IA"],
   },
   {
     id: "profissional",
@@ -44,9 +51,10 @@ export const PLANOS: Plano[] = [
     preco: 2250,
     minimo: 5,
     extra: 450,
+    gb: GB.profissional,
     herda: "Tudo do Essencial, e:",
     inclui: [
-      "50 GB de armazenamento",
+      `${GB.profissional} GB de armazenamento`,
       "Relatórios agendados, com 5 modelos",
       "100 créditos de IA",
       "Exportação também dos trajetos",
@@ -65,9 +73,10 @@ export const PLANOS: Plano[] = [
     preco: 8000,
     minimo: 10,
     extra: 800,
+    gb: GB.corporativo,
     herda: "Tudo do Profissional, e:",
     inclui: [
-      "200 GB de armazenamento",
+      `${GB.corporativo} GB de armazenamento`,
       "Todos os modelos de relatório",
       "Customização de relatório",
       "500 créditos de IA",
@@ -88,8 +97,11 @@ export const TESTE = {
   limites: ["Sem exportação de coletas", "Sem relatórios", "5 GB de armazenamento"],
 };
 
+/** Annual billing: the customer pays this many months and uses twelve, on the whole bill. */
+export const MESES_PAGOS_NO_ANUAL = 10;
+
 export const EXTRAS = {
-  armazenamento: { pacote: "10 GB", preco: "Preço em breve" },
+  armazenamento: { pacoteGb: 10, preco: 100 },
   implementacao: { valorHora: 300, minimoHoras: 100 },
 };
 
@@ -99,18 +111,23 @@ export type Celula = string | boolean;
 export interface GrupoComparacao {
   grupo: string;
   /** Each row's values follow the order of PLANOS. */
-  linhas: { nome: string; valores: [Celula, Celula, Celula] }[];
+  linhas: {
+    nome: string;
+    valores: [Celula, Celula, Celula];
+    /** A page on this site (/recursos/...) or in the docs. Rows with no such page have none. */
+    link?: string;
+  }[];
 }
 
 export const COMPARACAO: GrupoComparacao[] = [
   {
     grupo: "Uso",
     linhas: [
-      { nome: "Projetos", valores: ["Ilimitados", "Ilimitados", "Ilimitados"] },
-      { nome: "Formulários", valores: ["Ilimitados", "Ilimitados", "Ilimitados"] },
-      { nome: "Coletas", valores: ["Ilimitadas", "Ilimitadas", "Ilimitadas"] },
-      { nome: "Importar formulários do Survey123 (XLSForm)", valores: [true, true, true] },
-      { nome: "Armazenamento", valores: ["5 GB", "50 GB", "200 GB"] },
+      { nome: "Projetos", link: DOCS + "/projetos/", valores: ["Ilimitados", "Ilimitados", "Ilimitados"] },
+      { nome: "Formulários", link: "/recursos/formularios/", valores: ["Ilimitados", "Ilimitados", "Ilimitados"] },
+      { nome: "Coletas", link: "/recursos/aplicativo/", valores: ["Ilimitadas", "Ilimitadas", "Ilimitadas"] },
+      { nome: "Importar formulários do Survey123 (XLSForm)", link: "/recursos/integracoes/#survey123", valores: [true, true, true] },
+      { nome: "Armazenamento", valores: [`${GB.essencial} GB`, `${GB.profissional} GB`, `${GB.corporativo} GB`] },
     ],
   },
   {
@@ -128,28 +145,28 @@ export const COMPARACAO: GrupoComparacao[] = [
   {
     grupo: "Dados",
     linhas: [
-      { nome: "Fontes de dados públicas", valores: [true, true, true] },
-      { nome: "Exportação de dados", valores: ["Coletas e mídias", "Coletas, mídias e trajetos", "Coletas, mídias e trajetos"] },
-      { nome: "Exportação de dados GIS (vetor e raster)", valores: ["Privados", "Públicos e privados", "Públicos e privados"] },
+      { nome: "Fontes de dados públicas", link: DOCS + "/catalogos/dados-publicos/", valores: [true, true, true] },
+      { nome: "Exportação de dados", link: DOCS + "/dados-de-campo/", valores: ["Coletas e mídias", "Coletas, mídias e trajetos", "Coletas, mídias e trajetos"] },
+      { nome: "Exportação de dados GIS (vetor e raster)", link: DOCS + "/catalogos/usar-em-outras-ferramentas/", valores: ["Privados", "Públicos e privados", "Públicos e privados"] },
       { nome: "Log de atividades do projeto", valores: [false, true, true] },
     ],
   },
   {
     grupo: "Integrações e automação",
     linhas: [
-      { nome: "ArcGIS Online", valores: [false, true, true] },
-      { nome: "ArcGIS Enterprise", valores: [false, false, true] },
-      { nome: "Google Sheets e Microsoft 365", valores: [false, true, true] },
-      { nome: "CLI tn", valores: [false, true, true] },
-      { nome: "API e webhooks", valores: [false, false, true] },
+      { nome: "ArcGIS Online", link: "/recursos/integracoes/#arcgis", valores: [false, true, true] },
+      { nome: "ArcGIS Enterprise", link: "/recursos/integracoes/#arcgis", valores: [false, false, true] },
+      { nome: "Google Sheets e Microsoft 365", link: "/recursos/integracoes/#planilhas", valores: [false, true, true] },
+      { nome: "CLI tn", link: "/recursos/cli-ia/", valores: [false, true, true] },
+      { nome: "API e webhooks", link: DOCS + "/desenvolvedores/api/", valores: [false, false, true] },
     ],
   },
   {
     grupo: "Segurança e controle",
     linhas: [
-      { nome: "Coletas criptografadas no aparelho, na transmissão e no servidor", valores: [true, true, true] },
-      { nome: "Pacote offline criptografado no aparelho", valores: [false, false, true] },
-      { nome: "Revogar dispositivo em campo", valores: [false, false, true] },
+      { nome: "Coletas criptografadas no aparelho, na transmissão e no servidor", link: "/recursos/seguranca/#criptografia", valores: [true, true, true] },
+      { nome: "Pacote offline criptografado no aparelho", link: "/recursos/seguranca/#criptografia", valores: [false, false, true] },
+      { nome: "Revogar dispositivo em campo", link: DOCS + "/dados-de-campo/#revogar-um-dispositivo", valores: [false, false, true] },
       { nome: "SSO", valores: [false, false, true] },
     ],
   },
@@ -165,9 +182,23 @@ export const COMPARACAO: GrupoComparacao[] = [
 /** "R$ 1.500". The no-break space keeps the currency and the number on one line. */
 export const brl = (valor: number) => `R$ ${valor.toLocaleString("pt-BR")}`;
 
-/** Monthly total for a number of collectors: below the minimum, the minimum is what's paid. */
-export const totalMensal = (plano: Pick<Plano, "preco" | "minimo" | "extra">, coletores: number) =>
-  plano.preco + plano.extra * Math.max(0, coletores - plano.minimo);
+/** Monthly total: below the included collectors, the plan's price is what's paid. Storage is sold in whole packs. */
+export const totalMensal = (plano: Pick<Plano, "preco" | "minimo" | "extra">, coletores: number, gbExtras = 0) =>
+  plano.preco +
+  plano.extra * Math.max(0, coletores - plano.minimo) +
+  EXTRAS.armazenamento.preco * Math.ceil(gbExtras / EXTRAS.armazenamento.pacoteGb);
+
+/** What annual billing costs for the year, from a monthly total. */
+export const totalAnual = (mensal: number) => mensal * MESES_PAGOS_NO_ANUAL;
+
+/** The same annual bill per month, rounded to the real for display. */
+export const mensalNoAnual = (mensal: number) => Math.round(totalAnual(mensal) / 12);
+
+/** The card's line about annual billing, which depends on the billing the visitor picked. */
+export const rotuloAnual = (mensal: number, anual: boolean) =>
+  anual
+    ? `${brl(totalAnual(mensal))} por ano. Economia de ${brl(mensal * 12 - totalAnual(mensal))}.`
+    : `No pagamento anual: ${brl(mensalNoAnual(mensal))}/mês.`;
 
 /** The line above the price, saying how many collectors that price is for. */
 export const rotuloColetores = (minimo: number, coletores: number) =>
