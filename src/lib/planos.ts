@@ -171,4 +171,4 @@ export const totalMensal = (plano: Pick<Plano, "preco" | "minimo" | "extra">, co
 
 /** The line above the price, saying how many collectors that price is for. */
 export const rotuloColetores = (minimo: number, coletores: number) =>
-  coletores < minimo ? `${minimo} coletores (mínimo)` : `${coletores} ${coletores === 1 ? "coletor" : "coletores"}`;
+  coletores <= minimo ? `${minimo} coletores incluídos` : `${coletores} ${coletores === 1 ? "coletor" : "coletores"}`;

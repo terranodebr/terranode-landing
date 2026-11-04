@@ -30,7 +30,7 @@ const faq = [
   },
   {
     q: "Quem entra na conta do preço?",
-    a: `Só os coletores, as pessoas que registram dados em campo pelo aplicativo. Gestores e editores não entram na conta. Cada plano tem um número mínimo de coletores, e o valor mensal cobre esse mínimo. Uma equipe menor paga o mesmo valor. Acima do mínimo, cada coletor extra custa ${brl(essencial.extra)} por mês no ${essencial.nome}, ${brl(profissional.extra)} no ${profissional.nome} e ${brl(corporativo.extra)} no ${corporativo.nome}. Com 8 coletores no ${essencial.nome}, são ${brl(totalMensal(essencial, 8))} por mês.`,
+    a: `Só os coletores, as pessoas que registram dados em campo pelo aplicativo. Gestores e editores não entram na conta. Cada plano já inclui um número de coletores no valor mensal. Uma equipe menor paga o mesmo valor. Acima disso, cada coletor extra custa ${brl(essencial.extra)} por mês no ${essencial.nome}, ${brl(profissional.extra)} no ${profissional.nome} e ${brl(corporativo.extra)} no ${corporativo.nome}. Com 8 coletores no ${essencial.nome}, são ${brl(totalMensal(essencial, 8))} por mês.`,
   },
   {
     q: `O que o teste de ${TESTE.dias} dias inclui?`,
@@ -63,7 +63,7 @@ const ofertasLd = {
   offers: PLANOS.map((p) => ({
     "@type": "Offer",
     name: `Plano ${p.nome}`,
-    description: `A partir de ${p.minimo} coletores, por mês`,
+    description: `${p.minimo} coletores incluídos no plano, por mês`,
     price: p.preco.toFixed(2),
     priceCurrency: "BRL",
   })),
@@ -133,7 +133,7 @@ const fora = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke
             <div class="tn-precos-plano__preco">
               <span class="tn-rec-cap__rotulo" data-plano-coletores>{rotuloColetores(p.minimo, EQUIPE_INICIAL).toUpperCase()}</span>
               <p class="tn-precos-plano__valor"><span data-plano-total>{brl(totalMensal(p, EQUIPE_INICIAL))}</span><small>/mês</small></p>
-              <p class="tn-precos-plano__regra">Mínimo de {p.minimo} coletores. Coletor extra: {brl(p.extra)}/mês.</p>
+              <p class="tn-precos-plano__regra">{p.minimo} coletores incluídos no plano. Coletor extra: {brl(p.extra)}/mês.</p>
             </div>
             <a
               href={WAITLIST}
@@ -187,7 +187,7 @@ const fora = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke
               {PLANOS.map((p) => <td data-rotulo={p.nome} class={p.id === TESTE.plano ? "tn-cmp-tabela__tn" : undefined}>{brl(p.preco)}</td>)}
             </tr>
             <tr>
-              <th scope="row">Mínimo de coletores</th>
+              <th scope="row">Coletores incluídos no plano</th>
               {PLANOS.map((p) => <td data-rotulo={p.nome} class={p.id === TESTE.plano ? "tn-cmp-tabela__tn" : undefined}>{p.minimo}</td>)}
             </tr>
             <tr>
