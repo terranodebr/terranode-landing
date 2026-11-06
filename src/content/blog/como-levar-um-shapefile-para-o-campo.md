@@ -26,9 +26,9 @@ Compacte o Shapefile em um `.zip`. O TerraNode recusa o `.shp` solto com a mensa
 
 Antes de compactar, confira:
 
-- **Sistema de referência.** O arquivo precisa declarar um sistema ligado à Terra, então inclua o `.prj`. Sistemas locais ou de engenharia fazem a camada falhar. O TerraNode converte os dados para WGS84, então você não precisa reprojetar antes.
+- **Sistema de referência.** O arquivo precisa declarar um sistema ligado à Terra, então inclua o `.prj`. Sistemas locais ou de engenharia fazem a camada falhar. Você não precisa reprojetar antes, porque o TerraNode converte os dados para WGS84.
 - **Acentos.** Sem codificação declarada, o TerraNode lê o texto como UTF-8 e, se não for válido, como ISO-8859-1. Se os acentos chegarem errados, confira a codificação do arquivo.
-- **Nomes de coluna.** Eles ficam em minúsculas, com apóstrofo, hífen e `#` trocados por `_`. Uma coluna chamada `geometry` dá erro e precisa ser renomeada.
+- **Nomes de coluna.** O TerraNode passa os nomes para minúsculas e troca apóstrofo, hífen e `#` por `_`. Uma coluna chamada `geometry` dá erro, então renomeie antes de compactar.
 - **Tamanho.** O limite é de 2 GB por arquivo e 128 camadas por envio.
 
 ## 2. Envie para um catálogo
@@ -41,7 +41,7 @@ O catálogo é onde a organização guarda os dados geográficos. Você importa 
 
 <!-- PRINT PENDENTE: janela "Enviar dados para o catálogo", com as camadas do .zip em processamento. -->
 
-Pode fechar a janela, porque o processamento continua no servidor. O TerraNode processa cada camada separadamente, então um Shapefile com problema não impede os outros de entrarem. Se algum falhar, corrija e envie só esse.
+Pode fechar a janela, porque o processamento continua no servidor. Cada camada tem o próprio processamento, então um Shapefile com problema não impede os outros de entrarem. Se algum falhar, corrija e envie só esse.
 
 ## 3. Ajuste a aparência, se quiser
 
@@ -52,7 +52,7 @@ Uma camada sem estilo já aparece no mapa, com a aparência padrão. Para colori
 Em **Projetos**, escolha **Novo projeto** e siga o assistente. Dois passos importam mais aqui:
 
 - **Área de cobertura.** Desenhe no mapa ou envie um arquivo. O passo seguinte só oferece catálogos com dados que cruzam essa área, e o pacote recorta as camadas por ela. O que ficar fora da área não vai para o celular. Um polígono em Shapefile também serve como área, desde que o `.zip` tenha exatamente um `.shp` e no máximo 10 MB.
-- **Camadas.** Escolha **Adicionar**, encontre o catálogo em **Buscar catálogo**, marque a camada e escolha **Concluir**. Na lista, a camada de cima é desenhada por cima das outras.
+- **Camadas.** Escolha **Adicionar**, encontre o catálogo em **Buscar catálogo**, marque a camada e escolha **Concluir**. Na lista, a camada do topo cobre as de baixo no mapa.
 
 <!-- PRINT PENDENTE: assistente "Novo projeto" no passo Camadas, com a camada do Shapefile na lista. -->
 
@@ -86,13 +86,13 @@ No app, a camada serve de referência. O coletor liga e desliga a camada no mapa
 
 Com uma camada de polígonos no catálogo, como talhões, bairros ou lotes, o formulário pode preencher um campo sozinho a partir da posição da coleta.
 
-No construtor de formulários, adicione um campo **Consulta por localização**. Escolha a **Fonte de dados**, que é a sua camada de polígonos, e a **Coluna** que deve ser copiada. O formulário também precisa de um campo de geometria. A camada nem precisa estar entre as do projeto, porque o pacote já leva a fonte que o campo lê.
+No construtor de formulários, adicione um campo **Consulta por localização**. Escolha a **Fonte de dados**, que é a sua camada de polígonos, e a **Coluna** de onde sai o valor. O formulário também precisa de um campo de geometria. A camada nem precisa estar entre as do projeto, porque o pacote já leva a fonte que o campo lê.
 
 Em campo, o app calcula o valor no próprio aparelho, a partir do pacote, sem internet. Ninguém precisa digitar o nome do talhão nem escolher em uma lista. Se o app não encontrar valor para aquela posição, o servidor calcula quando receber a coleta.
 
 ![Formulário com o campo Município preenchido com Florianópolis e a nota Preenchido pela localização do aparelho, acima do campo de geometria com latitude e longitude](../../assets/blog/como-levar-um-shapefile-para-o-campo/consulta-por-localizacao.webp)
 
-*O coletor não edita esse campo. O município veio de uma fonte de polígonos, a partir do ponto mostrado logo abaixo.*
+*O coletor não edita esse campo. O app tirou o município de uma fonte de polígonos, usando o ponto logo abaixo.*
 
 ## Se algo der errado
 
@@ -102,7 +102,7 @@ Em campo, o app calcula o valor no próprio aparelho, a partir do pacote, sem in
 | "vector source must use an earth-referenced CRS" | O arquivo não declara sistema de referência ou usa um sistema local. Defina o sistema antes de enviar |
 | "no supported datasets found in upload" | O `.zip` não tem nenhum arquivo reconhecido ou está corrompido. Monte o `.zip` de novo |
 | "a column named geometry conflicts..." | Renomeie a coluna `geometry` e envie de novo |
-| **Sem pacote disponível**, no app | O projeto não tem área de cobertura ou o pacote ainda está sendo gerado. Veja a aba **Pacotes** |
+| **Sem pacote disponível**, no app | O projeto não tem área de cobertura ou o TerraNode ainda está gerando o pacote. Veja a aba **Pacotes** |
 
 ## Próximos passos
 

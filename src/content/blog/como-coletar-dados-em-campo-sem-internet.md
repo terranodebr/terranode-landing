@@ -13,7 +13,7 @@ capa:
 recursos: [aplicativo, formularios]
 ---
 
-Sem sinal, quase nada se resolve no campo. Se o mapa não foi baixado ou a permissão de localização não foi aceita, o dia de trabalho para ali. Por isso este guia começa no escritório, com internet, e só depois vai para a coleta.
+Sem sinal, quase nada se resolve no campo. Se você não baixou o mapa ou não aceitou a permissão de localização, o dia de trabalho para ali. Por isso este guia começa no escritório, com internet, e só depois vai para a coleta.
 
 > O TerraNode está em beta fechado, e o app roda em Android 12 ou mais recente. Se a sua equipe ainda não tem acesso, [entre na lista de espera](https://form.typeform.com/to/ZVQYTFV5).
 
@@ -29,19 +29,19 @@ Faça estes passos com internet, porque o app precisa de conexão para entrar na
 
 ![Cartão do projeto Supressão Floripa com o selo Sincronizado, o mapa da área e o botão Iniciar sessão de campo](../../assets/blog/como-coletar-dados-em-campo-sem-internet/cartao-sincronizado.webp)
 
-*Com o selo Sincronizado, o projeto já está no aparelho.*
+*O cartão do projeto depois do download.*
 
 ![Seção Mapa da aba Projeto, com a área de 2070,1 km², o mapa base Incluído e a camada unidades-de-conservacao](../../assets/blog/como-coletar-dados-em-campo-sem-internet/aba-projeto-mapa-base.webp)
 
-*Na aba Projeto, confira o mapa base e as camadas.*
+*A seção Mapa da aba Projeto, com o mapa base incluído.*
 
-Dois avisos pedem ajuda de quem gerencia o projeto. **Sem pacote disponível** significa que o projeto ainda não tem área de cobertura ou que o pacote está sendo gerado. "Nenhum formulário atribuído a você neste projeto", no botão **Coletar** desativado, significa que falta incluir você em um formulário. Resolva os dois antes de sair.
+Dois avisos pedem ajuda de quem gerencia o projeto. **Sem pacote disponível** significa que o projeto ainda não tem área de cobertura ou que o TerraNode ainda está gerando o pacote. "Nenhum formulário atribuído a você neste projeto", no botão **Coletar** desativado, significa que falta incluir você em um formulário. Resolva os dois antes de sair.
 
 ## No campo, abra uma sessão
 
 Toque em **Iniciar sessão de campo** no cartão do projeto. Na primeira vez, o Android pede a localização precisa, e sem ela a sessão não inicia.
 
-A sessão agrupa as coletas daquela saída e registra o seu trajeto. O app grava uma posição a cada 60 segundos e ignora leituras com precisão pior que 50 m, mesmo com a tela desligada. Fora de uma sessão, nenhuma posição sai do aparelho.
+A sessão agrupa as coletas daquela saída e registra o seu trajeto. Mesmo com a tela desligada, o app grava uma posição a cada 60 segundos e ignora leituras com precisão pior que 50 m. Fora de uma sessão, nenhuma posição sai do aparelho.
 
 ![Aba Mapa com a sessão aberta e o aviso Sem conexão. O mapa mostra a área do projeto e as camadas, com os botões Coletar e Enviar dados embaixo](../../assets/blog/como-coletar-dados-em-campo-sem-internet/mapa-sem-conexao.webp)
 
@@ -57,7 +57,7 @@ A sessão agrupa as coletas daquela saída e registra o seu trajeto. O app grava
 
 ![Formulário Supressão Vegetal com os campos de espécie, fotos e município, e o campo de geometria com latitude, longitude, precisão e o botão Fixar posição](../../assets/blog/como-coletar-dados-em-campo-sem-internet/formulario.webp)
 
-*O campo de geometria mostra a posição e a precisão do GPS, e Fixar posição trava o ponto.*
+*Um formulário aberto em campo. O Município já veio preenchido pela localização.*
 
 O nome do botão engana um pouco. Sem sinal, **Enviar** grava a coleta no aparelho, cria um pino no mapa e coloca uma linha na aba **Coletas** com o estado **Não enviada**. A coleta sobe depois, quando houver conexão.
 
@@ -94,8 +94,8 @@ Ao terminar, toque em **Encerrar**. Depois disso, você não consegue mais edita
 
 ## O que evitar
 
-- **Desinstalar o app com coletas pendentes.** As coletas que ainda não subiram são apagadas junto com o app. Se a sua conta for desconectada, entre de novo com a mesma conta, porque os dados continuam no aparelho.
-- **Fechar o formulário sem tocar em Enviar.** Isso descarta tudo o que foi preenchido, inclusive as fotos e as gravações feitas nele.
+- **Desinstalar o app com coletas pendentes.** Desinstalar apaga as coletas que ainda não subiram. Se o app desconectar a sua conta, entre de novo com a mesma conta, porque os dados continuam no aparelho.
+- **Fechar o formulário sem tocar em Enviar.** Isso descarta tudo o que você preencheu, inclusive as fotos e as gravações.
 - **Ler "Enviada · mídia pendente" como trabalho terminado.** As fotos desse registro só existem no celular até alguém tocar em **Enviar dados**.
 
 ## Próximos passos
