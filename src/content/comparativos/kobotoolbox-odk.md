@@ -17,9 +17,9 @@ tabela:
   - criterio: "Foco"
     terranode: "Levantamento geoespacial"
     concorrente: "Questionário e pesquisa"
-  - criterio: "App nativo iOS"
-    terranode: "Sim"
-    concorrente: "Não. No iPhone, a coleta é por formulário web"
+  - criterio: "Coleta no iPhone"
+    terranode: "Ainda não. App para iOS em breve"
+    concorrente: "Por formulário web, sem app nativo"
   - criterio: "App nativo Android"
     terranode: "Sim"
     concorrente: "Sim (KoboCollect, ODK Collect)"
@@ -30,7 +30,7 @@ tabela:
     terranode: "Sim, com pontos, linhas e polígonos"
     concorrente: "Mapa por pergunta de geometria"
   - criterio: "GNSS externo"
-    terranode: "Sim, no iOS e no Android"
+    terranode: "Sim, no Android"
     concorrente: "Possível no Android, via configuração do aparelho"
   - criterio: "Revisão de registros"
     terranode: "Fila com validar, rejeitar e comentário ao coletor"
@@ -68,7 +68,7 @@ diferencas:
   - titulo: "O mapa é a tela principal"
     texto: "O coletor vê o que já foi levantado enquanto anda, mesmo sem sinal. A geometria não é uma pergunta no meio do questionário."
   - titulo: "Precisão que o levantamento pede"
-    texto: "Você define a precisão mínima de cada campo, e o app aceita receptor GNSS externo no iOS e no Android. Com RTK, o ponto chega a ±3 cm."
+    texto: "Você define a precisão mínima de cada campo, e o app aceita receptor GNSS externo no Android. Com RTK, o ponto chega a ±3 cm."
   - titulo: "Formulário sem planilha"
     texto: "Você arrasta os campos ou descreve o levantamento, e a IA monta a primeira versão. Ninguém precisa editar uma planilha."
 
@@ -81,11 +81,11 @@ faq:
     a: "Se o foco é geometria e precisão, o TerraNode. Se é questionário, continue no Kobo."
     badge: "Mais perguntada"
   - q: "O TerraNode funciona no iPhone?"
-    a: "Sim, com app nativo para iOS e Android."
+    a: "Ainda não. O app nativo é para Android, e a versão para iOS vem em breve."
 
 fechamento:
   titulo: "Quando a geometria importa, colete num mapa."
-  texto: "Polígonos, redes e vértices com a precisão do seu receptor, no iOS e no Android. Entre na lista de espera e leve um levantamento real para o TerraNode."
+  texto: "Polígonos, redes e vértices com a precisão do seu receptor, no Android. Entre na lista de espera e leve um levantamento real para o TerraNode."
 
 fontes:
   - label: "ODK, planos e recursos"
