@@ -11,6 +11,7 @@ import Animacoes from "../components/recursos/Animacoes.astro";
 import { asset } from "../lib/asset";
 import { icone, type Icone } from "../lib/fluxo";
 import { numeros } from "../lib/numeros";
+import { ajustarLinks } from "../lib/prosa";
 import { fotosSetor, palcosSetor, type Palco, type Solucao } from "../lib/solucoes";
 
 interface Props {
@@ -34,12 +35,7 @@ const sem = ["Sem planilhas incompletas", "Sem redigitação", "Sem perda de dad
 // One icon per step, by position: configure, team, collect, review.
 const iconesPassos: Icone[] = ["config", "equipe", "app", "revisao"];
 
-// The markdown body writes its links root-relative ("/recursos/catalogos/"). They get the
-// base path here, as asset() does in markup, so they also work in PR previews. Links to
-// other sites open in a new tab.
-const prosa = (await Astro.slots.render("default"))
-  .replace(/href="\/(?!\/)/g, `href="${asset("/")}`)
-  .replace(/<a href="(https?:\/\/[^"]+)"/g, '<a href="$1" target="_blank" rel="noopener"');
+const prosa = ajustarLinks(await Astro.slots.render("default"));
 
 const pad = (n: number) => String(n).padStart(2, "0");
 const seta = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';

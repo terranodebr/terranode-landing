@@ -64,9 +64,12 @@ src/
       [...slug].astro -> /comparativos/<concorrente>/ (sem índice, listados no rodapé)
     recursos/
       [...slug].astro -> /recursos/<recurso>/ (sem índice; no menu Funcionalidades e no rodapé)
+    blog/
+      [...slug].astro -> /blog/ e /blog/<artigo>/ (só existem com um artigo publicado)
+      [feed].xml.ts   -> /blog/rss.xml
   content/
     solucoes/       Páginas de setor, uma por arquivo .md
-    blog/           (vazio, ainda não implementado)
+    blog/           Artigos, um por arquivo .md (mesma regra de draft)
     ajuda/          (vazio, ainda não implementado)
     comparativos/   Páginas "TerraNode vs X", uma por arquivo .md (mesma regra de draft)
     recursos/       Páginas de recurso do produto (ex.: Catálogos), mesma regra de draft.
@@ -139,6 +142,48 @@ Quando o texto estiver pronto, troque para `draft: false`.
 2. Renomeie para o slug desejado (sem acentos, separado por hífen).
 3. Ajuste `ordem` para definir a posição na listagem.
 4. Rode `npm run dev` e confira em `/solucoes/<slug>/`.
+
+## Escrevendo um artigo do blog
+
+Os artigos ficam em `src/content/blog/`. O nome do arquivo vira a URL:
+`como-levar-um-shapefile-para-o-campo.md` → `/blog/como-levar-um-shapefile-para-o-campo/`.
+Pense bem nesse nome: o GitHub Pages não faz redirecionamento 301, então trocar a URL de
+um artigo publicado custa caro.
+
+Ao contrário das outras páginas, aqui o texto fica no **corpo** do Markdown. O
+frontmatter só tem o que o layout, o índice e os buscadores precisam:
+
+```markdown
+---
+title: "..."          # <title> e og:title, escrito para busca
+description: "..."    # meta description e texto do card em /blog/
+h1: "..."             # título principal do artigo
+subtitulo: "..."      # parágrafo abaixo do H1
+categoria: how-tos    # how-tos, novidades, casos ou engenharia
+autor: george-silva   # george-silva, bruno-lima ou roque-betiol
+publicadoEm: 2026-11-20
+atualizadoEm: 2026-12-02        # opcional, para mudança de conteúdo
+draft: true           # true = não vai para produção
+capa:                 # opcional; também vira a imagem de compartilhamento
+  src: "../../assets/blog/meu-artigo/capa.webp"
+  alt: "..."
+setores: [agro]       # opcional, arquivos de src/content/solucoes/
+recursos: [catalogos] # opcional, arquivos de src/content/recursos/
+---
+
+O texto começa com um parágrafo, e as seções usam `##`.
+```
+
+- **Imagens:** guarde em `src/assets/blog/<artigo>/` e use um caminho relativo:
+  `![Descrição da imagem](../../assets/blog/meu-artigo/tela.webp)`. Uma linha em itálico
+  logo abaixo vira a legenda.
+- **Links:** valem as mesmas regras da prosa dos setores. Escreva os internos a partir da
+  raiz (`/recursos/catalogos/`). Links para outros sites abrem em nova aba.
+- **Publicação:** o índice, o RSS e os links de Blog no menu e no rodapé só existem depois
+  que um artigo tem `draft: false`. Ao publicar, atualize `publicadoEm`. Se o texto tem um
+  link para outro artigo em rascunho, o build falha: publique os dois juntos.
+- **Afirmações sobre o produto:** confira na documentação do produto e no código, não no
+  texto do site.
 
 ## Publicação
 
