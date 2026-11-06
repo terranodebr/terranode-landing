@@ -25,9 +25,9 @@
 <p>Compacte o Shapefile em um <code>.zip</code>. O TerraNode recusa o <code>.shp</code> solto com a mensagem <strong>Tipo de arquivo não suportado</strong>. Um mesmo <code>.zip</code> pode levar vários Shapefiles, e cada um vira uma camada separada.</p>
 <p>Antes de compactar, confira:</p>
 <ul>
-<li><strong>Sistema de referência.</strong> O arquivo precisa declarar um sistema ligado à Terra, então inclua o <code>.prj</code>. Sistemas locais ou de engenharia fazem a camada falhar. O TerraNode converte os dados para WGS84, então você não precisa reprojetar antes.</li>
+<li><strong>Sistema de referência.</strong> O arquivo precisa declarar um sistema ligado à Terra, então inclua o <code>.prj</code>. Sistemas locais ou de engenharia fazem a camada falhar. Você não precisa reprojetar antes, porque o TerraNode converte os dados para WGS84.</li>
 <li><strong>Acentos.</strong> Sem codificação declarada, o TerraNode lê o texto como UTF-8 e, se não for válido, como ISO-8859-1. Se os acentos chegarem errados, confira a codificação do arquivo.</li>
-<li><strong>Nomes de coluna.</strong> Eles ficam em minúsculas, com apóstrofo, hífen e <code>#</code> trocados por <code>_</code>. Uma coluna chamada <code>geometry</code> dá erro e precisa ser renomeada.</li>
+<li><strong>Nomes de coluna.</strong> O TerraNode passa os nomes para minúsculas e troca apóstrofo, hífen e <code>#</code> por <code>_</code>. Uma coluna chamada <code>geometry</code> dá erro, então renomeie antes de compactar.</li>
 <li><strong>Tamanho.</strong> O limite é de 2 GB por arquivo e 128 camadas por envio.</li>
 </ul>
 <h2 id="2-envie-para-um-catálogo">2. Envie para um catálogo</h2>
@@ -38,14 +38,14 @@
 <li>Confirme e acompanhe cada camada passar por <strong>Na fila</strong>, <strong>Processando</strong> e <strong>Concluído</strong>.</li>
 </ol>
 <!-- PRINT PENDENTE: janela "Enviar dados para o catálogo", com as camadas do .zip em processamento. -->
-<p>Pode fechar a janela, porque o processamento continua no servidor. O TerraNode processa cada camada separadamente, então um Shapefile com problema não impede os outros de entrarem. Se algum falhar, corrija e envie só esse.</p>
+<p>Pode fechar a janela, porque o processamento continua no servidor. Cada camada tem o próprio processamento, então um Shapefile com problema não impede os outros de entrarem. Se algum falhar, corrija e envie só esse.</p>
 <h2 id="3-ajuste-a-aparência-se-quiser">3. Ajuste a aparência, se quiser</h2>
 <p>Uma camada sem estilo já aparece no mapa, com a aparência padrão. Para colorir por categoria ou criar classes, use a aba <strong>Estilos</strong> do catálogo e clique em <strong>Salvar estilo</strong>. O projeto herda esse estilo, e o app recebe o mesmo mapa. A <a href="/pr-preview/pr-44/recursos/catalogos/">página de Catálogos</a> mostra as opções.</p>
 <h2 id="4-crie-o-projeto-e-escolha-a-camada">4. Crie o projeto e escolha a camada</h2>
 <p>Em <strong>Projetos</strong>, escolha <strong>Novo projeto</strong> e siga o assistente. Dois passos importam mais aqui:</p>
 <ul>
 <li><strong>Área de cobertura.</strong> Desenhe no mapa ou envie um arquivo. O passo seguinte só oferece catálogos com dados que cruzam essa área, e o pacote recorta as camadas por ela. O que ficar fora da área não vai para o celular. Um polígono em Shapefile também serve como área, desde que o <code>.zip</code> tenha exatamente um <code>.shp</code> e no máximo 10 MB.</li>
-<li><strong>Camadas.</strong> Escolha <strong>Adicionar</strong>, encontre o catálogo em <strong>Buscar catálogo</strong>, marque a camada e escolha <strong>Concluir</strong>. Na lista, a camada de cima é desenhada por cima das outras.</li>
+<li><strong>Camadas.</strong> Escolha <strong>Adicionar</strong>, encontre o catálogo em <strong>Buscar catálogo</strong>, marque a camada e escolha <strong>Concluir</strong>. Na lista, a camada do topo cobre as de baixo no mapa.</li>
 </ul>
 <!-- PRINT PENDENTE: assistente "Novo projeto" no passo Camadas, com a camada do Shapefile na lista. -->
 <p>Nos passos <strong>Equipe</strong> e <strong>Formulários</strong>, adicione as pessoas e os formulários. Para cada formulário, <strong>Selecionar coletores</strong> diz quem o recebe no app. Sem isso, o coletor abre o mapa, mas não consegue coletar. Termine em <strong>Criar projeto</strong>.</p>
@@ -66,10 +66,10 @@
 <p>No app, a camada serve de referência. O coletor liga e desliga a camada no mapa e coleta por cima, e cada coleta gera um registro novo. As feições do seu Shapefile continuam como estão.</p>
 <h2 id="7-faça-o-shapefile-preencher-o-formulário">7. Faça o Shapefile preencher o formulário</h2>
 <p>Com uma camada de polígonos no catálogo, como talhões, bairros ou lotes, o formulário pode preencher um campo sozinho a partir da posição da coleta.</p>
-<p>No construtor de formulários, adicione um campo <strong>Consulta por localização</strong>. Escolha a <strong>Fonte de dados</strong>, que é a sua camada de polígonos, e a <strong>Coluna</strong> que deve ser copiada. O formulário também precisa de um campo de geometria. A camada nem precisa estar entre as do projeto, porque o pacote já leva a fonte que o campo lê.</p>
+<p>No construtor de formulários, adicione um campo <strong>Consulta por localização</strong>. Escolha a <strong>Fonte de dados</strong>, que é a sua camada de polígonos, e a <strong>Coluna</strong> de onde sai o valor. O formulário também precisa de um campo de geometria. A camada nem precisa estar entre as do projeto, porque o pacote já leva a fonte que o campo lê.</p>
 <p>Em campo, o app calcula o valor no próprio aparelho, a partir do pacote, sem internet. Ninguém precisa digitar o nome do talhão nem escolher em uma lista. Se o app não encontrar valor para aquela posição, o servidor calcula quando receber a coleta.</p>
 <p><img alt="Formulário com o campo Município preenchido com Florianópolis e a nota Preenchido pela localização do aparelho, acima do campo de geometria com latitude e longitude" loading="lazy" decoding="async" width="540" height="573" src="/pr-preview/pr-44/_astro/consulta-por-localizacao.DHD1aUYX_1TuNSC.webp"></p>
-<p><em>O coletor não edita esse campo. O município veio de uma fonte de polígonos, a partir do ponto mostrado logo abaixo.</em></p>
+<p><em>O coletor não edita esse campo. O app tirou o município de uma fonte de polígonos, usando o ponto logo abaixo.</em></p>
 <h2 id="se-algo-der-errado">Se algo der errado</h2>
 <table>
 <thead>
@@ -97,7 +97,7 @@
 </tr>
 <tr>
 <td><strong>Sem pacote disponível</strong>, no app</td>
-<td>O projeto não tem área de cobertura ou o pacote ainda está sendo gerado. Veja a aba <strong>Pacotes</strong></td>
+<td>O projeto não tem área de cobertura ou o TerraNode ainda está gerando o pacote. Veja a aba <strong>Pacotes</strong></td>
 </tr>
 </tbody>
 </table>
