@@ -8,10 +8,9 @@ autor: george-silva
 publicadoEm: 2026-11-06
 draft: false
 capa:
-  src: "../../assets/blog/como-levar-um-shapefile-para-o-campo/catalogo-estilos.jpg"
-  alt: "Catálogo do TerraNode com a lista de camadas à esquerda e os estados do Brasil coloridos no mapa"
+  src: "../../assets/blog/como-levar-um-shapefile-para-o-campo/catalogo-estilos-ibge.webp"
+  alt: "Aba Estilos do catálogo IBGE 250k, com as linhas de energia do Sudeste categorizadas por situação e a legenda sobre o mapa"
 recursos: [catalogos, aplicativo]
-# PRINT PENDENTE (capa): aba Estilos de um catálogo com nome real, sem a barra app.qa nem e2e-cli-smoke e test3005.
 ---
 
 Quase todo trabalho de campo parte de um arquivo que alguém já tem: os limites das propriedades, a rede de distribuição, as unidades de conservação da região. Muitas vezes esse arquivo é um Shapefile, e a equipe precisa dele no celular, longe de qualquer sinal.
@@ -50,7 +49,9 @@ O primeiro é a **Área de cobertura**. Desenhe a área no mapa ou envie um arqu
 
 O segundo é **Camadas**. Escolha **Adicionar**, encontre o seu catálogo em **Buscar catálogo**, marque a camada e confirme em **Concluir**. A busca só mostra catálogos com dados que cruzam a área de cobertura. Na lista, a camada do topo cobre as de baixo no mapa.
 
-<!-- PRINT PENDENTE: assistente "Novo projeto" no passo Camadas, com a camada do Shapefile na lista. -->
+![Passo Camadas do assistente Novo projeto, com as camadas unidades-de-conservacao e terras-indigenas na lista e os polígonos delas desenhados sobre a área de cobertura](../../assets/blog/como-levar-um-shapefile-para-o-campo/novo-projeto-camadas.webp)
+
+*O passo Camadas com duas camadas de catálogos diferentes. O retângulo preto é a área de cobertura que recorta o pacote.*
 
 Nos passos **Equipe** e **Formulários**, adicione as pessoas e os formulários. Em cada formulário, use **Selecionar coletores** para dizer quem o recebe no app. Sem isso, a pessoa abre o mapa, mas não consegue coletar. Termine em **Criar projeto**.
 
@@ -58,7 +59,9 @@ Nos passos **Equipe** e **Formulários**, adicione as pessoas e os formulários.
 
 Não existe botão de publicar. O TerraNode gera o pacote offline sozinho, cerca de dois minutos depois da última mudança. A aba **Pacotes** do projeto mostra o andamento e o tamanho do download, e a versão pronta aparece em **Disponível para o campo**.
 
-<!-- PRINT PENDENTE: aba Pacotes do projeto, com uma versão em "Disponível para o campo" e o tamanho do download. -->
+![Aba Pacotes de um projeto, com a versão v2 Disponível para o campo, 3,9 MB, 22 de 22 arquivos prontos e a composição do pacote](../../assets/blog/como-levar-um-shapefile-para-o-campo/pacotes-disponivel.webp)
+
+*A versão v2 está pronta para o campo. A v1 aparece como Substituída, e o painel mostra o tamanho e o que pesa no download.*
 
 Se você criou o projeto logo depois de enviar o Shapefile, espere um pouco mais. A camada já entra no projeto, mas o mapa dela fica pronto um pouco depois, e até lá ela fica fora do pacote. O teste da próxima seção pega esse caso.
 

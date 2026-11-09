@@ -8,7 +8,9 @@ autor: george-silva
 publicadoEm: 2026-11-09
 draft: true
 recursos: [catalogos, aplicativo]
-# PRINT PENDENTE (capa): aba Estilos de um catálogo com nome real, uma camada Categorizado e a legenda sobre o mapa, sem a barra app.qa.
+capa:
+  src: "../../assets/blog/simbologia-do-catalogo-ao-celular/estilo-usinas-rotulos.webp"
+  alt: "Aba Estilos com as usinas do IBGE no interior de São Paulo, marcadas com um ícone de barragem, em azul as hidrelétricas e em verde as termelétricas, com o nome de cada usina como rótulo"
 ---
 
 Um mapa de campo só ajuda se quem está no campo entende o que vê. Se a área de preservação e a área de supressão aparecem no mesmo cinza, o técnico precisa tocar em cada polígono para saber onde está. Se os postes aparecem como pontos iguais, ele não sabe quais já foram vistoriados.
