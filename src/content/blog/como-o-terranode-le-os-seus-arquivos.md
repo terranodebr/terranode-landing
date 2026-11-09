@@ -6,7 +6,7 @@ subtitulo: "Shapefiles dentro de zips, GeoPackages com várias tabelas, planilha
 categoria: engenharia
 autor: george-silva
 publicadoEm: 2026-11-09
-draft: true
+draft: false
 recursos: [catalogos, integracoes]
 capa:
   src: "../../assets/blog/como-o-terranode-le-os-seus-arquivos/envio-processando.webp"

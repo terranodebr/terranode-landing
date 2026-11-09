@@ -6,7 +6,7 @@ subtitulo: "Categorias, classes, marcadores, rótulos e rasters no TerraNode, o 
 categoria: engenharia
 autor: george-silva
 publicadoEm: 2026-11-09
-draft: true
+draft: false
 recursos: [catalogos, aplicativo]
 capa:
   src: "../../assets/blog/simbologia-do-catalogo-ao-celular/estilo-usinas-rotulos.webp"
