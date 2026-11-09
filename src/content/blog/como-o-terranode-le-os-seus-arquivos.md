@@ -1,6 +1,6 @@
 ---
 title: "Formatos que o TerraNode importa: Shapefile, GeoPackage, planilhas e rasters · TerraNode"
-description: "O que acontece entre soltar um arquivo no catálogo e ver a camada no mapa: como o TerraNode encontra cada camada, acha coordenadas em planilhas e prepara vetores e rasters."
+description: "Do arquivo solto no catálogo à camada no mapa: como o TerraNode encontra as camadas, acha coordenadas em planilhas e prepara os dados."
 h1: "Do arquivo à camada: como o TerraNode lê os seus dados"
 subtitulo: "Shapefiles dentro de zips, GeoPackages com várias tabelas, planilhas com colunas de latitude e imagens de satélite. O que o TerraNode faz com cada um."
 categoria: engenharia

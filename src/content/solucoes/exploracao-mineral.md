@@ -1,6 +1,6 @@
 ---
 title: "Aplicativo para exploração mineral e coleta geoquímica - TerraNode"
-description: "Faça mapeamento geológico, coleta geoquímica e quarteamento com templates prontos, coleta offline criptografada e direitos minerários no mapa. Conheça o TerraNode."
+description: "Faça mapeamento geológico, coleta geoquímica e quarteamento com templates prontos, coleta offline criptografada e direitos minerários no mapa."
 setor: "Exploração mineral"
 h1: "Coleta de campo para exploração mineral e pesquisa geológica"
 subtitulo: "O TerraNode é uma plataforma de coleta de dados geoespaciais em campo para exploração mineral, com templates de coleta geoquímica, quarteamento e mapeamento geológico, registro offline e criptografado de amostras e afloramentos, e camadas de direitos minerários e cartas geológicas no mapa de quem está em campo."

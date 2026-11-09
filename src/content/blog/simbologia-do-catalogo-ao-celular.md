@@ -1,6 +1,6 @@
 ---
 title: "Simbologia de mapas no TerraNode: vetores, rasters, rótulos e estilo com IA · TerraNode"
-description: "Como o TerraNode desenha cada camada: símbolo único, categorias e classes, marcadores, rótulos, rasters, estilo sugerido por IA e o que chega ao app de campo sem internet."
+description: "Como o TerraNode desenha cada camada: símbolo único, categorias, classes, rótulos, rasters, estilo sugerido por IA e o que chega ao app de campo sem internet."
 h1: "Um estilo só, o mesmo mapa no escritório e no campo"
 subtitulo: "Categorias, classes, marcadores, rótulos e rasters no TerraNode, o estilo que a IA sugere e o que de fato chega ao celular."
 categoria: engenharia

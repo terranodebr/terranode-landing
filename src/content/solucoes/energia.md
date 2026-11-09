@@ -1,6 +1,6 @@
 ---
 title: "Aplicativo para inspeção e cadastro de ativos de energia - TerraNode"
-description: "Inspecione e cadastre ativos de distribuição, transmissão e geração com a rede do seu ArcGIS no campo, coleta offline criptografada e template de cadastro de postes. Conheça o TerraNode."
+description: "Inspecione e cadastre ativos de distribuição, transmissão e geração com a rede do seu ArcGIS no campo, coleta offline criptografada e template de postes."
 setor: "Energia"
 h1: "Inspeção e cadastro de ativos de energia elétrica"
 subtitulo: "O TerraNode é uma plataforma de coleta de dados geoespaciais em campo para distribuição, transmissão e geração de energia, com a rede do seu ArcGIS no mapa de quem está em campo, templates de cadastro de ativos, registro offline e criptografado de inspeções e atendimentos, e recursos para revisão e exportação de dados."

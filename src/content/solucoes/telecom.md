@@ -1,6 +1,6 @@
 ---
 title: "Aplicativo para vistoria de sites e cadastro de rede de fibra - TerraNode"
-description: "Faça vistoria de sites e torres, cadastro de rede de fibra e auditoria de postes com formulários personalizados, coleta offline criptografada e integração com ArcGIS. Conheça o TerraNode."
+description: "Faça vistoria de torres, cadastro de rede de fibra e auditoria de postes com formulários personalizados, coleta offline criptografada e integração com ArcGIS."
 setor: "Telecom"
 h1: "Vistoria de sites e cadastro de redes de telecom"
 subtitulo: "O TerraNode é uma plataforma de coleta de dados geoespaciais em campo para telecomunicações, com formulários configuráveis para vistoria de sites e torres, cadastro de rede de fibra e ocupação de postes, registro offline e criptografado de fotos e geometrias, e recursos para revisão e exportação de dados."
