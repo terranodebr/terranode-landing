@@ -77,7 +77,7 @@ O que não tem equivalente fica pelo caminho, e o TerraNode avisa. Um marcador d
 
 ## No celular, o mesmo desenho sem internet
 
-Tudo isso só vale a pena se chegar ao campo. Quando o TerraNode monta o pacote offline de um projeto, o estilo de cada camada vai junto, com os ícones e as fontes dos rótulos. O app desenha as mesmas regras do painel web, com as cores de cada categoria e de cada faixa, os tracejados, os rótulos com halo e os limites de zoom. Nos rasters, o servidor aplica as cores ao montar o pacote, com a mesma função que colore o mapa na web.
+Tudo isso só vale a pena se chegar ao campo. Quando o TerraNode monta o pacote offline de um projeto, o estilo de cada camada vai junto, com os ícones e as fontes dos rótulos. O app desenha as mesmas regras do painel web, com as cores de cada categoria e de cada faixa, os tracejados, os rótulos com halo e os limites de zoom. Nos rasters, as cores já vêm aplicadas no pacote, iguais às do mapa na web.
 
 Como o estilo faz parte do pacote, mudar um estilo gera uma versão nova do pacote. No celular, o projeto aparece como **Atualização pendente**. O app baixa a versão nova sozinho quando pega Wi-Fi, ou na hora em que alguém toca em **Atualizar Projeto**, e só então a equipe vê a mudança. Quem já saiu para o campo continua com o estilo antigo até voltar ao sinal, então vale fechar os ajustes de estilo antes da saída.
 

@@ -25,9 +25,7 @@ Um arquivo raramente traz uma camada só. Um GeoPackage pode ter doze tabelas. U
 
 O TerraNode começa abrindo o pacote. Ele percorre o `.zip` inteiro, inclusive as subpastas, e separa os arquivos que sabe ler. São Shapefile, GeoPackage, GeoJSON, FlatGeobuf, MapInfo, File Geodatabase, CSV, planilhas do Excel e do LibreOffice, GeoTIFF e ERDAS Imagine. Uma pasta `.gdb` conta como um conjunto de dados só, do mesmo jeito que o ArcGIS a trata. O PDF fica de fora.
 
-A extensão só diz onde olhar. Quem decide o que existe dentro de cada arquivo é o GDAL, a biblioteca de leitura de dados geográficos que também está por trás do QGIS. O TerraNode abre cada arquivo com o GDAL e pergunta quantas camadas há ali e de que tipo cada uma é.
-
-A resposta vira uma lista de itens. Cada camada vetorial, tabela, aba de planilha ou raster é um item, com processamento próprio. Um zip com dois Shapefiles e um GeoTIFF vira três itens, e um GeoPackage com doze tabelas vira doze. Essa separação é o que torna seguro mandar um zip grande, porque um Shapefile com defeito não derruba os outros. O envio só falha inteiro quando nada lá dentro pôde ser lido.
+Depois, o TerraNode abre cada arquivo e descobre quantas camadas há ali e de que tipo cada uma é. O que ele encontra vira uma lista de itens. Cada camada vetorial, tabela, aba de planilha ou raster é um item, com processamento próprio. Um zip com dois Shapefiles e um GeoTIFF vira três itens, e um GeoPackage com doze tabelas vira doze. Essa separação é o que torna seguro mandar um zip grande, porque um Shapefile com defeito não derruba os outros. O envio só falha inteiro quando nada lá dentro pôde ser lido.
 
 Alguns formatos precisam ir dentro de um `.zip`. Shapefile, MapInfo e File Geodatabase são vários arquivos que só funcionam juntos, e o envio pela web recusa um `.shp` solto com a mensagem **Tipo de arquivo não suportado**. GeoPackage, GeoJSON, FlatGeobuf, CSV, planilhas e rasters podem ir soltos ou compactados.
 
