@@ -1,8 +1,8 @@
 ---
 title: "Como coletar dados em campo sem internet · TerraNode"
-description: "O que preparar antes de sair, como coletar pontos com formulário e fotos sem sinal e como enviar tudo na volta, usando o app do TerraNode no Android."
+description: "Um dia de campo sem sinal com o app do TerraNode no Android: o que preparar na véspera, como coletar pontos e fotos e como enviar tudo na volta."
 h1: "Como coletar dados em campo sem internet"
-subtitulo: "O que preparar antes de sair, como coletar sem sinal e como enviar os dados na volta, usando o app do TerraNode no Android."
+subtitulo: "Um dia de campo do começo ao fim, da véspera com internet até as fotos enviadas na volta, no app do TerraNode para Android."
 categoria: how-tos
 autor: george-silva
 publicadoEm: 2026-11-06
@@ -13,69 +13,67 @@ capa:
 recursos: [aplicativo, formularios]
 ---
 
-Sem sinal, quase nada se resolve no campo. Se você não baixou o mapa ou não aceitou a permissão de localização, o dia de trabalho para ali. Por isso este guia começa no escritório, com internet, e só depois vai para a coleta.
+O sinal costuma acabar antes de a equipe chegar ao ponto. Em uma vistoria de linha de transmissão ou em um levantamento em área rural, o dia inteiro pode passar sem 4G. Se o trabalho depende de internet para abrir o mapa ou enviar o formulário, a equipe volta com metade do que foi buscar, ou com fotos soltas na galeria sem saber de qual ponto são.
+
+O app do TerraNode guarda no celular tudo o que a coleta precisa e envia os dados quando a conexão volta. Para isso dar certo, algumas coisas precisam acontecer na ordem certa, e a maioria delas antes de sair do escritório.
+
+Este guia acompanha um dia de campo da véspera até a volta. As telas são do app real, com um projeto de exemplo chamado Supressão Floripa.
 
 > O TerraNode está em beta fechado, e o app roda em Android 12 ou mais recente. Se a sua equipe ainda não tem acesso, [entre na lista de espera](https://form.typeform.com/to/ZVQYTFV5).
 
-## Antes de sair, deixe tudo no aparelho
+## Na véspera, com internet
 
-Faça estes passos com internet, porque o app precisa de conexão para entrar na conta e baixar o projeto.
+Tudo começa com o download. Instale o app, entre com o mesmo e-mail e senha do painel web e, na aba **Projetos**, toque em **Baixar projeto**. O download continua em segundo plano, então você pode fechar o app. Se a conexão cair no meio, ele retoma depois só com os arquivos que faltam.
 
-1. Instale o app e entre com o mesmo e-mail e senha do painel web.
-2. Na aba **Projetos**, toque em **Baixar projeto**. Pode fechar o app, porque o download continua em segundo plano. Se a conexão cair, ele baixa depois só os arquivos que faltam.
-3. Espere o cartão do projeto mostrar **Sincronizado**. Nesse estado, o mapa, as camadas e os seus formulários já estão no aparelho.
-4. Abra o projeto e confira as camadas. Em **Camadas**, procure as que você vai usar. Na aba **Projeto**, o mapa base deve aparecer como **Incluído**. Sem ele, as camadas ficam sobre um fundo vazio quando não há sinal.
-5. Confira se há espaço livre. As fotos ficam em resolução original, sem compressão, e o app não inicia uma gravação de vídeo ou áudio se faltar espaço para a duração máxima.
+O projeto está pronto para sair quando o cartão mostra **Sincronizado**. A partir daí, o mapa, as camadas e os formulários já estão no celular.
 
 ![Cartão do projeto Supressão Floripa com o selo Sincronizado, o mapa da área e o botão Iniciar sessão de campo](../../assets/blog/como-coletar-dados-em-campo-sem-internet/cartao-sincronizado.webp)
 
-*O cartão do projeto depois do download.*
+*O cartão do projeto de exemplo depois do download.*
+
+Antes de guardar o celular, abra o projeto e confira duas coisas. A primeira é o mapa base. Na aba **Projeto**, ele precisa aparecer como **Incluído**, porque sem ele as camadas ficam sobre um fundo vazio quando não há sinal. A segunda é o espaço livre. As fotos ficam no aparelho em resolução original até você enviá-las.
 
 ![Seção Mapa da aba Projeto, com a área de 2070,1 km², o mapa base Incluído e a camada unidades-de-conservacao](../../assets/blog/como-coletar-dados-em-campo-sem-internet/aba-projeto-mapa-base.webp)
 
 *A seção Mapa da aba Projeto, com o mapa base incluído.*
 
-Dois avisos pedem ajuda de quem gerencia o projeto. **Sem pacote disponível** significa que o projeto ainda não tem área de cobertura ou que o TerraNode ainda está gerando o pacote. "Nenhum formulário atribuído a você neste projeto", no botão **Coletar** desativado, significa que falta incluir você em um formulário. Resolva os dois antes de sair.
+Dois avisos podem aparecer nessa hora, e nenhum deles você resolve sozinho. **Sem pacote disponível** quer dizer que o projeto ainda não tem área de cobertura ou que o TerraNode ainda está gerando o pacote. Um botão **Coletar** desativado, com a mensagem "Nenhum formulário atribuído a você neste projeto", quer dizer que falta incluir você em um formulário. Nos dois casos, fale com quem gerencia o projeto antes de sair, porque sem internet o celular não recebe a correção.
 
-## No campo, abra uma sessão
+## No campo, comece pela sessão
 
-Toque em **Iniciar sessão de campo** no cartão do projeto. Na primeira vez, o Android pede a localização precisa, e sem ela a sessão não inicia.
+Ao chegar, abra o projeto e toque em **Iniciar sessão de campo**. Na primeira vez, o Android pede acesso à localização precisa, e a sessão só começa com essa permissão.
 
-A sessão agrupa as coletas daquela saída e registra o seu trajeto. Mesmo com a tela desligada, o app grava uma posição a cada 60 segundos e ignora leituras com precisão pior que 50 m. Fora de uma sessão, nenhuma posição sai do aparelho.
+A sessão marca o começo e o fim da saída. Ela agrupa as coletas do dia e registra o trajeto, mesmo com a tela desligada. Fora de uma sessão, nenhuma posição sai do aparelho.
 
 ![Aba Mapa com a sessão aberta e o aviso Sem conexão. O mapa mostra a área do projeto e as camadas, com os botões Coletar e Enviar dados embaixo](../../assets/blog/como-coletar-dados-em-campo-sem-internet/mapa-sem-conexao.webp)
 
-*O projeto em modo avião. O mapa, as camadas e o botão Coletar continuam funcionando.*
+*O projeto de exemplo em modo avião. O mapa, as camadas e o botão Coletar continuam funcionando.*
 
-## Colete cada ponto
+## Cada ponto, do formulário ao pino no mapa
 
-1. Na aba **Mapa**, toque em **Coletar**. Se você tem mais de um formulário no projeto, escolha um. O app guarda a escolha, e **Trocar** muda de formulário depois.
-2. Preencha os campos. Os obrigatórios têm asterisco, e os condicionais aparecem ou somem conforme as respostas.
-3. Olhe o campo de geometria, se o formulário tiver um. Ele mostra latitude, longitude e a precisão do GPS, e **Fixar posição** trava o ponto. Quando esse campo é obrigatório, o envio espera até haver sinal de GPS.
-4. Tire as fotos pelo próprio formulário, em **Tirar foto**. Cada foto guarda a melhor posição dos 30 segundos antes do clique.
-5. Toque em **Enviar**.
+Para registrar um ponto, toque em **Coletar** na aba **Mapa**. Se você recebeu mais de um formulário no projeto, o app pergunta qual usar e guarda a escolha. **Trocar** muda de formulário depois.
+
+O formulário abre com a posição do GPS na tela. O campo de geometria mostra latitude, longitude e precisão, e **Fixar posição** trava o ponto quando você estiver no lugar certo. Para fotos, use **Tirar foto** dentro do formulário, e não a câmera do celular. Assim a foto fica presa à coleta, com a posição de onde você a tirou.
 
 ![Formulário Supressão Vegetal com os campos de espécie, fotos e município, e o campo de geometria com latitude, longitude, precisão e o botão Fixar posição](../../assets/blog/como-coletar-dados-em-campo-sem-internet/formulario.webp)
 
-*Um formulário aberto em campo. O Município já veio preenchido pela localização.*
+*O formulário aberto em campo. O Município já veio preenchido pela localização.*
 
-O nome do botão engana um pouco. Sem sinal, **Enviar** grava a coleta no aparelho, cria um pino no mapa e coloca uma linha na aba **Coletas** com o estado **Não enviada**. A coleta sobe depois, quando houver conexão.
+Ao terminar, toque em **Enviar**. O nome engana um pouco, porque sem sinal nada sai do celular. O app grava a coleta no aparelho, põe um pino no mapa e cria uma linha na aba **Coletas** com o estado **Não enviada**. O envio de verdade fica para depois.
 
-Hoje o app coleta apenas pontos. Linhas e polígonos aparecem no mapa como camadas de referência, mas um campo de formulário que aceite só linha ou polígono ainda não funciona no app.
+Só não feche o formulário antes de tocar em **Enviar**. Fechar descarta tudo o que você preencheu, inclusive as fotos.
 
-## Quando o sinal voltar
+Por enquanto, o app coleta apenas pontos. Linhas e polígonos aparecem no mapa como referência, mas ainda não dá para desenhá-los em campo.
 
-As respostas e as mídias sobem em momentos diferentes. Com isso, quem gerencia acompanha o avanço assim que há conexão, e você decide quando gastar a rede com arquivos pesados.
+## Quando o sinal volta
 
-| O quê | Quando sobe |
-| --- | --- |
-| Respostas dos formulários | Sozinhas, com conexão: ao gravar uma coleta, ao encerrar a sessão, ao abrir o app e a cada 10 minutos com a sessão aberta |
-| Trajeto | Sozinho, com conexão: a cada coleta enviada e a cada 10 minutos |
-| Fotos, vídeos, áudios e assinaturas | Só quando alguém toca em **Enviar dados** |
+Na volta, os dados sobem em duas etapas, e é essa divisão que explica os estados da aba **Coletas**.
 
-O botão **Enviar dados** aparece no mapa do projeto e no cartão dele. Se puder, use-o em um Wi-Fi ao fim do dia. Se a conexão cair no meio de um arquivo, o envio retoma de onde parou. Sem conexão, o botão mostra **Aguardando conexão** e começa sozinho quando a internet volta.
+As respostas dos formulários e o trajeto sobem sozinhos assim que há conexão. O app tenta ao gravar uma coleta, ao encerrar a sessão, ao abrir o app e a cada 10 minutos com a sessão aberta. Com isso, quem gerencia o projeto vê o avanço da equipe logo que alguém pega sinal.
 
-Na aba **Coletas**, o estado de cada linha diz o que falta:
+Fotos, vídeos, áudios e assinaturas esperam você tocar em **Enviar dados**, no mapa do projeto ou no cartão dele. São os arquivos pesados, e você escolhe quando gastar a rede com eles. O melhor momento é no Wi-Fi, ao fim do dia. Se a conexão cair no meio de um arquivo, o envio continua de onde parou. Se você tocar sem conexão, o botão mostra **Aguardando conexão** e começa sozinho quando a internet volta.
+
+Na aba **Coletas**, o estado de cada linha diz em que ponto está cada coleta:
 
 | Estado | O que significa |
 | --- | --- |
@@ -88,16 +86,16 @@ Na aba **Coletas**, o estado de cada linha diz o que falta:
 
 *A coleta só ganha número depois que a resposta chega ao servidor, por isso a primeira linha ainda não tem um.*
 
-## Encerre a sessão
+O estado que mais engana é **Enviada · mídia pendente**. Ele parece trabalho terminado, mas as fotos daquela coleta só existem no celular até alguém tocar em **Enviar dados**.
 
-Ao terminar, toque em **Encerrar**. Depois disso, você não consegue mais editar nem excluir as coletas da sessão no app, e não há como reabri-la. Para coletar de novo, inicie outra sessão. O botão **Enviar dados** continua funcionando depois de encerrar.
+## No fim do dia, encerre a sessão
 
-## O que evitar
+Com tudo enviado, toque em **Encerrar**. A sessão fecha de vez. Você não consegue mais editar nem excluir as coletas dela, nem reabri-la, e a próxima saída pede uma sessão nova. **Enviar dados** continua funcionando depois disso, então ainda dá para mandar fotos que ficaram para trás.
 
-- **Desinstalar o app com coletas pendentes.** Desinstalar apaga as coletas que ainda não subiram. Se o app desconectar a sua conta, entre de novo com a mesma conta, porque os dados continuam no aparelho.
-- **Fechar o formulário sem tocar em Enviar.** Isso descarta tudo o que você preencheu, inclusive as fotos e as gravações.
-- **Ler "Enviada · mídia pendente" como trabalho terminado.** As fotos desse registro só existem no celular até alguém tocar em **Enviar dados**.
+Um cuidado vale para qualquer dia. Não desinstale o app com coletas pendentes, porque desinstalar apaga o que ainda não subiu. Se o app desconectar a sua conta, entre de novo com a mesma conta, e os dados continuam no aparelho.
 
-## Próximos passos
+## Antes da próxima saída
 
-Se a equipe trabalha sobre limites, redes ou lotes que já existem, veja [como levar um Shapefile para o campo](/blog/como-levar-um-shapefile-para-o-campo/). Para conhecer o resto do app, veja a [página do aplicativo](/recursos/aplicativo/). E para montar o que a equipe preenche, comece pelo [construtor de formulários](/recursos/formularios/).
+Coletar sem internet funciona quando você faz o trabalho de casa com internet. Baixe o projeto na véspera, espere o **Sincronizado** e confira o mapa base. No campo, lembre que **Enviar** só grava no aparelho. Na volta, toque em **Enviar dados**, porque as fotos não sobem sozinhas.
+
+Se a equipe trabalha sobre limites, redes ou lotes que já existem, o próximo passo é [levar um Shapefile para o campo](/blog/como-levar-um-shapefile-para-o-campo/). Para ver o resto do app, veja a [página do aplicativo](/recursos/aplicativo/). Para montar o que a equipe preenche, comece pelo [construtor de formulários](/recursos/formularios/).
