@@ -8,7 +8,9 @@ autor: george-silva
 publicadoEm: 2026-11-09
 draft: true
 recursos: [catalogos, integracoes]
-# PRINT PENDENTE (capa): janela "Enviar dados para o catálogo" com um .zip gerando vários itens em estados diferentes, em um catálogo com nome real.
+capa:
+  src: "../../assets/blog/como-o-terranode-le-os-seus-arquivos/envio-processando.webp"
+  alt: "Janela Processando os arquivos sobre um catálogo, com o cartão Processando ao lado listando cada camada do .zip como Concluído, Na fila ou Processando"
 ---
 
 Quem trabalha com dados geográficos quase nunca escolhe o formato em que eles chegam. O limite das propriedades vem em Shapefile, baixado de um órgão estadual. A rede de distribuição sai do ArcGIS como File Geodatabase. O inventário está em uma planilha do Excel, e a ortofoto chegou em GeoTIFF.
@@ -43,6 +45,10 @@ E quando não há coordenadas? A aba vira uma fonte **Sem geometria**. Ela não 
 
 Se a planilha mora no Google Sheets, a [integração](https://docs.terranode.com.br/integracoes/google-sheets/) traz as abas direto, sem baixar arquivo, com o mesmo detector de coordenadas. Ali o TerraNode lê também o tipo de cada célula, então datas continuam datas e números continuam números. Se ele escolher a coluna errada, você indica qual é a latitude e qual é a longitude.
 
+![Aba Fontes de dados de um catálogo com sete fontes: brasil - capitais como Ponto, brasil - estados como Sem geometria, quatro camadas do IBGE como Polígono, Ponto e Linha, e imagem-orbital-recorte como Raster](../../assets/blog/como-o-terranode-le-os-seus-arquivos/fontes-de-dados-formatos.webp)
+
+*Um só `.zip` com quatro Shapefiles do IBGE em uma subpasta, uma planilha com duas abas e um GeoTIFF virou sete fontes. A aba com Latitude e Longitude virou pontos, e a aba sem coordenadas ficou Sem geometria.*
+
 ## O que muda nos dados no caminho
 
 Achar a camada é metade do trabalho. A outra metade é deixar todas as camadas do catálogo falando a mesma língua, para que se sobreponham no mapa e no celular sem surpresa.
@@ -54,9 +60,6 @@ Depois vem a limpeza dos vetores. Geometrias inválidas, como um polígono que c
 Os acentos dentro dos dados pedem um cuidado especial nos Shapefiles. Muitos arquivos gerados no Brasil não declaram a codificação do texto. Nesse caso, o TerraNode tenta ler como UTF-8 e, se não der, tenta de novo como ISO-8859-1, a codificação que boa parte dos programas antigos usava.
 
 Os rasters seguem outro caminho. O TerraNode guarda cada um como Cloud Optimized GeoTIFF, sem perda de qualidade, em um formato que o mapa carrega por partes. As estatísticas de cada banda saem do arquivo inteiro, não de uma amostra. Na primeira abertura, uma imagem RGB abre em cor verdadeira, e uma elevação abre com uma rampa entre o mínimo e o máximo.
-
-<!-- PRINT PENDENTE: aba Fontes de dados de um catálogo com um Shapefile, uma aba de planilha Sem geometria e um GeoTIFF lado a lado. -->
-
 ## O que ainda depende de você
 
 Quase tudo acontece sem você ver. Mesmo assim, três coisas ainda dependem de quem envia. A primeira é o sistema de referência declarado, com o `.prj` dentro do zip do Shapefile. A segunda é compactar os formatos que são vários arquivos, como Shapefile, MapInfo e File Geodatabase. A terceira é usar nomes de coluna reconhecíveis para as coordenadas, principalmente em CSV.
