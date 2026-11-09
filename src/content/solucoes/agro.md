@@ -1,10 +1,10 @@
 ---
 title: "Aplicativo para monitoramento de lavouras - TerraNode"
-description: "Faça o monitoramento de lavouras com formulários personalizados, coletas offline e histórico por talhão. Conheça o TerraNode."
+description: "Faça o monitoramento de lavouras com formulários personalizados, coleta offline e histórico por talhão. Conheça o TerraNode."
 setor: "Agro"
 h1: "Mapeamento e monitoramento de lavouras"
 subtitulo: "O TerraNode é uma plataforma de coleta de dados geoespaciais em campo para o agro, com formulários configuráveis por talhão, registro offline de pragas, danos, amostras e fotos, e recursos para revisão e exportação de dados."
-ordem: 6
+ordem: 8
 draft: false
 
 doresTitulo: "O que dificulta o monitoramento das lavouras"
@@ -14,7 +14,7 @@ dores:
   - titulo: "Alto custo operacional"
     texto: "Sistemas para coleta de dados geoespaciais podem pesar no orçamento com custos de implementação, manutenção ou adaptações. O TerraNode é uma solução brasileira, com valores em reais e custo operacional abaixo da concorrência. E também ajuda a reduzir gastos com papel, redigitação, retrabalho e retornos ao talhão para corrigir registros."
   - titulo: "Histórico fragmentado"
-    texto: "Quando as informações ficam espalhadas entre cadernetas, planilhas e fotos na galeria do celular ou em conversas de WhatsApp, reunir o histórico de um talhão se torna mais difícil. E comparar safras exige mais tempo, podendo deixar lacunas no acompanhamento da lavoura e nas decisões de manejo."
+    texto: "Quando as informações ficam espalhadas entre cadernetas, planilhas e fotos na galeria do celular ou em conversas de WhatsApp, reunir o histórico de um talhão se torna mais difícil. E comparar safras leva mais tempo e pode deixar lacunas no acompanhamento da lavoura e nas decisões de manejo."
 
 passosLead: "As equipes do agro podem configurar os formulários, organizar o time, coletar os dados em campo e revisar os registros antes de exportá-los. Tudo em um único fluxo."
 passos:
@@ -103,19 +103,21 @@ E na lavoura, onde muitas vezes não há sinal, a coleta precisa continuar.
 
 Quando os registros ficam dispersos entre cadernetas, fotos e planilhas, comparar vistorias ou consolidar o histórico de uma safra pode exigir trabalho adicional.
 
-### O TerraNode mantém a vistoria em andamento, mesmo offline.
+### O TerraNode mantém a vistoria em andamento, mesmo offline
 
-Com o TerraNode, a equipe preenche formulários e registra informações diretamente no aplicativo, mesmo sem conexão. Os dados ficam armazenados no dispositivo e são sincronizados automaticamente quando a conectividade retorna.
+Com o TerraNode, a equipe preenche formulários e registra informações diretamente no aplicativo, [mesmo sem conexão](/recursos/aplicativo/#offline). Os dados ficam armazenados no dispositivo e são sincronizados automaticamente quando a conectividade retorna.
 
 Fotos, descrições e informações de localização ficam reunidas no registro de cada vistoria, facilitando a consulta e o acompanhamento do histórico de cada talhão.
 
-Os formulários podem ser configurados com os campos, as regras e os preenchimentos obrigatórios definidos para cada tipo de levantamento. Assim, a equipe registra as informações necessárias de acordo com os critérios estabelecidos pela equipe técnica.
+Os [formulários](/recursos/formularios/) podem ser configurados com os campos, as regras e os preenchimentos obrigatórios definidos para cada tipo de levantamento. Assim, quem está no talhão registra as informações necessárias, de acordo com os critérios da equipe técnica.
 
-Nossa plataforma também se integra ao **ArcGIS Online** e ao **ArcGIS Enterprise**, conectando a **coleta de dados em campo** ao **sistema de informação geográfica (SIG)** da organização.
+Nossa plataforma também se integra ao [**ArcGIS Online** e ao **ArcGIS Enterprise**](/recursos/integracoes/#arcgis), conectando a **coleta de dados em campo** ao **sistema de informação geográfica (SIG)** da organização.
 
-**Conheça as soluções do TerraNode para outras operações:** [energia](/solucoes/energia/), [telecom](/solucoes/telecom/), [topografia e cadastro](/solucoes/topografia-e-cadastro/), [meio ambiente](/solucoes/meio-ambiente/), [municípios](/solucoes/municipios/) e [saneamento e obras](/solucoes/saneamento-e-obras/).
+**Conheça as soluções do TerraNode para outras operações:** [energia](/solucoes/energia/), [telecom](/solucoes/telecom/), [meio ambiente](/solucoes/meio-ambiente/), [exploração mineral](/solucoes/exploracao-mineral/), [mineração](/solucoes/mineracao/), [saneamento e obras](/solucoes/saneamento-e-obras/), [topografia e cadastro](/solucoes/topografia-e-cadastro/) e [municípios](/solucoes/municipios/).
 
-**Para conhecer outros recursos de configuração, acesse:** [formulários](/recursos/formularios/) e [catálogos](/recursos/catalogos/).
+**Veja como funcionam os recursos:** [formulários](/recursos/formularios/), [catálogos](/recursos/catalogos/), [aplicativo de campo](/recursos/aplicativo/) e [integração com o ArcGIS](/recursos/integracoes/#arcgis).
+
+**Passo a passo na documentação:** [criar e editar formulários](https://docs.terranode.com.br/formularios/), [importar dados](https://docs.terranode.com.br/catalogos/importar-dados/), [pacotes offline](https://docs.terranode.com.br/projetos/pacotes-offline/) e [como conectar o ArcGIS](https://docs.terranode.com.br/integracoes/arcgis/).
 
 > **Atenção às normas e aos procedimentos:** cada atividade deve observar os requisitos técnicos e de segurança aplicáveis. No Brasil, isso pode incluir a [NR-31](https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-31-nr-31), relacionada à segurança e saúde no trabalho na agricultura, pecuária, silvicultura, exploração florestal e aquicultura, e a [Lei nº 14.785/2023](https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2023/lei/l14785.htm), que trata, entre outros pontos, do uso de agrotóxicos e do receituário agronômico.
 >

@@ -4,7 +4,7 @@ description: "Faça mapeamento geológico, coleta geoquímica e quarteamento com
 setor: "Exploração mineral"
 h1: "Coleta de campo para exploração mineral e pesquisa geológica"
 subtitulo: "O TerraNode é uma plataforma de coleta de dados geoespaciais em campo para exploração mineral, com templates de coleta geoquímica, quarteamento e mapeamento geológico, registro offline e criptografado de amostras e afloramentos, e camadas de direitos minerários e cartas geológicas no mapa de quem está em campo."
-ordem: 8
+ordem: 4
 draft: false
 
 doresTitulo: "O que dificulta as campanhas de exploração mineral"
@@ -106,21 +106,23 @@ E boa parte dessas campanhas acontece longe de qualquer sinal de celular.
 
 ### Seus dados de exploração protegidos, mesmo se o aparelho sumir
 
-Um resultado de exploração costuma valer muito antes de ser anunciado ou de a área ser requerida. Por isso, no TerraNode, cada registro é criptografado no próprio aparelho no momento da coleta e continua criptografado no caminho até o servidor. Se um celular for perdido ou roubado em campo, os dados da campanha não ficam legíveis fora do aplicativo.
+Um resultado de exploração costuma valer muito antes de ser anunciado ou de a área ser requerida. Por isso, no TerraNode, cada registro é [criptografado no próprio aparelho](/recursos/seguranca/#criptografia) no momento da coleta e continua criptografado no caminho até o servidor. Se um celular for perdido ou roubado em campo, os dados da campanha não ficam legíveis fora do aplicativo.
 
 ### Direitos minerários e geologia no mapa de quem coleta
 
-O mapa do aplicativo mostra as camadas que a equipe configurar, como **direitos minerários**, mantidos atualizados pelo próprio TerraNode, e **cartas geológicas** da área. O geólogo vê em campo os limites dos processos, as unidades mapeadas e os alvos da campanha, mesmo sem conexão.
+O mapa do aplicativo mostra as camadas que a equipe configurar, como [**direitos minerários**](https://docs.terranode.com.br/catalogos/dados-publicos/), mantidos atualizados pelo próprio TerraNode, e **cartas geológicas** da área. O geólogo vê em campo os limites dos processos, as unidades mapeadas e os alvos da campanha, mesmo sem conexão.
 
 ### Templates prontos para cada etapa da campanha
 
 O TerraNode tem templates de **coleta geoquímica**, **quarteamento** e **exploração**. A equipe parte de um deles e ajusta campos, regras e preenchimentos obrigatórios à metodologia da campanha. Os dados ficam no aparelho sem sinal e são sincronizados automaticamente quando a conectividade retorna.
 
-Nossa plataforma também se integra ao **ArcGIS Online** e ao **ArcGIS Enterprise**, conectando a **coleta de dados em campo** ao **sistema de informação geográfica (SIG)** da organização.
+Nossa plataforma também se integra ao [**ArcGIS Online** e ao **ArcGIS Enterprise**](/recursos/integracoes/#arcgis), conectando a **coleta de dados em campo** ao **sistema de informação geográfica (SIG)** da organização.
 
-**Conheça as soluções do TerraNode para outras operações:** [mineração](/solucoes/mineracao/), [meio ambiente](/solucoes/meio-ambiente/), [topografia e cadastro](/solucoes/topografia-e-cadastro/), [energia](/solucoes/energia/), [telecom](/solucoes/telecom/) e [agro](/solucoes/agro/).
+**Conheça as soluções do TerraNode para outras operações:** [energia](/solucoes/energia/), [telecom](/solucoes/telecom/), [meio ambiente](/solucoes/meio-ambiente/), [mineração](/solucoes/mineracao/), [saneamento e obras](/solucoes/saneamento-e-obras/), [topografia e cadastro](/solucoes/topografia-e-cadastro/), [agro](/solucoes/agro/) e [municípios](/solucoes/municipios/).
 
-**Para conhecer outros recursos de configuração, acesse:** [formulários](/recursos/formularios/) e [catálogos](/recursos/catalogos/).
+**Veja como funcionam os recursos:** [formulários](/recursos/formularios/), [catálogos](/recursos/catalogos/), [segurança e LGPD](/recursos/seguranca/) e [integração com o ArcGIS](/recursos/integracoes/#arcgis).
+
+**Passo a passo na documentação:** [dados públicos e direitos minerários](https://docs.terranode.com.br/catalogos/dados-publicos/), [modelos de formulário](https://docs.terranode.com.br/formularios/modelos/), [pacotes offline](https://docs.terranode.com.br/projetos/pacotes-offline/) e [como conectar o ArcGIS](https://docs.terranode.com.br/integracoes/arcgis/).
 
 > **Atenção às normas e aos procedimentos:** a pesquisa mineral deve observar os requisitos técnicos e legais aplicáveis a cada processo. No Brasil, isso inclui o [Código de Mineração (Decreto-Lei nº 227/1967)](https://www.planalto.gov.br/ccivil_03/decreto-lei/del0227.htm), que regula a autorização de pesquisa e os direitos minerários, e as normas da [Agência Nacional de Mineração (ANM)](https://www.gov.br/anm/pt-br).
 >

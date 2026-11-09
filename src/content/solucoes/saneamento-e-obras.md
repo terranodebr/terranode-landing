@@ -1,10 +1,10 @@
 ---
 title: "Aplicativo para fiscalização de obras e saneamento - TerraNode"
-description: "Faça a fiscalização de obras e redes de saneamento com formulários personalizados, coletas offline e histórico por registro. Conheça o TerraNode."
+description: "Faça a fiscalização de obras e redes de saneamento com formulários personalizados, coleta offline e histórico por registro. Conheça o TerraNode."
 setor: "Saneamento e obras"
 h1: "Fiscalização de obras e redes de saneamento"
 subtitulo: "O TerraNode é uma plataforma de coleta de dados geoespaciais em campo para saneamento e obras, com formulários configuráveis por serviço, registro offline de medições, não conformidades, fotos e assinaturas, e recursos para revisão e exportação de dados."
-ordem: 7
+ordem: 6
 draft: false
 
 doresTitulo: "O que dificulta a fiscalização de obras e redes de saneamento"
@@ -14,7 +14,7 @@ dores:
   - titulo: "Alto custo operacional"
     texto: "Sistemas para coleta de dados geoespaciais podem pesar no orçamento com custos de implementação, manutenção ou adaptações. O TerraNode é uma solução brasileira, com valores em reais e custo operacional abaixo da concorrência. E também ajuda a reduzir gastos com papel, redigitação, retrabalho e revisitas à obra para corrigir registros."
   - titulo: "Histórico fragmentado"
-    texto: "Quando as informações ficam espalhadas entre diários de obra em papel, planilhas e fotos na galeria do celular ou em conversas de WhatsApp, reunir o histórico de um trecho ou de um serviço se torna mais difícil. E conferir medições exige mais tempo, podendo deixar lacunas no acompanhamento do contrato."
+    texto: "Quando as informações ficam espalhadas entre diários de obra em papel, planilhas e fotos na galeria do celular ou em conversas de WhatsApp, reunir o histórico de um trecho ou de um serviço se torna mais difícil. E conferir medições leva mais tempo e pode deixar lacunas no acompanhamento do contrato."
 
 passosLead: "As equipes de fiscalização de saneamento e obras podem configurar os formulários, organizar o time, coletar os dados em campo e revisar os registros antes de exportá-los. Tudo em um único fluxo."
 passos:
@@ -103,19 +103,21 @@ E em frentes de obra sem conectividade, a fiscalização precisa continuar.
 
 Quando os registros ficam dispersos entre diários em papel, fotos e planilhas, conferir uma medição ou reconstituir o histórico de um trecho pode exigir trabalho adicional.
 
-### O TerraNode mantém a fiscalização em andamento, mesmo offline.
+### O TerraNode mantém a fiscalização em andamento, mesmo offline
 
-Com o TerraNode, a equipe preenche formulários e registra informações diretamente no aplicativo, mesmo sem conexão. Os dados ficam armazenados no dispositivo e são sincronizados automaticamente quando a conectividade retorna.
+Com o TerraNode, a equipe preenche formulários e registra informações diretamente no aplicativo, [mesmo sem conexão](/recursos/aplicativo/#offline). Os dados ficam armazenados no dispositivo e são sincronizados automaticamente quando a conectividade retorna.
 
 Fotos, medições, assinaturas e informações de localização ficam reunidas no registro de cada serviço, facilitando a consulta e o acompanhamento do histórico de cada trecho.
 
-Os formulários podem ser configurados com os campos, as regras e os preenchimentos obrigatórios definidos para cada tipo de levantamento. Assim, a equipe registra as informações necessárias de acordo com os critérios estabelecidos no contrato.
+Os [formulários](/recursos/formularios/) podem ser configurados com os campos, as regras e os preenchimentos obrigatórios definidos para cada tipo de levantamento. Assim, a equipe registra as informações necessárias de acordo com os critérios estabelecidos no contrato.
 
-Nossa plataforma também se integra ao **ArcGIS Online** e ao **ArcGIS Enterprise**, conectando a **coleta de dados em campo** ao **sistema de informação geográfica (SIG)** da organização.
+Nossa plataforma também se integra ao [**ArcGIS Online** e ao **ArcGIS Enterprise**](/recursos/integracoes/#arcgis), conectando a **coleta de dados em campo** ao **sistema de informação geográfica (SIG)** da organização.
 
-**Conheça as soluções do TerraNode para outras operações:** [energia](/solucoes/energia/), [telecom](/solucoes/telecom/), [topografia e cadastro](/solucoes/topografia-e-cadastro/), [meio ambiente](/solucoes/meio-ambiente/), [municípios](/solucoes/municipios/) e [agro](/solucoes/agro/).
+**Conheça as soluções do TerraNode para outras operações:** [energia](/solucoes/energia/), [telecom](/solucoes/telecom/), [meio ambiente](/solucoes/meio-ambiente/), [exploração mineral](/solucoes/exploracao-mineral/), [mineração](/solucoes/mineracao/), [topografia e cadastro](/solucoes/topografia-e-cadastro/), [agro](/solucoes/agro/) e [municípios](/solucoes/municipios/).
 
-**Para conhecer outros recursos de configuração, acesse:** [formulários](/recursos/formularios/) e [catálogos](/recursos/catalogos/).
+**Veja como funcionam os recursos:** [formulários](/recursos/formularios/), [aplicativo de campo](/recursos/aplicativo/), [catálogos](/recursos/catalogos/) e [integração com o ArcGIS](/recursos/integracoes/#arcgis).
+
+**Passo a passo na documentação:** [modelos de formulário](https://docs.terranode.com.br/formularios/modelos/), [criar e editar formulários](https://docs.terranode.com.br/formularios/), [equipe do projeto](https://docs.terranode.com.br/projetos/equipe/) e [pacotes offline](https://docs.terranode.com.br/projetos/pacotes-offline/).
 
 > **Atenção às normas e aos procedimentos:** cada atividade deve observar os requisitos técnicos e de segurança aplicáveis. No Brasil, isso pode incluir as normas regulamentadoras do Ministério do Trabalho e Emprego, como a [NR-18](https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-18-nr-18), relacionada à segurança e saúde no trabalho na indústria da construção, e a [NR-33](https://www.gov.br/trabalho-e-emprego/pt-br/acesso-a-informacao/participacao-social/conselhos-e-orgaos-colegiados/comissao-tripartite-partitaria-permanente/normas-regulamentadora/normas-regulamentadoras-vigentes/norma-regulamentadora-no-33-nr-33), relacionada ao trabalho em espaços confinados, como poços de visita e galerias de esgoto.
 >

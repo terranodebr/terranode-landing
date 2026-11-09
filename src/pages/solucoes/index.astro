@@ -12,9 +12,14 @@ import { fotosSetor, altSetor, getSolucoes } from "../../lib/solucoes";
 
 const solucoes = await getSolucoes();
 
+// The H1 counts the published sectors, spelled out. Past twelve it falls back to the digit.
+const extenso = ["zero", "um", "dois", "três", "quatro", "cinco", "seis", "sete", "oito", "nove", "dez", "onze", "doze"];
+const n = solucoes.length;
+const tipos = `${extenso[n] ?? n} ${n === 1 ? "tipo" : "tipos"} de levantamento.`;
+
 const title = "Soluções por setor · TerraNode";
 const description =
-  "Como equipes de topografia, energia, meio ambiente, municípios, agro e saneamento usam o TerraNode para coletar dados em campo sem depender de sinal.";
+  "Como equipes de energia, telecom, meio ambiente, mineração, saneamento, topografia, agro e municípios usam o TerraNode para coletar dados em campo.";
 
 const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
 
@@ -35,8 +40,8 @@ const seta = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke
     <section class="tn-rec-hero">
       <div class="tn-rec-hero__texto" data-anim-bloco>
         <span class="tn-rec-pilula" data-anim="up">CASOS DE USO</span>
-        <h1 class="tn-rec-h1" data-anim="words">Um fluxo, <span class="tn-rec-h1__apagado">seis tipos de levantamento.</span></h1>
-        <p class="tn-rec-lead tn-rec-hero__lead" data-anim="blur">O TerraNode não muda de setor para setor — o formulário muda. Veja como cada equipe monta o dela.</p>
+        <h1 class="tn-rec-h1" data-anim="words">Um fluxo, <span class="tn-rec-h1__apagado">{tipos}</span></h1>
+        <p class="tn-rec-lead tn-rec-hero__lead" data-anim="blur">O TerraNode não muda de setor para setor. O formulário muda. Veja como cada equipe monta o dela.</p>
       </div>
     </section>
 

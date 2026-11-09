@@ -110,21 +110,23 @@ E boa parte desse trabalho acontece longe de qualquer sinal de celular.
 
 ### A rede do seu ArcGIS no campo
 
-O TerraNode se conecta ao **ArcGIS Online** e ao **ArcGIS Enterprise** da sua organização. As camadas da rede chegam ao aplicativo com a simbologia e viram o mapa de quem está em campo. O formulário pode sair da própria camada, com cada coluna virando um campo. Assim, a equipe inspeciona e cadastra vendo a rede atual, e não uma cópia desatualizada.
+O TerraNode [se conecta ao **ArcGIS Online** e ao **ArcGIS Enterprise**](/recursos/integracoes/#arcgis) da sua organização. As camadas da rede chegam ao aplicativo com a simbologia e viram o mapa de quem está em campo. O formulário pode sair da própria camada, com cada coluna virando um campo. Assim, a equipe inspeciona e cadastra vendo a rede atual, e não uma cópia desatualizada.
 
 Em breve, a volta também será possível: de forma opcional e configurável, os registros validados poderão ser gravados em uma nova feature layer ou atualizar uma feature layer existente, alimentando o restante do pipeline Esri da empresa. Até lá, as campanhas validadas são exportadas em CSV, GeoJSON e Shapefile.
 
 ### Dados de infraestrutura protegidos no aparelho
 
-Informação sobre a rede elétrica é sensível. No TerraNode, cada registro é criptografado no próprio aparelho no momento da coleta e continua criptografado no caminho até o servidor. Se um celular for perdido ou roubado, os dados da rede e das inspeções não ficam legíveis fora do aplicativo.
+Informação sobre a rede elétrica é sensível. No TerraNode, cada registro é [criptografado no próprio aparelho](/recursos/seguranca/#criptografia) no momento da coleta e continua criptografado no caminho até o servidor. Se um celular for perdido ou roubado, os dados da rede e das inspeções não ficam legíveis fora do aplicativo.
 
 ### Inspeção, cadastro e atendimento no mesmo fluxo
 
-A equipe parte do template de **cadastro de postes** ou de um formulário próprio de **inspeção** ou de **atendimento de OS**, com campos, regras e fotos obrigatórias definidos pela operação. Cada registro passa por revisão antes de seguir, e o revisor pode devolvê-lo ao coletor com comentário.
+A equipe parte do [template de **cadastro de postes**](https://docs.terranode.com.br/formularios/modelos/) ou de um formulário próprio de **inspeção** ou de **atendimento de OS**, com campos, regras e fotos obrigatórias definidos pela operação. Cada registro passa por revisão antes de seguir, e o revisor pode devolvê-lo ao coletor com comentário.
 
-**Conheça as soluções do TerraNode para outras operações:** [telecom](/solucoes/telecom/), [topografia e cadastro](/solucoes/topografia-e-cadastro/), [meio ambiente](/solucoes/meio-ambiente/), [saneamento e obras](/solucoes/saneamento-e-obras/) e [mineração](/solucoes/mineracao/).
+**Conheça as soluções do TerraNode para outras operações:** [telecom](/solucoes/telecom/), [meio ambiente](/solucoes/meio-ambiente/), [exploração mineral](/solucoes/exploracao-mineral/), [mineração](/solucoes/mineracao/), [saneamento e obras](/solucoes/saneamento-e-obras/), [topografia e cadastro](/solucoes/topografia-e-cadastro/), [agro](/solucoes/agro/) e [municípios](/solucoes/municipios/).
 
-**Para conhecer outros recursos de configuração, acesse:** [formulários](/recursos/formularios/) e [catálogos](/recursos/catalogos/).
+**Veja como funcionam os recursos:** [integração com o ArcGIS](/recursos/integracoes/#arcgis), [formulários](/recursos/formularios/), [aplicativo de campo](/recursos/aplicativo/) e [segurança e LGPD](/recursos/seguranca/).
+
+**Passo a passo na documentação:** [como conectar o ArcGIS](https://docs.terranode.com.br/integracoes/arcgis/), [modelos de formulário](https://docs.terranode.com.br/formularios/modelos/), [pacotes offline](https://docs.terranode.com.br/projetos/pacotes-offline/) e [papéis e permissões](https://docs.terranode.com.br/organizacao/papeis-e-permissoes/).
 
 > **Atenção às normas e aos procedimentos:** cada operação deve observar os requisitos técnicos e legais aplicáveis, além das condições de cada concessão. No Brasil, isso inclui a [Lei nº 9.427/1996](https://www.planalto.gov.br/ccivil_03/leis/l9427cons.htm), que criou a [Agência Nacional de Energia Elétrica (ANEEL)](https://www.gov.br/aneel/pt-br) e organiza o regime de concessões do setor, e a NR-10, que trata da segurança em instalações e serviços em eletricidade.
 >
