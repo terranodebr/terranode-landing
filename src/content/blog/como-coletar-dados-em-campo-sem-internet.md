@@ -6,7 +6,7 @@ subtitulo: "Um dia de campo do começo ao fim, da véspera com internet até as 
 categoria: how-tos
 autor: george-silva
 publicadoEm: 2026-11-06
-draft: true
+draft: false
 capa:
   src: "../../assets/foto-torre-campo.webp"
   alt: "Base de uma torre de transmissão com a plaqueta de número 132, em um pasto com mata ao fundo"
