@@ -17,6 +17,10 @@ interface Props {
   /** Path under public/, or an absolute URL. */
   image?: string;
   noindex?: boolean;
+  /** og:type. Articles pass "article". */
+  ogType?: string;
+  /** <meta name="author">. Articles pass the person who signs them. */
+  autor?: string;
   /**
    * Colour of the last section above the footer. The footer opens in this colour and
    * fades into its own dark, so the two blend instead of meeting at a seam.
@@ -29,6 +33,8 @@ const {
   description,
   image = "/og-default.jpg",
   noindex = false,
+  ogType = "website",
+  autor = "TerraNode",
   rodapeTopo,
 } = Astro.props;
 
@@ -70,7 +76,7 @@ const software = {
   "@type": "SoftwareApplication",
   name: "TerraNode",
   applicationCategory: "BusinessApplication",
-  operatingSystem: "Android, iOS, Web",
+  operatingSystem: "Android, Web",
   inLanguage: "pt-BR",
   description:
     "Coleta de dados geoespaciais em campo, 100% offline e integrada ao ArcGIS Online e Enterprise. Arquivos criptografados no aparelho e no servidor, dados no Brasil e LGPD por arquitetura.",
@@ -84,7 +90,7 @@ const software = {
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content={description}>
-<meta name="author" content="TerraNode">
+<meta name="author" content={autor}>
 <meta name="robots" content={blockIndexing ? "noindex, nofollow" : "index, follow"}>
 <meta name="theme-color" content="#1e3736">
 <link rel="canonical" href={canonical.href}>
@@ -95,7 +101,7 @@ const software = {
 <link rel="sitemap" href={asset("/sitemap-index.xml")}>
 
 <!-- Open Graph -->
-<meta property="og:type" content="website">
+<meta property="og:type" content={ogType}>
 <meta property="og:url" content={canonical.href}>
 <meta property="og:site_name" content="TerraNode">
 <meta property="og:locale" content="pt_BR">
@@ -112,6 +118,7 @@ const software = {
 
 <script type="application/ld+json" set:html={JSON.stringify(organization)} />
 <script type="application/ld+json" set:html={JSON.stringify(software)} />
+<slot name="head" />
 
 <!-- Mixpanel -->
 <script is:inline>

@@ -1,0 +1,101 @@
+---
+// /blog/: every published article, newest first, in the language of /solucoes/. Categories
+// are a client-side filter rather than pages of their own: with few articles such pages
+// would be near empty, and their URLs would be frozen once published.
+import { Image } from "astro:assets";
+import Base from "../../layouts/Base.astro";
+import Header from "../Header.astro";
+import Animacoes from "../recursos/Animacoes.astro";
+import { asset } from "../../lib/asset";
+import { categorias, dataPorExtenso, type Artigo } from "../../lib/blog";
+
+interface Props {
+  artigos: Artigo[];
+}
+
+const { artigos } = Astro.props;
+
+const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
+
+const title = "Blog: coleta de dados em campo e mapas · TerraNode";
+const description =
+  "Guias práticos, novidades do produto e bastidores de engenharia do TerraNode, para equipes que coletam dados geográficos em campo.";
+
+// The filter only appears once there is something to filter.
+const presentes = Object.entries(categorias).filter(([id]) =>
+  artigos.some((a) => a.data.categoria === id),
+);
+---
+<Base title={title} description={description} rodapeTopo="#0C1312">
+  <Fragment slot="head">
+    <link rel="alternate" type="application/rss+xml" title="Blog do TerraNode" href={asset("/blog/rss.xml")}>
+  </Fragment>
+
+  <Animacoes />
+  <div class="tn-rec">
+
+    <div class="tn-rec-topo" data-rolagem-offset><Header /></div>
+
+    <section class="tn-rec-hero">
+      <div class="tn-rec-hero__texto" data-anim-bloco>
+        <span class="tn-rec-pilula" data-anim="up">BLOG</span>
+        <h1 class="tn-rec-h1 tn-art-h1" data-anim="words">O que aprendemos sobre coleta em campo</h1>
+        <p class="tn-rec-lead tn-rec-hero__lead" data-anim="blur">Guias práticos, novidades do produto e bastidores de engenharia, de quem constrói o TerraNode.</p>
+      </div>
+    </section>
+
+    <section class="tn-rec-secao tn-sol-indice-secao">
+      {presentes.length > 1 && (
+        <div class="tn-blog-filtro" role="group" aria-label="Filtrar por categoria" data-blog-filtro>
+          <button type="button" class="tn-blog-filtro__opcao" aria-pressed="true" data-categoria="">Todos</button>
+          {presentes.map(([id, rotulo]) => (
+            <button type="button" class="tn-blog-filtro__opcao" aria-pressed="false" data-categoria={id}>{rotulo}</button>
+          ))}
+        </div>
+      )}
+      <div class="tn-sol-indice">
+        {artigos.map((a) => (
+          <a href={asset(`/blog/${a.id}/`)} class="tn-sol-card tn-blog-card" data-mp-cta="blog_indice_card" data-categoria={a.data.categoria}>
+            {a.data.capa && (
+              <div class="tn-sol-card__foto">
+                <Image src={a.data.capa.src} alt={a.data.capa.alt} widths={[400, 800]} sizes="(max-width: 640px) 92vw, (max-width: 1080px) 46vw, 370px" loading="lazy" />
+              </div>
+            )}
+            <div class="tn-sol-card__corpo">
+              <span class="tn-rec-cap__rotulo">{categorias[a.data.categoria].toUpperCase()}</span>
+              <h2 class="tn-sol-card__titulo">{a.data.h1}</h2>
+              <p class="tn-blog-card__resumo">{a.data.description}</p>
+              <time class="tn-blog-card__data" datetime={a.data.publicadoEm.toISOString()}>{dataPorExtenso(a.data.publicadoEm)}</time>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="tn-rec-secao tn-rec-secao--curta">
+      <div class="tn-rec-cta tn-blog-cta" data-anim="up" data-anim-bloco>
+        <div class="tn-rec-cta__texto">
+          <span class="tn-rec-cap__rotulo">LANÇAMENTO EM BREVE</span>
+          <h2 class="tn-rec-h2 tn-rec-h2--pequeno" data-anim="words">Leve sua próxima campanha de campo para o TerraNode</h2>
+          <div class="tn-rec-acoes tn-rec-acoes--esquerda">
+            <a href={WAITLIST} target="_blank" rel="noopener" class="tn-rec-btn tn-rec-btn--claro" data-mp-cta="blog_indice_fechamento">Entrar na lista de espera</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-blog-filtro]").forEach((filtro) => {
+    const opcoes = filtro.querySelectorAll<HTMLButtonElement>("button");
+    const cards = document.querySelectorAll<HTMLElement>(".tn-blog-card");
+    opcoes.forEach((opcao) => {
+      opcao.addEventListener("click", () => {
+        const categoria = opcao.dataset.categoria;
+        opcoes.forEach((o) => o.setAttribute("aria-pressed", String(o === opcao)));
+        cards.forEach((c) => { c.hidden = !!categoria && c.dataset.categoria !== categoria; });
+      });
+    });
+  });
+</script>

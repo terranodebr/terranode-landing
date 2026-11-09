@@ -1,5 +1,6 @@
 ---
 import { asset } from "../lib/asset";
+import { getArtigos } from "../lib/blog";
 import { getRecursos, getRecursosEmBreve } from "../lib/recursos";
 import { getSolucoes } from "../lib/solucoes";
 
@@ -47,8 +48,11 @@ const iconesSetor: Record<string, string> = {
 // A sector without its own icon gets a map pin.
 const iconeSetor = (id: string) =>
   `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${iconesSetor[id] ?? '<path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/>'}</svg>`;
+// Same draft filter: the Blog link only shows once an article is published.
+const artigos = await getArtigos();
 const links = [
   { href: home, rotulo: "Página inicial" },
+  ...(artigos.length > 0 ? [{ href: asset("/blog/"), rotulo: "Blog" }] : []),
   { href: asset("/sobre/"), rotulo: "Sobre" },
 ];
 const seta = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';

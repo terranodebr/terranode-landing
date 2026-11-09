@@ -2085,3 +2085,76 @@ a.tn-home-caso:hover { color: var(--rec-text); border-color: var(--rec-line-2); 
 @media (prefers-reduced-motion: reduce) {
   .tn-home-pq__tela-img, .tn-home-pq__legenda, .tn-home-pq__geo { transition: none; }
 }
+
+/* ---------- Blog: article page (layouts/Artigo.astro) and index (components/blog/Indice.astro) ---------- */
+/* How far the cover hangs below the dark hero, into the light body. */
+.tn-art { --art-sobra: clamp(48px, 9vw, 120px); }
+.tn-art-hero { padding-bottom: 0; }
+.tn-art-hero--sem-capa { padding-bottom: clamp(56px, 8vw, 96px); }
+.tn-art-h1 { max-width: 880px; font-size: clamp(34px, 5.2vw, 56px); line-height: 1.06; }
+.tn-art-meta { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 18px; margin: 0; font-family: var(--font-mono); font-size: 12.5px; color: var(--rec-faint); }
+.tn-art-capa { position: relative; z-index: 1; width: 100%; max-width: 960px; aspect-ratio: 16 / 9; margin-bottom: calc(-1 * var(--art-sobra)); border-radius: 20px; overflow: hidden; box-shadow: 0 0 0 1px var(--rec-line), 0 40px 80px -30px rgba(0, 0, 0, 0.6); }
+.tn-art-capa img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.tn-art-corpo { gap: clamp(40px, 6vw, 56px); padding-top: calc(var(--art-sobra) + clamp(48px, 7vw, 80px)); }
+.tn-art-corpo--sem-capa { padding-top: clamp(48px, 7vw, 80px); }
+
+/* The muted text colour of the other pages is too faint for minutes of reading. */
+.tn-art-prosa { --art-texto: rgba(22, 32, 31, 0.86); width: 100%; max-width: 720px; }
+.tn-art-prosa :where(h2) { margin: clamp(44px, 6vw, 60px) 0 16px; font-weight: 600; font-size: clamp(26px, 3.4vw, 32px); line-height: 1.15; letter-spacing: -0.03em; color: var(--rec-text); text-wrap: balance; scroll-margin-top: 90px; }
+.tn-art-prosa :where(h3) { margin: 36px 0 12px; font-weight: 600; font-size: clamp(19px, 2.2vw, 22px); line-height: 1.3; letter-spacing: -0.02em; color: var(--rec-text); text-wrap: balance; scroll-margin-top: 90px; }
+.tn-art-prosa :where(p, li) { font-weight: 400; font-size: 17px; line-height: 1.72; color: var(--art-texto); text-wrap: pretty; }
+.tn-art-prosa :where(p) { margin: 0 0 20px; }
+.tn-art-prosa :where(ul, ol) { margin: 0 0 20px; padding-left: 24px; }
+.tn-art-prosa :where(li) { margin-bottom: 8px; padding-left: 4px; }
+.tn-art-prosa :where(li > ul, li > ol) { margin: 8px 0 0; }
+.tn-art-prosa :where(strong) { font-weight: 600; color: var(--rec-text); }
+.tn-art-prosa :where(a) { color: var(--rec-text); text-decoration: underline; text-decoration-color: var(--tn-accent); text-underline-offset: 3px; }
+.tn-art-prosa :where(a):hover { color: var(--rec-acento); }
+.tn-art-prosa :where(code) { padding: 2px 6px; border-radius: 6px; background: var(--rec-card-2); font-family: var(--font-mono); font-size: 0.86em; overflow-wrap: anywhere; }
+.tn-art-prosa :where(pre) { margin: 0 0 24px; padding: 18px 20px; border-radius: 14px; overflow-x: auto; font-size: 14px; line-height: 1.6; }
+.tn-art-prosa :where(pre code) { padding: 0; background: none; overflow-wrap: normal; }
+.tn-art-prosa :where(blockquote) { margin: 28px 0; padding: 18px 22px; border-radius: 14px; border: 1px solid var(--rec-line-2); background: var(--tn-accent-tint-bg); }
+.tn-art-prosa :where(blockquote p) { font-size: 16px; line-height: 1.6; }
+.tn-art-prosa :where(blockquote) > :last-child { margin-bottom: 0; }
+.tn-art-prosa :where(hr) { margin: 44px 0; border: 0; border-top: 1px solid var(--rec-line-2); }
+.tn-art-prosa :where(img, video, iframe) { display: block; width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--rec-line); }
+/* A phone screenshot at full column width would fill several screens. Keeps its proportion
+   under this height, while a landscape image still reaches the column width. */
+.tn-art-prosa img { width: auto; max-width: 100%; max-height: 640px; margin-inline: auto; }
+.tn-art-prosa p:has(> img) { margin: 32px 0 10px; }
+/* A line in italics right after an image is its caption. */
+.tn-art-prosa p:has(> img) + p:has(> em:only-child) { margin-bottom: 32px; text-align: center; font-size: 13.5px; line-height: 1.5; color: var(--rec-muted); }
+/* A wide table scrolls by itself on a phone, rather than widening the page. */
+.tn-art-prosa :where(table) { display: block; max-width: 100%; margin: 0 0 24px; overflow-x: auto; border-collapse: collapse; font-size: 15px; line-height: 1.5; }
+.tn-art-prosa :where(th, td) { min-width: 140px; padding: 12px 14px 12px 0; border-bottom: 1px solid var(--rec-line-2); text-align: left; vertical-align: top; color: var(--art-texto); }
+.tn-art-prosa :where(th) { font-weight: 600; color: var(--rec-text); }
+.tn-art-prosa > :first-child { margin-top: 0; }
+.tn-art-prosa > :last-child { margin-bottom: 0; }
+
+.tn-art-rodape { display: flex; flex-direction: column; gap: 28px; width: 100%; max-width: 720px; padding-top: 32px; border-top: 1px solid var(--rec-line-2); }
+.tn-art-atualizado { margin: 0; font-family: var(--font-mono); font-size: 12.5px; color: var(--rec-muted); }
+.tn-art-relacionadas { display: flex; flex-direction: column; gap: 12px; }
+.tn-art-relacionadas ul { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.tn-art-relacionadas a { display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 14px; border-radius: 10px; border: 1px solid var(--rec-line-2); background: var(--rec-card); font-weight: 600; font-size: 14px; color: var(--rec-text); transition: border-color 0.2s; }
+.tn-art-relacionadas a:hover { color: var(--rec-text); border-color: var(--tn-accent); }
+.tn-art-relacionadas a span { display: flex; color: var(--rec-faint); }
+.tn-art-autor { display: flex; align-items: center; gap: 14px; color: var(--rec-text); }
+.tn-art-autor:hover { color: var(--rec-text); }
+.tn-art-autor__avatar { flex-shrink: 0; display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 50%; background: var(--tn-accent-wash-strong); font-weight: 600; font-size: 15px; color: var(--rec-acento); }
+.tn-art-autor__texto { display: flex; flex-direction: column; gap: 2px; font-weight: 500; font-size: 14px; line-height: 1.4; color: var(--rec-muted); }
+.tn-art-autor__texto strong { font-weight: 600; font-size: 16px; color: var(--rec-text); }
+
+.tn-art-outros { padding-bottom: 0; }
+.tn-art-outros__lista { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 14px; width: 100%; max-width: 960px; margin: 0; padding: 0; list-style: none; }
+.tn-art-outros__item { display: flex; flex-direction: column; gap: 12px; height: 100%; box-sizing: border-box; padding: 24px; border-radius: 18px; border: 1px solid var(--rec-line); background: var(--rec-card); transition: border-color 0.2s; }
+.tn-art-outros__item:hover { border-color: var(--rec-line-2); }
+.tn-art-outros__titulo { font-weight: 600; font-size: 20px; line-height: 1.25; letter-spacing: -0.02em; color: var(--rec-text); text-wrap: balance; }
+
+.tn-blog-filtro { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.tn-blog-filtro__opcao { height: 36px; padding: 0 14px; border-radius: 100px; border: 1px solid var(--rec-line-2); background: none; font: inherit; font-weight: 600; font-size: 13.5px; color: var(--rec-muted); cursor: pointer; transition: color 0.2s, background 0.2s; }
+.tn-blog-filtro__opcao:hover { color: var(--rec-text); }
+.tn-blog-filtro__opcao[aria-pressed="true"] { background: var(--rec-text); color: var(--rec-inverso, #0C1312); }
+.tn-blog-card[hidden] { display: none; }
+.tn-blog-card__resumo { margin: 0; flex: 1; font-weight: 500; font-size: 14.5px; line-height: 1.55; color: var(--rec-muted); text-wrap: pretty; }
+.tn-blog-card__data { font-family: var(--font-mono); font-size: 12px; color: var(--rec-faint); }
+.tn-blog-cta { grid-template-columns: 1fr; }

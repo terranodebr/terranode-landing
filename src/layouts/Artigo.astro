@@ -1,0 +1,162 @@
+---
+// Article page (/blog/<slug>/): the dark hero of the feature pages, then the body on the
+// light theme in a narrow column, since this is the one page type people read for minutes.
+// The cover straddles the seam between the two. Only the hero and the closing CTA animate.
+import { Image, getImage } from "astro:assets";
+import Base from "./Base.astro";
+import Header from "../components/Header.astro";
+import Animacoes from "../components/recursos/Animacoes.astro";
+import { asset } from "../lib/asset";
+import {
+  autorDe, categorias, dataPorExtenso, getArtigos, minutosDeLeitura, paginasRelacionadas,
+  type Artigo,
+} from "../lib/blog";
+import { ajustarLinks } from "../lib/prosa";
+
+interface Props {
+  entry: Artigo;
+}
+
+const { entry } = Astro.props;
+const d = entry.data;
+
+const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
+
+const prosa = ajustarLinks(await Astro.slots.render("default"));
+const autor = autorDe(d.autor);
+const relacionadas = await paginasRelacionadas(entry);
+const artigos = await getArtigos();
+const outros = artigos.filter((a) => a.id !== entry.id).slice(0, 2);
+
+// A link in the prose to another article is a 404 in production while that article is a
+// draft, and nothing else would catch it. Fails the build instead, so publish them together.
+for (const [, id] of prosa.matchAll(/href="[^"]*\/blog\/([^/"#]+)\/?[^"]*"/g)) {
+  if (!artigos.some((a) => a.id === id)) {
+    throw new Error(`O artigo "${entry.id}" tem um link para "/blog/${id}/", que não existe ou ainda é rascunho.`);
+  }
+}
+
+// Base.astro takes a public path or an absolute URL. An optimized image is neither until
+// it is made absolute here, and social networks want the 1200×630 JPEG.
+const capaSocial = d.capa
+  ? await getImage({ src: d.capa.src, width: 1200, height: 630, fit: "cover", format: "jpeg" })
+  : undefined;
+const imagemSocial = capaSocial ? new URL(capaSocial.src, Astro.site).href : undefined;
+
+const urlAutor = new URL("/sobre/#fundadores", Astro.site).href;
+const artigoLd = {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  headline: d.h1,
+  description: d.description,
+  inLanguage: "pt-BR",
+  mainEntityOfPage: new URL(Astro.url.pathname, Astro.site).href,
+  datePublished: d.publicadoEm.toISOString(),
+  dateModified: (d.atualizadoEm ?? d.publicadoEm).toISOString(),
+  ...(imagemSocial && { image: imagemSocial }),
+  author: {
+    "@type": "Person",
+    name: autor.nome,
+    jobTitle: autor.cargo.replace(/^Sócio fundador · /, ""),
+    url: urlAutor,
+  },
+  publisher: { "@type": "Organization", "@id": "https://terranode.com.br/#organizacao", name: "TerraNode" },
+};
+
+const seta = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+const passos = ["Baixe o projeto antes de sair", "Colete sem sinal", "Envie quando a conexão voltar"];
+---
+<Base title={d.title} description={d.description} image={imagemSocial} noindex={d.draft} ogType="article" autor={autor.nome} rodapeTopo="#0C1312">
+  <Fragment slot="head">
+    <meta property="article:published_time" content={d.publicadoEm.toISOString()}>
+    {d.atualizadoEm && <meta property="article:modified_time" content={d.atualizadoEm.toISOString()}>}
+    <link rel="alternate" type="application/rss+xml" title="Blog do TerraNode" href={asset("/blog/rss.xml")}>
+    <script type="application/ld+json" set:html={JSON.stringify(artigoLd)} />
+  </Fragment>
+
+  <Animacoes />
+  <div class="tn-rec tn-art">
+
+    <div class="tn-rec-topo" data-rolagem-offset><Header /></div>
+
+    <header class:list={["tn-rec-hero", "tn-art-hero", !d.capa && "tn-art-hero--sem-capa"]}>
+      <div class="tn-rec-hero__texto" data-anim-bloco>
+        <a href={asset("/blog/")} class="tn-rec-selo" data-anim="up">
+          <span class="tn-rec-selo__tag">{categorias[d.categoria].toUpperCase()}</span>
+          Blog do TerraNode
+          <span class="tn-rec-selo__seta" set:html={seta} />
+        </a>
+        <h1 class="tn-rec-h1 tn-art-h1">{d.h1}</h1>
+        <p class="tn-rec-lead tn-rec-hero__lead">{d.subtitulo}</p>
+        <p class="tn-art-meta" data-anim="up">
+          <span>{autor.nome}</span>
+          <time datetime={d.publicadoEm.toISOString()}>{dataPorExtenso(d.publicadoEm)}</time>
+          <span>{minutosDeLeitura(entry.body)} min de leitura</span>
+        </p>
+      </div>
+      {d.capa && (
+        <div class="tn-art-capa">
+          <Image src={d.capa.src} alt={d.capa.alt} widths={[640, 960, 1280, 1920]} sizes="(max-width: 1000px) 92vw, 960px" loading="eager" />
+        </div>
+      )}
+    </header>
+
+    <section class:list={["tn-rec-secao", "tn-tema-claro", "tn-art-corpo", !d.capa && "tn-art-corpo--sem-capa"]}>
+      <article class="tn-art-prosa" set:html={prosa} />
+
+      <footer class="tn-art-rodape">
+        {d.atualizadoEm && (
+          <p class="tn-art-atualizado">Atualizado em <time datetime={d.atualizadoEm.toISOString()}>{dataPorExtenso(d.atualizadoEm)}</time></p>
+        )}
+        {relacionadas.length > 0 && (
+          <nav class="tn-art-relacionadas" aria-label="Páginas relacionadas">
+            <span class="tn-rec-cap__rotulo">NO TERRANODE</span>
+            <ul>
+              {relacionadas.map((p) => (
+                <li><a href={p.href} data-mp-cta="blog_artigo_relacionada">{p.rotulo}<span set:html={seta} /></a></li>
+              ))}
+            </ul>
+          </nav>
+        )}
+        <a href={asset("/sobre/#fundadores")} class="tn-art-autor">
+          <span class="tn-art-autor__avatar" aria-hidden="true">{autor.iniciais}</span>
+          <span class="tn-art-autor__texto"><strong>{autor.nome}</strong>{autor.cargo}</span>
+        </a>
+      </footer>
+    </section>
+
+    {outros.length > 0 && (
+      <section class="tn-rec-secao tn-art-outros">
+        <div class="tn-rec-head" data-anim-bloco>
+          <h2 class="tn-rec-h2 tn-rec-h2--pequeno" data-anim="words">Continue lendo</h2>
+        </div>
+        <ul class="tn-art-outros__lista">
+          {outros.map((a) => (
+            <li>
+              <a href={asset(`/blog/${a.id}/`)} class="tn-art-outros__item" data-mp-cta="blog_artigo_outro">
+                <span class="tn-rec-cap__rotulo">{categorias[a.data.categoria].toUpperCase()}</span>
+                <span class="tn-art-outros__titulo">{a.data.h1}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    <section class="tn-rec-secao tn-rec-secao--curta">
+      <div class="tn-rec-cta" data-anim="up" data-anim-bloco>
+        <div class="tn-rec-cta__texto">
+          <span class="tn-rec-cap__rotulo">LANÇAMENTO EM BREVE</span>
+          <h2 class="tn-rec-h2 tn-rec-h2--pequeno" data-anim="words">Leve sua próxima campanha de campo para o TerraNode</h2>
+          <p class="tn-rec-lead" data-anim="blur">Entre na lista para ser avisado, ou candidate-se a early tester e ajude a definir o que entra primeiro.</p>
+          <div class="tn-rec-acoes tn-rec-acoes--esquerda">
+            <a href={WAITLIST} target="_blank" rel="noopener" class="tn-rec-btn tn-rec-btn--claro" data-mp-cta="blog_artigo_fechamento">Entrar na lista de espera</a>
+          </div>
+        </div>
+        <ol class="tn-rec-passos" data-anim-group="left">
+          {passos.map((p, i) => <li><span class="tn-rec-passos__num">{i + 1}</span>{p}</li>)}
+        </ol>
+      </div>
+    </section>
+  </div>
+</Base>

@@ -1,0 +1,32 @@
+---
+import { render } from "astro:content";
+import Indice from "../../components/blog/Indice.astro";
+import Artigo from "../../layouts/Artigo.astro";
+import { getArtigos } from "../../lib/blog";
+
+// The index shares this route so that it can be left out: with no published article, the
+// build emits no /blog/ at all, rather than an empty page in the sitemap. An undefined rest
+// parameter is /blog/ itself. The glob loader's `id` is the file name, as in the other
+// collections: como-fazer.md -> /blog/como-fazer/.
+export async function getStaticPaths() {
+  const artigos = await getArtigos();
+  if (artigos.length === 0) return [];
+  return [
+    { params: { slug: undefined }, props: { artigos, entry: undefined } },
+    ...artigos.map((entry) => ({
+      params: { slug: entry.id },
+      props: { artigos, entry },
+    })),
+  ];
+}
+
+const { artigos, entry } = Astro.props;
+const Content = entry ? (await render(entry)).Content : undefined;
+---
+{entry && Content ? (
+  <Artigo entry={entry}>
+    <Content />
+  </Artigo>
+) : (
+  <Indice artigos={artigos} />
+)}

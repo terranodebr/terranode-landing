@@ -1,10 +1,10 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection, reference, z } from "astro:content";
 import { glob } from "astro/loaders";
 
 // Astro 7 has no implicit "directory under src/content = collection" behaviour;
 // a collection exists only once it is declared here with a loader.
-// Only `solucoes`, `comparativos` and `recursos` are declared for now — blog/ and ajuda/ are
-// still empty, and a glob over an empty directory only produces warnings.
+// ajuda/ is still empty and stays undeclared: a glob over an empty directory only produces
+// warnings.
 
 // Every field the page renders lives in frontmatter so that Pages CMS can present
 // it as a form field. The markdown body carries prose only.
@@ -346,4 +346,42 @@ const recursos = defineCollection({
   }),
 });
 
-export const collections = { solucoes, comparativos, recursos };
+// Articles are the opposite of the other collections: the body carries the page, and
+// frontmatter only what the layout, the index and search engines need.
+const blog = defineCollection({
+  // One flat file per article, so the id is the URL segment (/blog/<id>/), which is frozen
+  // once published: GitHub Pages serves no 301s.
+  loader: glob({ pattern: "*.md", base: "./src/content/blog" }),
+  schema: ({ image }) => z.object({
+    /** <title> and og:title. Written for search, not for the H1. */
+    title: z.string(),
+    /** <meta name="description"> and the card on /blog/. */
+    description: z.string(),
+    /** Page H1. Written for the reader. */
+    h1: z.string(),
+    /** Hero paragraph under the H1. */
+    subtitulo: z.string(),
+    /** Labels in src/lib/blog.ts. Not part of the URL, so an article can change category. */
+    categoria: z.enum(["how-tos", "novidades", "casos", "engenharia"]),
+    /** A founder, by name in kebab-case. src/lib/blog.ts resolves it against src/lib/time.ts. */
+    autor: z.enum(["george-silva", "bruno-lima", "roque-betiol"]),
+    publicadoEm: z.coerce.date(),
+    /** Set when the content changes in substance, not for a typo. */
+    atualizadoEm: z.coerce.date().optional(),
+    /** Same contract as solucoes: defaults to true, production builds skip drafts. */
+    draft: z.boolean().default(true),
+    /** Relative to the .md file. Also becomes the social image, cropped to 1200×630. */
+    capa: z
+      .object({
+        src: image(),
+        alt: z.string(),
+      })
+      .optional(),
+    /** Sector pages the article relates to, by file name. A wrong name fails the build. */
+    setores: z.array(reference("solucoes")).default([]),
+    /** Feature pages the article relates to, by file name. A wrong name fails the build. */
+    recursos: z.array(reference("recursos")).default([]),
+  }),
+});
+
+export const collections = { solucoes, comparativos, recursos, blog };

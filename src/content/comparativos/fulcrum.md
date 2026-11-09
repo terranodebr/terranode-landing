@@ -18,7 +18,7 @@ tabela:
     terranode: "Sim"
     concorrente: "Sim"
   - criterio: "Apps iOS e Android"
-    terranode: "Sim, nativos"
+    terranode: "Android nativo. iOS em breve"
     concorrente: "Sim"
   - criterio: "GNSS externo"
     terranode: "Sim"
