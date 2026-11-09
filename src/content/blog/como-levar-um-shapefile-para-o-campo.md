@@ -28,7 +28,7 @@ O TerraNode recebe o Shapefile compactado em `.zip`. Se você enviar o `.shp` so
 
 O ponto que pede atenção é o sistema de referência. Coloque o `.prj` dentro do `.zip`, porque o arquivo precisa declarar um sistema ligado à Terra. Sem ele, ou com um sistema local de engenharia, a camada falha com o erro "vector source must use an earth-referenced CRS". Você não precisa reprojetar nada antes, porque o TerraNode converte os dados para WGS84.
 
-Há mais dois detalhes. Uma coluna chamada `geometry` dá o erro "a column named geometry conflicts...", então renomeie a coluna antes de compactar. E, se os acentos chegarem trocados, confira a codificação do arquivo.
+Há mais dois detalhes. Uma coluna chamada `geometry` dá o erro "a column named geometry conflicts...", então renomeie a coluna antes de compactar. E, se os acentos chegarem trocados, confira a codificação do arquivo. Os outros formatos aceitos e os limites de tamanho estão na [documentação de importação](https://docs.terranode.com.br/catalogos/importar-dados/#formatos-aceitos).
 
 ## No catálogo, envie o arquivo
 
@@ -38,13 +38,13 @@ Em **Catálogos**, crie um com **Novo catálogo**. Na página dele, escolha **En
 
 <!-- PRINT PENDENTE: janela "Enviar dados para o catálogo", com as camadas do .zip em processamento. -->
 
-Cada camada tem o próprio processamento, então um Shapefile com problema não impede os outros de entrar. Se um falhar, corrija e envie só ele. Se o envio inteiro falhar com "no supported datasets found in upload", o `.zip` não tem nenhum arquivo reconhecido ou está corrompido, e o caminho é montá-lo de novo.
+Cada camada tem o próprio processamento, então um Shapefile com problema não impede os outros de entrar. Se um falhar, corrija e envie só ele. Se o envio inteiro falhar com "no supported datasets found in upload", o `.zip` não tem nenhum arquivo reconhecido ou está corrompido, e o caminho é montá-lo de novo. A documentação reúne os [erros mais comuns do envio](https://docs.terranode.com.br/catalogos/importar-dados/#erros-comuns).
 
-A camada já aparece no mapa com a aparência padrão. Para colorir por categoria ou criar classes, use a aba **Estilos** e clique em **Salvar estilo**. O projeto herda o estilo, e o celular recebe o mesmo mapa. A [página de Catálogos](/recursos/catalogos/) mostra as opções.
+A camada já aparece no mapa com a aparência padrão. Para colorir por categoria ou criar classes, use a aba **Estilos** e clique em **Salvar estilo**. O projeto herda o estilo, e o celular recebe o mesmo mapa. A [página de Catálogos](/recursos/catalogos/) mostra as opções, e a [documentação de estilos](https://docs.terranode.com.br/catalogos/estilos/) explica cada uma.
 
 ## No projeto, escolha a camada
 
-Em **Projetos**, comece um **Novo projeto**. O assistente tem vários passos, e dois deles decidem o que chega ao celular.
+Em **Projetos**, comece um **Novo projeto**. O [assistente](https://docs.terranode.com.br/projetos/#o-assistente-novo-projeto) tem vários passos, e dois deles decidem o que chega ao celular.
 
 O primeiro é a **Área de cobertura**. Desenhe a área no mapa ou envie um arquivo com ela. O pacote recorta as camadas por essa área, então o que ficar fora não vai para o celular.
 
@@ -62,11 +62,11 @@ Não existe botão de publicar. O TerraNode gera o pacote offline sozinho, cerca
 
 Se você criou o projeto logo depois de enviar o Shapefile, espere um pouco mais. A camada já entra no projeto, mas o mapa dela fica pronto um pouco depois, e até lá ela fica fora do pacote. O teste da próxima seção pega esse caso.
 
-Vale também juntar as alterações em uma rodada só, porque cada versão nova do pacote pede uma atualização no celular de cada pessoa da equipe.
+Vale também juntar as alterações em uma rodada só, porque cada versão nova do pacote pede uma atualização no celular de cada pessoa da equipe. A documentação de [pacotes offline](https://docs.terranode.com.br/projetos/pacotes-offline/) explica o que entra no pacote e o que pesa no tamanho.
 
 ## No celular, teste sem internet
 
-No app, na aba **Projetos**, toque em **Baixar projeto** e espere o cartão mostrar **Sincronizado**. Se aparecer **Sem pacote disponível**, o projeto não tem área de cobertura ou o TerraNode ainda está gerando o pacote.
+No app, na aba **Projetos**, toque em **Baixar projeto** e espere o cartão mostrar **Sincronizado**. O guia de [coleta sem internet](/blog/como-coletar-dados-em-campo-sem-internet/#na-véspera-com-internet) mostra o que mais conferir antes de sair. Se aparecer **Sem pacote disponível**, o projeto não tem área de cobertura ou o TerraNode ainda está gerando o pacote.
 
 Depois vem o teste mais útil deste guia. Coloque o celular em modo avião, abra o projeto e toque em **Camadas**. A sua camada precisa estar na lista, com o tipo de geometria certo.
 
@@ -82,7 +82,7 @@ No celular, a camada é uma referência. O coletor liga e desliga a camada no ma
 
 Uma camada de polígonos, como talhões, bairros ou lotes, pode fazer mais do que aparecer no mapa. Ela pode preencher um campo do formulário a partir de onde o coletor está.
 
-No construtor de formulários, adicione um campo **Consulta por localização**. Em **Fonte de dados**, escolha a sua camada de polígonos e, em **Coluna**, a coluna de onde sai o valor. O formulário também precisa de um campo de geometria. A camada nem precisa estar entre as do projeto, porque o pacote já leva a fonte que o campo lê.
+No construtor de formulários, adicione um campo [Consulta por localização](https://docs.terranode.com.br/formularios/tipos-de-campo/#consulta-por-localizacao). Em **Fonte de dados**, escolha a sua camada de polígonos e, em **Coluna**, a coluna de onde sai o valor. O formulário também precisa de um campo de geometria. A camada nem precisa estar entre as do projeto, porque o pacote já leva a fonte que o campo lê.
 
 Em campo, o app calcula o valor no próprio celular, sem internet. Ninguém digita o nome do talhão nem procura em uma lista. Se o app não encontrar valor para aquela posição, o servidor calcula quando receber a coleta.
 

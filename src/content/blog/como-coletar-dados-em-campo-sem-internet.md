@@ -17,7 +17,7 @@ O sinal costuma acabar antes de a equipe chegar ao ponto. Em uma vistoria de lin
 
 O app do TerraNode guarda no celular tudo o que a coleta precisa e envia os dados quando a conexão volta. Para isso dar certo, algumas coisas precisam acontecer na ordem certa, e a maioria delas antes de sair do escritório.
 
-Este guia acompanha um dia de campo da véspera até a volta. As telas são do app real, com um projeto de exemplo chamado Supressão Floripa.
+Este guia acompanha um dia de campo da véspera até a volta. As telas são do app real, com um projeto de exemplo chamado Supressão Floripa. O guia parte de um projeto já criado. Se você ainda precisa colocar as camadas da equipe nele, comece por [como levar um Shapefile para o campo](/blog/como-levar-um-shapefile-para-o-campo/).
 
 > O TerraNode está em beta fechado, e o app roda em Android 12 ou mais recente. Se a sua equipe ainda não tem acesso, [entre na lista de espera](https://form.typeform.com/to/ZVQYTFV5).
 
@@ -25,7 +25,7 @@ Este guia acompanha um dia de campo da véspera até a volta. As telas são do a
 
 Tudo começa com o download. Instale o app, entre com o mesmo e-mail e senha do painel web e, na aba **Projetos**, toque em **Baixar projeto**. O download continua em segundo plano, então você pode fechar o app. Se a conexão cair no meio, ele retoma depois só com os arquivos que faltam.
 
-O projeto está pronto para sair quando o cartão mostra **Sincronizado**. A partir daí, o mapa, as camadas e os formulários já estão no celular.
+O projeto está pronto para sair quando o cartão mostra **Sincronizado**. A partir daí, o mapa, as camadas e os formulários já estão no celular. Os outros estados do cartão estão na [documentação do app](https://docs.terranode.com.br/app/projetos/#estados-de-um-projeto-na-lista).
 
 ![Cartão do projeto Supressão Floripa com o selo Sincronizado, o mapa da área e o botão Iniciar sessão de campo](../../assets/blog/como-coletar-dados-em-campo-sem-internet/cartao-sincronizado.webp)
 
@@ -37,7 +37,7 @@ Antes de guardar o celular, abra o projeto e confira duas coisas. A primeira é 
 
 *A seção Mapa da aba Projeto, com o mapa base incluído.*
 
-Dois avisos podem aparecer nessa hora, e nenhum deles você resolve sozinho. **Sem pacote disponível** quer dizer que o projeto ainda não tem área de cobertura ou que o TerraNode ainda está gerando o pacote. Um botão **Coletar** desativado, com a mensagem "Nenhum formulário atribuído a você neste projeto", quer dizer que falta incluir você em um formulário. Nos dois casos, fale com quem gerencia o projeto antes de sair, porque sem internet o celular não recebe a correção.
+Dois avisos podem aparecer nessa hora, e nenhum deles você resolve sozinho. **Sem pacote disponível** quer dizer que o projeto ainda não tem área de cobertura ou que o TerraNode ainda está gerando o pacote. Um botão **Coletar** desativado, com a mensagem "Nenhum formulário atribuído a você neste projeto", quer dizer que falta incluir você em um formulário. Nos dois casos, fale com quem gerencia o projeto antes de sair, porque sem internet o celular não recebe a correção. Quem gerencia encontra os dois ajustes na documentação, em [quando o pacote é gerado](https://docs.terranode.com.br/projetos/pacotes-offline/#quando-o-pacote-e-gerado) e em [quem recebe cada formulário](https://docs.terranode.com.br/projetos/camadas-e-formularios/#quem-recebe-cada-formulario).
 
 ## No campo, comece pela sessão
 
@@ -53,11 +53,13 @@ A sessão marca o começo e o fim da saída. Ela agrupa as coletas do dia e regi
 
 Para registrar um ponto, toque em **Coletar** na aba **Mapa**. Se você recebeu mais de um formulário no projeto, o app pergunta qual usar e guarda a escolha. **Trocar** muda de formulário depois.
 
-O formulário abre com a posição do GPS na tela. O campo de geometria mostra latitude, longitude e precisão, e **Fixar posição** trava o ponto quando você estiver no lugar certo. Para fotos, use **Tirar foto** dentro do formulário, e não a câmera do celular. Assim a foto fica presa à coleta, com a posição de onde você a tirou.
+O formulário abre com a posição do GPS na tela. O campo de geometria mostra latitude, longitude e precisão, e **Fixar posição** trava o ponto quando você estiver no lugar certo. Para fotos, use **Tirar foto** dentro do formulário, e não a câmera do celular. Assim a foto fica presa à coleta, com a posição de onde você a tirou. A documentação mostra [como cada tipo de campo aparece no app](https://docs.terranode.com.br/app/coleta/#como-os-campos-aparecem-no-aplicativo).
 
 ![Formulário Supressão Vegetal com os campos de espécie, fotos e município, e o campo de geometria com latitude, longitude, precisão e o botão Fixar posição](../../assets/blog/como-coletar-dados-em-campo-sem-internet/formulario.webp)
 
 *O formulário aberto em campo. O Município já veio preenchido pela localização.*
+
+No print, o Município se preencheu sozinho a partir da posição. O guia do Shapefile mostra [como montar um campo assim](/blog/como-levar-um-shapefile-para-o-campo/#deixe-a-camada-preencher-o-formulário).
 
 Ao terminar, toque em **Enviar**. O nome engana um pouco, porque sem sinal nada sai do celular. O app grava a coleta no aparelho, põe um pino no mapa e cria uma linha na aba **Coletas** com o estado **Não enviada**. O envio de verdade fica para depois.
 
@@ -86,16 +88,16 @@ Na aba **Coletas**, o estado de cada linha diz em que ponto está cada coleta:
 
 *A coleta só ganha número depois que a resposta chega ao servidor, por isso a primeira linha ainda não tem um.*
 
-O estado que mais engana é **Enviada · mídia pendente**. Ele parece trabalho terminado, mas as fotos daquela coleta só existem no celular até alguém tocar em **Enviar dados**.
+O estado que mais engana é **Enviada · mídia pendente**. Ele parece trabalho terminado, mas as fotos daquela coleta só existem no celular até alguém tocar em **Enviar dados**. Se alguma coleta aparecer como **Recusada**, a documentação lista os [motivos de recusa](https://docs.terranode.com.br/app/enviar-dados/#motivos-de-recusa).
 
 ## No fim do dia, encerre a sessão
 
 Com tudo enviado, toque em **Encerrar**. A sessão fecha de vez. Você não consegue mais editar nem excluir as coletas dela, nem reabri-la, e a próxima saída pede uma sessão nova. **Enviar dados** continua funcionando depois disso, então ainda dá para mandar fotos que ficaram para trás.
 
-Um cuidado vale para qualquer dia. Não desinstale o app com coletas pendentes, porque desinstalar apaga o que ainda não subiu. Se o app desconectar a sua conta, entre de novo com a mesma conta, e os dados continuam no aparelho.
+Um cuidado vale para qualquer dia. Não desinstale o app com coletas pendentes, porque desinstalar apaga o que ainda não subiu. Se o app [desconectar a sua conta](https://docs.terranode.com.br/app/enviar-dados/#o-aplicativo-foi-desconectado), entre de novo com a mesma conta, e os dados continuam no aparelho.
 
 ## Antes da próxima saída
 
 Coletar sem internet funciona quando você faz o trabalho de casa com internet. Baixe o projeto na véspera, espere o **Sincronizado** e confira o mapa base. No campo, lembre que **Enviar** só grava no aparelho. Na volta, toque em **Enviar dados**, porque as fotos não sobem sozinhas.
 
-Se a equipe trabalha sobre limites, redes ou lotes que já existem, o próximo passo é [levar um Shapefile para o campo](/blog/como-levar-um-shapefile-para-o-campo/). Para ver o resto do app, veja a [página do aplicativo](/recursos/aplicativo/). Para montar o que a equipe preenche, comece pelo [construtor de formulários](/recursos/formularios/).
+Se a equipe trabalha sobre limites, redes ou lotes que já existem, o próximo passo é [levar um Shapefile para o campo](/blog/como-levar-um-shapefile-para-o-campo/). Para ver o resto do app, veja a [página do aplicativo](/recursos/aplicativo/) ou, com mais detalhe, a [documentação do app](https://docs.terranode.com.br/app/). Para montar o que a equipe preenche, comece pelo [construtor de formulários](/recursos/formularios/).
