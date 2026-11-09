@@ -6,7 +6,7 @@ subtitulo: "O caminho de um Shapefile do computador até o mapa do celular, que 
 categoria: how-tos
 autor: george-silva
 publicadoEm: 2026-11-06
-draft: true
+draft: false
 capa:
   src: "../../assets/blog/como-levar-um-shapefile-para-o-campo/catalogo-estilos.jpg"
   alt: "Catálogo do TerraNode com a lista de camadas à esquerda e os estados do Brasil coloridos no mapa"
