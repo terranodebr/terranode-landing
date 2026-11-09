@@ -1,6 +1,6 @@
 ---
 title: "Aplicativo de coleta de dados em campo, offline · TerraNode"
-description: "App nativo para Android que coleta dados em campo sem internet: formulários, fotos, GPS e mapas do projeto no aparelho, com sincronização automática quando o sinal volta."
+description: "App nativo para Android que coleta dados em campo sem internet: formulários, fotos, GPS e mapas do projeto, com sincronização automática quando o sinal volta."
 recurso: "Aplicativo"
 h1: "Colete no campo, mesmo sem sinal. O TerraNode sincroniza quando a conexão volta."
 subtitulo: "Um aplicativo nativo para Android, feito para a equipe de campo: baixe o projeto, colete o dia inteiro offline e envie os dados quando houver internet. iOS em breve."

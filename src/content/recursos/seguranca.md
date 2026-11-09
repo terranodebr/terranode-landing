@@ -1,6 +1,6 @@
 ---
 title: "Segurança, criptografia e LGPD na coleta de campo · TerraNode"
-description: "Dados de campo criptografados no aparelho, na transmissão e no servidor, com dados e servidores no Brasil e isolamento por organização no próprio banco de dados."
+description: "Dados de campo criptografados no aparelho, na transmissão e no servidor, com servidores no Brasil e isolamento por organização no próprio banco de dados."
 recurso: "Segurança e LGPD"
 h1: "Seus dados protegidos do campo ao painel. Criptografados e hospedados no Brasil."
 subtitulo: "Levantamentos de campo guardam informação sobre pessoas, imóveis e território. O TerraNode protege esses dados no celular, no caminho até o servidor e no servidor, que fica no Brasil."

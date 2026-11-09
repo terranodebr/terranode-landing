@@ -1,6 +1,6 @@
 ---
 title: "Aplicativo para controle de amostragem em mineração - TerraNode"
-description: "Organize o controle de amostragem da mina com templates de coleta e quarteamento, registros offline criptografados e rastreabilidade por amostra. Conheça o TerraNode."
+description: "Organize o controle de amostragem da mina com templates de coleta e quarteamento, registros offline criptografados e rastreabilidade por amostra."
 setor: "Mineração"
 h1: "Controle de amostragem e coleta de campo para mineração"
 subtitulo: "O TerraNode é uma plataforma de coleta de dados geoespaciais em campo para mineração, com templates de amostragem e quarteamento, registro offline e criptografado de cada amostra, camadas da operação no mapa e recursos para revisão e exportação de dados."

@@ -1,6 +1,6 @@
 ---
 title: "Construtor de formulários para coleta em campo · TerraNode"
-description: "Monte formulários de campo arrastando fotos, áudio, assinatura, escolhas, números, datas e geometria. Ou gere os campos a partir das colunas de uma camada do seu catálogo."
+description: "Monte formulários de campo com fotos, áudio, assinatura, escolhas, números, datas e geometria, ou gere os campos pelas colunas de uma camada do catálogo."
 recurso: "Formulários"
 h1: "Simples de montar, não importa o tamanho."
 subtitulo: "Do checklist de campo ao levantamento cheio de regras, é arrastar, testar e publicar. Ou partir das colunas de uma camada que você já tem."
