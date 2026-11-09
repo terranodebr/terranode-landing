@@ -4,7 +4,7 @@ description: "Organize o controle de amostragem da mina com templates de coleta 
 setor: "Mineração"
 h1: "Controle de amostragem e coleta de campo para mineração"
 subtitulo: "O TerraNode é uma plataforma de coleta de dados geoespaciais em campo para mineração, com templates de amostragem e quarteamento, registro offline e criptografado de cada amostra, camadas da operação no mapa e recursos para revisão e exportação de dados."
-ordem: 9
+ordem: 5
 draft: false
 
 doresTitulo: "O que dificulta o controle de amostragem na mina"
@@ -110,17 +110,19 @@ Com o TerraNode, a equipe parte de templates de **amostragem** e **quarteamento*
 
 ### Dados da operação protegidos no aparelho
 
-Resultados de amostragem são informação estratégica. No TerraNode, cada registro é criptografado no próprio aparelho no momento da coleta e continua criptografado no caminho até o servidor. Se um celular for perdido ou roubado, os dados não ficam legíveis fora do aplicativo.
+Resultados de amostragem são informação estratégica. No TerraNode, cada registro é [criptografado no próprio aparelho](/recursos/seguranca/#criptografia) no momento da coleta e continua criptografado no caminho até o servidor. Se um celular for perdido ou roubado, os dados não ficam legíveis fora do aplicativo.
 
 ### As camadas da operação no mapa de quem coleta
 
-O mapa do aplicativo mostra as camadas que a equipe configurar, como **direitos minerários**, mantidos atualizados pelo próprio TerraNode, **cartas geológicas** e as camadas da própria operação. Tudo fica disponível no aparelho, mesmo sem conexão.
+O mapa do aplicativo mostra as camadas que a equipe configurar, como [**direitos minerários**](https://docs.terranode.com.br/catalogos/dados-publicos/), mantidos atualizados pelo próprio TerraNode, **cartas geológicas** e as camadas da própria operação. Tudo fica disponível no aparelho, mesmo sem conexão.
 
-Nossa plataforma também se integra ao **ArcGIS Online** e ao **ArcGIS Enterprise**, conectando a **coleta de dados em campo** ao **sistema de informação geográfica (SIG)** da organização.
+Nossa plataforma também se integra ao [**ArcGIS Online** e ao **ArcGIS Enterprise**](/recursos/integracoes/#arcgis), conectando a **coleta de dados em campo** ao **sistema de informação geográfica (SIG)** da organização.
 
-**Conheça as soluções do TerraNode para outras operações:** [exploração mineral](/solucoes/exploracao-mineral/), [meio ambiente](/solucoes/meio-ambiente/), [topografia e cadastro](/solucoes/topografia-e-cadastro/), [energia](/solucoes/energia/), [telecom](/solucoes/telecom/) e [saneamento e obras](/solucoes/saneamento-e-obras/).
+**Conheça as soluções do TerraNode para outras operações:** [energia](/solucoes/energia/), [telecom](/solucoes/telecom/), [meio ambiente](/solucoes/meio-ambiente/), [exploração mineral](/solucoes/exploracao-mineral/), [saneamento e obras](/solucoes/saneamento-e-obras/), [topografia e cadastro](/solucoes/topografia-e-cadastro/), [agro](/solucoes/agro/) e [municípios](/solucoes/municipios/).
 
-**Para conhecer outros recursos de configuração, acesse:** [formulários](/recursos/formularios/) e [catálogos](/recursos/catalogos/).
+**Veja como funcionam os recursos:** [formulários](/recursos/formularios/), [catálogos](/recursos/catalogos/), [segurança e LGPD](/recursos/seguranca/) e [aplicativo de campo](/recursos/aplicativo/).
+
+**Passo a passo na documentação:** [dados públicos e direitos minerários](https://docs.terranode.com.br/catalogos/dados-publicos/), [importar dados](https://docs.terranode.com.br/catalogos/importar-dados/), [equipe do projeto](https://docs.terranode.com.br/projetos/equipe/) e [como conectar o ArcGIS](https://docs.terranode.com.br/integracoes/arcgis/).
 
 > **Atenção às normas e aos procedimentos:** cada operação deve observar os requisitos técnicos e legais aplicáveis, além das condições de cada título minerário. No Brasil, isso inclui o [Código de Mineração (Decreto-Lei nº 227/1967)](https://www.planalto.gov.br/ccivil_03/decreto-lei/del0227.htm), que regula o aproveitamento dos recursos minerais, e as normas da [Agência Nacional de Mineração (ANM)](https://www.gov.br/anm/pt-br).
 >

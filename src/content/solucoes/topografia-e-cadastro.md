@@ -1,10 +1,10 @@
 ---
 title: "Aplicativo para topografia e cadastro técnico - TerraNode"
-description: "Faça levantamentos topográficos e cadastro técnico com formulários personalizados, coletas offline e precisão com GNSS externo. Conheça o TerraNode."
+description: "Faça levantamentos topográficos e cadastro técnico com formulários personalizados, coleta offline e precisão com GNSS externo. Conheça o TerraNode."
 setor: "Topografia e cadastro"
 h1: "Levantamentos topográficos e cadastro técnico"
 subtitulo: "O TerraNode é uma plataforma de coleta de dados geoespaciais em campo para topografia e cadastro, com formulários configuráveis por levantamento, registro offline de pontos, fotos e confrontações, precisão centimétrica com GNSS externo e recursos para revisão e exportação de dados."
-ordem: 3
+ordem: 7
 draft: false
 
 doresTitulo: "O que dificulta os levantamentos topográficos e o cadastro técnico"
@@ -14,7 +14,7 @@ dores:
   - titulo: "Alto custo operacional"
     texto: "Sistemas para coleta de dados geoespaciais podem pesar no orçamento com custos de implementação, manutenção ou adaptações. O TerraNode é uma solução brasileira, com valores em reais e custo operacional abaixo da concorrência. E também ajuda a reduzir gastos com papel, redigitação, retrabalho e novas idas a campo para completar levantamentos."
   - titulo: "Levantamento fragmentado"
-    texto: "Quando as coordenadas ficam no receptor, as fotos dos marcos na galeria do celular e as anotações em papel ou em conversas de WhatsApp, reunir as informações de um imóvel se torna mais difícil. E conferir o que foi medido exige mais tempo, podendo deixar lacunas que só aparecem no escritório."
+    texto: "Quando as coordenadas ficam no receptor, as fotos dos marcos na galeria do celular e as anotações em papel ou em conversas de WhatsApp, reunir as informações de um imóvel se torna mais difícil. E conferir o que foi medido leva mais tempo e pode deixar lacunas que só aparecem no escritório."
 
 passosLead: "As equipes de topografia e cadastro podem configurar os formulários, organizar o time, coletar os dados em campo e revisar os registros antes de exportá-los. Tudo em um único fluxo."
 passos:
@@ -78,6 +78,11 @@ faq:
       Para fazer um levantamento com aplicativo, configure os campos de acordo com o serviço, incluindo a identificação do vértice, o tipo de marco, os confrontantes e as fotos, e use um receptor GNSS externo quando o trabalho exigir precisão centimétrica.
 
       No TerraNode, os formulários podem ser personalizados e gerados com auxílio de inteligência artificial a partir de uma descrição do levantamento.
+  - q: "O TerraNode tem modelos prontos para topografia?"
+    a: |-
+      Sim. São cinco modelos baseados em normas e manuais oficiais: georreferenciamento de imóveis rurais (Manual Técnico do INCRA), caderneta e relatório de levantamento (ABNT NBR 13133:2021), monografia de marco (ABNT NBR 14166:1998), nivelamento e GNSS (normas geodésicas do IBGE) e marcos e pontos de controle GNSS (DNIT IN 55/2021).
+
+      A equipe parte de um deles e ajusta os campos ao serviço antes de ir a campo.
   - q: "O TerraNode funciona com ArcGIS?"
     a: "Sim. O TerraNode se integra ao ArcGIS Online e ao ArcGIS Enterprise. A plataforma permite trabalhar com dados geográficos e exportar levantamentos validados nos formatos CSV, GeoJSON e Shapefile."
   - q: "Onde ficam os dados coletados em campo?"
@@ -103,19 +108,21 @@ E em áreas rurais e afastadas, sem conectividade, o levantamento precisa contin
 
 Quando os registros ficam dispersos entre cadernetas, croquis, fotos e planilhas, conferir o que foi medido ou retomar um levantamento anterior pode exigir trabalho adicional.
 
-### O TerraNode mantém o levantamento em andamento, mesmo offline.
+### O TerraNode mantém o levantamento em andamento, mesmo offline
 
 Com o TerraNode, a equipe preenche formulários e registra pontos, linhas e polígonos diretamente no aplicativo, mesmo sem conexão. Os dados ficam armazenados no dispositivo e são sincronizados automaticamente quando a conectividade retorna.
 
 Com um receptor GNSS externo, os pontos podem ser registrados com precisão centimétrica. Fotos, descrições e coordenadas ficam reunidas no registro de cada ponto, facilitando a conferência e o acompanhamento de cada imóvel.
 
-Os formulários podem ser configurados com os campos, as regras e os preenchimentos obrigatórios definidos para cada tipo de levantamento. Assim, a equipe registra as informações necessárias de acordo com os critérios estabelecidos pelo responsável técnico.
+Os [formulários](/recursos/formularios/) podem ser configurados com os campos, as regras e os preenchimentos obrigatórios definidos para cada tipo de levantamento. Assim, a equipe registra as informações necessárias de acordo com os critérios estabelecidos pelo responsável técnico.
 
-Nossa plataforma também se integra ao **ArcGIS Online** e ao **ArcGIS Enterprise**, conectando a **coleta de dados em campo** ao **sistema de informação geográfica (SIG)** da organização. Os dados validados podem ser exportados em CSV, GeoJSON e Shapefile para seguir para o processamento.
+Nossa plataforma também se integra ao [**ArcGIS Online** e ao **ArcGIS Enterprise**](/recursos/integracoes/#arcgis), conectando a **coleta de dados em campo** ao **sistema de informação geográfica (SIG)** da organização. Os dados validados podem ser exportados em CSV, GeoJSON e Shapefile para seguir para o processamento.
 
-**Conheça as soluções do TerraNode para outras operações:** [energia](/solucoes/energia/), [telecom](/solucoes/telecom/), [meio ambiente](/solucoes/meio-ambiente/), [municípios](/solucoes/municipios/), [agro](/solucoes/agro/) e [saneamento e obras](/solucoes/saneamento-e-obras/).
+**Conheça as soluções do TerraNode para outras operações:** [energia](/solucoes/energia/), [telecom](/solucoes/telecom/), [meio ambiente](/solucoes/meio-ambiente/), [exploração mineral](/solucoes/exploracao-mineral/), [mineração](/solucoes/mineracao/), [saneamento e obras](/solucoes/saneamento-e-obras/), [agro](/solucoes/agro/) e [municípios](/solucoes/municipios/).
 
-**Para conhecer outros recursos de configuração, acesse:** [formulários](/recursos/formularios/) e [catálogos](/recursos/catalogos/).
+**Veja como funcionam os recursos:** [formulários](/recursos/formularios/), [catálogos](/recursos/catalogos/), [aplicativo de campo](/recursos/aplicativo/) e [integração com o ArcGIS](/recursos/integracoes/#arcgis).
+
+**Passo a passo na documentação:** [modelos de formulário](https://docs.terranode.com.br/formularios/modelos/), [importar dados](https://docs.terranode.com.br/catalogos/importar-dados/), [pacotes offline](https://docs.terranode.com.br/projetos/pacotes-offline/) e [como conectar o ArcGIS](https://docs.terranode.com.br/integracoes/arcgis/).
 
 > **Atenção às normas e aos procedimentos:** cada levantamento deve observar os requisitos técnicos aplicáveis. No Brasil, isso pode incluir a ABNT NBR 13133, que trata da execução de levantamentos topográficos, e, no georreferenciamento de imóveis rurais, a [Lei nº 10.267/2001](https://www.planalto.gov.br/ccivil_03/leis/leis_2001/l10267.htm) e a [Norma Técnica para Georreferenciamento de Imóveis Rurais](https://sigef.incra.gov.br/static/documentos/norma_tecnica_georreferenciamento_imoveis_rurais_3ed.pdf) do Incra.
 >

@@ -1,10 +1,10 @@
 ---
 title: "Aplicativo para monitoramento ambiental - TerraNode"
-description: "Faça inventários e monitoramento ambiental com formulários personalizados, coletas offline e histórico por ponto de coleta. Conheça o TerraNode."
+description: "Faça inventários e monitoramento ambiental com formulários personalizados, coleta offline e histórico por ponto de coleta. Conheça o TerraNode."
 setor: "Meio ambiente"
 h1: "Levantamentos para licenciamento e monitoramento ambiental"
 subtitulo: "O TerraNode é uma plataforma de coleta de dados geoespaciais em campo para meio ambiente, com formulários configuráveis por campanha, registro offline de pontos de coleta, espécies, fotos e áreas mapeadas, e recursos para revisão e exportação de dados."
-ordem: 4
+ordem: 3
 draft: false
 
 doresTitulo: "O que dificulta as campanhas de campo ambientais"
@@ -14,7 +14,7 @@ dores:
   - titulo: "Alto custo operacional"
     texto: "Sistemas para coleta de dados geoespaciais podem pesar no orçamento com custos de implementação, manutenção ou adaptações. O TerraNode é uma solução brasileira, com valores em reais e custo operacional abaixo da concorrência. E também ajuda a reduzir gastos com papel, redigitação, retrabalho e retornos a campo para corrigir registros."
   - titulo: "Histórico fragmentado"
-    texto: "Quando as informações ficam espalhadas entre fichas de campo, planilhas e fotos na galeria do celular ou em conversas de WhatsApp, reunir o histórico de um ponto de monitoramento se torna mais difícil. E comparar campanhas exige mais tempo, podendo deixar lacunas nos relatórios e no acompanhamento das condicionantes."
+    texto: "Quando as informações ficam espalhadas entre fichas de campo, planilhas e fotos na galeria do celular ou em conversas de WhatsApp, reunir o histórico de um ponto de monitoramento se torna mais difícil. E comparar campanhas leva mais tempo e pode deixar lacunas nos relatórios e no acompanhamento das condicionantes."
 
 passosLead: "As equipes de meio ambiente podem configurar os formulários, organizar o time, coletar os dados em campo e revisar os registros antes de exportá-los. Tudo em um único fluxo."
 passos:
@@ -103,19 +103,21 @@ E em áreas remotas, sem conectividade, a campanha precisa continuar.
 
 Quando os registros ficam dispersos entre fichas, fotos e planilhas, comparar campanhas ou consolidar os dados para o relatório pode exigir trabalho adicional.
 
-### O TerraNode mantém a campanha em andamento, mesmo offline.
+### O TerraNode mantém a campanha em andamento, mesmo offline
 
-Com o TerraNode, a equipe preenche formulários e registra informações diretamente no aplicativo, mesmo sem conexão. Os dados ficam armazenados no dispositivo e são sincronizados automaticamente quando a conectividade retorna.
+Com o TerraNode, a equipe preenche formulários e registra informações diretamente no aplicativo, [mesmo sem conexão](/recursos/aplicativo/#offline). Os dados ficam armazenados no dispositivo e são sincronizados automaticamente quando a conectividade retorna.
 
 Fotos, descrições e informações de localização ficam reunidas no registro de cada ponto, facilitando a consulta e o acompanhamento do histórico de uma campanha para outra.
 
-Os formulários podem ser configurados com os campos, as regras e os preenchimentos obrigatórios definidos para cada tipo de levantamento. Assim, a equipe registra as informações necessárias de acordo com a metodologia de cada estudo.
+Os [formulários](/recursos/formularios/) podem ser configurados com os campos, as regras e os preenchimentos obrigatórios definidos para cada tipo de levantamento. Assim, a equipe registra as informações necessárias de acordo com a metodologia de cada estudo.
 
-Nossa plataforma também se integra ao **ArcGIS Online** e ao **ArcGIS Enterprise**, conectando a **coleta de dados em campo** ao **sistema de informação geográfica (SIG)** da organização.
+Nossa plataforma também se integra ao [**ArcGIS Online** e ao **ArcGIS Enterprise**](/recursos/integracoes/#arcgis), conectando a **coleta de dados em campo** ao **sistema de informação geográfica (SIG)** da organização.
 
-**Conheça as soluções do TerraNode para outras operações:** [energia](/solucoes/energia/), [telecom](/solucoes/telecom/), [topografia e cadastro](/solucoes/topografia-e-cadastro/), [municípios](/solucoes/municipios/), [agro](/solucoes/agro/) e [saneamento e obras](/solucoes/saneamento-e-obras/).
+**Conheça as soluções do TerraNode para outras operações:** [energia](/solucoes/energia/), [telecom](/solucoes/telecom/), [exploração mineral](/solucoes/exploracao-mineral/), [mineração](/solucoes/mineracao/), [saneamento e obras](/solucoes/saneamento-e-obras/), [topografia e cadastro](/solucoes/topografia-e-cadastro/), [agro](/solucoes/agro/) e [municípios](/solucoes/municipios/).
 
-**Para conhecer outros recursos de configuração, acesse:** [formulários](/recursos/formularios/) e [catálogos](/recursos/catalogos/).
+**Veja como funcionam os recursos:** [formulários](/recursos/formularios/), [catálogos](/recursos/catalogos/), [aplicativo de campo](/recursos/aplicativo/) e [integração com o ArcGIS](/recursos/integracoes/#arcgis).
+
+**Passo a passo na documentação:** [catálogos de dados públicos](https://docs.terranode.com.br/catalogos/dados-publicos/), [importar dados](https://docs.terranode.com.br/catalogos/importar-dados/), [criar e editar formulários](https://docs.terranode.com.br/formularios/) e [pacotes offline](https://docs.terranode.com.br/projetos/pacotes-offline/).
 
 > **Atenção às normas e aos procedimentos:** cada campanha deve observar os requisitos técnicos e legais aplicáveis, além das condicionantes de cada licença. No Brasil, isso pode incluir a [Lei nº 6.938/1981](https://www.planalto.gov.br/ccivil_03/leis/l6938.htm), que instituiu a Política Nacional do Meio Ambiente e tem o licenciamento ambiental entre seus instrumentos, e o [Código Florestal (Lei nº 12.651/2012)](https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12651.htm), que trata, entre outros pontos, das áreas de preservação permanente e de reserva legal.
 >

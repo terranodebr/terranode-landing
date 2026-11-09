@@ -19,7 +19,7 @@ dores:
 passosLead: "Operadoras, torreiras, provedores de internet e empreiteiras podem montar o formulário de cada serviço, organizar as equipes, coletar os dados em campo e revisar os registros antes de exportá-los. Tudo em um único fluxo."
 passos:
   - titulo: "Configure o formulário"
-    texto: "Monte o formulário de vistoria de site, cadastro de fibra ou auditoria de postes com os campos, regras e fotos obrigatórias da sua operação, ou gere a partir de uma camada do seu ArcGIS. Se preferir, descreva o serviço e use a IA para gerar o formulário."
+    texto: "Monte o formulário de vistoria de site, cadastro de fibra ou auditoria de postes com os campos, regras e fotos obrigatórias da sua operação, ou crie o formulário a partir de uma camada do seu ArcGIS. Se preferir, descreva o serviço e use a IA para gerar o formulário."
     lista:
       - "Campos de texto, número, foto, áudio e geometria"
       - "Formulário gerado por IA a partir de uma descrição"
@@ -69,12 +69,14 @@ faq:
       No TerraNode, a equipe registra os pontos e desenha o traçado como linha no mapa, com fotos e atributos em cada registro, inclusive sem conexão.
   - q: "Dá para fazer auditoria de ocupação de postes?"
     a: |-
-      Sim. Monte um formulário com a identificação do poste, os ocupantes, os cabos e equipamentos encontrados e fotos de cada lado, e atribua as rotas às equipes de campo.
+      Sim. Parta de um modelo de compartilhamento de postes ou monte um formulário com a identificação do poste, os ocupantes, os cabos e equipamentos encontrados e fotos de cada lado, e atribua as rotas às equipes de campo.
 
       Os registros passam por revisão antes de serem exportados, o que ajuda a entregar um levantamento consistente para a conciliação com a distribuidora.
   - q: "O TerraNode tem modelos prontos para telecom?"
     a: |-
-      Ainda não há templates específicos para telecom. Os formulários são montados do zero em poucos minutos, a partir de uma camada do ArcGIS ou descrevendo o serviço para a IA gerar o rascunho.
+      Para ocupação de postes, sim. São dois modelos de compartilhamento: a vistoria da Celesc (I-313.0015) e um com as referências nacionais (NBR 15214, NBR 15688 e REN ANEEL 1.044). Entre os campos estão altura do cabo ao solo, afastamento à rede e plaqueta de identificação do ocupante.
+
+      Para vistoria de sites e cadastro de fibra, ainda não há modelos específicos. Esses formulários são montados em poucos minutos, campo a campo, a partir de uma camada do ArcGIS ou descrevendo o serviço para a IA gerar o rascunho.
   - q: "O TerraNode funciona com ArcGIS?"
     a: "Sim. O TerraNode se integra ao ArcGIS Online e ao ArcGIS Enterprise: as camadas da sua rede vão para o mapa de campo com a simbologia, e os dados validados são exportados em CSV, GeoJSON e Shapefile."
   - q: "O que acontece com os dados se o aparelho for roubado ou perdido?"
@@ -105,19 +107,21 @@ E muitos desses lugares ficam justamente onde o sinal é fraco.
 
 ### Um padrão único para todas as equipes e empreiteiras
 
-Com o TerraNode, a operação define o formulário de cada serviço, com campos, regras e fotos obrigatórias, e atribui o trabalho a equipes próprias e de empreiteiras. Cada registro passa por revisão antes de ser exportado, e o que estiver incompleto volta ao técnico com comentário.
+Com o TerraNode, a operação define o [formulário de cada serviço](/recursos/formularios/), com campos, regras e fotos obrigatórias, e atribui o trabalho a equipes próprias e de empreiteiras. Cada registro passa por revisão antes de ser exportado, e o que estiver incompleto volta ao técnico com comentário.
 
 ### Pontos, linhas e a rede do seu ArcGIS no mapa
 
-Sites, caixas e postes entram como pontos, e o traçado da fibra como linha, no mesmo mapa. As camadas da rede que já estão no **ArcGIS Online** ou no **ArcGIS Enterprise** da organização chegam ao aplicativo com a simbologia, ficam disponíveis sem conexão e podem ser sincronizadas de novo sempre que a rede mudar.
+Sites, caixas e postes entram como pontos, e o traçado da fibra como linha, no mesmo mapa. As camadas da rede que já estão no [**ArcGIS Online** ou no **ArcGIS Enterprise**](/recursos/integracoes/#arcgis) da organização chegam ao aplicativo com a simbologia, ficam disponíveis sem conexão e podem ser [sincronizadas de novo](https://docs.terranode.com.br/integracoes/sincronizacao/) sempre que a rede mudar.
 
 ### Dados da rede protegidos no aparelho
 
-No TerraNode, cada registro é criptografado no próprio aparelho no momento da coleta e continua criptografado no caminho até o servidor. Se um celular for perdido ou roubado, os dados da rede não ficam legíveis fora do aplicativo.
+No TerraNode, cada registro é [criptografado no próprio aparelho](/recursos/seguranca/#criptografia) no momento da coleta e continua criptografado no caminho até o servidor. Se um celular for perdido ou roubado, os dados da rede não ficam legíveis fora do aplicativo.
 
-**Conheça as soluções do TerraNode para outras operações:** [energia](/solucoes/energia/), [topografia e cadastro](/solucoes/topografia-e-cadastro/), [municípios](/solucoes/municipios/), [saneamento e obras](/solucoes/saneamento-e-obras/) e [meio ambiente](/solucoes/meio-ambiente/).
+**Conheça as soluções do TerraNode para outras operações:** [energia](/solucoes/energia/), [meio ambiente](/solucoes/meio-ambiente/), [exploração mineral](/solucoes/exploracao-mineral/), [mineração](/solucoes/mineracao/), [saneamento e obras](/solucoes/saneamento-e-obras/), [topografia e cadastro](/solucoes/topografia-e-cadastro/), [agro](/solucoes/agro/) e [municípios](/solucoes/municipios/).
 
-**Para conhecer outros recursos de configuração, acesse:** [formulários](/recursos/formularios/) e [catálogos](/recursos/catalogos/).
+**Veja como funcionam os recursos:** [formulários](/recursos/formularios/), [integração com o ArcGIS](/recursos/integracoes/#arcgis), [aplicativo de campo](/recursos/aplicativo/) e [segurança e LGPD](/recursos/seguranca/).
+
+**Passo a passo na documentação:** [como conectar o ArcGIS](https://docs.terranode.com.br/integracoes/arcgis/), [sincronização e agendamento](https://docs.terranode.com.br/integracoes/sincronizacao/), [quem recebe cada formulário](https://docs.terranode.com.br/projetos/camadas-e-formularios/#quem-recebe-cada-formulario) e [pacotes offline](https://docs.terranode.com.br/projetos/pacotes-offline/).
 
 > **Atenção às normas e aos procedimentos:** cada operação deve observar os requisitos técnicos e legais aplicáveis. No Brasil, isso inclui a [Lei Geral de Telecomunicações (Lei nº 9.472/1997)](https://www.planalto.gov.br/ccivil_03/leis/l9472.htm), que criou a [Anatel](https://www.gov.br/anatel/pt-br), a [Lei nº 13.116/2015](https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13116.htm), que traz regras gerais para a instalação e o compartilhamento de infraestrutura de telecomunicações, e as regras de compartilhamento de postes definidas pela ANEEL e pela Anatel.
 >
