@@ -7,6 +7,9 @@ categoria: how-tos
 autor: george-silva
 publicadoEm: 2026-11-10
 draft: false
+capa:
+  src: "../../assets/blog/como-revisar-coletas-de-campo/novo-projeto-regras-de-coleta.webp"
+  alt: "Passo Detalhes do assistente Novo projeto, com o bloco Regras de coleta e a opção Exigir revisão dos pontos"
 recursos: [aplicativo, formularios]
 ---
 
