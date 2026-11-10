@@ -7,6 +7,9 @@ categoria: how-tos
 autor: george-silva
 publicadoEm: 2026-11-11
 draft: false
+capa:
+  src: "../../assets/blog/como-migrar-um-formulario-do-survey123/planilha-xlsform.webp"
+  alt: "Planilha XLSForm aberta, com as colunas type, hint, required, relevant, appearance, default e constraint na primeira linha"
 recursos: [formularios, integracoes]
 ---
 
