@@ -12,9 +12,9 @@ recursos: [formularios, integracoes]
 
 Um formulário de campo que funciona custou caro. Alguém passou meses ajustando a ordem das perguntas, as opções de cada lista e os limites de cada medida, sempre depois de um dia de campo que deu errado. Esse trabalho está guardado em uma planilha, o XLSForm do Survey123.
 
-Na hora de testar outra ferramenta, a primeira conta que a equipe faz é o custo de montar tudo de novo. Sessenta perguntas, redigitadas uma a uma, com as listas e as condições. Muita avaliação termina nessa conta.
+Na hora de testar outra ferramenta, a primeira conta que a equipe faz é o custo de montar tudo de novo. São sessenta perguntas para redigitar uma a uma, com as listas e as condições, e muita avaliação termina nessa conta.
 
-O TerraNode lê o XLSForm e monta o formulário para você. Nem tudo tem equivalente, e a importação diz o que ficou de fora. Este texto segue a planilha da pasta do Survey123 até o celular do coletor e mostra onde vale parar para conferir.
+O TerraNode lê o XLSForm e monta o formulário para você. Nem tudo tem equivalente, e a importação diz o que ficou de fora.
 
 > O TerraNode está em beta fechado, e o app roda em Android 12 ou mais recente. Se a sua equipe ainda não tem acesso, [entre na lista de espera](https://form.typeform.com/to/ZVQYTFV5).
 
@@ -22,7 +22,7 @@ O TerraNode lê o XLSForm e monta o formulário para você. Nem tudo tem equival
 
 O XLSForm é um arquivo `.xlsx`. Se você usa o Survey123 Connect, ele está na pasta do formulário, com o nome do próprio formulário. Se você montou o formulário no site do Survey123, o menu do formulário tem a opção de exportar como XLSForm.
 
-A importação traz a estrutura do formulário, ou seja, as perguntas, as listas e as regras. As respostas já coletadas no Survey123 não vêm junto.
+A importação traz a estrutura do formulário: as perguntas, as listas e as regras. As respostas já coletadas no Survey123 não vêm junto.
 
 ## Envie e veja o formulário nascer
 
@@ -36,7 +36,7 @@ As condições mais comuns também vêm. Uma pergunta que só aparece quando a c
 
 Acima dos campos aparece o aviso **Formulário importado do Survey123.** Dentro dele, **O que mudou na importação** lista cada item que não veio ou veio diferente.
 
-Este é o passo que não dá para pular. O relatório não fica guardado. Se você clicar em **Dispensar** ou sair da página, ele some. Copie o conteúdo para um documento antes de mexer em qualquer campo.
+O relatório não fica guardado. Se você clicar em **Dispensar** ou sair da página, ele some. Copie o conteúdo para um documento antes de mexer em qualquer campo.
 
 O que costuma aparecer nele:
 
@@ -46,7 +46,7 @@ O que costuma aparecer nele:
 - **Cálculos, notas e dicas.** Campos calculados, textos de instrução e dicas de preenchimento não vêm.
 - **Condições e restrições mais elaboradas.** A pergunta fica sempre visível e opcional, e o relatório cita a expressão original para você refazer a regra.
 
-Essa lista é o seu roteiro de ajuste. Para cada linha, decida se a regra ainda faz falta e refaça no construtor o que fizer.
+Use essa lista como roteiro de ajuste. Para cada linha, decida se a regra ainda faz falta e, se fizer, refaça no construtor.
 
 ## Ajuste antes da primeira coleta
 
@@ -64,12 +64,12 @@ Antes de soltar para todo mundo, faça uma coleta de teste você mesmo. Dez minu
 
 ## Quando a migração não fecha
 
-Vale ser direto sobre o limite. Se o seu formulário depende de repetições, como várias árvores dentro de uma parcela, ou se a coleta é o traçado de uma linha, a importação entrega um formulário mais simples do que o original. Nesses casos, a lista do relatório mostra o tamanho do que falta, e você decide com esse número na mão.
+Se o seu formulário depende de repetições, como várias árvores dentro de uma parcela, ou se a coleta é o traçado de uma linha, a importação entrega um formulário mais simples do que o original. Nesses casos, a lista do relatório mostra quanto falta, e você decide com ela na mão.
 
 Para os formulários de ponto, com perguntas, listas, fotos e condições simples, a planilha que levou meses para amadurecer chega pronta em uma tarde.
 
 ## O caminho inteiro
 
-Você pega o `.xlsx` do Survey123, importa em **Novo formulário**, copia o relatório, refaz as regras que ficaram de fora, acerta as chaves, publica e testa em um projeto. O relatório é a peça central, porque ele diz o que conferir.
+Você pega o `.xlsx` do Survey123, importa em **Novo formulário**, copia o relatório, refaz as regras que ficaram de fora, acerta as chaves, publica e testa em um projeto. De tudo isso, o relatório é o que não pode se perder, porque ele diz o que conferir.
 
 A tabela completa do que é convertido está na [documentação de importação do Survey123](https://docs.terranode.com.br/formularios/importar-survey123/). A comparação entre as duas ferramentas está em [TerraNode e ArcGIS Field Maps](/comparativos/arcgis-field-maps/). E, com o formulário no projeto, o próximo passo é [coletar em campo sem internet](/blog/como-coletar-dados-em-campo-sem-internet/).
