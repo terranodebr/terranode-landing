@@ -14,7 +14,7 @@ A campanha acabou. A equipe voltou, os celulares estão na mesa, e o trabalho mu
 
 É nessa passagem que os dados costumam se espalhar. As respostas saem em uma planilha, as fotos ficam em uma pasta com nomes como `IMG_4032.jpg`, e o trajeto da equipe fica no aparelho de cada um. Juntar tudo de novo vira um trabalho à parte.
 
-O TerraNode entrega o projeto em um arquivo só. Dentro dele há um GeoPackage com as coletas, os trajetos e o limite do projeto, e uma pasta com as mídias organizadas por coleta. Este texto segue esse arquivo, da conferência antes de exportar até as camadas abertas no QGIS.
+O TerraNode entrega o projeto em um arquivo só. Dentro dele há um GeoPackage com as coletas, os trajetos e o limite do projeto, e uma pasta com as mídias organizadas por coleta.
 
 > O TerraNode está em beta fechado, e o app roda em Android 12 ou mais recente. Se a sua equipe ainda não tem acesso, [entre na lista de espera](https://form.typeform.com/to/ZVQYTFV5).
 
@@ -38,13 +38,13 @@ Podem exportar os gestores e os editores da organização e quem gerencia o proj
 
 ## O que vem dentro do ZIP
 
-Extraia o arquivo inteiro em uma pasta e mantenha a estrutura. Você encontra duas coisas.
+Extraia o arquivo inteiro em uma pasta e mantenha a estrutura.
 
-A primeira é um arquivo `.gpkg`, com o nome do projeto. A segunda é uma pasta chamada `midia`, com uma subpasta para cada coleta. O nome da subpasta é o número da coleta, como `POSTE-00139`, o mesmo que aparece no painel e no app. Para achar as fotos de um ponto, você não precisa abrir nada além do gerenciador de arquivos.
+Dentro há um arquivo `.gpkg`, com o nome do projeto, e uma pasta chamada `midia`, com uma subpasta para cada coleta. O nome da subpasta é o número da coleta, como `POSTE-00139`, o mesmo que aparece no painel e no app. Para achar as fotos de um ponto, você não precisa abrir nada além do gerenciador de arquivos.
 
 ## Abra no QGIS
 
-Arraste o `.gpkg` para o QGIS. Ele pergunta quais camadas você quer, e a lista tem o seguinte.
+Arraste o `.gpkg` para o QGIS. Ele pergunta quais camadas você quer abrir:
 
 - **Uma camada para cada formulário**, com o nome começando por `form_`. Cada linha é uma coleta, com o ponto e as respostas.
 - **`midia`**, com um ponto para cada foto, vídeo ou áudio que tem posição.
@@ -54,7 +54,7 @@ Arraste o `.gpkg` para o QGIS. Ele pergunta quais camadas você quer, e a lista 
 
 Na tabela de atributos de um formulário, as primeiras colunas valem para qualquer coleta. `numero` é o número da coleta, `coletor` é quem fez, `inicio` e `fim` marcam o tempo de preenchimento, e `estado_revisao` diz o que a revisão decidiu. Depois vem uma coluna para cada campo do formulário, com o rótulo como apelido.
 
-Um detalhe evita um susto. As datas e as horas saem em UTC, três horas à frente do horário de Brasília. Uma coleta feita às 22h aparece no dia seguinte. Converta antes de montar uma tabela por dia de campo.
+As datas e as horas saem em UTC, três horas à frente do horário de Brasília, então uma coleta feita às 22h aparece no dia seguinte. Converta antes de montar uma tabela por dia de campo.
 
 As colunas de foto guardam o caminho do arquivo dentro do ZIP, como `midia/POSTE-00139/fotos_1.jpg`. Com a pasta extraída ao lado do `.gpkg`, esse caminho leva direto à imagem.
 
@@ -70,6 +70,6 @@ O arquivo traz o que veio do campo. As camadas de referência do catálogo, como
 
 ## A passagem em uma tarde
 
-Antes de exportar, confira o cartão **Equipe agora** e peça **Enviar dados** a quem tem mídia pendente. Peça o arquivo em **Exportar dados**, extraia o ZIP inteiro e arraste o `.gpkg` para o QGIS. Lembre das horas em UTC e do filtro por `estado_revisao`.
+Antes de exportar, confira o cartão **Equipe agora** e peça **Enviar dados** a quem tem mídia pendente. Peça o arquivo em **Exportar dados**, extraia o ZIP inteiro e arraste o `.gpkg` para o QGIS. Lembre-se das horas em UTC e do filtro por `estado_revisao`.
 
 O que cada cartão mostra e as regras da exportação estão em [acompanhar o projeto](https://docs.terranode.com.br/projetos/acompanhamento/). Se o seu projeto ainda não usa revisão, leia [quem confere o que veio do campo](/blog/como-revisar-coletas-de-campo/).
