@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# PR previews (/pr-preview/) are kept out of the index by the noindex meta tag that
+# Base.astro emits for them. They are deliberately not blocked here: a URL blocked in
+# robots.txt is never fetched, so Google could not see that noindex and might still index
+# a linked preview URL from its address alone.
+
+Sitemap: https://terranode.com.br/sitemap-index.xml
