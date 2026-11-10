@@ -13,11 +13,11 @@ capa:
 recursos: [formularios, integracoes]
 ---
 
-Um formulário de campo que funciona custou caro. Alguém passou meses ajustando a ordem das perguntas, as opções de cada lista e os limites de cada medida, sempre depois de um dia de campo que deu errado. Esse trabalho está guardado em uma planilha, o XLSForm do Survey123.
+Quem usa o Survey123 há algum tempo tem um formulário que já passou por muito campo. As perguntas estão na ordem certa, as listas têm as opções que a equipe usa, e cada ajuste veio de um dia em que alguma coisa deu errado. Tudo isso está em uma planilha, o XLSForm.
 
-Na hora de testar outra ferramenta, a primeira conta que a equipe faz é o custo de montar tudo de novo. São sessenta perguntas para redigitar uma a uma, com as listas e as condições, e muita avaliação termina nessa conta.
+É por causa dessa planilha que trocar de ferramenta assusta. Ninguém quer redigitar sessenta perguntas, com listas e condições, só para fazer um teste.
 
-O TerraNode lê o XLSForm e monta o formulário para você. Nem tudo tem equivalente, e a importação diz o que ficou de fora.
+No TerraNode não precisa. Você envia o XLSForm, e ele monta o formulário. Nem tudo tem equivalente, e a importação mostra o que ficou de fora para você ajustar.
 
 > O TerraNode está em beta fechado, e o app roda em Android 12 ou mais recente. Se a sua equipe ainda não tem acesso, [entre na lista de espera](https://form.typeform.com/to/ZVQYTFV5).
 
