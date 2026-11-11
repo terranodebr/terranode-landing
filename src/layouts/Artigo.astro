@@ -33,7 +33,9 @@ const outros = artigos.filter((a) => a.id !== entry.id).slice(0, 2);
 
 // A link in the prose to another article is a 404 in production while that article is a
 // draft, and nothing else would catch it. Fails the build instead, so publish them together.
-for (const [, id] of prosa.matchAll(/href="[^"]*\/blog\/([^/"#]+)\/?[^"]*"/g)) {
+// Only this site's links count: other sites have /blog/ paths too (confidata.com.br/blog/...).
+const linkInterno = /href="(?:https:\/\/terranode\.com\.br)?(?:\/(?!\/)[^"]*?)?\/blog\/([^/"#?]+)\/?[^"]*"/g;
+for (const [, id] of prosa.matchAll(linkInterno)) {
   if (!artigos.some((a) => a.id === id)) {
     throw new Error(`O artigo "${entry.id}" tem um link para "/blog/${id}/", que não existe ou ainda é rascunho.`);
   }
