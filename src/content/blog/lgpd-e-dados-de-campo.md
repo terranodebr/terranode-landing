@@ -10,6 +10,9 @@ draft: true
 capa:
   src: "../../assets/blog/lgpd-e-dados-de-campo/capa.webp"
   alt: "Técnico de campo de colete refletivo, de costas, fotografando com o celular uma rua de terra com casas simples, muros, um carro parado e roupa no varal"
+convite:
+  titulo: "Sua próxima campanha com o dado no Brasil e criptografado desde o celular"
+  texto: "O TerraNode está em beta fechado com equipes de campo selecionadas. Entre na lista e escolha: só o aviso do lançamento ou uma vaga entre os early testers, coletando antes de todo mundo."
 recursos: [seguranca, aplicativo]
 setores: [topografia-e-cadastro, meio-ambiente]
 ---
@@ -84,6 +87,8 @@ O TerraNode foi desenhado para equipes que coletam onde o sinal não chega, e a 
 
 Nenhuma ferramenta deixa uma empresa em conformidade sozinha. Definir a base legal da coleta, avisar as pessoas e decidir por quanto tempo guardar continuam sendo tarefas de quem é dono do projeto. O que o TerraNode faz é tirar da frente a parte que depende de tecnologia. A [página de segurança](/recursos/seguranca/) detalha cada uma dessas camadas.
 
+<!-- lista-de-espera -->
+
 ## Sete perguntas antes de sair para o campo
 
 1. O formulário pede algum dado pessoal que o projeto não precisa?
@@ -105,8 +110,6 @@ Nenhuma ferramenta deixa uma empresa em conformidade sozinha. Definir a base leg
 **Quem responde pelo dado: a empresa que coleta ou o fornecedor do app?** Em geral, quem decide o que coletar e para quê é o controlador, e o fornecedor do app atua como operador. Os dois têm deveres de segurança, mas as decisões e a relação com o titular são do controlador.
 
 **Guardar os dados no Brasil garante conformidade?** Não garante. Elimina a parte de transferência internacional e facilita a fiscalização, mas base legal, segurança e direitos dos titulares continuam valendo.
-
-> O TerraNode está em beta fechado. Para testar antes do lançamento, [entre na lista de espera](https://form.typeform.com/to/ZVQYTFV5).
 
 ## Fontes
 
