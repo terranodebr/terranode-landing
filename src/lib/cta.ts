@@ -10,7 +10,7 @@ export interface OrigemBlog {
 }
 
 /** Where on the page the link sits. */
-export type PosicaoCta = "corpo" | "fechamento" | "cabecalho" | "rodape";
+export type PosicaoCta = "corpo" | "convite" | "fechamento" | "cabecalho" | "rodape";
 
 /** The waitlist URL, tagged when the link is on a blog page and bare everywhere else. */
 export function listaDeEspera(origem: OrigemBlog | undefined, content: PosicaoCta): string {

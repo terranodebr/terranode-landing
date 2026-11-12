@@ -1,0 +1,51 @@
+---
+// Waitlist invitation in the middle of an article, where the author writes
+// <!-- lista-de-espera --> in the Markdown (AGENTS.md). Dark on the light body so it reads
+// as an offer, not as more prose. The screen is the real field app, not an illustration.
+import { Image } from "astro:assets";
+import tela from "../../assets/tela-app-topografia-e-cadastro.webp";
+import { listaDeEspera, type OrigemBlog } from "../../lib/cta";
+
+interface Props {
+  utm: OrigemBlog;
+  titulo?: string;
+  texto?: string;
+}
+
+const {
+  utm,
+  titulo = "Leve a próxima campanha de campo para o TerraNode",
+  texto = "Estamos em beta fechado com equipes de campo selecionadas. Entre na lista e escolha: só o aviso do lançamento ou uma vaga entre os early testers.",
+} = Astro.props;
+
+// What an early tester gets, as the home page FAQ promises it.
+const vantagens = [
+  "Acesso antecipado para a sua equipe",
+  "Onboarding acompanhado pelo nosso time",
+  "Canal direto com quem faz o produto",
+];
+
+const check = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>';
+const cadeado = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10.5" width="16" height="10.5" rx="2.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg>';
+const seta = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+---
+<aside class="tn-art-convite" aria-label="Lista de espera do TerraNode">
+  <div class="tn-art-convite__texto">
+    <span class="tn-art-convite__selo">BETA FECHADO</span>
+    <p class="tn-art-convite__titulo">{titulo}</p>
+    <p class="tn-art-convite__lead">{texto}</p>
+    <ul class="tn-art-convite__lista">
+      {vantagens.map((v) => <li><span set:html={check} />{v}</li>)}
+    </ul>
+    <div class="tn-art-convite__acao">
+      <a href={listaDeEspera(utm, "convite")} target="_blank" rel="noopener" class="tn-art-convite__btn" data-mp-cta="blog_artigo_convite">
+        Quero entrar na lista<span set:html={seta} />
+      </a>
+      <span class="tn-art-convite__nota">Formulário curto, sem custo e sem compromisso.</span>
+    </div>
+  </div>
+  <div class="tn-art-convite__tela" aria-hidden="true">
+    <Image src={tela} alt="" widths={[260, 520]} sizes="260px" />
+    <span class="tn-art-convite__chip"><span set:html={cadeado} />Criptografado no aparelho</span>
+  </div>
+</aside>

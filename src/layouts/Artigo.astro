@@ -6,6 +6,7 @@ import { Image, getImage } from "astro:assets";
 import Base from "./Base.astro";
 import Header from "../components/Header.astro";
 import Animacoes from "../components/recursos/Animacoes.astro";
+import Convite from "../components/blog/Convite.astro";
 import { asset } from "../lib/asset";
 import { WAITLIST, listaDeEspera, type OrigemBlog } from "../lib/cta";
 import {
@@ -26,6 +27,15 @@ const utm: OrigemBlog = { medium: "artigo", campaign: entry.id };
 // Authors write the bare waitlist link in the Markdown and it gets its UTMs here (AGENTS.md).
 const prosa = ajustarLinks(await Astro.slots.render("default"))
   .replaceAll(`href="${WAITLIST}"`, `href="${listaDeEspera(utm, "corpo").replaceAll("&", "&amp;")}"`);
+// The waitlist invitation goes where the author wrote <!-- lista-de-espera -->, once at most.
+const MARCA_CONVITE = "<!-- lista-de-espera -->";
+const [prosaAntes, prosaDepois, ...sobra] = prosa.split(MARCA_CONVITE);
+if (sobra.length > 0) {
+  throw new Error(`O artigo "${entry.id}" tem mais de um ${MARCA_CONVITE}. Use um só.`);
+}
+if (d.convite && prosaDepois === undefined) {
+  throw new Error(`O artigo "${entry.id}" define convite no frontmatter, mas não tem ${MARCA_CONVITE} no texto.`);
+}
 const autor = autorDe(d.autor);
 const relacionadas = await paginasRelacionadas(entry);
 const artigos = await getArtigos();
@@ -33,7 +43,9 @@ const outros = artigos.filter((a) => a.id !== entry.id).slice(0, 2);
 
 // A link in the prose to another article is a 404 in production while that article is a
 // draft, and nothing else would catch it. Fails the build instead, so publish them together.
-for (const [, id] of prosa.matchAll(/href="[^"]*\/blog\/([^/"#]+)\/?[^"]*"/g)) {
+// Only this site's links count: other sites have /blog/ paths too (confidata.com.br/blog/...).
+const linkInterno = /href="(?:https:\/\/terranode\.com\.br)?(?:\/(?!\/)[^"]*?)?\/blog\/([^/"#?]+)\/?[^"]*"/g;
+for (const [, id] of prosa.matchAll(linkInterno)) {
   if (!artigos.some((a) => a.id === id)) {
     throw new Error(`O artigo "${entry.id}" tem um link para "/blog/${id}/", que não existe ou ainda é rascunho.`);
   }
@@ -105,7 +117,15 @@ const passos = ["Baixe o projeto antes de sair", "Colete sem sinal", "Envie quan
     </header>
 
     <section class:list={["tn-rec-secao", "tn-tema-claro", "tn-art-corpo", !d.capa && "tn-art-corpo--sem-capa"]}>
-      <article class="tn-art-prosa" set:html={prosa} />
+      <article class="tn-art-prosa">
+        <Fragment set:html={prosaAntes} />
+        {prosaDepois !== undefined && (
+          <>
+            <Convite utm={utm} titulo={d.convite?.titulo} texto={d.convite?.texto} />
+            <Fragment set:html={prosaDepois} />
+          </>
+        )}
+      </article>
 
       <footer class="tn-art-rodape">
         {d.atualizadoEm && (
