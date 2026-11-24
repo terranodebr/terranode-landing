@@ -7,6 +7,7 @@ import Base from "../../layouts/Base.astro";
 import Header from "../Header.astro";
 import Animacoes from "../recursos/Animacoes.astro";
 import { asset } from "../../lib/asset";
+import { listaDeEspera, type OrigemBlog } from "../../lib/cta";
 import { categorias, dataPorExtenso, type Artigo } from "../../lib/blog";
 
 interface Props {
@@ -15,7 +16,7 @@ interface Props {
 
 const { artigos } = Astro.props;
 
-const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
+const utm: OrigemBlog = { medium: "indice", campaign: "indice" };
 
 const title = "Blog: coleta de dados em campo e mapas · TerraNode";
 const description =
@@ -26,7 +27,7 @@ const presentes = Object.entries(categorias).filter(([id]) =>
   artigos.some((a) => a.data.categoria === id),
 );
 ---
-<Base title={title} description={description} rodapeTopo="#0C1312">
+<Base title={title} description={description} rodapeTopo="#0C1312" utm={utm}>
   <Fragment slot="head">
     <link rel="alternate" type="application/rss+xml" title="Blog do TerraNode" href={asset("/blog/rss.xml")}>
   </Fragment>
@@ -34,7 +35,7 @@ const presentes = Object.entries(categorias).filter(([id]) =>
   <Animacoes />
   <div class="tn-rec">
 
-    <div class="tn-rec-topo" data-rolagem-offset><Header /></div>
+    <div class="tn-rec-topo" data-rolagem-offset><Header utm={utm} /></div>
 
     <section class="tn-rec-hero">
       <div class="tn-rec-hero__texto" data-anim-bloco>
@@ -78,7 +79,7 @@ const presentes = Object.entries(categorias).filter(([id]) =>
           <span class="tn-rec-cap__rotulo">LANÇAMENTO EM BREVE</span>
           <h2 class="tn-rec-h2 tn-rec-h2--pequeno" data-anim="words">Leve sua próxima campanha de campo para o TerraNode</h2>
           <div class="tn-rec-acoes tn-rec-acoes--esquerda">
-            <a href={WAITLIST} target="_blank" rel="noopener" class="tn-rec-btn tn-rec-btn--claro" data-mp-cta="blog_indice_fechamento">Entrar na lista de espera</a>
+            <a href={listaDeEspera(utm, "fechamento")} target="_blank" rel="noopener" class="tn-rec-btn tn-rec-btn--claro" data-mp-cta="blog_indice_fechamento">Entrar na lista de espera</a>
           </div>
         </div>
       </div>
