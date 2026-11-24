@@ -11,6 +11,9 @@ capa:
   src: "../../assets/blog/como-levar-um-shapefile-para-o-campo/catalogo-estilos-ibge.webp"
   alt: "Aba Estilos do catálogo IBGE 250k, com as linhas de energia do Sudeste categorizadas por situação e a legenda sobre o mapa"
 recursos: [catalogos, aplicativo]
+convite:
+  titulo: "Seu Shapefile no celular da equipe, mesmo sem internet"
+  texto: "O TerraNode está em beta fechado com equipes de campo selecionadas. Entre na lista e escolha: só o aviso do lançamento ou uma vaga entre os early testers."
 ---
 
 Quase todo trabalho de campo parte de um arquivo que alguém já tem: os limites das propriedades, a rede de distribuição, as unidades de conservação da região. Muitas vezes esse arquivo é um Shapefile, e a equipe precisa dele no celular, longe de qualquer sinal.
@@ -94,6 +97,8 @@ Em campo, o app calcula o valor no próprio celular, sem internet. Ninguém digi
 ![Formulário com o campo Município preenchido com Florianópolis e a nota Preenchido pela localização do aparelho, acima do campo de geometria com latitude e longitude](../../assets/blog/como-levar-um-shapefile-para-o-campo/consulta-por-localizacao.webp)
 
 *O coletor não edita esse campo. O app tirou o município de uma fonte de polígonos, usando o ponto logo abaixo.*
+
+<!-- lista-de-espera -->
 
 ## Antes de chamar a equipe
 

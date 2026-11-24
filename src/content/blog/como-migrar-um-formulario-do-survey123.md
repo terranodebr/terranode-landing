@@ -11,6 +11,9 @@ capa:
   src: "../../assets/blog/como-migrar-um-formulario-do-survey123/planilha-xlsform.webp"
   alt: "Planilha XLSForm aberta, com as colunas type, hint, required, relevant, appearance, default e constraint na primeira linha"
 recursos: [formularios, integracoes]
+convite:
+  titulo: "Traga o XLSForm do Survey123 e teste com a sua equipe"
+  texto: "O TerraNode está em beta fechado com equipes de campo selecionadas. Entre na lista e escolha: só o aviso do lançamento ou uma vaga entre os early testers."
 ---
 
 Quem usa o Survey123 há algum tempo tem um formulário que já passou por muito campo. As perguntas estão na ordem certa, as listas têm as opções que a equipe usa, e cada ajuste veio de um dia em que alguma coisa deu errado. Tudo isso está em uma planilha, o XLSForm.
@@ -70,6 +73,8 @@ Antes de soltar para todo mundo, faça uma coleta de teste você mesmo. Dez minu
 Se o seu formulário depende de repetições, como várias árvores dentro de uma parcela, ou se a coleta é o traçado de uma linha, a importação entrega um formulário mais simples do que o original. Nesses casos, a lista do relatório mostra quanto falta, e você decide com ela na mão.
 
 Para os formulários de ponto, com perguntas, listas, fotos e condições simples, a planilha que levou meses para amadurecer chega pronta em uma tarde.
+
+<!-- lista-de-espera -->
 
 ## O caminho inteiro
 

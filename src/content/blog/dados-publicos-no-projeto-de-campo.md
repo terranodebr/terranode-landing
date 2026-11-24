@@ -9,6 +9,9 @@ publicadoEm: 2026-11-16
 draft: false
 recursos: [catalogos, aplicativo]
 setores: [meio-ambiente, exploracao-mineral]
+convite:
+  titulo: "UCs, terras indígenas e processos minerários já no mapa da equipe"
+  texto: "O TerraNode está em beta fechado com equipes de campo selecionadas. Entre na lista e escolha: só o aviso do lançamento ou uma vaga entre os early testers."
 ---
 
 Todo projeto de campo começa com os mesmos downloads. Alguém entra no site do órgão ambiental atrás das unidades de conservação. Depois vai à FUNAI pelas terras indígenas e à ANM pelos processos minerários. Cada site entrega um formato, e nenhum avisa quando o dado muda.
@@ -66,6 +69,8 @@ Há uma proteção para o dia em que a fonte oficial sai quebrada. Se uma camada
 Elas são referência. A camada mostra o que o órgão publicou na data indicada, com a precisão do órgão. Uma decisão de licenciamento continua pedindo a consulta formal, e a tela de **Visão geral** dá o endereço da fonte para isso.
 
 O conjunto também é fixo por enquanto. Novas fontes entram pelas mãos da equipe do TerraNode, e não pela interface. Se o seu trabalho depende de uma base que não está na lista, você pode enviar o arquivo para um catálogo da sua organização.
+
+<!-- lista-de-espera -->
 
 ## Um download a menos por projeto
 

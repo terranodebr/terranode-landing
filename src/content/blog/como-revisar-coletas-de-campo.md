@@ -11,6 +11,9 @@ capa:
   src: "../../assets/blog/como-revisar-coletas-de-campo/novo-projeto-regras-de-coleta.webp"
   alt: "Passo Detalhes do assistente Novo projeto, com o bloco Regras de coleta e a opção Exigir revisão dos pontos"
 recursos: [aplicativo, formularios]
+convite:
+  titulo: "Saiba o que foi conferido antes de entregar os dados"
+  texto: "O TerraNode está em beta fechado com equipes de campo selecionadas. Entre na lista e escolha: só o aviso do lançamento ou uma vaga entre os early testers."
 ---
 
 Toda campanha de campo termina com alguém conferindo o que chegou, e sempre aparece alguma coisa: a foto do poste que saiu escura, o código de amostra repetido, o ponto que caiu do outro lado da rua.
@@ -64,6 +67,8 @@ A rejeição só marca a coleta e guarda o motivo. Refazer o ponto é uma coleta
 Quando a campanha termina, o gestor usa **Concluir projeto**. A janela avisa quantas coletas ainda aguardam revisão e quantas continuam presas nos aparelhos. O aviso não impede a conclusão, e a revisão continua disponível com o projeto concluído, então dá para encerrar o campo e terminar a conferência depois.
 
 A exportação leva todas as coletas, qualquer que seja o estado. Cada uma sai com uma coluna que diz o estado da revisão, então quem recebe o arquivo consegue separar as validadas das outras.
+
+<!-- lista-de-espera -->
 
 ## Para a próxima campanha
 

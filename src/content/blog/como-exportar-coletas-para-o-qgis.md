@@ -8,6 +8,9 @@ autor: george-silva
 publicadoEm: 2026-11-13
 draft: false
 recursos: [aplicativo, catalogos]
+convite:
+  titulo: "As coletas da sua equipe no QGIS, em um GeoPackage"
+  texto: "O TerraNode está em beta fechado com equipes de campo selecionadas. Entre na lista e escolha: só o aviso do lançamento ou uma vaga entre os early testers."
 ---
 
 A campanha acabou. A equipe voltou, os celulares estão na mesa, e o trabalho muda de mãos. Agora alguém precisa transformar algumas centenas de coletas em um mapa, um relatório e uma entrega para o cliente.
@@ -67,6 +70,8 @@ Também não existe exportação direta em CSV ou em Shapefile. Com a camada abe
 ## E as camadas do catálogo
 
 O arquivo traz o que veio do campo. As camadas de referência do catálogo, como a rede ou os limites de propriedade, não entram nele. O QGIS consegue ler essas camadas direto do TerraNode, por um padrão aberto de leitura de feições, com um token de acesso. O passo a passo está na documentação de [uso dos dados em outras ferramentas](https://docs.terranode.com.br/catalogos/usar-em-outras-ferramentas/).
+
+<!-- lista-de-espera -->
 
 ## A passagem em uma tarde
 

@@ -11,59 +11,67 @@ recursos: [catalogos, integracoes]
 capa:
   src: "../../assets/blog/como-o-terranode-le-os-seus-arquivos/envio-processando.webp"
   alt: "Janela Processando os arquivos sobre um catálogo, com o cartão Processando ao lado listando cada camada do .zip como Concluído, Na fila ou Processando"
+convite:
+  titulo: "Envie a pasta como ela está e leve as camadas para o campo"
+  texto: "O TerraNode está em beta fechado com equipes de campo selecionadas. Entre na lista e escolha: só o aviso do lançamento ou uma vaga entre os early testers."
 ---
 
-Quem trabalha com dados geográficos quase nunca escolhe o formato em que eles chegam. O limite das propriedades vem em Shapefile, baixado de um órgão estadual. A rede de distribuição sai do ArcGIS como File Geodatabase. O inventário está em uma planilha do Excel, e a ortofoto chegou em GeoTIFF.
+Uma pasta de projeto raramente chega arrumada. Dentro dela há quatro Shapefiles do IBGE em uma subpasta, uma planilha com duas abas, uma imagem de satélite e um PDF de metadados. Antes de levar esse material para o campo, alguém precisa descobrir o que serve, conferir os sistemas de referência e fazer tudo aparecer no mesmo mapa.
 
-Antes de qualquer coleta, alguém precisa juntar tudo isso em um mapa só. Na maioria das equipes, esse alguém passa a manhã no QGIS convertendo arquivos, reprojetando camadas e renomeando colunas.
-
-No TerraNode, a ideia é mandar o arquivo como ele está. Este texto conta o que acontece entre o momento em que o arquivo cai no catálogo e o momento em que a camada aparece no mapa, e mostra os poucos pontos em que o TerraNode ainda precisa da sua ajuda.
+É esse arquivo misturado que vamos acompanhar. Ele entra no TerraNode como um único `.zip` e termina como sete fontes de dados no catálogo: quatro camadas do IBGE, duas abas da planilha e um raster. O PDF fica de fora. No caminho, o TerraNode abre o pacote, encontra as camadas, procura coordenadas nas planilhas e prepara cada fonte separadamente.
 
 > O TerraNode está em beta fechado, e o app roda em Android 12 ou mais recente. Se a sua equipe ainda não tem acesso, [entre na lista de espera](https://form.typeform.com/to/ZVQYTFV5).
 
-## Primeiro, descobrir o que tem dentro
+## O TerraNode abre a pasta inteira
 
-Um arquivo raramente traz uma camada só. Um GeoPackage pode ter doze tabelas. Um `.zip` baixado de um portal público pode trazer pastas e subpastas com Shapefiles, um GeoTIFF e um PDF de metadados no meio.
+O envio começa pelo `.zip`, sem que você precise tirar os arquivos das subpastas. O TerraNode percorre a estrutura inteira e separa o que sabe ler. No nosso exemplo, encontra os quatro Shapefiles, a planilha e o GeoTIFF. O PDF não é um dado geográfico e fica de fora.
 
-O TerraNode começa abrindo o pacote. Ele percorre o `.zip` inteiro, inclusive as subpastas, e separa os arquivos que sabe ler. São Shapefile, GeoPackage, GeoJSON, FlatGeobuf, MapInfo, File Geodatabase, CSV, planilhas do Excel e do LibreOffice, GeoTIFF e ERDAS Imagine. Uma pasta `.gdb` conta como um conjunto de dados só, do mesmo jeito que o ArcGIS a trata. O PDF fica de fora.
+Além dos formatos desse arquivo, o TerraNode lê GeoPackage, GeoJSON, FlatGeobuf, MapInfo, File Geodatabase, CSV, planilhas do LibreOffice e ERDAS Imagine. Uma pasta `.gdb` conta como um conjunto de dados só, do mesmo jeito que o ArcGIS a trata.
 
-Depois, o TerraNode abre cada arquivo e descobre quantas camadas há ali e de que tipo cada uma é. O que ele encontra vira uma lista de itens. Cada camada vetorial, tabela, aba de planilha ou raster é um item, com processamento próprio. Um zip com dois Shapefiles e um GeoTIFF vira três itens, e um GeoPackage com doze tabelas vira doze. Essa separação é o que torna seguro mandar um zip grande, porque um Shapefile com defeito não derruba os outros. O envio só falha inteiro quando nada lá dentro pôde ser lido.
+Um mesmo arquivo pode gerar várias [fontes de dados](https://docs.terranode.com.br/catalogos/#fontes-de-dados): cada camada vetorial, tabela, aba de planilha ou raster vira uma delas. As duas abas da planilha do exemplo geram duas fontes; um GeoPackage com doze tabelas gera doze. Cada fonte é processada separadamente. Se uma falha, as demais continuam, e o envio inteiro só falha quando nenhum conteúdo do pacote pode ser lido.
 
-Alguns formatos precisam ir dentro de um `.zip`. Shapefile, MapInfo e File Geodatabase são vários arquivos que só funcionam juntos, e o envio pela web recusa um `.shp` solto com a mensagem **Tipo de arquivo não suportado**. GeoPackage, GeoJSON, FlatGeobuf, CSV, planilhas e rasters podem ir soltos ou compactados.
+![Diagrama do conteúdo de um arquivo zip passando pelo TerraNode e se transformando em sete fontes de dados: quatro camadas vetoriais do IBGE, duas abas de planilha e um raster. O PDF de metadados é ignorado.](../../assets/blog/como-o-terranode-le-os-seus-arquivos/zip-sete-fontes.svg)
 
-## Planilhas, o formato que ninguém chama de geográfico
+*O conteúdo do `.zip` se separa em sete fontes: quatro vetores do IBGE, duas abas da planilha e um raster. O PDF não entra.*
 
-Muito dado de campo mora em planilha. A lista de poços com latitude e longitude, o cadastro de clientes com a coordenada do medidor, o inventário que alguém digitou depois de uma campanha. Uma planilha não tem sistema de referência nem geometria. Tem colunas, e o trabalho do TerraNode é descobrir quais delas são coordenadas.
+O `.zip` também mantém juntos os formatos formados por vários arquivos. Shapefile, MapInfo e File Geodatabase precisam ser [compactados antes do envio](https://docs.terranode.com.br/catalogos/importar-dados/#formatos-aceitos). Um `.shp` solto, sem os arquivos que o completam, é recusado com a mensagem **Tipo de arquivo não suportado**. GeoPackage, GeoJSON, FlatGeobuf, CSV, planilhas e rasters podem ir soltos ou compactados.
 
-Em `.xlsx` e `.ods`, cada aba vira uma camada separada, sempre com a primeira linha como cabeçalho. Uma aba vazia, ou só com o cabeçalho, é ignorada. Nas outras, a busca pelas coordenadas é tolerante. O TerraNode ignora acentos e maiúsculas e reconhece o nome mesmo com alguma coisa antes ou depois, então "Latitude (WGS84)" e "Posição Lng" funcionam. Uma coordenada digitada com vírgula decimal, como `-46,5`, também vira número.
+## As duas abas seguem caminhos diferentes
 
-Com as duas colunas encontradas, cada linha vira um ponto em WGS84. Uma linha com a coordenada vazia, com um texto como `n/d` ou com um valor impossível, como latitude 200, fica sem ponto. O resto da aba entra normalmente.
+A primeira aba da planilha traz as capitais do Brasil, com colunas de latitude e longitude. A segunda traz os estados, mas não tem coordenadas. Embora estejam no mesmo `.xlsx`, elas não terminam do mesmo jeito no catálogo.
 
-O CSV é mais rígido. As colunas precisam se chamar exatamente `longitude`, `lon`, `long`, `lng` ou `x`, e `latitude`, `lat` ou `y`, com maiúsculas ou minúsculas. Se a sua planilha tem nomes como "Lat. (graus)", envie o `.xlsx` em vez de exportar um CSV.
+Em `.xlsx` e `.ods`, cada aba vira uma fonte separada, sempre com a primeira linha como cabeçalho. Uma aba vazia, ou só com o cabeçalho, é ignorada. Nas outras, o TerraNode procura colunas de coordenadas. Ele ignora acentos e maiúsculas e reconhece o nome mesmo com texto antes ou depois. Por isso, "Latitude (WGS84)" e "Posição Lng" funcionam. Uma coordenada digitada com vírgula decimal, como `-46,5`, também vira número.
 
-E quando não há coordenadas? A aba vira uma fonte **Sem geometria**. Ela não aparece no mapa, mas tem tabela de atributos e pode servir de base para um formulário. O Excel antigo, o `.xls`, fica de fora. Abra no Excel ou no LibreOffice e salve como `.xlsx`.
+Na aba das capitais, cada linha com um par válido vira um ponto em WGS84. Se uma linha tiver a coordenada vazia, um texto como `n/d` ou um valor impossível, como latitude 200, só aquela linha fica sem ponto. O restante entra normalmente.
+
+No CSV, a busca é mais rígida. As colunas precisam se chamar exatamente `longitude`, `lon`, `long`, `lng` ou `x`, e `latitude`, `lat` ou `y`, com maiúsculas ou minúsculas. Se a planilha usa nomes como "Lat. (graus)", é melhor enviar o `.xlsx` em vez de exportar um CSV.
+
+A aba dos estados não tem coordenadas. Ela entra como uma fonte **Sem geometria**: não aparece no mapa, mas mantém a tabela de atributos e pode servir de base para um formulário. O Excel antigo, no formato `.xls`, fica de fora. Antes do envio, abra o arquivo no Excel ou no LibreOffice e salve como `.xlsx`.
 
 Se a planilha mora no Google Sheets, a [integração](https://docs.terranode.com.br/integracoes/google-sheets/) traz as abas direto, sem baixar arquivo, com o mesmo detector de coordenadas. Ali o TerraNode lê também o tipo de cada célula, então datas continuam datas e números continuam números. Se ele escolher a coluna errada, você indica qual é a latitude e qual é a longitude.
 
 ![Aba Fontes de dados de um catálogo com sete fontes: brasil - capitais como Ponto, brasil - estados como Sem geometria, quatro camadas do IBGE como Polígono, Ponto e Linha, e imagem-orbital-recorte como Raster](../../assets/blog/como-o-terranode-le-os-seus-arquivos/fontes-de-dados-formatos.webp)
 
-*Um só `.zip` com quatro Shapefiles do IBGE em uma subpasta, uma planilha com duas abas e um GeoTIFF virou sete fontes. A aba com Latitude e Longitude virou pontos, e a aba sem coordenadas ficou Sem geometria.*
+*O resultado do arquivo que acompanhamos: quatro camadas do IBGE, duas fontes criadas a partir da planilha e o GeoTIFF.*
 
-## O que muda nos dados no caminho
+## Cada fonte é preparada para o mapa
 
-Achar a camada é metade do trabalho. A outra metade é deixar todas as camadas do catálogo falando a mesma língua, para que se sobreponham no mapa e no celular sem surpresa.
+Depois de separar as sete fontes, o TerraNode prepara cada uma para que as camadas se sobreponham corretamente no mapa e no celular.
 
-A primeira exigência é o sistema de referência. Todo vetor e todo raster precisa declarar um sistema ligado à Terra. Pode ser SIRGAS 2000 em UTM, SAD69 ou WGS84. O TerraNode converte os vetores para WGS84, e você não precisa reprojetar nada antes. O que ele não consegue é adivinhar. Um Shapefile sem o `.prj` falha, e um arquivo em um sistema local de engenharia, sem referência à Terra, também.
+Primeiro vem o sistema de referência. Todo vetor e todo raster precisa declarar um sistema ligado à Terra, como SIRGAS 2000 em UTM, SAD69 ou WGS84. O TerraNode converte os vetores para WGS84, sem exigir reprojeção antes do envio. Mas ele não consegue descobrir um sistema que o arquivo não declarou. Um Shapefile sem o `.prj` falha, assim como um arquivo em um sistema local de engenharia sem referência à Terra.
 
 Depois vem a limpeza dos vetores. Geometrias inválidas, como um polígono que cruza a si mesmo, são corrigidas. Pontos, linhas e polígonos passam a ser do tipo "multi", que aceita várias partes na mesma feição. Valores de altitude Z e medidas M ficam de fora, e a camada entra em duas dimensões. Os nomes das colunas ficam em minúsculas, com apóstrofo, hífen e `#` trocados por `_`. Acentos e espaços nos nomes continuam.
 
 Os acentos dentro dos dados pedem um cuidado especial nos Shapefiles. Muitos arquivos gerados no Brasil não declaram a codificação do texto. Nesse caso, o TerraNode tenta ler como UTF-8 e, se não der, tenta de novo como ISO-8859-1, a codificação que boa parte dos programas antigos usava.
 
-Os rasters seguem outro caminho. O TerraNode guarda cada um como Cloud Optimized GeoTIFF, sem perda de qualidade, em um formato que o mapa carrega por partes. As estatísticas de cada banda saem do arquivo inteiro, não de uma amostra. Na primeira abertura, uma imagem RGB abre em cor verdadeira, e uma elevação abre com uma rampa entre o mínimo e o máximo.
-## O que ainda depende de você
+O GeoTIFF segue outro caminho. O TerraNode o guarda como Cloud Optimized GeoTIFF, sem perda de qualidade, em um formato que o mapa carrega por partes. As estatísticas de cada banda saem do arquivo inteiro, não de uma amostra. Na primeira abertura, uma imagem RGB aparece em cor verdadeira, enquanto um raster de elevação recebe uma rampa entre o mínimo e o máximo.
 
-Quase tudo acontece sem você ver. Mesmo assim, três coisas ainda dependem de quem envia. A primeira é o sistema de referência declarado, com o `.prj` dentro do zip do Shapefile. A segunda é compactar os formatos que são vários arquivos, como Shapefile, MapInfo e File Geodatabase. A terceira é usar nomes de coluna reconhecíveis para as coordenadas, principalmente em CSV.
+<!-- lista-de-espera -->
 
-O resto fica com o TerraNode. Ele encontra cada camada dentro do zip, separa as abas da planilha, acha as coordenadas, converte para WGS84, corrige as geometrias e prepara os rasters para o mapa. Quando um item falha, o motivo aparece na tela, e só ele precisa ser enviado de novo.
+## Três decisões continuam com quem envia
 
-A lista completa de formatos, os limites de tamanho e os erros mais comuns estão na [documentação de importação](https://docs.terranode.com.br/catalogos/importar-dados/). Para ver o caminho completo de um arquivo até o celular, leia [como levar um Shapefile para o campo](/blog/como-levar-um-shapefile-para-o-campo/). Se os dados já estão no ArcGIS ou no Google Sheets, as [integrações](/recursos/integracoes/) trazem as camadas sem envio de arquivo. E, com a camada no catálogo, a [página de Catálogos](/recursos/catalogos/) mostra o passo seguinte, que é dar a ela um estilo.
+O processamento automatiza boa parte do trabalho, mas não corrige informação que nunca chegou ao arquivo. Quem envia ainda precisa garantir três coisas: incluir o `.prj` no pacote do Shapefile, compactar formatos compostos por vários arquivos e usar nomes de coluna reconhecíveis para as coordenadas, principalmente em CSV.
+
+O `.zip` que chegou como uma pasta misturada agora aparece no catálogo como sete fontes independentes. As capitais estão no mapa, os estados continuam disponíveis como tabela e os quatro Shapefiles se sobrepõem ao GeoTIFF. A partir daí, cada fonte pode receber um estilo e seguir para um projeto de campo.
+
+A lista completa de formatos, os limites de tamanho e os erros mais comuns estão na [documentação de importação](https://docs.terranode.com.br/catalogos/importar-dados/). Para acompanhar uma dessas camadas até o celular, leia [como levar um Shapefile para o campo](/blog/como-levar-um-shapefile-para-o-campo/). Se os dados já estão no ArcGIS ou no Google Sheets, as [integrações](/recursos/integracoes/) evitam o envio manual de arquivos.
