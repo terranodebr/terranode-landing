@@ -1,5 +1,6 @@
 ---
 import { asset } from "../lib/asset";
+import { listaDeEspera, type OrigemBlog } from "../lib/cta";
 import { getArtigos } from "../lib/blog";
 import { getComparativos } from "../lib/comparativos";
 import { getRecursos, getRecursosEmBreve } from "../lib/recursos";
@@ -9,9 +10,11 @@ import { EMPRESA, enderecoEmLinha } from "../lib/empresa";
 interface Props {
   /** Colour of the section above; see `rodapeTopo` in Base.astro. Defaults to the footer's dark. */
   topo?: string;
+  /** Set on blog pages, so the waitlist links carry UTMs. */
+  utm?: OrigemBlog;
 }
 
-const { topo } = Astro.props;
+const { topo, utm } = Astro.props;
 
 // Root-relative for the same reason as Header.astro: the footer renders on every
 // page, and a bare "#faq" would resolve against a sector page instead of the home page.
@@ -28,7 +31,7 @@ const emBreve = getRecursosEmBreve(recursos);
 // Same draft filter: the Blog link only shows once an article is published.
 const artigos = await getArtigos();
 
-const WAITLIST = "https://form.typeform.com/to/ZVQYTFV5";
+const WAITLIST = listaDeEspera(utm, "rodape");
 
 const pino = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5a7 7 0 0 0-14 0C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>';
 const instagram = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.1" fill="currentColor" stroke="none"/></svg>';

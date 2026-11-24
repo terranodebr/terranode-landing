@@ -7,6 +7,7 @@ import "@fontsource/roboto-mono/400.css";
 import "@fontsource/roboto-mono/500.css";
 import "../styles/global.css";
 import { asset } from "../lib/asset";
+import type { OrigemBlog } from "../lib/cta";
 import { EMPRESA } from "../lib/empresa";
 import { FUNDADORES } from "../lib/time";
 import Footer from "../components/Footer.astro";
@@ -26,6 +27,8 @@ interface Props {
    * fades into its own dark, so the two blend instead of meeting at a seam.
    */
   rodapeTopo?: string;
+  /** Blog pages pass it on to the footer, so its waitlist links carry UTMs. */
+  utm?: OrigemBlog;
 }
 
 const {
@@ -36,6 +39,7 @@ const {
   ogType = "website",
   autor = "TerraNode",
   rodapeTopo,
+  utm,
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -131,7 +135,7 @@ const software = {
 </head>
 <body>
 <slot />
-<Footer topo={rodapeTopo} />
+<Footer topo={rodapeTopo} utm={utm} />
 
 <script is:inline>
 // Links to a section of the page you're on scroll there instead of jumping. Covers bare

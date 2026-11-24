@@ -1,8 +1,16 @@
 ---
 import { asset } from "../lib/asset";
+import { listaDeEspera, type OrigemBlog } from "../lib/cta";
 import { getArtigos } from "../lib/blog";
 import { getRecursos, getRecursosEmBreve } from "../lib/recursos";
 import { getSolucoes } from "../lib/solucoes";
+
+interface Props {
+  /** Set on blog pages, so the waitlist link carries UTMs. */
+  utm?: OrigemBlog;
+}
+
+const { utm } = Astro.props;
 
 // asset() keeps the home link working under the PR-preview base path.
 const home = asset("/");
@@ -116,7 +124,7 @@ const seta = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke
       {links.slice(1).map((l) => <a href={l.href}>{l.rotulo}</a>)}
     </nav>
     <div class="tn-header__actions">
-      <a href="https://form.typeform.com/to/ZVQYTFV5" target="_blank" rel="noopener" data-mp-cta="header_cta" class="tn-header__cta">Entrar na lista</a>
+      <a href={listaDeEspera(utm, "cabecalho")} target="_blank" rel="noopener" data-mp-cta="header_cta" class="tn-header__cta">Entrar na lista</a>
       <button type="button" class="tn-header__menu" aria-expanded="false" aria-controls="tn-menu-movel" aria-label="Abrir menu" data-header-menu set:html={menu} />
     </div>
 
