@@ -25,7 +25,7 @@ O envio começa pelo `.zip`, sem que você precise tirar os arquivos das subpast
 
 Além dos formatos desse arquivo, o TerraNode lê GeoPackage, GeoJSON, FlatGeobuf, MapInfo, File Geodatabase, CSV, planilhas do LibreOffice e ERDAS Imagine. Uma pasta `.gdb` conta como um conjunto de dados só, do mesmo jeito que o ArcGIS a trata.
 
-Encontrar um arquivo ainda não diz quantas camadas há nele. A planilha do exemplo tem duas abas, portanto gera dois itens. Um GeoPackage com doze tabelas geraria doze. Cada camada vetorial, tabela, aba de planilha ou raster segue com processamento próprio. Se um dos Shapefiles tiver defeito, os outros itens continuam. O envio inteiro só falha quando nada dentro do pacote pode ser lido.
+Um mesmo arquivo pode gerar várias [fontes de dados](https://docs.terranode.com.br/catalogos/#fontes-de-dados): cada camada vetorial, tabela, aba de planilha ou raster vira uma delas. As duas abas da planilha do exemplo geram duas fontes; um GeoPackage com doze tabelas gera doze. Cada fonte é processada separadamente. Se uma falha, as demais continuam, e o envio inteiro só falha quando nenhum conteúdo do pacote pode ser lido.
 
 O `.zip` também mantém juntos os formatos formados por vários arquivos. Shapefile, MapInfo e File Geodatabase precisam ser enviados assim. Um `.shp` solto, sem os arquivos que o completam, é recusado com a mensagem **Tipo de arquivo não suportado**. GeoPackage, GeoJSON, FlatGeobuf, CSV, planilhas e rasters podem ir soltos ou compactados.
 
