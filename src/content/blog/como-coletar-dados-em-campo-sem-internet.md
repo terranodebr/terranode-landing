@@ -11,6 +11,9 @@ capa:
   src: "../../assets/foto-torre-campo.webp"
   alt: "Base de uma torre de transmissão com a plaqueta de número 132, em um pasto com mata ao fundo"
 recursos: [aplicativo, formularios]
+convite:
+  titulo: "Sua próxima saída de campo sem depender de sinal"
+  texto: "O TerraNode está em beta fechado com equipes de campo selecionadas. Entre na lista e escolha: só o aviso do lançamento ou uma vaga entre os early testers."
 ---
 
 O sinal costuma acabar antes de a equipe chegar ao ponto. Em uma vistoria de linha de transmissão ou em um levantamento em área rural, o dia inteiro pode passar sem 4G. Se o trabalho depende de internet para abrir o mapa ou enviar o formulário, a equipe volta com metade do que foi buscar, ou com fotos soltas na galeria sem saber de qual ponto são.
@@ -95,6 +98,8 @@ O estado que mais engana é **Enviada · mídia pendente**. Ele parece trabalho 
 Com tudo enviado, toque em **Encerrar**. A sessão fecha de vez. Você não consegue mais editar nem excluir as coletas dela, nem reabri-la, e a próxima saída pede uma sessão nova. **Enviar dados** continua funcionando depois disso, então ainda dá para mandar fotos que ficaram para trás.
 
 Um cuidado vale para qualquer dia. Não desinstale o app com coletas pendentes, porque desinstalar apaga o que ainda não subiu. Se o app [desconectar a sua conta](https://docs.terranode.com.br/app/enviar-dados/#o-aplicativo-foi-desconectado), entre de novo com a mesma conta, e os dados continuam no aparelho.
+
+<!-- lista-de-espera -->
 
 ## Antes da próxima saída
 

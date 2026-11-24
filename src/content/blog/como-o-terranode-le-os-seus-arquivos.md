@@ -11,6 +11,9 @@ recursos: [catalogos, integracoes]
 capa:
   src: "../../assets/blog/como-o-terranode-le-os-seus-arquivos/envio-processando.webp"
   alt: "Janela Processando os arquivos sobre um catálogo, com o cartão Processando ao lado listando cada camada do .zip como Concluído, Na fila ou Processando"
+convite:
+  titulo: "Envie a pasta como ela está e leve as camadas para o campo"
+  texto: "O TerraNode está em beta fechado com equipes de campo selecionadas. Entre na lista e escolha: só o aviso do lançamento ou uma vaga entre os early testers."
 ---
 
 Uma pasta de projeto raramente chega arrumada. Dentro dela há quatro Shapefiles do IBGE em uma subpasta, uma planilha com duas abas, uma imagem de satélite e um PDF de metadados. Antes de levar esse material para o campo, alguém precisa descobrir o que serve, conferir os sistemas de referência e fazer tudo aparecer no mesmo mapa.
@@ -62,6 +65,8 @@ Depois vem a limpeza dos vetores. Geometrias inválidas, como um polígono que c
 Os acentos dentro dos dados pedem um cuidado especial nos Shapefiles. Muitos arquivos gerados no Brasil não declaram a codificação do texto. Nesse caso, o TerraNode tenta ler como UTF-8 e, se não der, tenta de novo como ISO-8859-1, a codificação que boa parte dos programas antigos usava.
 
 O GeoTIFF segue outro caminho. O TerraNode o guarda como Cloud Optimized GeoTIFF, sem perda de qualidade, em um formato que o mapa carrega por partes. As estatísticas de cada banda saem do arquivo inteiro, não de uma amostra. Na primeira abertura, uma imagem RGB aparece em cor verdadeira, enquanto um raster de elevação recebe uma rampa entre o mínimo e o máximo.
+
+<!-- lista-de-espera -->
 
 ## Três decisões continuam com quem envia
 

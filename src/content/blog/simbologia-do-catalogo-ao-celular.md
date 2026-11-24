@@ -11,6 +11,9 @@ recursos: [catalogos, aplicativo]
 capa:
   src: "../../assets/blog/simbologia-do-catalogo-ao-celular/estilo-usinas-rotulos.webp"
   alt: "Aba Estilos com as usinas do IBGE no interior de São Paulo, marcadas com um ícone de barragem, em azul as hidrelétricas e em verde as termelétricas, com o nome de cada usina como rótulo"
+convite:
+  titulo: "O mapa que você preparou no escritório, igual no celular e sem internet"
+  texto: "O TerraNode está em beta fechado com equipes de campo selecionadas. Entre na lista e escolha: só o aviso do lançamento ou uma vaga entre os early testers."
 ---
 
 Uma camada de usinas chega ao catálogo como uma coleção de pontos iguais. No meio dela há hidrelétricas e termelétricas, cada uma com nome próprio, mas nada disso aparece no desenho inicial. Quem olha o mapa precisa abrir ponto por ponto para saber o que está vendo.
@@ -88,6 +91,8 @@ A imagem abaixo mostra essa passagem para o celular com uma camada de polígonos
 ![Mapa do projeto com o aviso Sem conexão e o painel Camadas aberto, listando a camada unidades-de-conservacao, do tipo Polígonos, ligada](../../assets/blog/como-levar-um-shapefile-para-o-campo/camadas-sem-conexao.webp)
 
 *Uma camada de polígonos no app, em modo avião. O estilo veio no pacote junto com os dados.*
+
+<!-- lista-de-espera -->
 
 ## O ponto deixa de ser apenas um ponto
 

@@ -8,6 +8,9 @@ autor: george-silva
 publicadoEm: 2026-11-12
 draft: false
 recursos: [formularios, aplicativo]
+convite:
+  titulo: "Um formulário que confere a resposta ainda no campo"
+  texto: "O TerraNode está em beta fechado com equipes de campo selecionadas. Entre na lista e escolha: só o aviso do lançamento ou uma vaga entre os early testers."
 ---
 
 A ficha de papel pergunta tudo para todo mundo. O bloco do transformador está lá mesmo quando o poste não tem transformador, no campo de CPF cabe qualquer rabisco, e o "no mínimo três fotos" fica em uma linha que ninguém lê.
@@ -59,6 +62,8 @@ Responda como um coletor com pressa. Diga Sim e Não nas perguntas que abrem blo
 O botão **Publicar** salva o formulário. Cada publicação que muda os campos vira uma revisão numerada, e cada coleta guarda com qual revisão foi feita. Você pode ajustar o formulário no meio da campanha sem estragar o que já chegou. O TerraNode refaz o pacote offline dos projetos que usam o formulário, e a equipe vê **Atualização pendente** no app.
 
 Depois da primeira coleta recebida, a **Chave** de cada campo, que é o nome da coluna nos dados, fica travada. E um campo não é mais removido. Ele é retirado, some do app e pode ser restaurado depois. Então acerte as chaves antes da primeira saída. Rótulos, limites e condições continuam livres.
+
+<!-- lista-de-espera -->
 
 ## A ficha que encolheu
 
