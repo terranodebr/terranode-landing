@@ -2158,3 +2158,39 @@ a.tn-home-caso:hover { color: var(--rec-text); border-color: var(--rec-line-2); 
 .tn-blog-card__resumo { margin: 0; flex: 1; font-weight: 500; font-size: 14.5px; line-height: 1.55; color: var(--rec-muted); text-wrap: pretty; }
 .tn-blog-card__data { font-family: var(--font-mono); font-size: 12px; color: var(--rec-faint); }
 .tn-blog-cta { grid-template-columns: 1fr; }
+
+/* Waitlist invitation inside an article (components/blog/Convite.astro). Dark on the light
+   body, with the dark-theme tokens set here because the body around it is on the light theme. */
+.tn-art-convite {
+  --rec-text: #EEF3F1; --rec-muted: rgba(238, 243, 241, 0.68); --rec-faint: rgba(238, 243, 241, 0.45);
+  --rec-line: rgba(255, 255, 255, 0.08); --rec-line-2: rgba(255, 255, 255, 0.14);
+  position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1fr) 220px; gap: 28px;
+  margin: clamp(40px, 6vw, 56px) 0; padding: clamp(26px, 4vw, 36px) clamp(24px, 4vw, 36px) 0; border-radius: 22px;
+  background: radial-gradient(90% 70% at 100% 100%, rgba(255, 102, 41, 0.28), transparent 65%), radial-gradient(70% 60% at 0% 0%, rgba(255, 102, 41, 0.1), transparent 60%), #0C1312;
+  color: var(--rec-text); box-shadow: 0 40px 80px -40px rgba(12, 19, 18, 0.7);
+}
+.tn-art-convite__texto { display: flex; flex-direction: column; gap: 14px; padding-bottom: clamp(26px, 4vw, 36px); }
+.tn-art-convite__selo { align-self: flex-start; padding: 5px 10px; border-radius: 100px; border: 1px solid rgba(255, 102, 41, 0.45); background: rgba(255, 102, 41, 0.12); font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.08em; color: #FFB38F; }
+.tn-art-prosa .tn-art-convite__titulo { margin: 0; font-weight: 600; font-size: clamp(23px, 3vw, 28px); line-height: 1.15; letter-spacing: -0.03em; color: var(--rec-text); text-wrap: balance; }
+.tn-art-prosa .tn-art-convite__lead { margin: 0; font-weight: 400; font-size: 15.5px; line-height: 1.6; color: var(--rec-muted); }
+.tn-art-prosa .tn-art-convite__lista { list-style: none; margin: 2px 0 4px; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.tn-art-prosa .tn-art-convite__lista li { display: flex; align-items: center; gap: 10px; margin: 0; padding: 0; font-weight: 500; font-size: 15px; line-height: 1.4; color: var(--rec-text); }
+.tn-art-convite__lista li::before { content: none; }
+.tn-art-convite__lista li > span { flex: none; display: inline-grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: rgba(255, 102, 41, 0.18); color: #FF8A5C; }
+.tn-art-convite__acao { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: 6px; }
+.tn-art-prosa a.tn-art-convite__btn { display: inline-flex; align-items: center; gap: 8px; height: 48px; padding: 0 22px; border-radius: 12px; background: var(--tn-accent); color: #fff; font-weight: 600; font-size: 15px; text-decoration: none; box-shadow: 0 12px 30px -12px rgba(255, 102, 41, 0.8); transition: background-color 0.2s, transform 0.2s; }
+.tn-art-prosa a.tn-art-convite__btn:hover { color: #fff; background: #FF7A45; transform: translateY(-1px); }
+.tn-art-convite__btn span { display: inline-flex; transition: transform 0.2s; }
+.tn-art-convite__btn:hover span { transform: translateX(3px); }
+.tn-art-convite__nota { font-size: 13px; line-height: 1.4; color: var(--rec-faint); }
+.tn-art-convite__tela { position: relative; align-self: end; height: 330px; }
+.tn-art-prosa .tn-art-convite__tela img { position: absolute; left: 0; top: 0; width: 220px; max-width: none; max-height: none; height: auto; margin: 0; box-sizing: border-box; border-radius: 28px 28px 0 0; border: 6px solid #1E2928; border-bottom: 0; box-shadow: 0 -20px 60px -20px rgba(0, 0, 0, 0.6); }
+.tn-art-convite__chip { position: absolute; left: -26px; top: 200px; display: inline-flex; align-items: center; gap: 7px; padding: 8px 12px; border-radius: 100px; background: #fff; color: #16201F; font-weight: 600; font-size: 12.5px; white-space: nowrap; box-shadow: 0 14px 30px -12px rgba(0, 0, 0, 0.55); }
+.tn-art-convite__chip span { display: inline-flex; color: #C4460F; }
+@media (max-width: 640px) {
+  .tn-art-convite { grid-template-columns: 1fr; gap: 0; }
+  .tn-art-convite__texto { padding-bottom: 28px; }
+  .tn-art-convite__tela { justify-self: center; width: 200px; height: 220px; }
+  .tn-art-prosa .tn-art-convite__tela img { width: 200px; }
+  .tn-art-convite__chip { left: 50%; top: 150px; transform: translateX(-50%); }
+}

@@ -377,6 +377,16 @@ const blog = defineCollection({
         alt: z.string(),
       })
       .optional(),
+    /**
+     * Text of the waitlist invitation, placed where the body has <!-- lista-de-espera -->.
+     * Optional: without it the card uses the default text in src/components/blog/Convite.astro.
+     */
+    convite: z
+      .object({
+        titulo: z.string(),
+        texto: z.string(),
+      })
+      .optional(),
     /** Sector pages the article relates to, by file name. A wrong name fails the build. */
     setores: z.array(reference("solucoes")).default([]),
     /** Feature pages the article relates to, by file name. A wrong name fails the build. */
