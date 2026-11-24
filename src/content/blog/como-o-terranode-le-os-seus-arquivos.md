@@ -27,6 +27,10 @@ Além dos formatos desse arquivo, o TerraNode lê GeoPackage, GeoJSON, FlatGeobu
 
 Um mesmo arquivo pode gerar várias [fontes de dados](https://docs.terranode.com.br/catalogos/#fontes-de-dados): cada camada vetorial, tabela, aba de planilha ou raster vira uma delas. As duas abas da planilha do exemplo geram duas fontes; um GeoPackage com doze tabelas gera doze. Cada fonte é processada separadamente. Se uma falha, as demais continuam, e o envio inteiro só falha quando nenhum conteúdo do pacote pode ser lido.
 
+![Diagrama do conteúdo de um arquivo zip passando pelo TerraNode e se transformando em sete fontes de dados: quatro camadas vetoriais do IBGE, duas abas de planilha e um raster. O PDF de metadados é ignorado.](../../assets/blog/como-o-terranode-le-os-seus-arquivos/zip-sete-fontes.svg)
+
+*O conteúdo do `.zip` se separa em sete fontes: quatro vetores do IBGE, duas abas da planilha e um raster. O PDF não entra.*
+
 O `.zip` também mantém juntos os formatos formados por vários arquivos. Shapefile, MapInfo e File Geodatabase precisam ser [compactados antes do envio](https://docs.terranode.com.br/catalogos/importar-dados/#formatos-aceitos). Um `.shp` solto, sem os arquivos que o completam, é recusado com a mensagem **Tipo de arquivo não suportado**. GeoPackage, GeoJSON, FlatGeobuf, CSV, planilhas e rasters podem ir soltos ou compactados.
 
 ## As duas abas seguem caminhos diferentes
