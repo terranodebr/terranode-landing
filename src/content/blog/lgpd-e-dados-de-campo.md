@@ -17,99 +17,71 @@ recursos: [seguranca, aplicativo]
 setores: [topografia-e-cadastro, meio-ambiente]
 ---
 
-Um técnico volta do campo com 300 pontos, 900 fotos e uma dúzia de áudios no celular. No meio disso há nomes de moradores, fachadas de casas, placas de carro e a coordenada exata de onde cada pessoa mora. Tudo isso é dado pessoal, e a LGPD vale para ele do mesmo jeito que vale para um cadastro de clientes.
+Um técnico volta do campo com 300 pontos, 900 fotos e uma dúzia de áudios no celular. Entre esses arquivos há nomes de moradores, fachadas de casas, placas de carro e coordenadas de residências. A campanha pode ter acabado para a equipe de campo, mas a responsabilidade sobre esses dados está apenas começando.
 
-A resposta curta para a pergunta do título: a LGPD não obriga ninguém a guardar dados no Brasil. Mas quando o dado sai do país, a lei cobra garantias e documentos que quase nenhuma equipe de campo tem em ordem. Manter tudo em território nacional é o caminho mais simples para não precisar deles.
+A LGPD acompanha o dado durante todo o percurso. Ela importa quando a empresa decide o que perguntar, enquanto o registro está no celular e depois que ele chega ao servidor. Guardar os dados no Brasil não é uma obrigação da lei. É uma forma de evitar a transferência internacional e os documentos exigidos por ela.
 
-## O que vira dado pessoal numa coleta de campo
+## Antes da saída, decida o que realmente precisa ser coletado
 
-Para a LGPD, dado pessoal é qualquer informação relacionada a uma pessoa natural identificada ou identificável. O [guia da ANPD para o cidadão](https://www.gov.br/anpd/pt-br/documentos-e-publicacoes/documentos-de-publicacoes/guia-do-consumidor_como-proteger-seus-dados-pessoais-final.pdf) cita a geolocalização de um celular entre os exemplos.
+Para a LGPD, dado pessoal é qualquer informação relacionada a uma pessoa natural identificada ou identificável. O [guia da ANPD para o cidadão](https://www.gov.br/anpd/pt-br/documentos-e-publicacoes/documentos-de-publicacoes/guia-do-consumidor_como-proteger-seus-dados-pessoais-final.pdf) inclui a geolocalização de um celular entre os exemplos.
 
 ![Ilustração de uma rua vista de cima. Os pinos no poste e no bueiro são cinza; os pinos nas casas são laranja e ligados a ícones de pessoa, câmera e microfone](../../assets/blog/lgpd-e-dados-de-campo/dado-pessoal.webp)
 
-A coordenada de um poste não é dado pessoal. A coordenada de uma casa, ligada ao nome de quem mora nela, é. Em campo essa ligação acontece o tempo todo:
+A coordenada de um poste, sozinha, não identifica uma pessoa. A coordenada de uma casa ligada ao nome do morador, sim. A mesma diferença vale para uma foto de fachada, um áudio de entrevista ou um cadastro de imóvel. O conteúdo e o contexto determinam se aquele registro entra na LGPD.
 
-| O que se coleta | Por que entra na LGPD |
-| --- | --- |
-| Nome, telefone ou CPF no formulário | Identifica a pessoa diretamente |
-| Ponto de uma residência ou propriedade | Mostra onde uma pessoa identificável mora |
-| Foto de fachada, rosto ou placa de carro | A imagem permite identificar alguém |
-| Áudio de entrevista com morador | Voz e conteúdo ligados a uma pessoa |
-| Cadastro de imóvel com proprietário | Une endereço, pessoa e patrimônio |
-| Trajeto do coletor durante o dia | É dado pessoal do próprio funcionário |
+O trajeto gravado durante o dia também merece atenção: ele é um dado pessoal do próprio funcionário. E cadastros socioeconômicos podem ir além, com perguntas sobre saúde, religião ou origem étnica. Esses dados são sensíveis e recebem proteção mais rígida.
 
-Há um degrau acima. Cadastros socioeconômicos de licenciamento ou de regularização fundiária costumam perguntar sobre saúde, religião ou origem étnica. Esses são dados pessoais sensíveis, e a lei é mais rígida com eles.
+Por isso a primeira decisão acontece ainda no formulário. Se o projeto não precisa de CPF, rosto ou placa de carro, esses dados não devem ser coletados só por precaução. Limitar o formulário reduz o volume de informação que a equipe terá de proteger depois.
 
-## A LGPD obriga a guardar os dados no Brasil?
+## No campo, o dado está nas mãos de alguém
 
-Não. A lei vale para dados de pessoas no Brasil esteja o servidor onde estiver, e o artigo 33 permite levar dados para fora em hipóteses específicas. O que ela exige é que você saiba para onde o dado vai e consiga sustentar isso no papel.
-
-Esse papel ficou mais concreto nos últimos dois anos:
-
-- Em agosto de 2024 a ANPD publicou a [Resolução 19](https://www.demarest.com.br/anpd-aprova-o-regulamento-de-transferencia-internacional-de-dados/), com o regulamento de transferência internacional e o texto das cláusulas padrão contratuais.
-- O prazo de adaptação [terminou em 23 de agosto de 2025](https://www.mayerbrown.com/pt/insights/publications/2025/08/end-of-grace-period-implementation-of-brazils-standard-contractual-clauses-in-international-transfers-of-personal-data). Desde então, quem manda dado pessoal para um fornecedor no exterior precisa das cláusulas no contrato ou de outro mecanismo aceito.
-- Em janeiro de 2026 a ANPD [reconheceu a União Europeia](https://www.globalsuitesolutions.com/pt/?p=117782) como destino com proteção adequada. Para os demais países, Estados Unidos incluídos, o caminho usual continua sendo as cláusulas.
-
-Na prática, se o app de coleta guarda os registros num servidor fora do país, quem contratou o app está fazendo uma transferência internacional. Precisa saber disso, ter o contrato certo e conseguir explicar para o titular e para a ANPD.
-
-![Mapa escuro com pontos de coleta ligados, em laranja, a um servidor dentro do Brasil. Do mesmo servidor saem linhas tracejadas para servidores nos Estados Unidos e na Europa, cada um com um documento ao lado](../../assets/blog/lgpd-e-dados-de-campo/transferencia-internacional.webp)
-
-Quando o dado nasce, trafega e fica no Brasil, sem nenhum agente de tratamento no exterior, não existe transferência para justificar. É uma pilha de documentos a menos.
-
-Um cuidado: "servidor no Brasil" não resolve tudo sozinho. Vale perguntar ao fornecedor onde ficam os backups e quais terceiros tocam no dado.
-
-## O celular que ficou no mato
-
-A LGPD pede medidas técnicas e administrativas para proteger dados pessoais de acesso não autorizado e de perda. Em campo, o risco mais comum não é um ataque sofisticado. É o aparelho esquecido na caminhonete, o cartão de memória emprestado, a planilha enviada por mensagem.
+Sem sinal, as respostas e as fotos ficam no aparelho. Nesse momento, o risco mais provável não é um ataque sofisticado. É o celular esquecido na caminhonete, emprestado sem bloqueio ou perdido durante o deslocamento.
 
 ![Celular esquecido no painel empoeirado de uma caminhonete, ao lado de uma prancheta e de um par de luvas, parada numa estrada de terra no cerrado](../../assets/blog/lgpd-e-dados-de-campo/celular-esquecido.webp)
 
-Se um celular com cadastro de moradores some e os arquivos estão abertos, isso é um incidente de segurança. Quando há risco relevante para as pessoas, a [Resolução 15 da ANPD](https://www.serpro.gov.br/menu/noticias/noticias-2025/incidentes-seguranca-dados-pessoais) dá três dias úteis para comunicar a autoridade e os titulares, com mais vinte dias úteis para completar as informações. Para agentes de pequeno porte os prazos [contam em dobro](https://confidata.com.br/blog/comunicacao-incidente-seguranca-anpd).
+Se um aparelho com cadastros de moradores some e os arquivos podem ser abertos, a empresa precisa tratar o caso como um incidente de segurança. Quando há risco relevante para as pessoas, a [Resolução 15 da ANPD](https://www.serpro.gov.br/menu/noticias/noticias-2025/incidentes-seguranca-dados-pessoais) estabelece três dias úteis para comunicar a autoridade e os titulares, com mais vinte dias úteis para completar as informações. Para agentes de pequeno porte, os prazos [contam em dobro](https://confidata.com.br/blog/comunicacao-incidente-seguranca-anpd).
 
-Três dias úteis é pouco para quem precisa primeiro descobrir o que havia no aparelho. Com o dado criptografado no dispositivo, a conversa muda: quem achou o celular não consegue ler nada.
+Três dias úteis é pouco para começar procurando uma planilha que diga o que havia no celular. No TerraNode, o conteúdo coletado fica criptografado no aparelho, inclusive durante o trabalho offline. A criptografia não elimina o incidente nem as obrigações da empresa, mas impede que alguém leia os arquivos apenas por ter encontrado o telefone.
 
-A conta de não cuidar é alta. A multa simples do [artigo 52](https://confidata.com.br/blog/lgpd-comentada-25-sancoes-administrativas) vai até 2% do faturamento no Brasil, limitada a R$ 50 milhões por infração. E as falhas que a ANPD mais puniu até aqui são justamente [não comunicar incidente e ter segurança inadequada](https://turivius.com/portal/multas-da-lgpd/).
+Segurança inadequada e demora na comunicação têm consequências. A multa simples do [artigo 52](https://confidata.com.br/blog/lgpd-comentada-25-sancoes-administrativas) pode chegar a 2% do faturamento no Brasil, limitada a R$ 50 milhões por infração. Entre as falhas já punidas pela ANPD estão [não comunicar incidentes e não adotar medidas de segurança adequadas](https://turivius.com/portal/multas-da-lgpd/).
 
-## Como o TerraNode trata cada ponto
+## Quando o sinal volta, importa saber para onde o dado vai
 
-O TerraNode foi desenhado para equipes que coletam onde o sinal não chega, e a proteção do dado entrou na arquitetura desde o início. Cada ponto da lei tem um par no produto:
+A LGPD não exige que os servidores estejam no Brasil. A lei continua valendo para dados de pessoas no país, esteja o servidor onde estiver, e o artigo 33 permite a transferência internacional em hipóteses específicas. O ponto é saber que a transferência existe e ter o mecanismo jurídico necessário.
 
-| O que a lei pede | O que acontece em campo | Como o TerraNode responde |
-| --- | --- | --- |
-| Saber onde o dado fica | Apps guardam registros em servidores fora do país sem avisar | Dados armazenados no Brasil |
-| Proteger o dado no aparelho | Celular perdido com fotos e formulários abertos | Tudo que é coletado fica criptografado no dispositivo, inclusive offline |
-| Proteger o dado no caminho | Arquivos enviados por mensagem ou planilha | Criptografia nos dois sentidos, do escritório ao campo e de volta |
-| Limitar quem acessa | Todo mundo vê tudo | Perfis de coletor, revisor e gestor, com formulários atribuídos por pessoa |
-| Coletar só o necessário | Campo livre onde cabe qualquer coisa | Formulários com campos e regras definidos antes da saída |
-| Garantir a qualidade | Dado errado segue para o cliente | Fila de revisão: só o registro validado sai |
-| Manter o controle com quem coletou | Dado preso na ferramenta | Os dados são da organização e saem a qualquer momento em CSV, GeoJSON ou Shapefile |
-| Não espalhar credenciais | Senha do portal GIS compartilhada | Conexão com ArcGIS por OAuth ou chave de API, somente leitura, sem pedir a senha |
+Em agosto de 2024, a ANPD publicou a [Resolução 19](https://www.demarest.com.br/anpd-aprova-o-regulamento-de-transferencia-internacional-de-dados/), com o regulamento e as cláusulas padrão contratuais. O prazo de adaptação [terminou em 23 de agosto de 2025](https://www.mayerbrown.com/pt/insights/publications/2025/08/end-of-grace-period-implementation-of-brazils-standard-contractual-clauses-in-international-transfers-of-personal-data). Em janeiro de 2026, a ANPD [reconheceu a União Europeia](https://www.globalsuitesolutions.com/pt/?p=117782) como destino com proteção adequada. Para outros países, como os Estados Unidos, as cláusulas continuam sendo um dos caminhos usuais.
 
-Nenhuma ferramenta deixa uma empresa em conformidade sozinha. Definir a base legal da coleta, avisar as pessoas e decidir por quanto tempo guardar continuam sendo tarefas de quem é dono do projeto. O que o TerraNode faz é tirar da frente a parte que depende de tecnologia. A [página de segurança](/recursos/seguranca/) detalha cada uma dessas camadas.
+![Mapa escuro com pontos de coleta ligados, em laranja, a um servidor dentro do Brasil. Do mesmo servidor saem linhas tracejadas para servidores nos Estados Unidos e na Europa, cada um com um documento ao lado](../../assets/blog/lgpd-e-dados-de-campo/transferencia-internacional.webp)
+
+Se o aplicativo envia os registros para um servidor no exterior, quem contratou o serviço precisa saber disso, ter o contrato adequado e conseguir explicar a transferência. Quando o dado trafega e fica no Brasil, sem outro agente de tratamento no exterior, essa etapa não existe.
+
+Ainda assim, a localização do servidor não encerra a análise. É preciso perguntar onde ficam os backups, quais terceiros têm acesso e se algum serviço usado pelo fornecedor processa os dados fora do país.
+
+## No escritório, acesso e revisão precisam ter dono
+
+Quando os dados chegam, nem toda pessoa da equipe precisa ver tudo. No TerraNode, os papéis de coletor, revisor e gestor limitam o acesso, e cada formulário pode ser atribuído às pessoas que vão usá-lo. A integração com o ArcGIS usa OAuth ou chave de API somente para leitura, sem pedir que a equipe compartilhe a senha do portal.
+
+A revisão ajuda a separar o que foi conferido do que ainda precisa de decisão. Ela não impede que coletas pendentes ou rejeitadas sejam exportadas. O estado de revisão acompanha cada registro no GeoPackage, e a organização pode filtrar o que será entregue ao cliente. As coletas, os trajetos e as mídias também podem ser exportados para que os dados não fiquem presos à ferramenta.
+
+Esses controles cobrem uma parte da responsabilidade. Nenhum aplicativo escolhe a base legal, avisa os moradores, define o prazo de retenção ou decide quem responde a um pedido do titular. Em geral, quem define o propósito da coleta atua como controlador, enquanto o fornecedor do aplicativo atua como operador. Os dois têm deveres de segurança, mas as decisões sobre a campanha continuam com a organização responsável pelo projeto.
+
+A [página de segurança](/recursos/seguranca/) explica como o TerraNode protege o dado no aparelho, no envio e no armazenamento.
 
 <!-- lista-de-espera -->
 
-## Sete perguntas antes de sair para o campo
+## Antes de a equipe entrar no carro
+
+O técnico da abertura não deveria voltar com 900 fotos sem que alguém saiba por que elas foram coletadas, quem pode vê-las e onde serão armazenadas. Sete perguntas ajudam a fechar essas decisões antes da saída:
 
 1. O formulário pede algum dado pessoal que o projeto não precisa?
-2. Há dado sensível, como saúde, religião ou origem étnica? Ele é mesmo indispensável?
-3. As fotos precisam mostrar rostos e placas, ou dá para enquadrar sem eles?
-4. Em que país ficam os servidores e os backups do app de coleta?
+2. Há dado sensível, como saúde, religião ou origem étnica? Ele é indispensável?
+3. As fotos precisam mostrar rostos e placas, ou o enquadramento pode evitá-los?
+4. Em que país ficam os servidores e os backups do aplicativo?
 5. Se o celular sumir hoje, alguém consegue abrir os arquivos?
-6. Quem na equipe enxerga o quê? O coletor precisa ver os registros dos outros?
-7. Quem avisa a ANPD e em quanto tempo, se algo der errado?
+6. Quem na equipe enxerga cada formulário e cada coleta?
+7. Quem comunica a ANPD e os titulares se algo der errado?
 
-## Perguntas frequentes
-
-**Coordenada geográfica é dado pessoal?** Depende do que ela aponta. A posição de um bueiro não é. A posição de uma casa ligada a um morador identificável é, assim como o trajeto de um funcionário.
-
-**Posso usar um app de coleta com servidor fora do Brasil?** Pode. A LGPD não proíbe. Mas isso é uma transferência internacional e pede um dos mecanismos do artigo 33, em geral as cláusulas padrão da ANPD no contrato.
-
-**Foto de fachada entra na LGPD?** Entra quando permite identificar alguém, pelo rosto, pela placa do carro ou pela ligação com o cadastro do imóvel.
-
-**Quem responde pelo dado: a empresa que coleta ou o fornecedor do app?** Em geral, quem decide o que coletar e para quê é o controlador, e o fornecedor do app atua como operador. Os dois têm deveres de segurança, mas as decisões e a relação com o titular são do controlador.
-
-**Guardar os dados no Brasil garante conformidade?** Não garante. Elimina a parte de transferência internacional e facilita a fiscalização, mas base legal, segurança e direitos dos titulares continuam valendo.
+Responder a essas perguntas não resolve a conformidade inteira, mas evita descobrir as decisões mais importantes depois que os dados já estão espalhados entre celulares, mensagens e servidores.
 
 ## Fontes
 
