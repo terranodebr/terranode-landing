@@ -15,7 +15,7 @@ capa:
 
 Uma pasta de projeto raramente chega arrumada. Dentro dela há quatro Shapefiles do IBGE em uma subpasta, uma planilha com duas abas, uma imagem de satélite e um PDF de metadados. Antes de levar esse material para o campo, alguém precisa descobrir o que serve, conferir os sistemas de referência e fazer tudo aparecer no mesmo mapa.
 
-É esse arquivo misturado que vamos acompanhar. Ele entra no TerraNode como um único `.zip` e termina como sete fontes de dados no catálogo: quatro camadas do IBGE, duas abas da planilha e um raster. O PDF fica de fora. No caminho, o TerraNode abre o pacote, encontra as camadas, procura coordenadas nas planilhas e prepara cada item separadamente.
+É esse arquivo misturado que vamos acompanhar. Ele entra no TerraNode como um único `.zip` e termina como sete fontes de dados no catálogo: quatro camadas do IBGE, duas abas da planilha e um raster. O PDF fica de fora. No caminho, o TerraNode abre o pacote, encontra as camadas, procura coordenadas nas planilhas e prepara cada fonte separadamente.
 
 > O TerraNode está em beta fechado, e o app roda em Android 12 ou mais recente. Se a sua equipe ainda não tem acesso, [entre na lista de espera](https://form.typeform.com/to/ZVQYTFV5).
 
@@ -27,7 +27,7 @@ Além dos formatos desse arquivo, o TerraNode lê GeoPackage, GeoJSON, FlatGeobu
 
 Um mesmo arquivo pode gerar várias [fontes de dados](https://docs.terranode.com.br/catalogos/#fontes-de-dados): cada camada vetorial, tabela, aba de planilha ou raster vira uma delas. As duas abas da planilha do exemplo geram duas fontes; um GeoPackage com doze tabelas gera doze. Cada fonte é processada separadamente. Se uma falha, as demais continuam, e o envio inteiro só falha quando nenhum conteúdo do pacote pode ser lido.
 
-O `.zip` também mantém juntos os formatos formados por vários arquivos. Shapefile, MapInfo e File Geodatabase precisam ser enviados assim. Um `.shp` solto, sem os arquivos que o completam, é recusado com a mensagem **Tipo de arquivo não suportado**. GeoPackage, GeoJSON, FlatGeobuf, CSV, planilhas e rasters podem ir soltos ou compactados.
+O `.zip` também mantém juntos os formatos formados por vários arquivos. Shapefile, MapInfo e File Geodatabase precisam ser [compactados antes do envio](https://docs.terranode.com.br/catalogos/importar-dados/#formatos-aceitos). Um `.shp` solto, sem os arquivos que o completam, é recusado com a mensagem **Tipo de arquivo não suportado**. GeoPackage, GeoJSON, FlatGeobuf, CSV, planilhas e rasters podem ir soltos ou compactados.
 
 ## As duas abas seguem caminhos diferentes
 
@@ -47,9 +47,9 @@ Se a planilha mora no Google Sheets, a [integração](https://docs.terranode.com
 
 *O resultado do arquivo que acompanhamos: quatro camadas do IBGE, duas fontes criadas a partir da planilha e o GeoTIFF.*
 
-## Cada item é preparado para o mapa
+## Cada fonte é preparada para o mapa
 
-Depois de separar os sete itens, o TerraNode prepara cada um para que as camadas se sobreponham corretamente no mapa e no celular.
+Depois de separar as sete fontes, o TerraNode prepara cada uma para que as camadas se sobreponham corretamente no mapa e no celular.
 
 Primeiro vem o sistema de referência. Todo vetor e todo raster precisa declarar um sistema ligado à Terra, como SIRGAS 2000 em UTM, SAD69 ou WGS84. O TerraNode converte os vetores para WGS84, sem exigir reprojeção antes do envio. Mas ele não consegue descobrir um sistema que o arquivo não declarou. Um Shapefile sem o `.prj` falha, assim como um arquivo em um sistema local de engenharia sem referência à Terra.
 
@@ -63,8 +63,6 @@ O GeoTIFF segue outro caminho. O TerraNode o guarda como Cloud Optimized GeoTIFF
 
 O processamento automatiza boa parte do trabalho, mas não corrige informação que nunca chegou ao arquivo. Quem envia ainda precisa garantir três coisas: incluir o `.prj` no pacote do Shapefile, compactar formatos compostos por vários arquivos e usar nomes de coluna reconhecíveis para as coordenadas, principalmente em CSV.
 
-Se um item falhar, o motivo aparece na tela e só ele precisa ser enviado de novo. Os demais continuam disponíveis.
-
-O `.zip` que chegou como uma pasta misturada agora aparece no catálogo como sete fontes independentes. As capitais estão no mapa, os estados continuam disponíveis como tabela, os quatro Shapefiles se sobrepõem ao GeoTIFF e qualquer falha ficou isolada no item que a causou. A partir daí, cada fonte pode receber um estilo e seguir para um projeto de campo.
+O `.zip` que chegou como uma pasta misturada agora aparece no catálogo como sete fontes independentes. As capitais estão no mapa, os estados continuam disponíveis como tabela e os quatro Shapefiles se sobrepõem ao GeoTIFF. A partir daí, cada fonte pode receber um estilo e seguir para um projeto de campo.
 
 A lista completa de formatos, os limites de tamanho e os erros mais comuns estão na [documentação de importação](https://docs.terranode.com.br/catalogos/importar-dados/). Para acompanhar uma dessas camadas até o celular, leia [como levar um Shapefile para o campo](/blog/como-levar-um-shapefile-para-o-campo/). Se os dados já estão no ArcGIS ou no Google Sheets, as [integrações](/recursos/integracoes/) evitam o envio manual de arquivos.

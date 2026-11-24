@@ -23,7 +23,7 @@ Vamos acompanhar essa camada até o celular. No catálogo, as usinas ganham core
 
 Assim que a camada de usinas é importada, todos os pontos aparecem com 4 px e contorno branco. A aparência padrão ajuda a conferir se o dado chegou ao lugar certo, mas ainda não distingue uma usina da outra.
 
-O trabalho continua na aba **Estilos** do catálogo. Um estilo pertence ao catálogo e pode servir a várias camadas com a mesma geometria. O estilo das usinas, por exemplo, pode ser usado em outra camada de pontos do mesmo catálogo. Quando ele já está em uso, o TerraNode abre o salvamento em **Salvar como novo**, para que um teste não mude outras camadas sem você perceber.
+O trabalho continua na aba **Estilos** do catálogo. Um estilo pertence ao catálogo e pode ser reaproveitado por outras camadas do mesmo tipo de geometria. O estilo das usinas, por exemplo, pode ser aplicado a outra camada de pontos do mesmo catálogo. A [documentação de estilos](https://docs.terranode.com.br/catalogos/estilos/) explica como esse vínculo funciona. Se o estilo já está em uso, o TerraNode abre o salvamento em **Salvar como novo**, para que um teste não mude outras camadas sem você perceber.
 
 Um projeto pode trocar o estilo de uma camada por outro estilo do mesmo catálogo. O normal, porém, é o projeto herdar o estilo do catálogo, e é isso que mantém o mapa igual para todo mundo.
 
@@ -61,7 +61,7 @@ Duas opções resolvem os incômodos mais comuns de imagem. Você pode declarar 
 
 Também seria possível começar a camada de usinas com o **Estilo com IA**. Em vez de escolher cada controle, você escreve "colorir as usinas por tipo de geração" e pede **Sugerir estilo**.
 
-O TerraNode procura a coluna que combina com o pedido, lê um resumo dos valores e monta um rascunho no editor. Nada é salvo até você clicar em **Salvar estilo**. Antes disso, as cores, o marcador, os rótulos e o zoom continuam abertos para ajuste manual.
+O TerraNode procura a coluna que combina com o pedido, lê um resumo dos valores e monta um rascunho no editor. Nada é salvo até você clicar em **Salvar estilo**. Antes disso, você ainda pode ajustar manualmente as cores, o marcador, os rótulos e o zoom.
 
 Quando o pedido é ambíguo, a resposta pede que você escolha entre as colunas possíveis. Quando o pedido não cabe em um estilo, como classificar por dois campos ao mesmo tempo ou usar um ícone diferente para cada classe, a resposta diz **Não dá para expressar esse pedido.**, em vez de inventar alguma coisa parecida.
 
@@ -71,13 +71,13 @@ A sugestão não recebe os dados inteiros. O modelo vê o pedido, o tipo de geom
 
 Se a camada de usinas já tiver simbologia em um portal ArcGIS, não é necessário refazê-la do zero. Ao conectar a camada pela [integração com o ArcGIS](https://docs.terranode.com.br/integracoes/arcgis/), o TerraNode tenta traduzir esse estilo.
 
-Os renderizadores mais comuns têm tradução direta. Símbolo simples, valores únicos de um campo e quebras de classe viram símbolo único, categorias e faixas. Os marcadores simples, os dez tipos de tracejado, a transparência da camada e as escalas de visibilidade, convertidas em zoom, também vêm junto. O rótulo vem quando a primeira classe de rótulos usa um campo só, com tamanho, cor, halo, negrito ou itálico.
+Os renderizadores mais comuns têm tradução direta: símbolo simples vira **Símbolo único**, valores únicos viram **Categorias** e quebras de classe viram **Faixas**. Os marcadores simples, os dez tipos de tracejado, a transparência da camada e as escalas de visibilidade, convertidas em zoom, também vêm junto. O rótulo vem quando a primeira classe de rótulos usa um campo só, com tamanho, cor, halo, negrito ou itálico.
 
 O que não tem equivalente fica pelo caminho, e o TerraNode avisa. Um marcador de imagem vira um círculo cinza, uma hachura vira preenchimento sólido, e mapas de calor ou de densidade de pontos não são traduzidos. Os rasters do ArcGIS chegam com os valores originais dos pixels e recebem o estilo no TerraNode.
 
 ## O mapa chega ao celular
 
-Quando a camada de usinas entra em um projeto, o pacote offline leva junto suas regras, o marcador de barragem e a fonte dos rótulos. O app reproduz as categorias, as cores, os nomes com halo e os limites de zoom. Linhas mantêm os tracejados, e os rasters chegam com as cores já aplicadas, iguais às do mapa na web.
+Quando a camada de usinas entra em um projeto, o pacote offline leva as regras de classificação e visibilidade, o marcador de barragem e a tipografia dos rótulos. O app reproduz as categorias, as cores, os nomes com halo e os limites de zoom. Linhas mantêm os tracejados, e os rasters chegam com as cores já aplicadas, iguais às do mapa na web.
 
 Como o estilo faz parte do pacote, mudar um estilo gera uma versão nova do pacote. No celular, o projeto aparece como **Atualização pendente**. O app baixa a versão nova sozinho quando pega Wi-Fi, ou na hora em que alguém toca em **Atualizar Projeto**, e só então a equipe vê a mudança. Quem já saiu para o campo continua com o estilo antigo até voltar ao sinal, então vale fechar os ajustes de estilo antes da saída.
 

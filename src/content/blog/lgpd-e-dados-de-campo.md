@@ -27,7 +27,7 @@ Para a LGPD, dado pessoal é qualquer informação relacionada a uma pessoa natu
 
 ![Ilustração de uma rua vista de cima. Os pinos no poste e no bueiro são cinza; os pinos nas casas são laranja e ligados a ícones de pessoa, câmera e microfone](../../assets/blog/lgpd-e-dados-de-campo/dado-pessoal.webp)
 
-A coordenada de um poste, sozinha, não identifica uma pessoa. A coordenada de uma casa ligada ao nome do morador, sim. A mesma diferença vale para uma foto de fachada, um áudio de entrevista ou um cadastro de imóvel. O conteúdo e o contexto determinam se aquele registro entra na LGPD.
+A coordenada de um poste, sozinha, não identifica uma pessoa. A coordenada de uma casa ligada ao nome do morador, sim. Uma foto de fachada, um áudio ou um cadastro de imóvel entram na LGPD quando permitem identificar uma pessoa. O conteúdo coletado e sua ligação com outros registros é que determinam isso.
 
 O trajeto gravado durante o dia também merece atenção: ele é um dado pessoal do próprio funcionário. E cadastros socioeconômicos podem ir além, com perguntas sobre saúde, religião ou origem étnica. Esses dados são sensíveis e recebem proteção mais rígida.
 
@@ -47,13 +47,13 @@ Segurança inadequada e demora na comunicação têm consequências. A multa sim
 
 ## Quando o sinal volta, importa saber para onde o dado vai
 
-A LGPD não exige que os servidores estejam no Brasil. A lei continua valendo para dados de pessoas no país, esteja o servidor onde estiver, e o artigo 33 permite a transferência internacional em hipóteses específicas. O ponto é saber que a transferência existe e ter o mecanismo jurídico necessário.
+A LGPD não exige que os servidores estejam no Brasil. A lei continua valendo para dados de pessoas no país, esteja o servidor onde estiver. O artigo 33 permite a transferência internacional em hipóteses específicas, desde que quem envia os dados identifique a operação e adote o mecanismo jurídico adequado.
 
 Em agosto de 2024, a ANPD publicou a [Resolução 19](https://www.demarest.com.br/anpd-aprova-o-regulamento-de-transferencia-internacional-de-dados/), com o regulamento e as cláusulas padrão contratuais. O prazo de adaptação [terminou em 23 de agosto de 2025](https://www.mayerbrown.com/pt/insights/publications/2025/08/end-of-grace-period-implementation-of-brazils-standard-contractual-clauses-in-international-transfers-of-personal-data). Em janeiro de 2026, a ANPD [reconheceu a União Europeia](https://www.globalsuitesolutions.com/pt/?p=117782) como destino com proteção adequada. Para outros países, como os Estados Unidos, as cláusulas continuam sendo um dos caminhos usuais.
 
 ![Mapa escuro com pontos de coleta ligados, em laranja, a um servidor dentro do Brasil. Do mesmo servidor saem linhas tracejadas para servidores nos Estados Unidos e na Europa, cada um com um documento ao lado](../../assets/blog/lgpd-e-dados-de-campo/transferencia-internacional.webp)
 
-Se o aplicativo envia os registros para um servidor no exterior, quem contratou o serviço precisa saber disso, ter o contrato adequado e conseguir explicar a transferência. Quando o dado trafega e fica no Brasil, sem outro agente de tratamento no exterior, essa etapa não existe.
+Se o aplicativo envia os registros para um servidor no exterior, quem contratou o serviço precisa saber disso, ter o contrato adequado e conseguir explicar a transferência. Quando o dado trafega e fica no Brasil, sem outro agente de tratamento no exterior, não há transferência internacional a documentar.
 
 Ainda assim, a localização do servidor não encerra a análise. É preciso perguntar onde ficam os backups, quais terceiros têm acesso e se algum serviço usado pelo fornecedor processa os dados fora do país.
 
@@ -61,7 +61,7 @@ Ainda assim, a localização do servidor não encerra a análise. É preciso per
 
 Quando os dados chegam, nem toda pessoa da equipe precisa ver tudo. No TerraNode, os papéis de coletor, revisor e gestor limitam o acesso, e cada formulário pode ser atribuído às pessoas que vão usá-lo. A integração com o ArcGIS usa OAuth ou chave de API somente para leitura, sem pedir que a equipe compartilhe a senha do portal.
 
-A revisão ajuda a separar o que foi conferido do que ainda precisa de decisão. Ela não impede que coletas pendentes ou rejeitadas sejam exportadas. O estado de revisão acompanha cada registro no GeoPackage, e a organização pode filtrar o que será entregue ao cliente. As coletas, os trajetos e as mídias também podem ser exportados para que os dados não fiquem presos à ferramenta.
+A revisão ajuda a separar o que foi conferido do que ainda precisa de decisão. Ela não impede que coletas pendentes ou rejeitadas sejam exportadas. O GeoPackage registra o estado de revisão de cada coleta na coluna `estado_revisao`. Com ela, a organização pode filtrar no QGIS o que será entregue ao cliente. As coletas, os trajetos e as mídias também podem ser exportados para que os dados não fiquem presos à ferramenta.
 
 Esses controles cobrem uma parte da responsabilidade. Nenhum aplicativo escolhe a base legal, avisa os moradores, define o prazo de retenção ou decide quem responde a um pedido do titular. Em geral, quem define o propósito da coleta atua como controlador, enquanto o fornecedor do aplicativo atua como operador. Os dois têm deveres de segurança, mas as decisões sobre a campanha continuam com a organização responsável pelo projeto.
 
