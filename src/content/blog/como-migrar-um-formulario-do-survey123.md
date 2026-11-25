@@ -18,7 +18,7 @@ convite:
 
 Quem usa o Survey123 há algum tempo tem um formulário que já passou por muito campo. As perguntas estão na ordem certa, as listas têm as opções que a equipe usa, e cada ajuste veio de um dia em que alguma coisa deu errado. Tudo isso está em uma planilha, o XLSForm.
 
-É por causa dessa planilha que trocar de ferramenta assusta. Ninguém quer redigitar sessenta perguntas, com listas e condições, só para fazer um teste.
+Por causa dessa planilha, trocar de ferramenta assusta. Ninguém quer redigitar sessenta perguntas, com listas e condições, só para fazer um teste.
 
 No TerraNode não precisa. Você envia o XLSForm, e ele monta o formulário. Nem tudo tem equivalente, e a importação mostra o que ficou de fora para você ajustar.
 
@@ -78,6 +78,6 @@ Para os formulários de ponto, com perguntas, listas, fotos e condições simple
 
 ## O caminho inteiro
 
-Você pega o `.xlsx` do Survey123, importa em **Novo formulário**, copia o relatório, refaz as regras que ficaram de fora, acerta as chaves, publica e testa em um projeto. De tudo isso, o relatório é o que não pode se perder, porque ele diz o que conferir.
+Você pega o `.xlsx` do Survey123, importa em **Novo formulário**, copia o relatório, refaz as regras que ficaram de fora, acerta as chaves, publica e testa em um projeto. Só não perca o relatório, porque ele diz o que conferir.
 
 A tabela completa do que é convertido está na [documentação de importação do Survey123](https://docs.terranode.com.br/formularios/importar-survey123/). A comparação entre as duas ferramentas está em [TerraNode e ArcGIS Field Maps](/comparativos/arcgis-field-maps/). E, com o formulário no projeto, o próximo passo é [coletar em campo sem internet](/blog/como-coletar-dados-em-campo-sem-internet/).

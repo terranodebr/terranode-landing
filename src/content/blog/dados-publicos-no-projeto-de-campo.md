@@ -18,7 +18,7 @@ Todo projeto de campo começa com os mesmos downloads. Alguém entra no site do 
 
 O resultado vai parar em uma pasta compartilhada, em um arquivo chamado `UCs_final_2023`. A equipe usa esse arquivo no projeto seguinte, e no seguinte. Um dia alguém percebe que a área de estudo encosta em uma unidade criada depois do download.
 
-No TerraNode, esses dados já estão no catálogo. A equipe do TerraNode mantém cópias das fontes oficiais, e a atualização é automática. Você só escolhe a camada.
+Esses dados já estão no catálogo do TerraNode. A equipe do TerraNode mantém cópias das fontes oficiais, e a atualização é automática. Você só escolhe a camada.
 
 > O TerraNode está em beta fechado, e o app roda em Android 12 ou mais recente. Se a sua equipe ainda não tem acesso, [entre na lista de espera](https://form.typeform.com/to/ZVQYTFV5).
 
@@ -62,7 +62,7 @@ Cada cópia tem uma cadência de verificação, que aparece na **Visão geral** 
 
 Se a fonte mudou, a camada ganha uma versão nova no mesmo lugar. Os projetos que a usam continuam válidos, e o pacote offline de cada um é refeito. No celular, o projeto aparece como **Atualização pendente**, e a equipe recebe a base nova na próxima atualização. Ninguém precisa baixar o arquivo de novo nem avisar a equipe.
 
-Há uma proteção para o dia em que a fonte oficial sai quebrada. Se uma camada perde mais de 10% das feições de uma vez, ou some da fonte, a atualização fica retida até a equipe do TerraNode conferir. Enquanto isso, você continua com a última versão boa. Um arquivo truncado no site do órgão não apaga metade das unidades de conservação do seu mapa.
+Às vezes a fonte oficial sai quebrada. Se uma camada perde mais de 10% das feições de uma vez, ou some da fonte, a atualização fica retida até a equipe do TerraNode conferir, e você continua com a última versão boa. Assim, um arquivo truncado no site do órgão não apaga metade das unidades de conservação do seu mapa.
 
 ## O que essas camadas não são
 

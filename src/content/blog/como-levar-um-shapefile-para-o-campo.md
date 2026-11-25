@@ -28,9 +28,9 @@ No TerraNode, você envia o Shapefile para um catálogo e escolhe a camada em um
 
 O TerraNode recebe o Shapefile compactado em `.zip`. Se você enviar o `.shp` solto, ele recusa com a mensagem **Tipo de arquivo não suportado**. Um mesmo `.zip` pode levar vários Shapefiles, e cada um vira uma camada.
 
-O ponto que pede atenção é o sistema de referência. Coloque o `.prj` dentro do `.zip`, porque o arquivo precisa declarar um sistema ligado à Terra. Sem ele, ou com um sistema local de engenharia, a camada falha com o erro "vector source must use an earth-referenced CRS". Você não precisa reprojetar nada antes, porque o TerraNode converte os dados para WGS84.
+Coloque o `.prj` dentro do `.zip`. O arquivo precisa declarar um sistema de referência ligado à Terra. Sem o `.prj`, ou com um sistema local de engenharia, a camada falha com o erro "vector source must use an earth-referenced CRS". Você não precisa reprojetar nada antes, porque o TerraNode converte os dados para WGS84.
 
-Há mais dois detalhes. Uma coluna chamada `geometry` dá o erro "a column named geometry conflicts...", então renomeie a coluna antes de compactar. E, se os acentos chegarem trocados, confira a codificação do arquivo. Os outros formatos aceitos e os limites de tamanho estão na [documentação de importação](https://docs.terranode.com.br/catalogos/importar-dados/#formatos-aceitos).
+Uma coluna chamada `geometry` dá o erro "a column named geometry conflicts...", então renomeie a coluna antes de compactar. Se os acentos chegarem trocados, confira a codificação do arquivo. Os outros formatos aceitos e os limites de tamanho estão na [documentação de importação](https://docs.terranode.com.br/catalogos/importar-dados/#formatos-aceitos).
 
 ## No catálogo, envie o arquivo
 
@@ -76,7 +76,7 @@ Vale também juntar as alterações em uma rodada só, porque cada versão nova 
 
 No app, na aba **Projetos**, toque em **Baixar projeto** e espere o cartão mostrar **Sincronizado**. O guia de [coleta sem internet](/blog/como-coletar-dados-em-campo-sem-internet/#na-véspera-com-internet) mostra o que mais conferir antes de sair. Se aparecer **Sem pacote disponível**, o projeto não tem área de cobertura ou o TerraNode ainda está gerando o pacote.
 
-Depois vem o teste mais útil deste guia. Coloque o celular em modo avião, abra o projeto e toque em **Camadas**. A sua camada precisa estar na lista, com o tipo de geometria certo.
+Depois coloque o celular em modo avião, abra o projeto e toque em **Camadas**. A sua camada precisa estar na lista, com o tipo de geometria certo.
 
 ![Mapa do projeto com o aviso Sem conexão e o painel Camadas aberto, listando a camada unidades-de-conservacao, do tipo Polígonos, ligada](../../assets/blog/como-levar-um-shapefile-para-o-campo/camadas-sem-conexao.webp)
 
@@ -88,7 +88,7 @@ No celular, a camada é uma referência. O coletor liga e desliga a camada no ma
 
 ## Deixe a camada preencher o formulário
 
-Uma camada de polígonos, como talhões, bairros ou lotes, pode fazer mais do que aparecer no mapa. Ela pode preencher um campo do formulário a partir de onde o coletor está.
+Uma camada de polígonos, como talhões, bairros ou lotes, também pode preencher um campo do formulário a partir de onde o coletor está.
 
 No construtor de formulários, adicione um campo [Consulta por localização](https://docs.terranode.com.br/formularios/tipos-de-campo/#consulta-por-localizacao). Em **Fonte de dados**, escolha a sua camada de polígonos e, em **Coluna**, a coluna de onde sai o valor. O formulário também precisa de um campo de geometria. A camada nem precisa estar entre as do projeto, porque o pacote já leva a fonte que o campo lê.
 
@@ -102,6 +102,6 @@ Em campo, o app calcula o valor no próprio celular, sem internet. Ninguém digi
 
 ## Antes de chamar a equipe
 
-O caminho inteiro cabe em uma frase. Você manda um `.zip` com o `.prj` para o catálogo, escolhe a camada em um projeto com área de cobertura, espera o pacote e testa em modo avião. O teste é a parte que não dá para pular, porque mostra no escritório o que a equipe veria no campo.
+Você manda um `.zip` com o `.prj` para o catálogo, escolhe a camada em um projeto com área de cobertura, espera o pacote e testa em modo avião. Não pule o teste, porque ele mostra no escritório o que a equipe veria no campo.
 
 Com a camada no celular, siga para [como coletar dados em campo sem internet](/blog/como-coletar-dados-em-campo-sem-internet/). Se os seus dados já estão no ArcGIS, as [integrações](/recursos/integracoes/) trazem as camadas sem precisar enviar arquivos.
