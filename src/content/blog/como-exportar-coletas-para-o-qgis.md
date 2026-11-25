@@ -15,7 +15,7 @@ convite:
 
 A campanha acabou. A equipe voltou, os celulares estão na mesa, e o trabalho muda de mãos. Agora alguém precisa transformar algumas centenas de coletas em um mapa, um relatório e uma entrega para o cliente.
 
-É nessa passagem que os dados costumam se espalhar. As respostas saem em uma planilha, as fotos ficam em uma pasta com nomes como `IMG_4032.jpg`, e o trajeto da equipe fica no aparelho de cada um. Juntar tudo de novo vira um trabalho à parte.
+Nessa passagem, os dados costumam se espalhar. As respostas saem em uma planilha, as fotos ficam em uma pasta com nomes como `IMG_4032.jpg`, e o trajeto da equipe fica no aparelho de cada um. Juntar tudo de novo vira um trabalho à parte.
 
 O TerraNode entrega o projeto em um arquivo só. Dentro dele há um GeoPackage com as coletas, os trajetos e o limite do projeto, e uma pasta com as mídias organizadas por coleta.
 
@@ -27,9 +27,9 @@ A exportação leva o que já chegou ao servidor. O que ainda está em um celula
 
 Na **Visão Geral** do projeto, o cartão **Equipe agora** mostra, para cada pessoa, quantas coletas ainda estão no aparelho. Se alguém aparece com coletas pendentes, peça para abrir o app com conexão.
 
-As mídias pedem atenção separada. As respostas sobem sozinhas, mas as fotos, os vídeos e os áudios só sobem quando o coletor toca em **Enviar dados**. Uma foto que ainda não chegou não entra no arquivo. No mapa do projeto, cada coleta mostra quantas mídias tem e quantas aguardam envio.
+As respostas sobem sozinhas, mas as fotos, os vídeos e os áudios só sobem quando o coletor toca em **Enviar dados**. Uma foto que ainda não chegou não entra no arquivo. No mapa do projeto, cada coleta mostra quantas mídias tem e quantas aguardam envio.
 
-Se a campanha terminou de vez, use **Concluir projeto**. A janela resume quantas coletas chegaram e o que ainda está pendente. Concluir não é obrigatório para exportar. Você pode exportar um projeto em andamento quantas vezes quiser, por exemplo para uma entrega parcial.
+Se a campanha terminou de vez, use **Concluir projeto**. A janela resume quantas coletas chegaram e o que ainda está pendente. Você não precisa concluir para exportar, e pode exportar um projeto em andamento quantas vezes quiser, por exemplo para uma entrega parcial.
 
 ## Peça o arquivo
 
@@ -43,7 +43,7 @@ Podem exportar os gestores e os editores da organização e quem gerencia o proj
 
 Extraia o arquivo inteiro em uma pasta e mantenha a estrutura.
 
-Dentro há um arquivo `.gpkg`, com o nome do projeto, e uma pasta chamada `midia`, com uma subpasta para cada coleta. O nome da subpasta é o número da coleta, como `POSTE-00139`, o mesmo que aparece no painel e no app. Para achar as fotos de um ponto, você não precisa abrir nada além do gerenciador de arquivos.
+Dentro há um arquivo `.gpkg`, com o nome do projeto, e uma pasta chamada `midia`, com uma subpasta para cada coleta. O nome da subpasta é o número da coleta, como `POSTE-00139`, o mesmo que aparece no painel e no app. Para achar as fotos de um ponto, basta o gerenciador de arquivos.
 
 ## Abra no QGIS
 

@@ -17,7 +17,7 @@ A ficha de papel pergunta tudo para todo mundo. O bloco do transformador está l
 
 O custo aparece no escritório, onde alguém passa dias limpando os dados. O CPF veio com um dígito a menos, a altura do poste veio como 110 quando era 11,0, e metade das coletas tem uma foto só. Voltar a campo por causa de uma resposta mal preenchida custa mais que o levantamento inteiro daquele ponto.
 
-Um bom formulário digital confere a resposta na hora, com o coletor ainda na frente do poste, e esconde as perguntas que não se aplicam. É esse formulário que montamos a seguir no TerraNode.
+Um bom formulário digital confere a resposta na hora, com o coletor ainda na frente do poste, e esconde as perguntas que não se aplicam. A seguir, montamos um assim no TerraNode.
 
 > O TerraNode está em beta fechado, e o app roda em Android 12 ou mais recente. Se a sua equipe ainda não tem acesso, [entre na lista de espera](https://form.typeform.com/to/ZVQYTFV5).
 
@@ -61,7 +61,7 @@ Responda como um coletor com pressa. Diga Sim e Não nas perguntas que abrem blo
 
 O botão **Publicar** salva o formulário. Cada publicação que muda os campos vira uma revisão numerada, e cada coleta guarda com qual revisão foi feita. Você pode ajustar o formulário no meio da campanha sem estragar o que já chegou. O TerraNode refaz o pacote offline dos projetos que usam o formulário, e a equipe vê **Atualização pendente** no app.
 
-Depois da primeira coleta recebida, a **Chave** de cada campo, que é o nome da coluna nos dados, fica travada. E um campo não é mais removido. Ele é retirado, some do app e pode ser restaurado depois. Então acerte as chaves antes da primeira saída. Rótulos, limites e condições continuam livres.
+Depois da primeira coleta recebida, a **Chave** de cada campo, que é o nome da coluna nos dados, fica travada. Um campo também não pode mais ser apagado. Você o retira, ele some do app e pode ser restaurado depois. Então acerte as chaves antes da primeira saída. Rótulos, limites e condições continuam livres.
 
 <!-- lista-de-espera -->
 

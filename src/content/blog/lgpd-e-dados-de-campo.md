@@ -17,9 +17,9 @@ recursos: [seguranca, aplicativo]
 setores: [topografia-e-cadastro, meio-ambiente]
 ---
 
-Um técnico volta do campo com 300 pontos, 900 fotos e uma dúzia de áudios no celular. Entre esses arquivos há nomes de moradores, fachadas de casas, placas de carro e coordenadas de residências. A campanha pode ter acabado para a equipe de campo, mas a responsabilidade sobre esses dados está apenas começando.
+Um técnico volta do campo com 300 pontos, 900 fotos e uma dúzia de áudios no celular. Entre esses arquivos há nomes de moradores, fachadas de casas, placas de carro e coordenadas de residências. A campanha acabou para a equipe de campo, e a empresa agora responde por tudo o que está naquele celular.
 
-A LGPD acompanha o dado durante todo o percurso. Ela importa quando a empresa decide o que perguntar, enquanto o registro está no celular e depois que ele chega ao servidor. Guardar os dados no Brasil não é uma obrigação da lei. É uma forma de evitar a transferência internacional e os documentos exigidos por ela.
+A LGPD acompanha o dado durante todo o percurso. Ela vale quando a empresa decide o que perguntar, enquanto o registro está no celular e depois que ele chega ao servidor. A lei não obriga a guardar os dados no Brasil, mas quem guarda aqui evita a transferência internacional e os documentos que ela exige.
 
 ## Antes da saída, decida o que realmente precisa ser coletado
 
@@ -27,15 +27,15 @@ Para a LGPD, dado pessoal é qualquer informação relacionada a uma pessoa natu
 
 ![Ilustração de uma rua vista de cima. Os pinos no poste e no bueiro são cinza; os pinos nas casas são laranja e ligados a ícones de pessoa, câmera e microfone](../../assets/blog/lgpd-e-dados-de-campo/dado-pessoal.webp)
 
-A coordenada de um poste, sozinha, não identifica uma pessoa. A coordenada de uma casa ligada ao nome do morador, sim. Uma foto de fachada, um áudio ou um cadastro de imóvel entram na LGPD quando permitem identificar uma pessoa. O conteúdo coletado e sua ligação com outros registros é que determinam isso.
+A coordenada de um poste, sozinha, não identifica uma pessoa. A coordenada de uma casa ligada ao nome do morador, sim. Uma foto de fachada, um áudio ou um cadastro de imóvel entram na LGPD quando permitem identificar alguém, sozinhos ou cruzados com outros registros.
 
-O trajeto gravado durante o dia também merece atenção: ele é um dado pessoal do próprio funcionário. E cadastros socioeconômicos podem ir além, com perguntas sobre saúde, religião ou origem étnica. Esses dados são sensíveis e recebem proteção mais rígida.
+O trajeto gravado durante o dia também é dado pessoal, o do próprio funcionário. Cadastros socioeconômicos às vezes perguntam sobre saúde, religião ou origem étnica, dados que a lei trata como sensíveis e protege com regras mais rígidas.
 
-Por isso a primeira decisão acontece ainda no formulário. Se o projeto não precisa de CPF, rosto ou placa de carro, esses dados não devem ser coletados só por precaução. Limitar o formulário reduz o volume de informação que a equipe terá de proteger depois.
+Por isso a primeira decisão acontece ainda no formulário. Se o projeto não precisa de CPF, rosto ou placa de carro, não colete esses dados por precaução. Um formulário mais curto deixa menos informação para a equipe proteger depois.
 
 ## No campo, o dado está nas mãos de alguém
 
-Sem sinal, as respostas e as fotos ficam no aparelho. Nesse momento, o risco mais provável não é um ataque sofisticado. É o celular esquecido na caminhonete, emprestado sem bloqueio ou perdido durante o deslocamento.
+Sem sinal, as respostas e as fotos ficam no aparelho. Nesse momento, o risco mais provável é o celular esquecido na caminhonete, emprestado sem bloqueio ou perdido durante o deslocamento.
 
 ![Celular esquecido no painel empoeirado de uma caminhonete, ao lado de uma prancheta e de um par de luvas, parada numa estrada de terra no cerrado](../../assets/blog/lgpd-e-dados-de-campo/celular-esquecido.webp)
 
@@ -43,11 +43,11 @@ Se um aparelho com cadastros de moradores some e os arquivos podem ser abertos, 
 
 Três dias úteis é pouco para começar procurando uma planilha que diga o que havia no celular. No TerraNode, o conteúdo coletado fica criptografado no aparelho, inclusive durante o trabalho offline. A criptografia não elimina o incidente nem as obrigações da empresa, mas impede que alguém leia os arquivos apenas por ter encontrado o telefone.
 
-Segurança inadequada e demora na comunicação têm consequências. A multa simples do [artigo 52](https://confidata.com.br/blog/lgpd-comentada-25-sancoes-administrativas) pode chegar a 2% do faturamento no Brasil, limitada a R$ 50 milhões por infração. Entre as falhas já punidas pela ANPD estão [não comunicar incidentes e não adotar medidas de segurança adequadas](https://turivius.com/portal/multas-da-lgpd/).
+A multa simples do [artigo 52](https://confidata.com.br/blog/lgpd-comentada-25-sancoes-administrativas) pode chegar a 2% do faturamento no Brasil, limitada a R$ 50 milhões por infração. Entre as falhas já punidas pela ANPD estão [não comunicar incidentes e não adotar medidas de segurança adequadas](https://turivius.com/portal/multas-da-lgpd/).
 
-## Quando o sinal volta, importa saber para onde o dado vai
+## Quando o sinal volta, saiba para onde o dado vai
 
-A LGPD não exige que os servidores estejam no Brasil. A lei continua valendo para dados de pessoas no país, esteja o servidor onde estiver. O artigo 33 permite a transferência internacional em hipóteses específicas, desde que quem envia os dados identifique a operação e adote o mecanismo jurídico adequado.
+O servidor pode ficar fora do Brasil, e a lei continua valendo para dados de pessoas no país. O artigo 33 permite a transferência internacional em hipóteses específicas, desde que quem envia os dados identifique a operação e adote o mecanismo jurídico adequado.
 
 Em agosto de 2024, a ANPD publicou a [Resolução 19](https://www.demarest.com.br/anpd-aprova-o-regulamento-de-transferencia-internacional-de-dados/), com o regulamento e as cláusulas padrão contratuais. O prazo de adaptação [terminou em 23 de agosto de 2025](https://www.mayerbrown.com/pt/insights/publications/2025/08/end-of-grace-period-implementation-of-brazils-standard-contractual-clauses-in-international-transfers-of-personal-data). Em janeiro de 2026, a ANPD [reconheceu a União Europeia](https://www.globalsuitesolutions.com/pt/?p=117782) como destino com proteção adequada. Para outros países, como os Estados Unidos, as cláusulas continuam sendo um dos caminhos usuais.
 
@@ -55,15 +55,15 @@ Em agosto de 2024, a ANPD publicou a [Resolução 19](https://www.demarest.com.b
 
 Se o aplicativo envia os registros para um servidor no exterior, quem contratou o serviço precisa saber disso, ter o contrato adequado e conseguir explicar a transferência. Quando o dado trafega e fica no Brasil, sem outro agente de tratamento no exterior, não há transferência internacional a documentar.
 
-Ainda assim, a localização do servidor não encerra a análise. É preciso perguntar onde ficam os backups, quais terceiros têm acesso e se algum serviço usado pelo fornecedor processa os dados fora do país.
+Pergunte também onde ficam os backups, quais terceiros têm acesso e se algum serviço usado pelo fornecedor processa os dados fora do país.
 
 ## No escritório, acesso e revisão precisam ter dono
 
 Quando os dados chegam, nem toda pessoa da equipe precisa ver tudo. No TerraNode, os papéis de coletor, revisor e gestor limitam o acesso, e cada formulário pode ser atribuído às pessoas que vão usá-lo. A integração com o ArcGIS usa OAuth ou chave de API somente para leitura, sem pedir que a equipe compartilhe a senha do portal.
 
-A revisão ajuda a separar o que foi conferido do que ainda precisa de decisão. Ela não impede que coletas pendentes ou rejeitadas sejam exportadas. O GeoPackage registra o estado de revisão de cada coleta na coluna `estado_revisao`. Com ela, a organização pode filtrar no QGIS o que será entregue ao cliente. As coletas, os trajetos e as mídias também podem ser exportados para que os dados não fiquem presos à ferramenta.
+A revisão separa o que foi conferido do que ainda espera decisão, mas não impede a exportação de coletas pendentes ou rejeitadas. O GeoPackage registra o estado de revisão de cada coleta na coluna `estado_revisao`, e com ela a organização filtra no QGIS o que vai entregar ao cliente. As coletas, os trajetos e as mídias também podem ser exportados, para que os dados não fiquem presos à ferramenta.
 
-Esses controles cobrem uma parte da responsabilidade. Nenhum aplicativo escolhe a base legal, avisa os moradores, define o prazo de retenção ou decide quem responde a um pedido do titular. Em geral, quem define o propósito da coleta atua como controlador, enquanto o fornecedor do aplicativo atua como operador. Os dois têm deveres de segurança, mas as decisões sobre a campanha continuam com a organização responsável pelo projeto.
+Nenhum aplicativo escolhe a base legal, avisa os moradores, define o prazo de retenção ou decide quem responde a um pedido do titular. Em geral, quem define o propósito da coleta atua como controlador, enquanto o fornecedor do aplicativo atua como operador. Os dois têm deveres de segurança, mas as decisões sobre a campanha continuam com a organização responsável pelo projeto.
 
 A [página de segurança](/recursos/seguranca/) explica como o TerraNode protege o dado no aparelho, no envio e no armazenamento.
 

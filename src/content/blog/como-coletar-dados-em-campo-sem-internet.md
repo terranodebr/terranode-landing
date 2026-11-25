@@ -26,7 +26,7 @@ Este guia acompanha um dia de campo da véspera até a volta. As telas são do a
 
 ## Na véspera, com internet
 
-Tudo começa com o download. Instale o app, entre com o mesmo e-mail e senha do painel web e, na aba **Projetos**, toque em **Baixar projeto**. O download continua em segundo plano, então você pode fechar o app. Se a conexão cair no meio, ele retoma depois só com os arquivos que faltam.
+Instale o app, entre com o mesmo e-mail e senha do painel web e, na aba **Projetos**, toque em **Baixar projeto**. O download continua em segundo plano, então você pode fechar o app. Se a conexão cair no meio, ele retoma depois só com os arquivos que faltam.
 
 O projeto está pronto para sair quando o cartão mostra **Sincronizado**. A partir daí, o mapa, as camadas e os formulários já estão no celular. Os outros estados do cartão estão na [documentação do app](https://docs.terranode.com.br/app/projetos/#estados-de-um-projeto-na-lista).
 
@@ -34,7 +34,7 @@ O projeto está pronto para sair quando o cartão mostra **Sincronizado**. A par
 
 *O cartão do projeto de exemplo depois do download.*
 
-Antes de guardar o celular, abra o projeto e confira duas coisas. A primeira é o mapa base. Na aba **Projeto**, ele precisa aparecer como **Incluído**, porque sem ele as camadas ficam sobre um fundo vazio quando não há sinal. A segunda é o espaço livre. As fotos ficam no aparelho em resolução original até você enviá-las.
+Antes de guardar o celular, abra o projeto e confira o mapa base e o espaço livre. Na aba **Projeto**, o mapa base precisa aparecer como **Incluído**. Sem ele, as camadas ficam sobre um fundo vazio quando não há sinal. O espaço importa porque as fotos ficam no aparelho em resolução original até você enviá-las.
 
 ![Seção Mapa da aba Projeto, com a área de 2070,1 km², o mapa base Incluído e a camada unidades-de-conservacao](../../assets/blog/como-coletar-dados-em-campo-sem-internet/aba-projeto-mapa-base.webp)
 
@@ -62,7 +62,7 @@ O formulário abre com a posição do GPS na tela. O campo de geometria mostra l
 
 *O formulário aberto em campo. O Município já veio preenchido pela localização.*
 
-No print, o Município se preencheu sozinho a partir da posição. O guia do Shapefile mostra [como montar um campo assim](/blog/como-levar-um-shapefile-para-o-campo/#deixe-a-camada-preencher-o-formulário).
+O guia do Shapefile mostra [como montar um campo assim](/blog/como-levar-um-shapefile-para-o-campo/#deixe-a-camada-preencher-o-formulário).
 
 Ao terminar, toque em **Enviar**. O nome engana um pouco, porque sem sinal nada sai do celular. O app grava a coleta no aparelho, põe um pino no mapa e cria uma linha na aba **Coletas** com o estado **Não enviada**. O envio de verdade fica para depois.
 
@@ -72,11 +72,11 @@ Por enquanto, o app coleta apenas pontos. Linhas e polígonos aparecem no mapa c
 
 ## Quando o sinal volta
 
-Na volta, os dados sobem em duas etapas, e é essa divisão que explica os estados da aba **Coletas**.
+Na volta, os dados sobem em duas etapas, e os estados da aba **Coletas** acompanham essa divisão.
 
 As respostas dos formulários e o trajeto sobem sozinhos assim que há conexão. O app tenta ao gravar uma coleta, ao encerrar a sessão, ao abrir o app e a cada 10 minutos com a sessão aberta. Com isso, quem gerencia o projeto vê o avanço da equipe logo que alguém pega sinal.
 
-Fotos, vídeos, áudios e assinaturas esperam você tocar em **Enviar dados**, no mapa do projeto ou no cartão dele. São os arquivos pesados, e você escolhe quando gastar a rede com eles. O melhor momento é no Wi-Fi, ao fim do dia. Se a conexão cair no meio de um arquivo, o envio continua de onde parou. Se você tocar sem conexão, o botão mostra **Aguardando conexão** e começa sozinho quando a internet volta.
+Fotos, vídeos, áudios e assinaturas esperam você tocar em **Enviar dados**, no mapa do projeto ou no cartão dele. São os arquivos pesados, e você escolhe quando gastar a rede com eles. O melhor momento é no Wi-Fi, ao fim do dia. Se a conexão cair no meio de um arquivo, o envio continua de onde parou. Se você tocar sem conexão, o botão mostra **Aguardando conexão**, e o envio começa quando a internet volta.
 
 Na aba **Coletas**, o estado de cada linha diz em que ponto está cada coleta:
 
@@ -97,7 +97,7 @@ O estado que mais engana é **Enviada · mídia pendente**. Ele parece trabalho 
 
 Com tudo enviado, toque em **Encerrar**. A sessão fecha de vez. Você não consegue mais editar nem excluir as coletas dela, nem reabri-la, e a próxima saída pede uma sessão nova. **Enviar dados** continua funcionando depois disso, então ainda dá para mandar fotos que ficaram para trás.
 
-Um cuidado vale para qualquer dia. Não desinstale o app com coletas pendentes, porque desinstalar apaga o que ainda não subiu. Se o app [desconectar a sua conta](https://docs.terranode.com.br/app/enviar-dados/#o-aplicativo-foi-desconectado), entre de novo com a mesma conta, e os dados continuam no aparelho.
+Em qualquer dia, não desinstale o app com coletas pendentes. Desinstalar apaga o que ainda não subiu. Se o app [desconectar a sua conta](https://docs.terranode.com.br/app/enviar-dados/#o-aplicativo-foi-desconectado), entre de novo com a mesma conta, e os dados continuam no aparelho.
 
 <!-- lista-de-espera -->
 

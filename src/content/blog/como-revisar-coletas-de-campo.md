@@ -50,7 +50,7 @@ O que mais atrasa uma revisão são as mídias. As respostas sobem sozinhas, mas
 
 Ao abrir uma coleta, você vê as respostas, as mídias que já chegaram e o histórico de revisão. Você aprova, ou rejeita e escreve um comentário.
 
-O comentário é a parte que mais ajuda quem vem depois. "Rejeitado" não diz nada. "Placa ilegível na foto 2, refazer de frente e sem sombra" diz o que precisa ser feito no retorno ao ponto.
+O comentário serve a quem vai voltar ao ponto. "Rejeitado" não diz nada a essa pessoa. "Placa ilegível na foto 2, refazer de frente e sem sombra" diz o que fazer.
 
 Num dia bom, a maioria das coletas está certa, e você pode selecionar várias e decidir todas de uma vez. Se aprovar uma por engano, é só reabrir, e ela volta para a fila.
 
