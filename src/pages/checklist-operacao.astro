@@ -1,0 +1,679 @@
+---
+// /checklist-operacao/: a self-assessment for field teams, the first step of the funnel
+// to the free 14-day bootcamp challenge. It has to be useful on its own, so the result shows
+// without an e-mail; the e-mail form is an offer to receive a copy.
+//
+// The areas are rendered here and the script below shows one screen at a time. Copy and
+// the scoring rule live in src/lib/checklist.ts. Answers are saved in localStorage so a
+// reload keeps the progress.
+//
+// Draft until the privacy policy and the two form endpoints exist (LINKS in
+// checklist.ts): noindex, and filtered out of the sitemap in astro.config.mjs.
+import { existsSync } from "node:fs";
+import { join } from "node:path";
+import Base from "../layouts/Base.astro";
+import { asset } from "../lib/asset";
+import { AREAS, LINKS, RESPOSTAS, TOTAL_AFIRMACOES, chave } from "../lib/checklist";
+
+const title = "Checklist da operação de campo · TerraNode";
+const description =
+  "Uma autoavaliação de 15 afirmações para ver qual área da rotina da sua equipe de campo merece atenção primeiro. Leva cerca de 4 minutos.";
+
+const RASCUNHO = !LINKS.privacidade || !LINKS.inscricaoDesafio || !LINKS.envioEmail;
+
+// Photos and the video are dropped in public/checklist/ by hand. Each slot falls back to
+// a drawn graphic while its file is missing, so the page never shows a broken image.
+const temArquivo = (nome: string) => existsSync(join(process.cwd(), "public/checklist", nome));
+const midia = {
+  hero: temArquivo("hero.jpg") ? asset("/checklist/hero.jpg") : null,
+  heroVideo: temArquivo("hero.mp4") ? asset("/checklist/hero.mp4") : null,
+  desafio: temArquivo("desafio.jpg") ? asset("/checklist/desafio.jpg") : null,
+  og: temArquivo("og.jpg") ? "/checklist/og.jpg" : undefined,
+};
+
+const svg = (paths: string, tamanho = 22) =>
+  `<svg width="${tamanho}" height="${tamanho}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
+// One icon per area, shown wherever the area is named.
+const ICONES: Record<string, string> = {
+  visibilidade: '<path d="M2.5 12s3.5-6.5 9.5-6.5S21.5 12 21.5 12s-3.5 6.5-9.5 6.5S2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/>',
+  clareza: '<rect x="3" y="4" width="6" height="5" rx="1.5"/><rect x="15" y="4" width="6" height="5" rx="1.5"/><rect x="9" y="15" width="6" height="5" rx="1.5"/><path d="M9 6.5h6M18 9v2.5a1.5 1.5 0 0 1-1.5 1.5H12v2"/>',
+  consistencia: '<rect x="4" y="4" width="16" height="4" rx="1.5"/><rect x="4" y="10" width="16" height="4" rx="1.5"/><rect x="4" y="16" width="16" height="4" rx="1.5"/>',
+  medicao: '<path d="M4.5 17a8.5 8.5 0 1 1 15 0"/><path d="m12 13 4-4"/><circle cx="12" cy="13" r="1.3"/>',
+  melhoria: '<path d="M20 11a8 8 0 0 0-14.3-4.9L4 8"/><path d="M4 4v4h4"/><path d="M4 13a8 8 0 0 0 14.3 4.9L20 16"/><path d="M20 20v-4h-4"/>',
+};
+const icone = (id: string, tamanho?: number) => svg(ICONES[id], tamanho);
+
+// Result radar: one axis per area, from the top, clockwise. The script draws the shape.
+const RADAR = { cx: 150, cy: 132, r: 92 };
+const ponto = (i: number, f: number) => {
+  const a = -Math.PI / 2 + (i * 2 * Math.PI) / AREAS.length;
+  return [RADAR.cx + Math.cos(a) * RADAR.r * f, RADAR.cy + Math.sin(a) * RADAR.r * f];
+};
+const anel = (f: number) => AREAS.map((_, i) => ponto(i, f).map((n) => n.toFixed(1)).join(",")).join(" ");
+const rotulosRadar = ["Visibilidade", "Clareza", "Consistência", "Medição", "Melhoria"];
+
+const seta = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+const setaVolta = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>';
+---
+<Base title={title} description={description} image={midia.og} noindex={RASCUNHO} rodape={false}>
+  <div class="tn-rec tn-home tn-ck">
+
+    <!-- A quiet bar instead of the site header: the checklist is the page, TerraNode
+         signs it, and the one action up here is the challenge. -->
+    <header class="tn-ck-topo" data-rolagem-offset>
+      <a href={asset("/")} class="tn-ck-topo__marca" aria-label="TerraNode, página inicial">
+        <img src={asset("/favicon-96x96.png")} alt="" width="26" height="26" />
+        <span class="tn-ck-topo__nome"><span class="tn-ck-topo__cta-longo">Checklist da operação de campo</span><span class="tn-ck-topo__cta-curto">Checklist de campo</span></span>
+        <span class="tn-ck-topo__por">por TerraNode</span>
+      </a>
+      <a href="#desafio" class="tn-rec-btn tn-rec-btn--claro tn-ck-topo__cta" data-mp-cta="checklist_topo_desafio">
+        <span class="tn-ck-topo__cta-longo">Desafio grátis de 14 dias</span>
+        <span class="tn-ck-topo__cta-curto">Desafio grátis</span>
+      </a>
+    </header>
+
+    <!-- Apresentação -->
+    <section class="tn-home-hero tn-tema-claro tn-ck-hero" data-ck-tela="inicio">
+      <div class="tn-ck-hero__grade">
+        <div class="tn-ck-hero__texto">
+          <span class="tn-rec-pilula">CHECKLIST GRATUITO</span>
+          <h1 class="tn-rec-h1 tn-ck-hero__h1">Onde a rotina da sua equipe de campo <span class="tn-rec-h1__apagado">trava?</span></h1>
+          <p class="tn-rec-lead tn-rec-hero__lead">Descubra qual área da sua operação merece atenção primeiro. Você responde {TOTAL_AFIRMACOES} afirmações sobre a rotina de hoje e vê o resultado na hora, sem cadastro.</p>
+          <ul class="tn-ck-meta" aria-label="Sobre o checklist">
+            <li>{TOTAL_AFIRMACOES} afirmações</li>
+            <li>Cerca de 4 minutos</li>
+            <li>Resultado na tela</li>
+          </ul>
+          <div class="tn-rec-acoes tn-rec-acoes--esquerda">
+            <button type="button" class="tn-rec-btn tn-rec-btn--claro tn-ck-btn" data-ck-comecar>Começar <span set:html={seta} /></button>
+            <button type="button" class="tn-rec-btn tn-ck-btn" data-ck-recomecar hidden>Recomeçar do zero</button>
+          </div>
+          <p class="tn-ck-nota">É um exercício de reflexão, não uma auditoria. Responda pensando em como a operação funciona hoje, não em como deveria funcionar.</p>
+          <noscript><p class="tn-ck-nota">O checklist precisa de JavaScript para funcionar.</p></noscript>
+        </div>
+
+        <!-- The photo (or video), with two cards that preview the checklist itself: a
+             statement being answered and a result. Decorative, so hidden from readers. -->
+        <div class="tn-ck-hero__visual" aria-hidden="true">
+          <div class={`tn-ck-hero__foto${midia.hero || midia.heroVideo ? "" : " is-vazia"}`}>
+            {midia.heroVideo
+              ? <video src={midia.heroVideo} poster={midia.hero ?? undefined} muted loop playsinline autoplay data-ck-video></video>
+              : midia.hero && <img src={midia.hero} alt="" width="1000" height="1340" loading="eager" fetchpriority="high" />}
+          </div>
+          <div class="tn-ck-previa tn-ck-previa--pergunta">
+            <span class="tn-ck-previa__area"><span set:html={icone("visibilidade", 14)} />Visibilidade</span>
+            <p class="tn-ck-previa__texto">Quando uma atividade atrasa, ficamos sabendo no mesmo dia.</p>
+            <div class="tn-ck-previa__opcoes">
+              <span>Sim</span><span class="is-marcada">Às vezes</span><span>Ainda não</span>
+            </div>
+          </div>
+          <div class="tn-ck-previa tn-ck-previa--resultado">
+            <span class="tn-ck-previa__area">Seu resultado</span>
+            <p class="tn-ck-previa__nivel">Oportunidades de melhoria</p>
+            <ul class="tn-ck-previa__barras">
+              {[0.9, 0.62, 0.3, 0.45, 0.75].map((f, i) => (
+                <li><span set:html={icone(AREAS[i].id, 13)} /><span class="tn-ck-previa__trilho"><span style={`width:${f * 100}%`} data-nivel={f >= 0.67 ? "bem" : f >= 0.34 ? "parte" : "falta"}></span></span></li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- The five areas, so the intro says what will be asked. -->
+      <div class="tn-ck-intro-areas">
+        <p class="tn-ck-intro-areas__titulo">O que você vai avaliar</p>
+        <ol class="tn-ck-intro-areas__lista">
+          {AREAS.map((a, i) => (
+            <li class="tn-ck-intro-area">
+              <span class="tn-ck-icone" set:html={icone(a.id)} />
+              <span class="tn-ck-intro-area__num">{String(i + 1).padStart(2, "0")}</span>
+              <span class="tn-ck-intro-area__nome">{a.nome}</span>
+              <span class="tn-ck-intro-area__texto">{a.descricao}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </section>
+
+    <!-- Checklist -->
+    <section class="tn-tema-claro tn-ck-palco" data-ck-palco hidden>
+      <div class="tn-ck-cartao">
+
+        <div class="tn-ck-progresso" data-ck-progresso>
+          <div class="tn-ck-progresso__linha">
+            <span class="tn-ck-progresso__rotulo" data-ck-progresso-rotulo></span>
+            <span class="tn-ck-progresso__conta" data-ck-progresso-conta></span>
+          </div>
+          <ol class="tn-ck-progresso__barras" aria-hidden="true">
+            {AREAS.map((a) => <li data-ck-barra={a.id}></li>)}
+          </ol>
+        </div>
+
+        <form class="tn-ck-form" data-ck-form novalidate>
+          {AREAS.map((area, n) => (
+            <fieldset class="tn-ck-area" data-ck-tela={area.id} hidden>
+              <legend class="tn-ck-area__legenda">
+                <span class="tn-ck-sr">Área {n + 1} de {AREAS.length}: </span>
+                <span class="tn-ck-area__titulo"><span class="tn-ck-icone tn-ck-icone--grande" set:html={icone(area.id, 26)} /><span class="tn-ck-area__nome" tabindex="-1" data-ck-foco>{area.nome}</span></span>
+              </legend>
+              <p class="tn-ck-area__descricao">{area.descricao}</p>
+
+              <ol class="tn-ck-afirmacoes">
+                {area.afirmacoes.map((texto, i) => {
+                  const k = chave(area, i);
+                  return (
+                    <li class="tn-ck-afirmacao" data-ck-pergunta={k}>
+                      <fieldset>
+                        <legend class="tn-ck-afirmacao__texto" id={`${k}-texto`}>{texto}</legend>
+                        <div class="tn-ck-opcoes">
+                          {RESPOSTAS.map((r) => (
+                            <label class="tn-ck-opcao">
+                              <input type="radio" name={k} value={r.valor} />
+                              <span>{r.rotulo}</span>
+                            </label>
+                          ))}
+                        </div>
+                        <p class="tn-ck-falta" hidden>Escolha uma resposta para esta afirmação.</p>
+                      </fieldset>
+                    </li>
+                  );
+                })}
+              </ol>
+
+              <div class="tn-ck-nav">
+                <button type="button" class="tn-rec-btn tn-ck-btn" data-ck-voltar><span set:html={setaVolta} /> Voltar</button>
+                <button type="button" class="tn-rec-btn tn-rec-btn--claro tn-ck-btn" data-ck-avancar>
+                  {n < AREAS.length - 1 ? "Próxima área" : "Revisar respostas"} <span set:html={seta} />
+                </button>
+              </div>
+            </fieldset>
+          ))}
+
+          <!-- Revisão -->
+          <div class="tn-ck-revisao" data-ck-tela="revisao" hidden>
+            <h2 class="tn-ck-titulo" tabindex="-1" data-ck-foco>Confira suas respostas</h2>
+            <p class="tn-ck-area__descricao">Se quiser mudar alguma, edite a área antes de ver o resultado.</p>
+            <ol class="tn-ck-revisao__lista">
+              {AREAS.map((area) => (
+                <li class="tn-ck-revisao__area">
+                  <div class="tn-ck-revisao__topo">
+                    <h3 class="tn-ck-revisao__nome"><span class="tn-ck-icone tn-ck-icone--pequeno" set:html={icone(area.id, 16)} />{area.nome}</h3>
+                    <button type="button" class="tn-ck-link" data-ck-editar={area.id}>Editar<span class="tn-ck-sr"> {area.nome}</span></button>
+                  </div>
+                  <ul class="tn-ck-revisao__itens">
+                    {area.afirmacoes.map((texto, i) => (
+                      <li>
+                        <span class="tn-ck-revisao__texto">{texto}</span>
+                        <span class="tn-ck-revisao__resposta" data-ck-resumo={chave(area, i)}></span>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ))}
+            </ol>
+            <div class="tn-ck-nav">
+              <button type="button" class="tn-rec-btn tn-ck-btn" data-ck-voltar><span set:html={setaVolta} /> Voltar</button>
+              <button type="button" class="tn-rec-btn tn-rec-btn--claro tn-ck-btn" data-ck-ver-resultado>Ver meu resultado <span set:html={seta} /></button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Resultado -->
+    <section class="tn-tema-claro tn-ck-palco tn-ck-resultado" data-ck-tela="resultado" hidden>
+      <div class="tn-ck-coluna">
+
+        <div class="tn-ck-cartao tn-ck-nivel">
+          <span class="tn-rec-pilula">SEU RESULTADO</span>
+          <h2 class="tn-ck-nivel__nome" tabindex="-1" data-ck-foco data-ck-nivel-nome></h2>
+          <p class="tn-ck-nivel__texto" data-ck-nivel-texto></p>
+
+          <div class="tn-ck-nivel__grade">
+          <!-- The radar repeats the bars as a shape; the bars carry the words, so it is
+               hidden from screen readers. No scale or numbers, on purpose. -->
+          <svg class="tn-ck-radar" viewBox="0 0 300 270" aria-hidden="true" data-ck-radar>
+            {[1, 2 / 3, 1 / 3].map((f) => <polygon class="tn-ck-radar__anel" points={anel(f)} />)}
+            {AREAS.map((_, i) => { const [x, y] = ponto(i, 1); return <line class="tn-ck-radar__eixo" x1={RADAR.cx} y1={RADAR.cy} x2={x.toFixed(1)} y2={y.toFixed(1)} />; })}
+            <polygon class="tn-ck-radar__forma" points={anel(0.05)} data-ck-radar-forma />
+            {AREAS.map((_, i) => { const [x, y] = ponto(i, 0.05); return <circle class="tn-ck-radar__ponto" r="4" cx={x.toFixed(1)} cy={y.toFixed(1)} data-ck-radar-ponto={i} />; })}
+            {AREAS.map((_, i) => {
+              const [x, y] = ponto(i, 1.2);
+              const ancora = Math.abs(x - RADAR.cx) < 4 ? "middle" : x > RADAR.cx ? "start" : "end";
+              return <text class="tn-ck-radar__rotulo" x={x.toFixed(1)} y={(y + 4).toFixed(1)} text-anchor={ancora}>{rotulosRadar[i]}</text>;
+            })}
+          </svg>
+
+          <ul class="tn-ck-areas" data-ck-areas aria-label="Situação por área">
+            {AREAS.map((a) => (
+              <li class="tn-ck-areas__item" data-ck-area-resultado={a.id}>
+                <span class="tn-ck-areas__nome"><span class="tn-ck-icone tn-ck-icone--pequeno" set:html={icone(a.id, 16)} />{a.nome}</span>
+                <span class="tn-ck-areas__barra" aria-hidden="true"><span></span></span>
+                <span class="tn-ck-areas__situacao"></span>
+              </li>
+            ))}
+          </ul>
+          </div>
+        </div>
+
+        <div class="tn-ck-duas">
+          <div class="tn-ck-cartao tn-ck-destaque">
+            <span class="tn-ck-destaque__rotulo">Área mais forte</span>
+            <h3 class="tn-ck-destaque__nome" data-ck-forte-nome></h3>
+            <p class="tn-ck-destaque__texto" data-ck-forte-texto></p>
+          </div>
+          <div class="tn-ck-cartao tn-ck-destaque">
+            <span class="tn-ck-destaque__rotulo">Área com mais oportunidade</span>
+            <h3 class="tn-ck-destaque__nome" data-ck-fraca-nome></h3>
+            <p class="tn-ck-destaque__texto" data-ck-fraca-texto></p>
+          </div>
+        </div>
+        <p class="tn-ck-nota tn-ck-nota--esquerda" data-ck-empate hidden>Suas respostas ficaram iguais em todas as áreas. Nesse caso, sugerimos começar por Visibilidade: sem ver o andamento do trabalho, as outras áreas ficam difíceis de atacar.</p>
+
+        <div class="tn-ck-cartao tn-ck-acao">
+          <span class="tn-ck-destaque__rotulo">Para fazer nesta semana</span>
+          <p class="tn-ck-acao__texto" data-ck-acao></p>
+          <p class="tn-ck-acao__rodape">Leva menos de uma hora e não precisa de nenhuma ferramenta além de papel ou planilha.</p>
+        </div>
+
+        <p class="tn-ck-nota tn-ck-nota--esquerda">Este resultado é um exercício de reflexão, não uma auditoria. Ele parte só das suas respostas e não mede nem prevê o desempenho da empresa.</p>
+
+        <!-- E-mail -->
+        <div class="tn-ck-cartao tn-ck-email">
+          <h2 class="tn-ck-titulo">Receba o resultado do seu checklist</h2>
+          <p class="tn-ck-area__descricao">Enviamos seu resultado, a área que merece atenção primeiro e uma sugestão prática para começar.</p>
+          <form class="tn-ck-email__form" data-ck-enviar="resultado" novalidate>
+            <div class="tn-ck-campo">
+              <label for="ck-email">E-mail</label>
+              <input id="ck-email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="ck-email-erro" />
+              <p class="tn-ck-erro" id="ck-email-erro" data-ck-erro hidden>Informe um e-mail válido.</p>
+            </div>
+            <div class="tn-ck-campos">
+              <div class="tn-ck-campo">
+                <label for="ck-nome">Nome <span class="tn-ck-opcional">(opcional)</span></label>
+                <input id="ck-nome" name="nome" type="text" autocomplete="name" />
+              </div>
+              <div class="tn-ck-campo">
+                <label for="ck-empresa">Empresa <span class="tn-ck-opcional">(opcional)</span></label>
+                <input id="ck-empresa" name="empresa" type="text" autocomplete="organization" />
+              </div>
+            </div>
+            <label class="tn-ck-consentimento">
+              <input type="checkbox" name="marketing" />
+              <span>Quero receber da TerraNode conteúdos sobre melhoria operacional e o convite para o desafio de 14 dias. Posso cancelar quando quiser.</span>
+            </label>
+            <button type="submit" class="tn-rec-btn tn-rec-btn--claro tn-ck-btn">Enviar meu resultado</button>
+            <p class="tn-ck-aviso">
+              Usaremos seu e-mail para enviar este resultado.
+              {LINKS.privacidade
+                ? <a href={LINKS.privacidade}>Política de privacidade</a>
+                : <span class="tn-ck-pendente">[Política de privacidade: link pendente]</span>}
+            </p>
+            <p class="tn-ck-status" data-ck-status role="status" aria-live="polite"></p>
+          </form>
+        </div>
+
+        <p class="tn-ck-refazer"><button type="button" class="tn-ck-link" data-ck-refazer>Refazer o checklist</button></p>
+      </div>
+    </section>
+
+    <!-- The challenge: the page's one call to action. It sits under whichever screen is
+         showing, so the header button always has somewhere to land, and after the
+         result it follows the e-mail card instead of competing with the result. -->
+    <section id="desafio" class="tn-ck-desafio" aria-labelledby="ck-desafio-titulo">
+      <div class="tn-ck-desafio__cartao tn-tema-escuro">
+        <div class="tn-ck-desafio__texto">
+          {midia.desafio && <img class="tn-ck-desafio__foto" src={midia.desafio} alt="" width="1000" height="746" loading="lazy" />}
+          <span class="tn-ck-desafio__rotulo">Bootcamp gratuito · Desafio de 14 dias</span>
+          <h2 class="tn-ck-desafio__titulo" id="ck-desafio-titulo">Transforme uma oportunidade em um plano prático de melhoria.</h2>
+          <p class="tn-ck-desafio__lead">Em 14 dias, você escolhe um processo da sua operação de campo, identifica um gargalo e monta um plano de ação para os próximos 30 dias. A participação é gratuita.</p>
+          <!-- 14 marks for the 14 days, and the three things the challenge ends with. The
+               steps are not tied to days: the format isn't set yet. -->
+          <div class="tn-ck-trilha" aria-hidden="true">
+            {Array.from({ length: 14 }, (_, i) => <span class={i === 0 ? "is-inicio" : i === 13 ? "is-fim" : ""}></span>)}
+            <small>Dia 1</small><small>Dia 14</small>
+          </div>
+          <ol class="tn-ck-desafio__pontos">
+            <li><span class="tn-ck-desafio__passo">1</span>Escolha um processo</li>
+            <li><span class="tn-ck-desafio__passo">2</span>Identifique um gargalo</li>
+            <li><span class="tn-ck-desafio__passo">3</span>Saia com um plano de 30 dias</li>
+          </ol>
+          {!LINKS.dataDesafio && <p class="tn-ck-pendente">[Data de início e formato do desafio: pendentes]</p>}
+          {LINKS.dataDesafio && <p class="tn-ck-desafio__data">Próxima turma: {LINKS.dataDesafio}</p>}
+        </div>
+
+        <form class="tn-ck-desafio__form" data-ck-enviar="desafio" novalidate>
+          <div class="tn-ck-campo">
+            <label for="ck-desafio-email">E-mail</label>
+            <input id="ck-desafio-email" name="email" type="email" autocomplete="email" inputmode="email" required aria-describedby="ck-desafio-erro" />
+            <p class="tn-ck-erro" id="ck-desafio-erro" data-ck-erro hidden>Informe um e-mail válido.</p>
+          </div>
+          <div class="tn-ck-campo">
+            <label for="ck-desafio-nome">Nome <span class="tn-ck-opcional">(opcional)</span></label>
+            <input id="ck-desafio-nome" name="nome" type="text" autocomplete="name" />
+          </div>
+          <label class="tn-ck-consentimento">
+            <input type="checkbox" name="marketing" />
+            <span>Também quero receber outros conteúdos da TerraNode sobre melhoria operacional. Posso cancelar quando quiser.</span>
+          </label>
+          <button type="submit" class="tn-rec-btn tn-rec-btn--claro tn-ck-btn tn-ck-desafio__botao">Quero participar do desafio gratuito</button>
+          <p class="tn-ck-aviso">
+            Usaremos seu e-mail para enviar as informações e os conteúdos do desafio.
+            {LINKS.privacidade
+              ? <a href={LINKS.privacidade}>Política de privacidade</a>
+              : <span class="tn-ck-pendente">[Política de privacidade: link pendente]</span>}
+          </p>
+          <p class="tn-ck-status" data-ck-status role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- A one-line footer instead of the site's: who made the page, and the policy. -->
+    <footer class="tn-ck-rodape">
+      <span>Checklist gratuito feito pela <a href={asset("/")}>TerraNode</a>.</span>
+      {LINKS.privacidade
+        ? <a href={LINKS.privacidade}>Política de privacidade</a>
+        : <span class="tn-ck-pendente">[Política de privacidade: link pendente]</span>}
+    </footer>
+  </div>
+</Base>
+
+<script>
+  import { AREAS, LINKS, NIVEIS, RESPOSTAS, TOTAL_AFIRMACOES, calcularResultado, chave, situacao, textoForte, textoFraca, type Respostas, type Valor } from "../lib/checklist";
+
+  const CHAVE_LOCAL = "tn-checklist-operacao-v1";
+  const TELAS = ["inicio", ...AREAS.map((a) => a.id), "revisao", "resultado"];
+
+  const $ = <T extends Element = HTMLElement>(sel: string, el: ParentNode = document) => el.querySelector<T>(sel)!;
+  const $$ = <T extends Element = HTMLElement>(sel: string, el: ParentNode = document) => Array.from(el.querySelectorAll<T>(sel));
+
+  const form = $<HTMLFormElement>("[data-ck-form]");
+  const palco = $("[data-ck-palco]");
+  const reduzir = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function track(evento: string, props: Record<string, unknown> = {}) {
+    const mp = (window as any).mixpanel;
+    if (mp && typeof mp.track === "function") mp.track(evento, props);
+  }
+
+  // Saved progress. Storage can be blocked (private mode, cleared site data), so every
+  // access is wrapped and the page works without it.
+  interface Salvo { respostas: Respostas; tela: string }
+  function ler(): Salvo | null {
+    try {
+      const s = JSON.parse(localStorage.getItem(CHAVE_LOCAL) || "null");
+      return s && typeof s.respostas === "object" && TELAS.includes(s.tela) ? s : null;
+    } catch { return null; }
+  }
+  function salvar(tela: string) {
+    try { localStorage.setItem(CHAVE_LOCAL, JSON.stringify({ respostas: respostas(), tela })); } catch {}
+  }
+  function apagar() {
+    try { localStorage.removeItem(CHAVE_LOCAL); } catch {}
+  }
+
+  function respostas(): Respostas {
+    const r: Respostas = {};
+    for (const input of $$<HTMLInputElement>("input[type=radio]:checked", form)) r[input.name] = Number(input.value) as Valor;
+    return r;
+  }
+
+  let atual = "inicio";
+
+  function mostrar(tela: string, { focar = true } = {}) {
+    atual = tela;
+    const naoInicio = tela !== "inicio";
+    $('[data-ck-tela="inicio"]').hidden = naoInicio;
+    palco.hidden = !naoInicio || tela === "resultado";
+    for (const el of $$("[data-ck-tela]")) {
+      const t = el.dataset.ckTela!;
+      if (t !== "inicio") el.hidden = t !== tela;
+    }
+    if (tela === "revisao") preencherRevisao();
+    if (tela === "resultado") preencherResultado();
+    atualizarProgresso();
+    if (tela !== "inicio") salvar(tela);
+
+    if (focar) {
+      window.scrollTo({ top: 0, behavior: reduzir ? "auto" : "smooth" });
+      const alvo = $(`[data-ck-tela="${tela}"] [data-ck-foco]`, document) || $(`[data-ck-tela="${tela}"]`);
+      alvo?.focus({ preventScroll: true });
+    }
+  }
+
+  function atualizarProgresso() {
+    const r = respostas();
+    const respondidas = Object.keys(r).length;
+    const i = AREAS.findIndex((a) => a.id === atual);
+    $("[data-ck-progresso-rotulo]").textContent = i >= 0 ? `Área ${i + 1} de ${AREAS.length}` : "Revisão";
+    $("[data-ck-progresso-conta]").textContent = `${respondidas} de ${TOTAL_AFIRMACOES} respondidas`;
+    for (const area of AREAS) {
+      const barra = $(`[data-ck-barra="${area.id}"]`);
+      const feitas = area.afirmacoes.filter((_, n) => chave(area, n) in r).length;
+      barra.classList.toggle("is-completa", feitas === area.afirmacoes.length);
+      barra.classList.toggle("is-atual", area.id === atual);
+    }
+  }
+
+  // Moving on with a statement unanswered marks it and focuses the first one, instead of
+  // disabling the button with no word on why.
+  function validarArea(id: string): boolean {
+    const area = AREAS.find((a) => a.id === id)!;
+    const r = respostas();
+    let primeira: HTMLInputElement | null = null;
+    area.afirmacoes.forEach((_, n) => {
+      const k = chave(area, n);
+      const item = $(`[data-ck-pergunta="${k}"]`);
+      const falta = !(k in r);
+      item.classList.toggle("is-falta", falta);
+      $(".tn-ck-falta", item).hidden = !falta;
+      if (falta && !primeira) primeira = $<HTMLInputElement>("input", item);
+    });
+    if (primeira) (primeira as HTMLInputElement).focus();
+    return !primeira;
+  }
+
+  function preencherRevisao() {
+    const r = respostas();
+    for (const el of $$("[data-ck-resumo]")) {
+      const v = r[el.dataset.ckResumo!];
+      el.textContent = RESPOSTAS.find((o) => o.valor === v)?.rotulo ?? "Sem resposta";
+      el.dataset.valor = v === undefined ? "" : String(v);
+    }
+  }
+
+  function preencherResultado() {
+    const res = calcularResultado(respostas());
+    $("[data-ck-nivel-nome]").textContent = NIVEIS[res.nivel].nome;
+    $("[data-ck-nivel-texto]").textContent = NIVEIS[res.nivel].texto;
+    for (const { area, fracao } of res.areas) {
+      const item = $(`[data-ck-area-resultado="${area.id}"]`);
+      ($(".tn-ck-areas__barra > span", item) as HTMLElement).style.width = `${Math.max(fracao * 100, 4)}%`;
+      $(".tn-ck-areas__situacao", item).textContent = situacao(fracao);
+      item.dataset.situacao = fracao >= 0.67 ? "bem" : fracao >= 0.34 ? "parte" : "falta";
+    }
+    // Radar: each point sits at its area's share along its axis, never at the very centre.
+    const pts = res.areas.map(({ fracao }, i) => {
+      const a = -Math.PI / 2 + (i * 2 * Math.PI) / AREAS.length;
+      const r = 92 * Math.max(fracao, 0.06);
+      return [150 + Math.cos(a) * r, 132 + Math.sin(a) * r];
+    });
+    $("[data-ck-radar-forma]").setAttribute("points", pts.map((p) => p.map((n) => n.toFixed(1)).join(",")).join(" "));
+    pts.forEach(([x, y], i) => {
+      const c = $(`[data-ck-radar-ponto="${i}"]`);
+      c.setAttribute("cx", x.toFixed(1));
+      c.setAttribute("cy", y.toFixed(1));
+    });
+
+    $("[data-ck-forte-nome]").textContent = res.forte.nome;
+    const fracao = (id: string) => res.areas.find((a) => a.area.id === id)!.fracao;
+    $("[data-ck-forte-texto]").textContent = textoForte(res.forte, fracao(res.forte.id));
+    $("[data-ck-fraca-nome]").textContent = res.fraca.nome;
+    $("[data-ck-fraca-texto]").textContent = textoFraca(res.fraca, fracao(res.fraca.id));
+    $("[data-ck-empate]").hidden = !res.empate;
+    $("[data-ck-acao]").textContent = res.fraca.acao;
+    return res;
+  }
+
+  const video = document.querySelector<HTMLVideoElement>("[data-ck-video]");
+  if (video && reduzir) { video.removeAttribute("autoplay"); video.pause(); }
+
+  // Intro: resume saved progress, or start fresh.
+  const salvo = ler();
+  const comecar = $<HTMLButtonElement>("[data-ck-comecar]");
+  const recomecar = $<HTMLButtonElement>("[data-ck-recomecar]");
+  if (salvo && Object.keys(salvo.respostas).length) {
+    for (const [k, v] of Object.entries(salvo.respostas)) {
+      const input = form.querySelector<HTMLInputElement>(`input[name="${CSS.escape(k)}"][value="${v}"]`);
+      if (input) input.checked = true;
+    }
+    comecar.firstChild!.textContent = "Continuar de onde parei ";
+    recomecar.hidden = false;
+  }
+
+  comecar.addEventListener("click", () => {
+    const destino = salvo && Object.keys(salvo.respostas).length ? salvo.tela : AREAS[0].id;
+    if (destino === AREAS[0].id && !Object.keys(respostas()).length) track("Checklist Started");
+    mostrar(destino === "inicio" ? AREAS[0].id : destino);
+  });
+
+  function zerar() {
+    form.reset();
+    for (const el of $$(".is-falta", form)) el.classList.remove("is-falta");
+    for (const el of $$(".tn-ck-falta", form)) el.hidden = true;
+    apagar();
+  }
+
+  recomecar.addEventListener("click", () => {
+    zerar();
+    track("Checklist Started", { recomeco: true });
+    mostrar(AREAS[0].id);
+  });
+
+  form.addEventListener("change", (e) => {
+    const input = e.target as HTMLInputElement;
+    const item = input.closest<HTMLElement>("[data-ck-pergunta]");
+    if (item) {
+      item.classList.remove("is-falta");
+      $(".tn-ck-falta", item).hidden = true;
+    }
+    atualizarProgresso();
+    salvar(atual);
+  });
+
+  for (const btn of $$("[data-ck-avancar]")) {
+    btn.addEventListener("click", () => {
+      if (!validarArea(atual)) return;
+      const i = TELAS.indexOf(atual);
+      track("Checklist Area Completed", { area: atual, posicao: AREAS.findIndex((a) => a.id === atual) + 1 });
+      mostrar(TELAS[i + 1]);
+    });
+  }
+  for (const btn of $$("[data-ck-voltar]")) {
+    btn.addEventListener("click", () => mostrar(TELAS[TELAS.indexOf(atual) - 1]));
+  }
+  for (const btn of $$("[data-ck-editar]")) {
+    btn.addEventListener("click", () => mostrar(btn.dataset.ckEditar!));
+  }
+
+  $("[data-ck-ver-resultado]").addEventListener("click", () => {
+    // Editing from the review can't leave a gap, but a hand-edited save could.
+    const incompleta = AREAS.find((a) => a.afirmacoes.some((_, n) => !(chave(a, n) in respostas())));
+    if (incompleta) { mostrar(incompleta.id); validarArea(incompleta.id); return; }
+    mostrar("resultado");
+    const res = calcularResultado(respostas());
+    track("Checklist Completed", { nivel: res.nivel, area_forte: res.forte.id, area_fraca: res.fraca.id });
+  });
+
+  $("[data-ck-refazer]").addEventListener("click", () => {
+    zerar();
+    comecar.firstChild!.textContent = "Começar ";
+    recomecar.hidden = true;
+    mostrar("inicio");
+  });
+
+  // The two forms: the result by e-mail, and the challenge sign-up. Each says what the
+  // e-mail is for next to its button; the marketing box is optional and starts unchecked.
+  // Until a form's endpoint exists in LINKS nothing is sent, and the form says so.
+  const FORMULARIOS = {
+    resultado: {
+      endpoint: LINKS.envioEmail,
+      evento: "Checklist Email Submitted",
+      ok: "Pronto. Seu resultado está a caminho do seu e-mail.",
+      inativo: "O envio por e-mail ainda não está ativo nesta versão da página.",
+    },
+    desafio: {
+      endpoint: LINKS.inscricaoDesafio,
+      evento: "Checklist Challenge Signup",
+      ok: "Inscrição feita. Você vai receber as informações do desafio por e-mail.",
+      inativo: "As inscrições para o desafio ainda não estão abertas nesta versão da página.",
+    },
+  } as const;
+
+  for (const form of $$<HTMLFormElement>("[data-ck-enviar]")) {
+    const tipo = form.dataset.ckEnviar as keyof typeof FORMULARIOS;
+    const config = FORMULARIOS[tipo];
+    const status = $("[data-ck-status]", form);
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const campo = $<HTMLInputElement>("input[name=email]", form);
+      const valido = campo.checkValidity() && campo.value.trim() !== "";
+      $("[data-ck-erro]", form).hidden = valido;
+      campo.setAttribute("aria-invalid", String(!valido));
+      if (!valido) { campo.focus(); return; }
+
+      const dados = new FormData(form);
+      const marketing = dados.get("marketing") === "on";
+      if (!config.endpoint) {
+        status.textContent = config.inativo;
+        status.dataset.tipo = "erro";
+        return;
+      }
+
+      const corpo: Record<string, unknown> = {
+        email: campo.value.trim(),
+        nome: String(dados.get("nome") || "").trim(),
+        marketing,
+      };
+      // The result goes only with the form that offers to send it.
+      if (tipo === "resultado") {
+        const res = calcularResultado(respostas());
+        Object.assign(corpo, {
+          empresa: String(dados.get("empresa") || "").trim(),
+          nivel: res.nivel,
+          area_forte: res.forte.id,
+          area_fraca: res.fraca.id,
+          respostas: respostas(),
+        });
+      }
+
+      const botao = $<HTMLButtonElement>("button[type=submit]", form);
+      botao.disabled = true;
+      status.textContent = "Enviando…";
+      status.dataset.tipo = "";
+      try {
+        const r = await fetch(config.endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(corpo),
+        });
+        if (!r.ok) throw new Error(String(r.status));
+        status.textContent = config.ok;
+        status.dataset.tipo = "ok";
+        track(config.evento, { marketing, tela: atual });
+      } catch {
+        status.textContent = "Não conseguimos enviar agora. Tente de novo em alguns minutos.";
+        status.dataset.tipo = "erro";
+        botao.disabled = false;
+      }
+    });
+  }
+
+  // A reload in the middle keeps the screen the person was on.
+  // The browser would restore the old scroll position, which belonged to another screen.
+  if (salvo && salvo.tela !== "inicio" && Object.keys(salvo.respostas).length) {
+    if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+    mostrar(salvo.tela, { focar: false });
+    window.scrollTo(0, 0);
+  }
+</script>

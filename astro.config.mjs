@@ -14,6 +14,9 @@ export default defineConfig({
   build: { format: 'directory' },
   integrations: [
     sitemap({
+      // The checklist is a noindex draft until its privacy, e-mail and bootcamp links
+      // exist (LINKS in src/lib/checklist.ts). Drop this filter when it is published.
+      filter: (page) => !page.includes('/checklist-operacao/'),
       // <lastmod> from git history, per page. See scripts/lastmod.mjs.
       serialize(item) {
         const lastmod = lastmodFor(item.url);

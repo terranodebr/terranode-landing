@@ -27,6 +27,7 @@ function sourcesFor(pathname) {
   if (p === "/") return ["src/pages/index.astro", "src/components/home", "src/components/Faq.astro"];
   if (p === "/sobre/") return ["src/pages/sobre.astro", "src/lib/time.ts", "src/lib/empresa.ts"];
   if (p === "/solucoes/") return ["src/pages/solucoes/index.astro", "src/content/solucoes"];
+  if (p === "/checklist-operacao/") return ["src/pages/checklist-operacao.astro", "src/lib/checklist.ts"];
   if (p === "/blog/") return ["src/components/blog/Indice.astro", "src/content/blog"];
 
   const m = p.match(/^\/(solucoes|recursos|comparativos|blog)\/([^/]+)\/$/);
