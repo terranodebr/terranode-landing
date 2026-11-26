@@ -15,6 +15,7 @@
 //     [data-ck-situacao] (text) and [data-ck-bloco] (one per point, gets .is-cheio)
 //   [data-ck-radar-forma], [data-ck-radar-ponto="<i>"]   optional radar
 //   [data-ck-nivel-nome|nivel-texto|forte-nome|forte-texto|fraca-nome|fraca-texto|acao|empate]
+//   [data-ck-destaques]      optional: wraps the strongest/weakest cards, hidden in a tie
 //   buttons: [data-ck-comecar] (first child a text node), [data-ck-recomecar],
 //     [data-ck-avancar], [data-ck-voltar], [data-ck-editar="<area id>"],
 //     [data-ck-ver-resultado], [data-ck-refazer]
@@ -179,7 +180,11 @@ export function iniciarChecklist(variante: Variante) {
     $("[data-ck-forte-texto]").textContent = textoForte(res.forte, fracao(res.forte.id));
     $("[data-ck-fraca-nome]").textContent = res.fraca.nome;
     $("[data-ck-fraca-texto]").textContent = textoFraca(res.fraca, fracao(res.fraca.id));
+    // In a tie the strongest and the weakest area are the same one, so the two cards would
+    // contradict each other. The tie note and the action for the week stand in for them.
     $("[data-ck-empate]").hidden = !res.empate;
+    const destaques = $opt("[data-ck-destaques]");
+    if (destaques) destaques.hidden = res.empate;
     $("[data-ck-acao]").textContent = res.fraca.acao;
     return res;
   }
