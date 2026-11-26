@@ -29,6 +29,8 @@ interface Props {
   rodapeTopo?: string;
   /** Blog pages pass it on to the footer, so its waitlist links carry UTMs. */
   utm?: OrigemBlog;
+  /** False leaves the site footer out, for a page that draws its own (the checklist). */
+  rodape?: boolean;
 }
 
 const {
@@ -40,6 +42,7 @@ const {
   autor = "TerraNode",
   rodapeTopo,
   utm,
+  rodape = true,
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -135,7 +138,7 @@ const software = {
 </head>
 <body>
 <slot />
-<Footer topo={rodapeTopo} utm={utm} />
+{rodape && <Footer topo={rodapeTopo} utm={utm} />}
 
 <script is:inline>
 // Links to a section of the page you're on scroll there instead of jumping. Covers bare
