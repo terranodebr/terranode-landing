@@ -429,6 +429,7 @@ const setaVolta = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" s
       const t = el.dataset.ckTela!;
       if (t !== "inicio") el.hidden = t !== tela;
     }
+    if (tela === "inicio") prepararInicio();
     if (tela === "revisao") preencherRevisao();
     if (tela === "resultado") preencherResultado();
     atualizarProgresso();
@@ -518,23 +519,31 @@ const setaVolta = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" s
   const video = document.querySelector<HTMLVideoElement>("[data-ck-video]");
   if (video && reduzir) { video.removeAttribute("autoplay"); video.pause(); }
 
-  // Intro: resume saved progress, or start fresh.
+  // Intro: resume saved progress, or start fresh. The labels and the destination are read
+  // from storage each time, never from a copy taken on load, so starting over or redoing
+  // the checklist can't send "Começar" back to a screen whose answers were cleared.
   const salvo = ler();
   const comecar = $<HTMLButtonElement>("[data-ck-comecar]");
   const recomecar = $<HTMLButtonElement>("[data-ck-recomecar]");
-  if (salvo && Object.keys(salvo.respostas).length) {
+  if (salvo) {
     for (const [k, v] of Object.entries(salvo.respostas)) {
       const input = form.querySelector<HTMLInputElement>(`input[name="${CSS.escape(k)}"][value="${v}"]`);
       if (input) input.checked = true;
     }
-    comecar.firstChild!.textContent = "Continuar de onde parei ";
-    recomecar.hidden = false;
   }
 
+  const temProgresso = (s: Salvo | null): s is Salvo => !!s && Object.keys(s.respostas).length > 0;
+  function prepararInicio() {
+    const tem = temProgresso(ler());
+    comecar.firstChild!.textContent = tem ? "Continuar de onde parei " : "Começar ";
+    recomecar.hidden = !tem;
+  }
+  prepararInicio();
+
   comecar.addEventListener("click", () => {
-    const destino = salvo && Object.keys(salvo.respostas).length ? salvo.tela : AREAS[0].id;
-    if (destino === AREAS[0].id && !Object.keys(respostas()).length) track("Checklist Started");
-    mostrar(destino === "inicio" ? AREAS[0].id : destino);
+    const s = ler();
+    if (!temProgresso(s)) track("Checklist Started");
+    mostrar(temProgresso(s) && s.tela !== "inicio" ? s.tela : AREAS[0].id);
   });
 
   function zerar() {
@@ -587,8 +596,6 @@ const setaVolta = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" s
 
   $("[data-ck-refazer]").addEventListener("click", () => {
     zerar();
-    comecar.firstChild!.textContent = "Começar ";
-    recomecar.hidden = true;
     mostrar("inicio");
   });
 
@@ -671,7 +678,7 @@ const setaVolta = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" s
 
   // A reload in the middle keeps the screen the person was on.
   // The browser would restore the old scroll position, which belonged to another screen.
-  if (salvo && salvo.tela !== "inicio" && Object.keys(salvo.respostas).length) {
+  if (temProgresso(salvo) && salvo.tela !== "inicio") {
     if ("scrollRestoration" in history) history.scrollRestoration = "manual";
     mostrar(salvo.tela, { focar: false });
     window.scrollTo(0, 0);
